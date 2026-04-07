@@ -71,8 +71,8 @@
     "clearListened": "清除試聽紀錄"
   },
   "footer": {
-    "sourceCode": "原始碼",
-    "reportIssue": "回報問題",
+    "sourceCode": "GitHub",
+    "reportIssue": "Issues",
     "picaxeCollection": "PICAXE RTTTL 收藏庫"
   }
 }

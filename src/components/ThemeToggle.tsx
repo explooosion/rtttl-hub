@@ -1,13 +1,14 @@
-import { Sun, Moon, Monitor } from "lucide-react";
+import { FaSun, FaMoon, FaDesktop } from "react-icons/fa";
+import type { IconType } from "react-icons";
 import { useThemeStore } from "@/stores/theme-store";
 import type { ThemeMode } from "@/stores/theme-store";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
-const modes: { value: ThemeMode; icon: typeof Sun }[] = [
-  { value: "light", icon: Sun },
-  { value: "dark", icon: Moon },
-  { value: "system", icon: Monitor },
+const modes: { value: ThemeMode; icon: IconType }[] = [
+  { value: "light", icon: FaSun },
+  { value: "dark", icon: FaMoon },
+  { value: "system", icon: FaDesktop },
 ];
 
 export function ThemeToggle() {

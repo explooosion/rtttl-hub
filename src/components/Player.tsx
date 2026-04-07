@@ -1,4 +1,4 @@
-import { Play, Pause, Square } from "lucide-react";
+import { FaPlay, FaPause, FaStop } from "react-icons/fa";
 import { usePlayerStore } from "@/stores/player-store";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
@@ -65,7 +65,7 @@ export function Player() {
                   "bg-indigo-600 text-white hover:bg-indigo-700",
                 )}
               >
-                <Pause size={16} />
+                <FaPause size={16} />
                 {t("player.pause")}
               </button>
             ) : playerState === "paused" ? (
@@ -76,8 +76,7 @@ export function Player() {
                   "bg-indigo-600 text-white hover:bg-indigo-700",
                 )}
               >
-                <Play size={16} />
-                {t("player.resume")}
+                <FaPlay size={16} />
               </button>
             ) : (
               <button
@@ -87,7 +86,7 @@ export function Player() {
                   "bg-indigo-600 text-white hover:bg-indigo-700",
                 )}
               >
-                <Play size={16} />
+                <FaPlay size={16} />
                 {t("player.play")}
               </button>
             )}
@@ -95,7 +94,7 @@ export function Player() {
               onClick={stop}
               className="flex items-center gap-1.5 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
             >
-              <Square size={16} />
+              <FaStop size={16} />
               {t("player.stop")}
             </button>
           </div>

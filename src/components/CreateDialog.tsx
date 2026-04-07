@@ -5,7 +5,7 @@ import { useCollectionStore } from "@/stores/collection-store";
 import { usePlayerStore } from "@/stores/player-store";
 import { parseRtttl } from "@/utils/rtttl-parser";
 import type { RtttlEntry } from "@/utils/rtttl-parser";
-import { X } from "lucide-react";
+import { FaTimes } from "react-icons/fa";
 
 interface CreateDialogProps {
   isOpen: boolean;
@@ -81,7 +81,7 @@ export function CreateDialog({
               onClick={handleClose}
               className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
             >
-              <X size={20} />
+              <FaTimes size={20} />
             </button>
           </div>
 

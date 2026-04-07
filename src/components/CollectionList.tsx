@@ -1,7 +1,7 @@
 import { useRef, useState, useMemo, useCallback } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useTranslation } from "react-i18next";
-import { Play, Copy, Check, CopyPlus } from "lucide-react";
+import { FaPlay, FaRegCopy, FaCheck, FaClone } from "react-icons/fa";
 import { useFilteredItems } from "@/stores/collection-store";
 import { usePlayerStore } from "@/stores/player-store";
 import { useListenedStore } from "@/stores/listened-store";
@@ -138,7 +138,7 @@ export function CollectionList({ onDuplicate }: CollectionListProps) {
                   }}
                   className="shrink-0 rounded-full bg-indigo-100 p-1.5 text-indigo-600 hover:bg-indigo-200 dark:bg-indigo-900/50 dark:text-indigo-400 dark:hover:bg-indigo-900"
                 >
-                  <Play size={14} />
+                  <FaPlay size={14} />
                 </button>
 
                 {/* Title & artist */}
@@ -165,9 +165,9 @@ export function CollectionList({ onDuplicate }: CollectionListProps) {
                     title={t("editor.copyCode")}
                   >
                     {copiedId === item.id ? (
-                      <Check size={16} className="text-green-500" />
+                      <FaCheck size={16} className="text-green-500" />
                     ) : (
-                      <Copy size={16} />
+                      <FaRegCopy size={16} />
                     )}
                   </button>
                   <button
@@ -178,7 +178,7 @@ export function CollectionList({ onDuplicate }: CollectionListProps) {
                     className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
                     title={t("actions.duplicate")}
                   >
-                    <CopyPlus size={16} />
+                    <FaClone size={16} />
                   </button>
                 </div>
               </div>

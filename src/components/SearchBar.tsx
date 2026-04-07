@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Search } from "lucide-react";
+import { FaSearch } from "react-icons/fa";
 import { useCollectionStore } from "@/stores/collection-store";
 import type { SortMode } from "@/stores/collection-store";
 import { useRef, useCallback } from "react";
@@ -33,7 +33,7 @@ export function SearchBar() {
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
       <div className="relative flex-1">
-        <Search
+        <FaSearch
           size={18}
           className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
         />

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Languages } from "lucide-react";
+import { FaLanguage } from "react-icons/fa";
 
 const languages = [
   { code: "en", label: "English" },
@@ -11,7 +11,7 @@ export function LanguageSwitcher() {
 
   return (
     <div className="flex items-center gap-1">
-      <Languages size={16} className="text-gray-500 dark:text-gray-400" />
+      <FaLanguage size={16} className="text-gray-500 dark:text-gray-400" />
       <select
         value={i18n.language}
         onChange={(e) => i18n.changeLanguage(e.target.value)}

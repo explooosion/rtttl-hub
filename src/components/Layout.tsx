@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { Music, Heart, Plus, Menu, X, Code, Bug, ExternalLink } from "lucide-react";
+import { FaMusic, FaHeart, FaPlus, FaBars, FaTimes, FaGithub, FaBug, FaExternalLinkAlt } from "react-icons/fa";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { SettingsMenu } from "./SettingsMenu";
@@ -52,7 +52,7 @@ export function Layout() {
     return (
       <div className="flex h-screen items-center justify-center">
         <div className="text-center">
-          <Music size={48} className="mx-auto mb-4 animate-pulse text-indigo-500" />
+          <FaMusic size={48} className="mx-auto mb-4 animate-pulse text-indigo-500" />
           <p className="text-gray-500 dark:text-gray-400">{t("loading")}</p>
         </div>
       </div>
@@ -68,11 +68,11 @@ export function Layout() {
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="lg:hidden"
           >
-            {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+            {sidebarOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
 
           <Link to="/" className="flex items-center gap-2">
-            <Music size={24} className="text-indigo-600 dark:text-indigo-400" />
+            <FaMusic size={24} className="text-indigo-600 dark:text-indigo-400" />
             <h1 className="text-lg font-bold text-gray-900 dark:text-white">
               {t("app.title")}
             </h1>
@@ -102,7 +102,7 @@ export function Layout() {
                   : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
               )}
             >
-              <Heart size={14} />
+              <FaHeart size={14} />
               {t("nav.favorites")}
             </Link>
           </nav>
@@ -164,7 +164,7 @@ export function Layout() {
                         : "text-gray-600 dark:text-gray-400",
                     )}
                   >
-                    <Heart size={14} />
+                    <FaHeart size={14} />
                     {t("nav.favorites")}
                   </Link>
                 </nav>
@@ -189,7 +189,7 @@ export function Layout() {
                       onClick={handleCreateNew}
                       className="flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700"
                     >
-                      <Plus size={16} />
+                      <FaPlus size={16} />
                       <span className="hidden sm:inline">{t("actions.createNew")}</span>
                     </button>
                   </div>
@@ -211,7 +211,7 @@ export function Layout() {
       {currentItem && playerState === "playing" && (
         <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200 bg-white/95 px-4 py-2 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-950/95 lg:hidden">
           <div className="flex items-center gap-3">
-            <Music size={20} className="animate-pulse text-indigo-500" />
+            <FaMusic size={20} className="animate-pulse text-indigo-500" />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium text-gray-900 dark:text-white">
                 {currentItem.title}
@@ -244,7 +244,7 @@ export function Layout() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 transition-colors hover:text-gray-700 dark:hover:text-gray-200"
           >
-            <Code size={16} />
+            <FaGithub size={16} />
             {t("footer.sourceCode")}
           </a>
           <a
@@ -253,7 +253,7 @@ export function Layout() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 transition-colors hover:text-gray-700 dark:hover:text-gray-200"
           >
-            <Bug size={16} />
+            <FaBug size={16} />
             {t("footer.reportIssue")}
           </a>
           <a
@@ -262,7 +262,7 @@ export function Layout() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 transition-colors hover:text-gray-700 dark:hover:text-gray-200"
           >
-            <ExternalLink size={16} />
+            <FaExternalLinkAlt size={16} />
             {t("footer.picaxeCollection")}
           </a>
         </div>

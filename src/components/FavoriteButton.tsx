@@ -1,4 +1,4 @@
-import { Heart } from "lucide-react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useFavoritesStore } from "@/stores/favorites-store";
 import clsx from "clsx";
 
@@ -26,7 +26,7 @@ export function FavoriteButton({ itemId, size = 18 }: FavoriteButtonProps) {
       )}
       aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
     >
-      <Heart size={size} fill={isFav ? "currentColor" : "none"} />
+      {isFav ? <FaHeart size={size} /> : <FaRegHeart size={size} />}
     </button>
   );
 }

@@ -71,8 +71,8 @@
     "clearListened": "Clear listened history"
   },
   "footer": {
-    "sourceCode": "Source Code",
-    "reportIssue": "Report Issue",
+    "sourceCode": "GitHub",
+    "reportIssue": "Issues",
     "picaxeCollection": "PICAXE RTTTL Collection"
   }
 }

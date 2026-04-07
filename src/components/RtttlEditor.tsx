@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { usePlayerStore } from "@/stores/player-store";
 import { copyToClipboard } from "@/utils/clipboard";
-import { Play, Copy, Check } from "lucide-react";
+import { FaPlay, FaRegCopy, FaCheck } from "react-icons/fa";
 
 export function RtttlEditor() {
   const { t } = useTranslation();
@@ -42,7 +42,7 @@ export function RtttlEditor() {
           disabled={!editedCode.trim()}
           className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <Play size={14} />
+          <FaPlay size={14} />
           {t("editor.playEdited")}
         </button>
         <button
@@ -52,12 +52,12 @@ export function RtttlEditor() {
         >
           {copyState === "copied" ? (
             <>
-              <Check size={14} className="text-green-500" />
+              <FaCheck size={14} className="text-green-500" />
               {t("editor.copied")}
             </>
           ) : (
             <>
-              <Copy size={14} />
+              <FaRegCopy size={14} />
               {t("editor.copyCode")}
             </>
           )}
