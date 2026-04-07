@@ -4,7 +4,8 @@ import AdmZip from "adm-zip";
 
 interface RtttlEntry {
   id: string;
-  category: string;
+  collection: string;
+  sourceCategory: string;
   artist: string;
   title: string;
   firstLetter: string;
@@ -25,9 +26,7 @@ const ZIP_SOURCES = [
 ] as const;
 
 function parseFileName(baseName: string): { artist: string; title: string } {
-  const name = baseName
-    .replace(/\.(txt|bas)$/i, "")
-    .trim();
+  const name = baseName.replace(/\.(txt|bas)$/i, "").trim();
   const dashIndex = name.indexOf(" - ");
   if (dashIndex !== -1) {
     return {
@@ -40,10 +39,16 @@ function parseFileName(baseName: string): { artist: string; title: string } {
 
 function getFirstLetter(artist: string, title: string): string {
   const source = (artist || title).trim();
-  if (!source) { return "#"; }
+  if (!source) {
+    return "#";
+  }
   const first = source.charAt(0).toUpperCase();
-  if (/[A-Z]/.test(first)) { return first; }
-  if (/[0-9]/.test(first)) { return "0-9"; }
+  if (/[A-Z]/.test(first)) {
+    return first;
+  }
+  if (/[0-9]/.test(first)) {
+    return "0-9";
+  }
   return "#";
 }
 
@@ -63,17 +68,20 @@ function processTxt(
   id: number,
 ): RtttlEntry | null {
   const code = content.trim();
-  if (!code || !isValidRtttl(code)) { return null; }
+  if (!code || !isValidRtttl(code)) {
+    return null;
+  }
 
   const { artist, title: fileTitle } = parseFileName(fileName);
   const rtttlName = code.split(":")[0].trim();
   // When there is no artist prefix the filename is typically a short code
   // (e.g. "0071.txt"). Prefer the RTTTL inline name in that case.
-  const title = artist ? fileTitle : (rtttlName || fileTitle);
+  const title = artist ? fileTitle : rtttlName || fileTitle;
 
   return {
     id: `rtttl-${id}`,
-    category,
+    collection: "picaxe",
+    sourceCategory: category,
     artist,
     title,
     firstLetter: getFirstLetter(artist, title),
@@ -85,11 +93,7 @@ function processTxt(
  * Process a .bas file — PICAXE BASIC format using proprietary `tune` hex bytes.
  * This encoding is not directly convertible to RTTTL, so these entries are skipped.
  */
-function processBas(
-  _fileName: string,
-  _content: string,
-  _category: string,
-): null {
+function processBas(..._args: [string, string, string]): null {
   return null;
 }
 
@@ -128,7 +132,9 @@ async function main(): Promise<void> {
 
       for (const file of files) {
         const filePath = path.join(extractDir, file);
-        if (fs.statSync(filePath).isDirectory()) { continue; }
+        if (fs.statSync(filePath).isDirectory()) {
+          continue;
+        }
 
         const content = fs.readFileSync(filePath, "latin1");
         const ext = path.extname(file).toLowerCase();
