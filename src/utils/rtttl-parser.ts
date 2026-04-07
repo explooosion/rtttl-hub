@@ -1,9 +1,27 @@
+export type CollectionSlug = "picaxe" | "community";
+
+export type RtttlCategory =
+  | "pop"
+  | "rock"
+  | "classical"
+  | "movie-tv"
+  | "game"
+  | "holiday"
+  | "folk"
+  | "nursery"
+  | "alert"
+  | "original";
+
 export interface RtttlEntry {
   id: string;
   artist: string;
   title: string;
   firstLetter: string;
   code: string;
+  collection: CollectionSlug;
+  sourceCategory?: string;
+  category?: RtttlCategory;
+  createdAt?: string;
 }
 
 export interface RtttlDefaults {
@@ -64,10 +82,7 @@ function parseDefaults(defaultsStr: string): RtttlDefaults {
   return result;
 }
 
-function parseNote(
-  noteStr: string,
-  defaults: RtttlDefaults,
-): RtttlNote | null {
+function parseNote(noteStr: string, defaults: RtttlDefaults): RtttlNote | null {
   const trimmed = noteStr.trim();
   if (!trimmed) {
     return null;
