@@ -17,6 +17,7 @@ interface PlayerStoreState {
   pause: () => void;
   resume: () => void;
   stop: () => void;
+  seekTo: (noteIndex: number) => void;
   setEditedCode: (code: string) => void;
 }
 
@@ -61,6 +62,9 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
     },
     stop: () => {
       get().player.stop();
+    },
+    seekTo: (noteIndex) => {
+      get().player.seekTo(noteIndex);
     },
     setEditedCode: (editedCode) => set({ editedCode }),
   };

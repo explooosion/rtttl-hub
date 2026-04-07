@@ -171,6 +171,28 @@ export class RtttlPlayer {
     this.notify();
   }
 
+  seekTo(noteIndex: number) {
+    if (this.notes.length === 0) return;
+    const clamped = Math.max(0, Math.min(noteIndex, this.notes.length - 1));
+    const wasPlaying = this.state === "playing";
+
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
+    this.cleanupOscillator();
+    this.currentNoteIndex = clamped;
+
+    if (wasPlaying) {
+      this.state = "playing";
+      this.notify();
+      this.playNextNote();
+    } else {
+      this.state = "paused";
+      this.notify();
+    }
+  }
+
   getState(): PlayerState {
     return this.state;
   }
