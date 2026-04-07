@@ -1,7 +1,7 @@
 {
-  "name": "rtttl-player",
+  "name": "rtttl-hub",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "npm run generate-index && vite",
@@ -10,6 +10,8 @@
     "format": "prettier --write .",
     "preview": "vite preview",
     "generate-index": "tsx scripts/generate-index.ts",
+    "generate-logos": "tsx scripts/generate-logos.ts",
+    "generate-placeholder": "tsx scripts/generate-placeholder.ts",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -36,11 +38,13 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
+    "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.2",
     "@types/adm-zip": "^0.5.8",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@types/sharp": "^0.31.1",
     "@vitejs/plugin-react": "^6.0.1",
     "adm-zip": "^0.5.17",
     "eslint": "^9.39.4",
@@ -50,6 +54,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.2.2",
     "tsx": "^4.21.0",
     "typescript": "~6.0.2",
