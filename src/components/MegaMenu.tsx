@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { FaChevronDown, FaHeart, FaPlus, FaStar } from "react-icons/fa";
 import { COLLECTIONS } from "@/constants/collections";
+import { useCreateDialogStore } from "@/stores/create-dialog-store";
 import clsx from "clsx";
 
 function CollectionCard({
@@ -44,6 +45,7 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const openCreateDialog = useCreateDialogStore((s) => s.open);
 
   const close = useCallback(() => setOpen(false), []);
 
@@ -85,7 +87,7 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
       </button>
 
       {open && (
-        <div className="absolute left-0 z-50 mt-4 w-[540px] rounded-xl border border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+        <div className="absolute left-0 z-50 mt-4 w-135 rounded-xl border border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-gray-900">
           {/* Collections */}
           <div className="mb-4">
             <div className="mb-2 flex items-center justify-between">
@@ -100,28 +102,39 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
                 {t("collections.browseAll")} →
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-1">
-              {COLLECTIONS.map((col) => (
-                <div key={col.slug} onClick={close}>
-                  <CollectionCard
-                    slug={col.slug}
-                    nameKey={col.nameKey}
-                    descriptionKey={col.descriptionKey}
-                    icon={col.icon}
-                  />
-                </div>
-              ))}
+            <div className="grid grid-cols-2 gap-2">
+              {/* Left: community */}
+              <div>
+                {COLLECTIONS.filter((c) => c.group === "community").map((col) => (
+                  <div key={col.slug} onClick={close}>
+                    <CollectionCard
+                      slug={col.slug}
+                      nameKey={col.nameKey}
+                      descriptionKey={col.descriptionKey}
+                      icon={col.icon}
+                    />
+                  </div>
+                ))}
+              </div>
+              {/* Right: library */}
+              <div className="flex flex-col">
+                {COLLECTIONS.filter((c) => c.group === "library").map((col) => (
+                  <div key={col.slug} onClick={close}>
+                    <CollectionCard
+                      slug={col.slug}
+                      nameKey={col.nameKey}
+                      descriptionKey={col.descriptionKey}
+                      icon={col.icon}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div className="my-3 border-t border-gray-100 dark:border-gray-800" />
-
-          {/* Quick links */}
-          <div>
-            <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
-              {t("megaMenu.quickLinks")}
-            </h3>
-            <div className="grid grid-cols-3 gap-1">
+          {/* Quick Links */}
+          <div className="border-t border-gray-100 pt-3 dark:border-gray-800">
+            <div className="flex flex-row gap-1">
               <Link
                 to="/favorites"
                 onClick={close}
@@ -138,14 +151,16 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
                 <FaStar size={14} className="text-amber-500" />
                 {t("megaMenu.popular")}
               </Link>
-              <Link
-                to="/collections/community"
-                onClick={close}
-                className="flex items-center gap-2 rounded-lg p-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+              <button
+                onClick={() => {
+                  close();
+                  openCreateDialog();
+                }}
+                className="flex items-center gap-2 rounded-lg p-2.5 text-left text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
               >
                 <FaPlus size={14} className="text-emerald-500" />
                 {t("megaMenu.createNew")}
-              </Link>
+              </button>
             </div>
           </div>
         </div>

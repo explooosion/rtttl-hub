@@ -1,7 +1,7 @@
 import { useMemo, useState, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FaSearch, FaChevronRight, FaChevronLeft } from "react-icons/fa";
+import { FaSearch, FaChevronRight, FaChevronLeft, FaExternalLinkAlt } from "react-icons/fa";
 import { RtttlEditor } from "./RtttlEditor";
 import { TrackRow, LetterHeader } from "./TrackRow";
 import type { TrackRowAction } from "./TrackRow";
@@ -20,6 +20,8 @@ interface ListPageLayoutProps {
   breadcrumbs?: BreadcrumbItem[];
   title?: string;
   description?: string;
+  /** Official source URL shown as attribution under the description */
+  source?: string;
   /** Extra buttons in the search toolbar (e.g. Create New) */
   headerActions?: React.ReactNode;
   /** Extra row action buttons per item (e.g. Duplicate) */
@@ -59,6 +61,7 @@ export function ListPageLayout({
   breadcrumbs,
   title,
   description,
+  source,
   headerActions,
   extraRowActions,
   emptyNode,
@@ -269,6 +272,17 @@ export function ListPageLayout({
         <div className="mb-4">
           {title && <h2 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h2>}
           {description && <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>}
+          {source && (
+            <a
+              href={source}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 inline-flex items-center gap-1 text-xs text-indigo-500 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+            >
+              <FaExternalLinkAlt size={10} />
+              {t("collections.officialSource")}
+            </a>
+          )}
         </div>
       )}
 
@@ -282,7 +296,7 @@ export function ListPageLayout({
         </aside>
 
         <main className="min-w-0 flex-1">
-          <div className="flex flex-col gap-4 lg:flex-row">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
             <div className="flex-1">
               {/* Search + sort + mobile toggle + extra actions */}
               <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -423,7 +437,7 @@ export function ListPageLayout({
             </div>
 
             {/* Right side: editor */}
-            <div className="w-full space-y-4 lg:w-80 xl:w-96">
+            <div className="w-full lg:w-96 xl:w-md lg:sticky lg:top-18 lg:self-start lg:max-h-[calc(100vh-5rem)] lg:overflow-y-auto">
               <RtttlEditor />
             </div>
           </div>

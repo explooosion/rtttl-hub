@@ -18,10 +18,13 @@ import { SettingsMenu } from "./SettingsMenu";
 import { MegaMenu } from "./MegaMenu";
 import { UserMenu } from "./UserMenu";
 import { CookieConsentBanner } from "./CookieConsentBanner";
+import { CreateDialog } from "./CreateDialog";
 import { useCollectionStore } from "@/stores/collection-store";
 import { usePlayerStore } from "@/stores/player-store";
 import { useCookieConsentStore } from "@/stores/cookie-consent-store";
+import { COLLECTIONS } from "@/constants/collections";
 import { MOCK_COMMUNITY_ITEMS } from "@/data/mock-community";
+import { toRtttlEntries, type CollectionEntry } from "@/utils/collection-loader";
 import clsx from "clsx";
 
 export function AppShell() {
@@ -30,7 +33,6 @@ export function AppShell() {
   const navigate = useNavigate();
   const setItems = useCollectionStore((s) => s.setItems);
   const addUserItem = useCollectionStore((s) => s.addUserItem);
-  const userItems = useCollectionStore((s) => s.userItems);
   const isLoading = useCollectionStore((s) => s.isLoading);
   const searchQuery = useCollectionStore((s) => s.searchQuery);
   const setSearchQuery = useCollectionStore((s) => s.setSearchQuery);
@@ -67,11 +69,17 @@ export function AppShell() {
 
   useEffect(
     function loadCollectionWhenMount() {
-      fetch(`${import.meta.env.BASE_URL}rtttl-index.json`)
-        .then((res) => res.json())
-        .then((data) => {
-          setItems(data);
-          if (userItems.length === 0) {
+      const base = import.meta.env.BASE_URL;
+      Promise.all([
+        fetch(`${base}picaxe.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
+        fetch(`${base}esc-configurator.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
+      ])
+        .then(([picaxeData, escData]) => {
+          const picaxeEntries = toRtttlEntries(picaxeData, "picaxe", "picaxe");
+          const escEntries = toRtttlEntries(escData, "esc-configurator", "esc");
+          setItems([...picaxeEntries, ...escEntries]);
+          // Read live state to avoid stale closure race in React Strict Mode
+          if (useCollectionStore.getState().userItems.length === 0) {
             for (const item of MOCK_COMMUNITY_ITEMS) {
               addUserItem(item);
             }
@@ -79,7 +87,7 @@ export function AppShell() {
         })
         .catch((err) => console.error("Failed to load collection:", err));
     },
-    [setItems, addUserItem, userItems.length],
+    [setItems, addUserItem],
   );
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
@@ -304,22 +312,28 @@ export function AppShell() {
                     {t("footer.allCollections")}
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    to="/collections/picaxe"
-                    className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
-                  >
-                    {t("collections.picaxe.name")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/collections/community"
-                    className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
-                  >
-                    {t("collections.community.name")}
-                  </Link>
-                </li>
+                {COLLECTIONS.map((col) => (
+                  <li key={col.slug}>
+                    {col.source ? (
+                      <a
+                        href={col.source}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+                      >
+                        {t(col.nameKey)}
+                        <FaExternalLinkAlt size={11} />
+                      </a>
+                    ) : (
+                      <Link
+                        to={`/collections/${col.slug}`}
+                        className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+                      >
+                        {t(col.nameKey)}
+                      </Link>
+                    )}
+                  </li>
+                ))}
                 <li>
                   <Link
                     to="/favorites"
@@ -357,17 +371,6 @@ export function AppShell() {
                   >
                     <FaBug size={14} />
                     {t("footer.reportIssue")}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://picaxe.com/rtttl-ringtones-for-tune-command/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
-                  >
-                    <FaExternalLinkAlt size={14} />
-                    {t("footer.picaxeCollection")}
                   </a>
                 </li>
               </ul>
@@ -425,6 +428,9 @@ export function AppShell() {
 
       {/* Cookie Consent Banner */}
       <CookieConsentBanner />
+
+      {/* Global Create RTTTL Dialog */}
+      <CreateDialog />
     </div>
   );
 }
