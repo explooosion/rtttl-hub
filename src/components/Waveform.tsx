@@ -117,7 +117,8 @@ export function Waveform({
   }, [code, barCount]);
 
   const effectiveTotalNotes = totalNotes > 0 ? totalNotes : noteCount;
-  const progress = effectiveTotalNotes > 0 ? currentNoteIndex / effectiveTotalNotes : 0;
+  // Use (currentNoteIndex + 1) so the bar containing the current note is shown as played
+  const progress = effectiveTotalNotes > 0 ? (currentNoteIndex + 1) / effectiveTotalNotes : 0;
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {

@@ -10,6 +10,10 @@ interface PlayerStoreState {
   playerState: PlayerState;
   currentNoteIndex: number;
   totalNotes: number;
+  /** Per-track note indices from multi-track playback. */
+  trackNoteIndices: number[];
+  /** Per-track total note counts from multi-track playback. */
+  trackTotalNotes: number[];
   editedCode: string;
   /** Multi-track codes (one per motor). Empty array = single-track mode. */
   editedTracks: string[];
@@ -53,6 +57,8 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
       playerState: state.state === "idle" ? "idle" : state.state,
       currentNoteIndex: state.globalNoteIndex,
       totalNotes: state.globalTotalNotes,
+      trackNoteIndices: state.tracks.map((t) => t.currentNoteIndex),
+      trackTotalNotes: state.tracks.map((t) => t.totalNotes),
     });
   });
 
@@ -61,6 +67,8 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
     playerState: "idle",
     currentNoteIndex: 0,
     totalNotes: 0,
+    trackNoteIndices: [],
+    trackTotalNotes: [],
     editedCode: "",
     editedTracks: [],
     activeTrackIndex: 0,
