@@ -38,18 +38,29 @@
     }
   },
   "collections": {
+    "group": {
+      "libraries": "Curated Libraries",
+      "librariesDesc": "Ringtone collections from trusted sources and brands.",
+      "community": "Community",
+      "communityDesc": "Ringtones created and shared by users."
+    },
     "title": "Collections",
     "subtitle": "Browse ringtone collections from different sources.",
     "browseAll": "Browse All",
     "items": "{{count}} items",
     "picaxe": {
-      "name": "PICAXE RTTTL",
+      "name": "PICAXE",
       "description": "A massive collection of classic RTTTL ringtones from the PICAXE library. Covers pop, rock, TV themes, Christmas tunes, and more."
     },
     "community": {
       "name": "Community",
       "description": "Ringtones created by the community. Create your own and share with everyone."
-    }
+    },
+    "escConfigurator": {
+      "name": "ESC Configurator",
+      "description": "A community-curated collection of FPV motor startup melodies for ESC Configurator. Tunes are submitted by contributors and merged into the project via pull requests by the maintainer."
+    },
+    "officialSource": "Source"
   },
   "categories": {
     "all": "All",
@@ -100,11 +111,68 @@
     "resetConfirmTitle": "Reset to Original",
     "resetConfirmMessage": "This will discard all your changes and restore the original RTTTL code. Continue?",
     "preview": "Preview",
-    "editedPreview": "Edited Preview"
+    "editedPreview": "Edited Preview",
+    "syntaxColors": "Syntax Colors",
+    "feature": {
+      "syntaxHighlight": "Syntax Highlighting",
+      "playbackTracking": "Follow Playback"
+    },
+    "mode": {
+      "raw": "Raw",
+      "structured": "Structured"
+    },
+    "structured": {
+      "name": "Name",
+      "duration": "Duration",
+      "octave": "Octave",
+      "bpm": "BPM",
+      "notes": "Notes"
+    },
+    "color": {
+      "name": "Song Name",
+      "separator": "Separator",
+      "settingKey": "Setting Key",
+      "settingValue": "Setting Value",
+      "noteDuration": "Note Duration",
+      "notePitch": "Note Pitch",
+      "noteSharp": "Sharp (#)",
+      "noteOctave": "Octave",
+      "noteDot": "Dot (.)",
+      "pause": "Pause (p)",
+      "comma": "Comma",
+      "reset": "Reset",
+      "restore": "Restore",
+      "save": "Save"
+    },
+    "track": "Track",
+    "escOutput": "ESC Motor Output",
+    "escEmpty": "(no track)",
+    "copyAll": "Copy All",
+    "addTrack": "Add track",
+    "removeTrack": "Remove track",
+    "toolbar": {
+      "help": "RTTTL Quick Reference",
+      "helpTitle": "RTTTL Format",
+      "tip": {
+        "duration": "Default duration",
+        "octave": "Default octave",
+        "bpm": "Tempo (BPM)",
+        "separator": "Section separator",
+        "comma": "Note separator",
+        "sharp": "Sharp note",
+        "dot": "Dotted (1.5×)",
+        "pause": "Pause / rest",
+        "dur1": "Whole note",
+        "dur2": "Half note",
+        "dur4": "Quarter note",
+        "dur8": "Eighth note",
+        "dur16": "16th note",
+        "dur32": "32nd note"
+      }
+    }
   },
   "create": {
-    "title": "Create New Ringtone",
-    "duplicateTitle": "Duplicate Ringtone",
+    "title": "Create New RTTTL",
     "name": "Name",
     "namePlaceholder": "Enter ringtone name",
     "code": "RTTTL Code",
@@ -113,10 +181,13 @@
     "categoryPlaceholder": "Select a category",
     "create": "Create",
     "cancel": "Cancel",
-    "duplicate": "Duplicate",
     "invalidCode": "Invalid RTTTL code format",
     "nameRequired": "Name is required",
-    "localStorageHint": "Ringtones you create are saved locally in your browser."
+    "multiTrack": "Multi-Motor",
+    "localStorageHint": "Ringtones you create are saved locally in your browser.",
+    "preview": "Preview",
+    "previewHint": "Enter RTTTL code to preview",
+    "draftSaved": "● Draft saved"
   },
   "favorites": {
     "title": "My Favorites",
@@ -130,7 +201,6 @@
   },
   "actions": {
     "createNew": "Create New",
-    "duplicate": "Duplicate",
     "showFilters": "Show Filters",
     "hideFilters": "Hide Filters",
     "download": "Download .rtttl"
@@ -144,12 +214,15 @@
   },
   "breadcrumb": {
     "home": "Home",
-    "collections": "Collections"
+    "collections": "Collections",
+    "account": "Account",
+    "profile": "Profile",
+    "password": "Password"
   },
   "footer": {
     "sourceCode": "GitHub",
     "reportIssue": "Issues",
-    "picaxeCollection": "PICAXE RTTTL",
+    "picaxeCollection": "PICAXE",
     "discover": "Discover",
     "allCollections": "All Collections",
     "resources": "Resources",

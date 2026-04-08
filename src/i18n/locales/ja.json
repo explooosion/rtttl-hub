@@ -38,6 +38,12 @@
     }
   },
   "collections": {
+    "group": {
+      "libraries": "キュレーテッドライブラリ",
+      "librariesDesc": "信頼できるソースとブランドの着信音コレクション。",
+      "community": "コミュニティ",
+      "communityDesc": "ユーザーが作成・共有した着信音。"
+    },
     "title": "コレクション",
     "subtitle": "さまざまなソースから着信音コレクションを閲覧。",
     "browseAll": "すべて閲覧",
@@ -49,7 +55,12 @@
     "community": {
       "name": "コミュニティ",
       "description": "コミュニティが作成した着信音。あなたのオリジナルを作成して共有しましょう。"
-    }
+    },
+    "escConfigurator": {
+      "name": "ESC Configurator",
+      "description": "ESC Configurator 向けの FPV モーター起動メロディをコミュニティが収集・管理するコレクション。メロディはコントリビューターが投稿し、メンテナーが PR を通じてレビュー・収録しています。"
+    },
+    "officialSource": "ソース"
   },
   "categories": {
     "all": "すべて",
@@ -100,11 +111,68 @@
     "resetConfirmTitle": "オリジナルに戻す",
     "resetConfirmMessage": "すべての変更が破棄され、元の RTTTL コードに復元されます。続行しますか？",
     "preview": "プレビュー",
-    "editedPreview": "編集プレビュー"
+    "editedPreview": "編集プレビュー",
+    "syntaxColors": "構文カラー",
+    "feature": {
+      "syntaxHighlight": "構文ハイライト",
+      "playbackTracking": "再生追従"
+    },
+    "mode": {
+      "raw": "ロー",
+      "structured": "構造化"
+    },
+    "structured": {
+      "name": "名前",
+      "duration": "デフォルト音符",
+      "octave": "デフォルトオクターブ",
+      "bpm": "テンポ BPM",
+      "notes": "音符"
+    },
+    "color": {
+      "name": "曲名",
+      "separator": "区切り文字",
+      "settingKey": "設定キー",
+      "settingValue": "設定値",
+      "noteDuration": "音符値",
+      "notePitch": "音高",
+      "noteSharp": "シャープ (#)",
+      "noteOctave": "オクターブ",
+      "noteDot": "ドット (.)",
+      "pause": "休符 (p)",
+      "comma": "カンマ",
+      "reset": "リセット",
+      "restore": "復元",
+      "save": "保存"
+    },
+    "track": "トラック",
+    "escOutput": "ESC モーター出力",
+    "escEmpty": "（トラックなし）",
+    "copyAll": "すべてコピー",
+    "addTrack": "トラック追加",
+    "removeTrack": "トラック削除",
+    "toolbar": {
+      "help": "RTTTL クイックリファレンス",
+      "helpTitle": "RTTTL 形式",
+      "tip": {
+        "duration": "デフォルト音符",
+        "octave": "デフォルトオクターブ",
+        "bpm": "テンポ (BPM)",
+        "separator": "セクション区切り",
+        "comma": "音符区切り",
+        "sharp": "シャープ",
+        "dot": "付点音符 (×1.5)",
+        "pause": "休符",
+        "dur1": "全音符",
+        "dur2": "二分音符",
+        "dur4": "四分音符",
+        "dur8": "八分音符",
+        "dur16": "十六分音符",
+        "dur32": "三十二分音符"
+      }
+    }
   },
   "create": {
-    "title": "新しい着信音を作成",
-    "duplicateTitle": "着信音を複製",
+    "title": "新しい RTTTL を作成",
     "name": "名前",
     "namePlaceholder": "着信音の名前を入力",
     "code": "RTTTL コード",
@@ -113,10 +181,13 @@
     "categoryPlaceholder": "カテゴリを選択",
     "create": "作成",
     "cancel": "キャンセル",
-    "duplicate": "複製",
     "invalidCode": "無効な RTTTL コード形式",
     "nameRequired": "名前は必須です",
-    "localStorageHint": "作成した着信音はブラウザのローカルストレージに保存されます。"
+    "multiTrack": "マルチモーター",
+    "localStorageHint": "作成した着信音はブラウザのローカルストレージに保存されます。",
+    "preview": "プレビュー",
+    "previewHint": "RTTTL コードを入力してプレビューしてください",
+    "draftSaved": "● 下書きを保存しました"
   },
   "favorites": {
     "title": "お気に入り",
@@ -130,7 +201,6 @@
   },
   "actions": {
     "createNew": "新規作成",
-    "duplicate": "複製",
     "showFilters": "フィルタを表示",
     "hideFilters": "フィルタを非表示",
     "download": ".rtttl をダウンロード"
@@ -144,12 +214,15 @@
   },
   "breadcrumb": {
     "home": "ホーム",
-    "collections": "コレクション"
+    "collections": "コレクション",
+    "account": "アカウント",
+    "profile": "プロフィール",
+    "password": "パスワード"
   },
   "footer": {
     "sourceCode": "GitHub",
     "reportIssue": "Issues",
-    "picaxeCollection": "PICAXE RTTTL コレクション",
+    "picaxeCollection": "PICAXE コレクション",
     "discover": "探索",
     "allCollections": "すべてのコレクション",
     "resources": "リソース",

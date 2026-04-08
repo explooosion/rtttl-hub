@@ -38,18 +38,29 @@
     }
   },
   "collections": {
+    "group": {
+      "libraries": "精選曲庫",
+      "librariesDesc": "來自可信來源與品牌的鈴聲合集。",
+      "community": "社群",
+      "communityDesc": "由使用者創作與分享的鈴聲。"
+    },
     "title": "收藏庫",
     "subtitle": "瀏覽來自不同來源的鈴聲收藏。",
     "browseAll": "瀏覽全部",
     "items": "{{count}} 項",
     "picaxe": {
-      "name": "PICAXE RTTTL",
+      "name": "PICAXE",
       "description": "海量經典 RTTTL 鈴聲收藏，涵蓋流行、搖滾、電視主題曲、聖誕歌曲等多種風格。"
     },
     "community": {
       "name": "社群",
       "description": "社群創作的鈴聲。建立您自己的鈴聲並與大家分享。"
-    }
+    },
+    "escConfigurator": {
+      "name": "ESC Configurator",
+      "description": "由社群共同維護的 FPV 馬達啟動旋律集，專為 ESC Configurator 設計。音樂由貢獻者提交，並由維護者透過 PR 審核收錄。"
+    },
+    "officialSource": "來源"
   },
   "categories": {
     "all": "全部",
@@ -100,11 +111,68 @@
     "resetConfirmTitle": "復原為原始版本",
     "resetConfirmMessage": "這將捨棄所有變更並還原原始 RTTTL 代碼。確定要繼續嗎？",
     "preview": "預覽",
-    "editedPreview": "編輯後預覽"
+    "editedPreview": "編輯後預覽",
+    "syntaxColors": "語法顏色",
+    "feature": {
+      "syntaxHighlight": "語法高亮",
+      "playbackTracking": "跟隨播放"
+    },
+    "mode": {
+      "raw": "原始",
+      "structured": "結構化"
+    },
+    "structured": {
+      "name": "名稱",
+      "duration": "預設時值",
+      "octave": "預設八度",
+      "bpm": "速度 BPM",
+      "notes": "音符"
+    },
+    "color": {
+      "name": "歌曲名稱",
+      "separator": "分隔符",
+      "settingKey": "設定鍵",
+      "settingValue": "設定值",
+      "noteDuration": "音符時值",
+      "notePitch": "音高",
+      "noteSharp": "升號 (#)",
+      "noteOctave": "八度",
+      "noteDot": "附點 (.)",
+      "pause": "休止 (p)",
+      "comma": "逗號",
+      "reset": "重置",
+      "restore": "還原",
+      "save": "儲存"
+    },
+    "track": "音軌",
+    "escOutput": "ESC 馬達輸出",
+    "escEmpty": "（無音軌）",
+    "copyAll": "全部複製",
+    "addTrack": "新增音軌",
+    "removeTrack": "移除音軌",
+    "toolbar": {
+      "help": "RTTTL 快速參考",
+      "helpTitle": "RTTTL 格式",
+      "tip": {
+        "duration": "預設時值",
+        "octave": "預設八度",
+        "bpm": "速度 (BPM)",
+        "separator": "段落分隔",
+        "comma": "音符分隔",
+        "sharp": "升號",
+        "dot": "附點 (×1.5)",
+        "pause": "休止符",
+        "dur1": "全音符",
+        "dur2": "二分音符",
+        "dur4": "四分音符",
+        "dur8": "八分音符",
+        "dur16": "十六分音符",
+        "dur32": "三十二分音符"
+      }
+    }
   },
   "create": {
-    "title": "建立新鈴聲",
-    "duplicateTitle": "複製鈴聲",
+    "title": "建立新 RTTTL",
     "name": "名稱",
     "namePlaceholder": "輸入鈴聲名稱",
     "code": "RTTTL 代碼",
@@ -113,10 +181,13 @@
     "categoryPlaceholder": "選擇分類",
     "create": "建立",
     "cancel": "取消",
-    "duplicate": "複製",
     "invalidCode": "RTTTL 代碼格式無效",
     "nameRequired": "名稱為必填",
-    "localStorageHint": "您建立的鈴聲會保存在瀏覽器的本機儲存中。"
+    "multiTrack": "多馬達模式",
+    "localStorageHint": "您建立的鈴聲會保存在瀏覽器的本機儲存中。",
+    "preview": "預覽",
+    "previewHint": "請在上方輸入 RTTTL 代碼以預覽",
+    "draftSaved": "● 草稿已儲存"
   },
   "favorites": {
     "title": "我的最愛",
@@ -130,7 +201,6 @@
   },
   "actions": {
     "createNew": "新建",
-    "duplicate": "複製",
     "showFilters": "顯示篩選",
     "hideFilters": "隱藏篩選",
     "download": "下載 .rtttl"
@@ -144,12 +214,15 @@
   },
   "breadcrumb": {
     "home": "首頁",
-    "collections": "收藏庫"
+    "collections": "收藏庫",
+    "account": "帳號",
+    "profile": "個人資料",
+    "password": "密碼"
   },
   "footer": {
     "sourceCode": "GitHub",
     "reportIssue": "Issues",
-    "picaxeCollection": "PICAXE RTTTL",
+    "picaxeCollection": "PICAXE",
     "discover": "探索",
     "allCollections": "所有收藏庫",
     "resources": "資源",

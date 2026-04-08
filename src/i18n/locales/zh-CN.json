@@ -38,6 +38,12 @@
     }
   },
   "collections": {
+    "group": {
+      "libraries": "精选曲库",
+      "librariesDesc": "来自可信来源与品牌的铃声合集。",
+      "community": "社区",
+      "communityDesc": "由用户创作并分享的铃声。"
+    },
     "title": "收藏库",
     "subtitle": "浏览来自不同来源的铃声收藏。",
     "browseAll": "浏览全部",
@@ -49,7 +55,12 @@
     "community": {
       "name": "社区",
       "description": "社区创作的铃声。创建您自己的铃声并与大家分享。"
-    }
+    },
+    "escConfigurator": {
+      "name": "ESC Configurator",
+      "description": "由社区共同维护的 FPV 电机启动旋律合集，专为 ESC Configurator 设计。音乐由贡献者提交，经维护者通过 PR 审核后收录。"
+    },
+    "officialSource": "来源"
   },
   "categories": {
     "all": "全部",
@@ -100,11 +111,68 @@
     "resetConfirmTitle": "恢复为原始版本",
     "resetConfirmMessage": "这将丢弃所有更改并恢复原始 RTTTL 代码。确定要继续吗？",
     "preview": "预览",
-    "editedPreview": "编辑后预览"
+    "editedPreview": "编辑后预览",
+    "syntaxColors": "语法颜色",
+    "feature": {
+      "syntaxHighlight": "语法高亮",
+      "playbackTracking": "跟随播放"
+    },
+    "mode": {
+      "raw": "原始",
+      "structured": "结构化"
+    },
+    "structured": {
+      "name": "名称",
+      "duration": "默认时值",
+      "octave": "默认八度",
+      "bpm": "速度 BPM",
+      "notes": "音符"
+    },
+    "color": {
+      "name": "歌曲名称",
+      "separator": "分隔符",
+      "settingKey": "设置键",
+      "settingValue": "设置值",
+      "noteDuration": "音符时值",
+      "notePitch": "音高",
+      "noteSharp": "升号 (#)",
+      "noteOctave": "八度",
+      "noteDot": "附点 (.)",
+      "pause": "休止 (p)",
+      "comma": "逗号",
+      "reset": "重置",
+      "restore": "还原",
+      "save": "保存"
+    },
+    "track": "音轨",
+    "escOutput": "ESC 电机输出",
+    "escEmpty": "（无音轨）",
+    "copyAll": "全部复制",
+    "addTrack": "添加音轨",
+    "removeTrack": "移除音轨",
+    "toolbar": {
+      "help": "RTTTL 快速参考",
+      "helpTitle": "RTTTL 格式",
+      "tip": {
+        "duration": "默认时值",
+        "octave": "默认八度",
+        "bpm": "速度 (BPM)",
+        "separator": "段落分隔",
+        "comma": "音符分隔",
+        "sharp": "升号",
+        "dot": "附点 (×1.5)",
+        "pause": "休止符",
+        "dur1": "全音符",
+        "dur2": "二分音符",
+        "dur4": "四分音符",
+        "dur8": "八分音符",
+        "dur16": "十六分音符",
+        "dur32": "三十二分音符"
+      }
+    }
   },
   "create": {
-    "title": "创建新铃声",
-    "duplicateTitle": "复制铃声",
+    "title": "创建新 RTTTL",
     "name": "名称",
     "namePlaceholder": "输入铃声名称",
     "code": "RTTTL 代码",
@@ -113,10 +181,13 @@
     "categoryPlaceholder": "选择分类",
     "create": "创建",
     "cancel": "取消",
-    "duplicate": "复制",
     "invalidCode": "RTTTL 代码格式无效",
     "nameRequired": "名称为必填",
-    "localStorageHint": "您创建的铃声会保存在浏览器的本地存储中。"
+    "multiTrack": "多电机模式",
+    "localStorageHint": "您创建的铃声会保存在浏览器的本地存储中。",
+    "preview": "预览",
+    "previewHint": "请在上方输入 RTTTL 代码以预览",
+    "draftSaved": "● 草稿已保存"
   },
   "favorites": {
     "title": "我的收藏",
@@ -130,7 +201,6 @@
   },
   "actions": {
     "createNew": "新建",
-    "duplicate": "复制",
     "showFilters": "显示筛选",
     "hideFilters": "隐藏筛选",
     "download": "下载 .rtttl"
@@ -144,12 +214,15 @@
   },
   "breadcrumb": {
     "home": "首页",
-    "collections": "收藏库"
+    "collections": "收藏库",
+    "account": "账号",
+    "profile": "个人资料",
+    "password": "密码"
   },
   "footer": {
     "sourceCode": "GitHub",
     "reportIssue": "Issues",
-    "picaxeCollection": "PICAXE RTTTL 收藏库",
+    "picaxeCollection": "PICAXE 收藏库",
     "discover": "探索",
     "allCollections": "所有收藏库",
     "resources": "资源",

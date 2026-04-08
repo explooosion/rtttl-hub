@@ -38,6 +38,12 @@
     }
   },
   "collections": {
+    "group": {
+      "libraries": "큐레이티드 라이브러리",
+      "librariesDesc": "신뢰할 수 있는 소스와 브랜드의 벨소리 컬렉션입니다.",
+      "community": "커뮤니티",
+      "communityDesc": "사용자가 만들고 공유한 벨소리입니다."
+    },
     "title": "컬렉션",
     "subtitle": "다양한 소스에서 벨소리 컬렉션을 탐색하세요.",
     "browseAll": "전체 보기",
@@ -49,7 +55,12 @@
     "community": {
       "name": "커뮤니티",
       "description": "커뮤니티가 만든 벨소리. 나만의 벨소리를 만들고 공유하세요."
-    }
+    },
+    "escConfigurator": {
+      "name": "ESC Configurator",
+      "description": "ESC Configurator를 위한 FPV 모터 시동 멜로디 커뮤니티 컬렉션. 기여자들이 멜로디를 제출하면 메인테이너가 PR을 통해 검토하여 수록합니다."
+    },
+    "officialSource": "소스"
   },
   "categories": {
     "all": "전체",
@@ -100,11 +111,68 @@
     "resetConfirmTitle": "원본으로 복원",
     "resetConfirmMessage": "모든 변경 사항이 삭제되고 원래 RTTTL 코드로 복원됩니다. 계속하시겠습니까?",
     "preview": "미리보기",
-    "editedPreview": "편집 미리보기"
+    "editedPreview": "편집 미리보기",
+    "syntaxColors": "구문 색상",
+    "feature": {
+      "syntaxHighlight": "구문 강조",
+      "playbackTracking": "재생 추적"
+    },
+    "mode": {
+      "raw": "원시",
+      "structured": "구조화"
+    },
+    "structured": {
+      "name": "이름",
+      "duration": "기본 음표",
+      "octave": "기본 옥타브",
+      "bpm": "빠르기 BPM",
+      "notes": "음표"
+    },
+    "color": {
+      "name": "노래 이름",
+      "separator": "구분자",
+      "settingKey": "설정 키",
+      "settingValue": "설정 값",
+      "noteDuration": "음표 값",
+      "notePitch": "음높이",
+      "noteSharp": "샤프 (#)",
+      "noteOctave": "옥타브",
+      "noteDot": "점 (.)",
+      "pause": "숑음 (p)",
+      "comma": "콤마",
+      "reset": "초기화",
+      "restore": "복원",
+      "save": "저장"
+    },
+    "track": "트랙",
+    "escOutput": "ESC 모터 출력",
+    "escEmpty": "(트랙 없음)",
+    "copyAll": "전체 복사",
+    "addTrack": "트랙 추가",
+    "removeTrack": "트랙 삭제",
+    "toolbar": {
+      "help": "RTTTL 빠른 참조",
+      "helpTitle": "RTTTL 형식",
+      "tip": {
+        "duration": "기본 음표",
+        "octave": "기본 옥타브",
+        "bpm": "빠르기 (BPM)",
+        "separator": "섹션 구분자",
+        "comma": "음표 구분자",
+        "sharp": "샤프",
+        "dot": "점음표 (×1.5)",
+        "pause": "숑음",
+        "dur1": "온음표",
+        "dur2": "시분음표",
+        "dur4": "사분음표",
+        "dur8": "팔분음표",
+        "dur16": "십육분음표",
+        "dur32": "삼십이분음표"
+      }
+    }
   },
   "create": {
-    "title": "새 벨소리 만들기",
-    "duplicateTitle": "벨소리 복제",
+    "title": "새 RTTTL 만들기",
     "name": "이름",
     "namePlaceholder": "벨소리 이름 입력",
     "code": "RTTTL 코드",
@@ -113,10 +181,13 @@
     "categoryPlaceholder": "카테고리 선택",
     "create": "만들기",
     "cancel": "취소",
-    "duplicate": "복제",
     "invalidCode": "잘못된 RTTTL 코드 형식",
     "nameRequired": "이름은 필수입니다",
-    "localStorageHint": "만든 벨소리는 브라우저의 로컬 저장소에 저장됩니다."
+    "multiTrack": "멀티 모터",
+    "localStorageHint": "만든 벨소리는 브라우저의 로컬 저장소에 저장됩니다.",
+    "preview": "미리보기",
+    "previewHint": "RTTTL 코드를 입력하면 미리보기가 가능합니다",
+    "draftSaved": "● 임시 저장됨"
   },
   "favorites": {
     "title": "즐겨찾기",
@@ -130,7 +201,6 @@
   },
   "actions": {
     "createNew": "새로 만들기",
-    "duplicate": "복제",
     "showFilters": "필터 표시",
     "hideFilters": "필터 숨기기",
     "download": ".rtttl 다운로드"
@@ -144,12 +214,15 @@
   },
   "breadcrumb": {
     "home": "홈",
-    "collections": "컬렉션"
+    "collections": "콜렉션",
+    "account": "계정",
+    "profile": "프로필",
+    "password": "비밀번호"
   },
   "footer": {
     "sourceCode": "GitHub",
     "reportIssue": "Issues",
-    "picaxeCollection": "PICAXE RTTTL 컬렉션",
+    "picaxeCollection": "PICAXE 컬렉션",
     "discover": "탐색",
     "allCollections": "전체 컬렉션",
     "resources": "리소스",
