@@ -1,20 +1,15 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { FaChevronRight } from "react-icons/fa";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export function TermsPage() {
   const { t } = useTranslation();
 
   return (
     <div className="animate-fade-in-up mx-auto max-w-4xl px-4 py-8">
-      {/* Breadcrumbs */}
-      <nav className="mb-6 flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
-        <Link to="/" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-          {t("breadcrumb.home")}
-        </Link>
-        <FaChevronRight size={10} className="text-gray-400 dark:text-gray-600" />
-        <span className="font-medium text-gray-900 dark:text-white">{t("legal.termsTitle")}</span>
-      </nav>
+      <Breadcrumb
+        items={[{ label: t("breadcrumb.home"), to: "/" }, { label: t("legal.termsTitle") }]}
+      />
 
       <article className="prose prose-gray max-w-none dark:prose-invert">
         <h1>{t("legal.termsTitle")}</h1>

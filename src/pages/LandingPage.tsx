@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaMusic,
   FaPlay,
@@ -17,6 +17,7 @@ import {
   FaBaby,
   FaBell,
   FaStar,
+  FaExternalLinkAlt,
 } from "react-icons/fa";
 import { COLLECTIONS } from "@/constants/collections";
 import { HeroBannerAnimation } from "@/components/HeroBannerAnimation";
@@ -65,12 +66,15 @@ function CollectionCard({
   slug,
   nameKey,
   descriptionKey,
+  source,
 }: {
   slug: string;
   nameKey: string;
   descriptionKey: string;
+  source?: string;
 }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const illustration = COLLECTION_ILLUSTRATIONS[slug] ?? {
     icon: FaMusic,
     gradient: "from-gray-500 to-gray-600",
@@ -78,9 +82,12 @@ function CollectionCard({
   const Icon = illustration.icon;
 
   return (
-    <Link
-      to={`/collections/${slug}`}
-      className="group overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-gray-700 dark:bg-gray-900"
+    <div
+      role="link"
+      tabIndex={0}
+      onClick={() => navigate(`/collections/${slug}`)}
+      onKeyDown={(e) => e.key === "Enter" && navigate(`/collections/${slug}`)}
+      className="group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-gray-900"
     >
       {/* Illustration banner */}
       <div
@@ -94,8 +101,20 @@ function CollectionCard({
         <p className="mb-3 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
           {t(descriptionKey)}
         </p>
+        {source && (
+          <a
+            href={source}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center gap-1 text-xs text-indigo-500 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+          >
+            <FaExternalLinkAlt size={10} />
+            {t("collections.officialSource")}
+          </a>
+        )}
       </div>
-    </Link>
+    </div>
   );
 }
 
@@ -249,7 +268,7 @@ export function LandingPage() {
           {FEATURES.map(({ icon: Icon, titleKey, descKey }, i) => (
             <div
               key={titleKey}
-              className={`fly-in fly-in-delay-${i % 4} group rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-gray-700 dark:bg-gray-900`}
+              className={`fly-in fly-in-delay-${i % 4} group rounded-xl bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-900`}
             >
               <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 transition-transform duration-300 group-hover:scale-110 dark:bg-indigo-900/50 dark:text-indigo-400">
                 <Icon size={22} />
@@ -272,6 +291,7 @@ export function LandingPage() {
                   slug={col.slug}
                   nameKey={col.nameKey}
                   descriptionKey={col.descriptionKey}
+                  source={col.source}
                 />
               </div>
             ))}
@@ -280,7 +300,7 @@ export function LandingPage() {
       </div>
 
       {/* Fullwidth category slider */}
-      <section className="border-y border-gray-200 bg-gray-50 py-10 dark:border-gray-800 dark:bg-gray-900/50">
+      <section className="bg-gray-50 py-10 dark:bg-gray-900/50">
         <div className="mx-auto max-w-7xl">
           <h3 className="mb-6 px-4 text-2xl font-bold text-gray-900 dark:text-white">
             {t("landing.categories.title")}

@@ -22,7 +22,6 @@ export function CreatorPage() {
       breadcrumbs={[
         { label: t("breadcrumb.home"), to: "/" },
         { label: t("breadcrumb.collections"), to: "/collections" },
-        { label: "Picaxe", to: "/collections/picaxe" },
         { label: creatorName },
       ]}
       title={creatorName}

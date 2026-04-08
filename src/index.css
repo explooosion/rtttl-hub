@@ -171,3 +171,39 @@ body {
 .fly-in-delay-3 {
   animation-delay: 0.3s;
 }
+
+/* ── CodeMirror RTTTL editor ──────────────────────────────── */
+.cm-editor {
+  outline: none !important;
+}
+
+/* Active note highlight (light mode) */
+.cm-rtttl-active-note {
+  background: rgba(99, 102, 241, 0.2);
+  border-radius: 3px;
+  outline: 1px solid rgba(99, 102, 241, 0.4);
+}
+
+/* Active note highlight (dark mode) */
+.dark .cm-rtttl-active-note {
+  background: rgba(129, 140, 248, 0.28);
+  outline: 1px solid rgba(129, 140, 248, 0.5);
+}
+
+/* Fade-in for color panel */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scaleY(0.95);
+    transform-origin: top;
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.15s ease-out both;
+}

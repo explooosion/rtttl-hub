@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, Link } from "react-router-dom";
-import { FaChevronLeft } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/stores/auth-store";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export function PasswordPage() {
   const { t } = useTranslation();
@@ -68,13 +68,13 @@ export function PasswordPage() {
 
   return (
     <div className="animate-fade-in-up mx-auto max-w-xl px-4 py-8">
-      <Link
-        to="/account"
-        className="mb-6 inline-flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-      >
-        <FaChevronLeft size={12} />
-        {t("account.title")}
-      </Link>
+      <Breadcrumb
+        items={[
+          { label: t("breadcrumb.home"), to: "/" },
+          { label: t("breadcrumb.account"), to: "/account" },
+          { label: t("breadcrumb.password") },
+        ]}
+      />
 
       <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
         {hasPassword ? t("account.changePassword") : t("account.setPassword")}

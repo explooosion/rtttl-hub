@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { useAuthStore } from "@/stores/auth-store";
 import { useEffect } from "react";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export function AccountPage() {
   const { t } = useTranslation();
@@ -26,6 +27,9 @@ export function AccountPage() {
 
   return (
     <div className="animate-fade-in-up mx-auto max-w-3xl px-4 py-8">
+      <Breadcrumb
+        items={[{ label: t("breadcrumb.home"), to: "/" }, { label: t("breadcrumb.account") }]}
+      />
       <h1 className="mb-8 text-2xl font-bold text-gray-900 dark:text-white">
         {t("account.title")}
       </h1>

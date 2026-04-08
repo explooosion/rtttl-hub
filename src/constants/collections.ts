@@ -1,5 +1,5 @@
 import type { CollectionSlug } from "@/utils/rtttl-parser";
-import { FaDatabase, FaUsers } from "react-icons/fa";
+import { FaDatabase, FaUsers, FaMicrochip } from "react-icons/fa";
 import type { IconType } from "react-icons";
 
 export interface CollectionDef {
@@ -8,21 +8,33 @@ export interface CollectionDef {
   descriptionKey: string;
   icon: IconType;
   source?: string;
+  /** "community" = user-created; "library" = curated/brand datasets */
+  group: "community" | "library";
 }
 
 export const COLLECTIONS: CollectionDef[] = [
+  {
+    slug: "community",
+    nameKey: "collections.community.name",
+    descriptionKey: "collections.community.description",
+    icon: FaUsers,
+    group: "community",
+  },
   {
     slug: "picaxe",
     nameKey: "collections.picaxe.name",
     descriptionKey: "collections.picaxe.description",
     icon: FaDatabase,
     source: "https://picaxe.com/rtttl-ringtones-for-tune-command/",
+    group: "library",
   },
   {
-    slug: "community",
-    nameKey: "collections.community.name",
-    descriptionKey: "collections.community.description",
-    icon: FaUsers,
+    slug: "esc-configurator",
+    nameKey: "collections.escConfigurator.name",
+    descriptionKey: "collections.escConfigurator.description",
+    icon: FaMicrochip,
+    source: "https://esc-configurator.com/",
+    group: "library",
   },
 ];
 
