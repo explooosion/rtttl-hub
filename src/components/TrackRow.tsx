@@ -10,6 +10,13 @@ import { copyToClipboard } from "@/utils/clipboard";
 import type { RtttlEntry } from "@/utils/rtttl-parser";
 import clsx from "clsx";
 
+const TRACK_PLAYED_COLORS = [
+  "rgb(99, 102, 241)",
+  "rgb(16, 185, 129)",
+  "rgb(245, 158, 11)",
+  "rgb(244, 63, 94)",
+] as const;
+
 export interface TrackRowAction {
   icon: React.ReactNode;
   title: string;
@@ -79,27 +86,59 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
       <div className="w-28 shrink-0 sm:w-36">
         <p className="truncate text-sm font-medium text-gray-900 dark:text-white">{item.title}</p>
         {item.artist && (
-          <Link
-            to={`/creators/${encodeURIComponent(item.artist)}`}
-            onClick={(e) => e.stopPropagation()}
-            className="block truncate text-xs text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
-          >
-            {item.artist}
-          </Link>
+          <p className="truncate text-xs">
+            <Link
+              to={`/creators/${encodeURIComponent(item.artist)}`}
+              onClick={(e) => e.stopPropagation()}
+              className="text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+            >
+              {item.artist}
+            </Link>
+          </p>
         )}
       </div>
 
       {/* Waveform */}
       <div className="hidden min-w-0 flex-1 sm:block" onClick={(e) => e.stopPropagation()}>
-        <Waveform
-          code={item.code}
-          currentNoteIndex={isActive ? currentNoteIndex : 0}
-          totalNotes={isActive ? totalNotes : 0}
-          isPlaying={isActive && (playerState === "playing" || playerState === "paused")}
-          onSeek={isActive ? seekTo : undefined}
-          height={36}
-          barCount={80}
-        />
+        {item.tracks && item.tracks.length > 1 ? (
+          <div className="grid grid-cols-2 gap-1" style={{ height: 36 }}>
+            {([0, 1, 2, 3] as const).map((idx) => {
+              const trackCode = item.tracks![idx] ?? "";
+              return (
+                <div
+                  key={idx}
+                  className={clsx(
+                    "overflow-hidden rounded",
+                    trackCode.trim() ? "" : "bg-gray-100 dark:bg-gray-800",
+                  )}
+                >
+                  {trackCode.trim() && (
+                    <Waveform
+                      code={trackCode}
+                      isPlaying={
+                        isActive && (playerState === "playing" || playerState === "paused")
+                      }
+                      currentNoteIndex={isActive ? currentNoteIndex : 0}
+                      height={16}
+                      barCount={20}
+                      playedColor={TRACK_PLAYED_COLORS[idx]}
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <Waveform
+            code={item.code}
+            currentNoteIndex={isActive ? currentNoteIndex : 0}
+            totalNotes={isActive ? totalNotes : 0}
+            isPlaying={isActive && (playerState === "playing" || playerState === "paused")}
+            onSeek={isActive ? seekTo : undefined}
+            height={36}
+            barCount={50}
+          />
+        )}
       </div>
 
       {/* Action buttons */}

@@ -11,6 +11,7 @@ interface WaveformProps {
   height?: number;
   barCount?: number;
   className?: string;
+  playedColor?: string;
 }
 
 interface WaveformBar {
@@ -90,6 +91,7 @@ export function Waveform({
   height = 40,
   barCount = 60,
   className = "",
+  playedColor,
 }: WaveformProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDark, setIsDark] = useState(false);
@@ -177,7 +179,7 @@ export function Waveform({
 
         let bgColor: string;
         if (isPlayed) {
-          bgColor = COLOR_PLAYED;
+          bgColor = playedColor ?? COLOR_PLAYED;
         } else if (isHovered) {
           bgColor = isDark ? COLOR_HOVER_DARK : COLOR_HOVER_LIGHT;
         } else {
