@@ -46,12 +46,13 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
   const isItemPlaying = isActive && playerState === "playing";
 
   const handleCopy = useCallback(async () => {
-    const success = await copyToClipboard(item.code);
+    const text = item.tracks && item.tracks.length > 1 ? item.tracks.join("\n") : item.code;
+    const success = await copyToClipboard(text);
     if (success) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
-  }, [item.code]);
+  }, [item.code, item.tracks]);
 
   return (
     <div

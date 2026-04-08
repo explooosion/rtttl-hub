@@ -2,7 +2,7 @@ import { useMemo, useState, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FaSearch, FaChevronRight, FaChevronLeft, FaExternalLinkAlt } from "react-icons/fa";
-import { RtttlEditor } from "./RtttlEditor";
+import { CodePreviewPanel } from "./CodePreviewPanel";
 import { TrackRow, LetterHeader } from "./TrackRow";
 import type { TrackRowAction } from "./TrackRow";
 import { RTTTL_CATEGORIES } from "@/constants/categories";
@@ -436,9 +436,9 @@ export function ListPageLayout({
               )}
             </div>
 
-            {/* Right side: editor */}
-            <div className="w-full lg:w-96 xl:w-md lg:sticky lg:top-18 lg:self-start lg:max-h-[calc(100vh-5rem)] lg:overflow-y-auto">
-              <RtttlEditor />
+            {/* Right side: code preview */}
+            <div className="hidden w-full lg:block lg:w-72 lg:sticky lg:top-18 lg:self-start lg:max-h-[calc(100vh-5rem)] lg:overflow-y-auto">
+              <CodePreviewPanel />
             </div>
           </div>
         </main>
