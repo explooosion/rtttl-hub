@@ -1,16 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import {
-  FaMusic,
-  FaHeart,
-  FaPlus,
-  FaBars,
-  FaTimes,
-  FaGithub,
-  FaBug,
-  FaExternalLinkAlt,
-} from "react-icons/fa";
+import { FaMusic, FaHeart, FaPlus, FaBars, FaTimes, FaGithub, FaBug } from "react-icons/fa";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { SettingsMenu } from "./SettingsMenu";
@@ -22,7 +13,8 @@ import { CreateDialog } from "./CreateDialog";
 import { FavoritesPage } from "./FavoritesPage";
 import { useCollectionStore } from "@/stores/collection-store";
 import { usePlayerStore } from "@/stores/player-store";
-import type { RtttlEntry } from "@/utils/rtttl-parser";
+import { useCreateDialogStore } from "@/stores/create-dialog-store";
+import { COLLECTIONS } from "@/constants/collections";
 import clsx from "clsx";
 
 export function Layout() {
@@ -33,8 +25,7 @@ export function Layout() {
   const playerState = usePlayerStore((s) => s.playerState);
   const currentItem = usePlayerStore((s) => s.currentItem);
 
-  const [createDialogOpen, setCreateDialogOpen] = useState(false);
-  const [duplicateFrom, setDuplicateFrom] = useState<RtttlEntry | null>(null);
+  const openDialog = useCreateDialogStore((s) => s.open);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const isFavoritesPage = location.pathname === "/favorites";
@@ -49,15 +40,9 @@ export function Layout() {
     [setItems],
   );
 
-  const handleDuplicate = useCallback((item: RtttlEntry) => {
-    setDuplicateFrom(item);
-    setCreateDialogOpen(true);
-  }, []);
-
   const handleCreateNew = useCallback(() => {
-    setDuplicateFrom(null);
-    setCreateDialogOpen(true);
-  }, []);
+    openDialog();
+  }, [openDialog]);
 
   if (isLoading) {
     return (
@@ -195,7 +180,7 @@ export function Layout() {
                       <span className="hidden sm:inline">{t("actions.createNew")}</span>
                     </button>
                   </div>
-                  <CollectionList onDuplicate={handleDuplicate} />
+                  <CollectionList />
                 </div>
 
                 {/* Right side: editor */}
@@ -227,46 +212,73 @@ export function Layout() {
         </div>
       )}
 
-      <CreateDialog
-        isOpen={createDialogOpen}
-        duplicateFrom={duplicateFrom}
-        onClose={() => {
-          setCreateDialogOpen(false);
-          setDuplicateFrom(null);
-        }}
-      />
+      <CreateDialog />
 
       {/* Footer */}
-      <footer className="mx-auto mt-8 max-w-7xl border-t border-gray-200 px-4 py-6 dark:border-gray-800">
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
-          <a
-            href="https://github.com/explooosion/rtttl-hub"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 transition-colors hover:text-gray-700 dark:hover:text-gray-200"
-          >
-            <FaGithub size={16} />
-            {t("footer.sourceCode")}
-          </a>
-          <a
-            href="https://github.com/explooosion/rtttl-hub/issues"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 transition-colors hover:text-gray-700 dark:hover:text-gray-200"
-          >
-            <FaBug size={16} />
-            {t("footer.reportIssue")}
-          </a>
-          <a
-            href="https://picaxe.com/rtttl-ringtones-for-tune-command/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 transition-colors hover:text-gray-700 dark:hover:text-gray-200"
-          >
-            <FaExternalLinkAlt size={16} />
-            {t("footer.picaxeCollection")}
-          </a>
+      <footer className="mx-auto mt-8 max-w-7xl border-t border-gray-200 px-4 pt-8 pb-6 dark:border-gray-800">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+          {/* Discover */}
+          <div>
+            <h5 className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+              {t("footer.discover")}
+            </h5>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  to="/collections"
+                  className="text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                >
+                  {t("footer.allCollections")}
+                </Link>
+              </li>
+              {COLLECTIONS.map((col) => (
+                <li key={col.slug}>
+                  <Link
+                    to={`/collections/${col.slug}`}
+                    className="text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    {t(col.nameKey)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h5 className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+              {t("footer.resources")}
+            </h5>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="https://github.com/explooosion/rtttl-hub"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                >
+                  <FaGithub size={14} />
+                  {t("footer.sourceCode")}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/explooosion/rtttl-hub/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                >
+                  <FaBug size={14} />
+                  {t("footer.reportIssue")}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <p className="mt-8 text-center text-xs text-gray-400 dark:text-gray-600">
+          {t("footer.copyright")}
+        </p>
       </footer>
     </div>
   );

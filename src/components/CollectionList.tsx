@@ -1,20 +1,15 @@
 import { useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
-import { FaClone, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useFilteredItems } from "@/stores/collection-store";
 import { TrackRow, LetterHeader } from "./TrackRow";
-import type { TrackRowAction } from "./TrackRow";
 import type { RtttlEntry } from "@/utils/rtttl-parser";
 import clsx from "clsx";
 
 const ITEMS_PER_PAGE = 50;
 
-interface CollectionListProps {
-  onDuplicate: (item: RtttlEntry) => void;
-}
-
-export function CollectionList({ onDuplicate }: CollectionListProps) {
+export function CollectionList() {
   const { t } = useTranslation();
   const items = useFilteredItems();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -58,15 +53,6 @@ export function CollectionList({ onDuplicate }: CollectionListProps) {
     [setSearchParams],
   );
 
-  const duplicateAction: TrackRowAction = useMemo(
-    () => ({
-      icon: <FaClone size={18} />,
-      title: t("actions.duplicate"),
-      onClick: onDuplicate,
-    }),
-    [t, onDuplicate],
-  );
-
   if (items.length === 0) {
     return (
       <div className="flex h-64 items-center justify-center text-gray-400 dark:text-gray-500">
@@ -95,13 +81,7 @@ export function CollectionList({ onDuplicate }: CollectionListProps) {
             return <LetterHeader key={`header-${row.letter}-${index}`} letter={row.letter} />;
           }
 
-          return (
-            <TrackRow
-              key={`item-${row.item.id}`}
-              item={row.item}
-              extraActions={[duplicateAction]}
-            />
-          );
+          return <TrackRow key={`item-${row.item.id}`} item={row.item} />;
         })}
       </div>
 
