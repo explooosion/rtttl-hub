@@ -34,7 +34,9 @@ interface CodeEditorProps {
   playerState: "idle" | "playing" | "paused";
   notesOnly?: boolean;
   minHeight?: string;
-  onChange: (value: string) => void;
+  maxHeight?: string;
+  readOnly?: boolean;
+  onChange?: (value: string) => void;
 }
 
 const baseTheme = EditorView.theme({
@@ -81,6 +83,8 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
     playerState,
     notesOnly = false,
     minHeight,
+    maxHeight,
+    readOnly = false,
     onChange,
   },
   ref,
@@ -124,7 +128,7 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
       if (update.docChanged) {
         const newValue = update.state.doc.toString();
         offsetsRef.current = parseRtttlOffsets(newValue);
-        onChangeRef.current(newValue);
+        onChange?.(newValue);
       }
     });
 
@@ -136,6 +140,7 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
         history(),
         keymap.of([...defaultKeymap, ...historyKeymap]),
         EditorView.lineWrapping,
+        ...(readOnly ? [EditorState.readOnly.of(true)] : []),
         langCompartment.of(syntaxHighlight ? langExtension : []),
         highlightCompartment.of(syntaxHighlight ? buildHighlightExtension(syntaxColors) : []),
         playbackHighlightExtension(),
@@ -143,6 +148,9 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
         updateListener,
         baseTheme,
         ...(minHeight ? [EditorView.theme({ ".cm-content": { minHeight } })] : []),
+        ...(maxHeight
+          ? [EditorView.theme({ ".cm-scroller": { maxHeight, overflowY: "auto" } })]
+          : []),
         themeCompartment.of(
           getEffectiveTheme(useThemeStore.getState().mode) === "dark" ? darkTheme : [],
         ),
@@ -212,11 +220,15 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
         view.dispatch({ effects: clearActiveNote.of(null) });
         return;
       }
+      const offset = offsetsRef.current[currentNoteIndex];
       view.dispatch({
-        effects: setActiveNote.of({
-          noteIndex: currentNoteIndex,
-          offsets: offsetsRef.current,
-        }),
+        effects: [
+          setActiveNote.of({
+            noteIndex: currentNoteIndex,
+            offsets: offsetsRef.current,
+          }),
+          ...(offset ? [EditorView.scrollIntoView(offset.from, { y: "center" })] : []),
+        ],
       });
     },
     [currentNoteIndex, playerState, playbackTracking],
