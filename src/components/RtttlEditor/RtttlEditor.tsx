@@ -10,7 +10,6 @@ import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { CodeEditor } from "./CodeEditor";
 import { RtttlToolbar } from "./RtttlToolbar";
 import { SyntaxColorPanel } from "./SyntaxColorPanel";
-import { StructuredMode } from "./StructuredMode";
 import { TrackTabs, EscOutputPanel } from "./MultiTrackPanel";
 import type { CodeEditorHandle } from "./CodeEditor";
 
@@ -35,6 +34,8 @@ export function RtttlEditorMain() {
   const stop = usePlayerStore((s) => s.stop);
   const currentNoteIndex = usePlayerStore((s) => s.currentNoteIndex);
   const totalNotes = usePlayerStore((s) => s.totalNotes);
+  const trackNoteIndices = usePlayerStore((s) => s.trackNoteIndices);
+  const trackTotalNotes = usePlayerStore((s) => s.trackTotalNotes);
   const seekTo = usePlayerStore((s) => s.seekTo);
 
   // Multi-track state
@@ -53,10 +54,8 @@ export function RtttlEditorMain() {
   const editorPlayerState = playerState === "stopped" ? "idle" : playerState;
 
   // Editor settings store
-  const mode = useEditorSettingsStore((s) => s.mode);
   const features = useEditorSettingsStore((s) => s.features);
   const syntaxColors = useEditorSettingsStore((s) => s.syntaxColors);
-  const setMode = useEditorSettingsStore((s) => s.setMode);
   const toggleFeature = useEditorSettingsStore((s) => s.toggleFeature);
 
   // Local UI state
@@ -187,7 +186,8 @@ export function RtttlEditorMain() {
                     <Waveform
                       code={trackCode}
                       isPlaying={isPlayingEdited}
-                      currentNoteIndex={currentNoteIndex}
+                      currentNoteIndex={trackNoteIndices[idx] ?? currentNoteIndex}
+                      totalNotes={trackTotalNotes[idx] ?? 0}
                       height={29}
                       barCount={25}
                       playedColor={TRACK_PLAYED_COLORS[idx]}
@@ -273,25 +273,6 @@ export function RtttlEditorMain() {
         </label>
       </div>
 
-      {/* Mode tabs */}
-      <div className="mb-3 flex gap-1 rounded-lg bg-gray-100 p-1 dark:bg-gray-800">
-        {(["raw", "structured"] as const).map((m) => (
-          <button
-            key={m}
-            type="button"
-            onClick={() => setMode(m)}
-            className={clsx(
-              "flex-1 rounded-md py-1 text-sm font-medium transition-colors",
-              mode === m
-                ? "bg-white text-gray-900 shadow-sm dark:bg-gray-700 dark:text-white"
-                : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200",
-            )}
-          >
-            {t(`editor.mode.${m}`, { defaultValue: m.charAt(0).toUpperCase() + m.slice(1) })}
-          </button>
-        ))}
-      </div>
-
       {/* Multi-track tabs — shown when 2+ tracks exist */}
       {isMultiTrack && editedTracks.length > 0 && (
         <TrackTabs
@@ -306,33 +287,18 @@ export function RtttlEditorMain() {
       )}
 
       {/* Editor area */}
-      {mode === "raw" ? (
-        <>
-          <RtttlToolbar onInsert={handleInsert} />
-          <CodeEditor
-            ref={codeEditorRef}
-            value={displayedCode}
-            placeholder={t("editor.placeholder")}
-            syntaxHighlight={features.syntaxHighlight}
-            playbackTracking={features.playbackTracking}
-            syntaxColors={syntaxColors}
-            currentNoteIndex={currentNoteIndex}
-            playerState={editorPlayerState}
-            onChange={handleTrackCodeChange}
-          />
-        </>
-      ) : (
-        <StructuredMode
-          ref={codeEditorRef}
-          value={displayedCode}
-          syntaxHighlight={features.syntaxHighlight}
-          playbackTracking={features.playbackTracking}
-          syntaxColors={syntaxColors}
-          currentNoteIndex={currentNoteIndex}
-          playerState={editorPlayerState}
-          onChange={handleTrackCodeChange}
-        />
-      )}
+      <RtttlToolbar onInsert={handleInsert} />
+      <CodeEditor
+        ref={codeEditorRef}
+        value={displayedCode}
+        placeholder={t("editor.placeholder")}
+        syntaxHighlight={features.syntaxHighlight}
+        playbackTracking={features.playbackTracking}
+        syntaxColors={syntaxColors}
+        currentNoteIndex={currentNoteIndex}
+        playerState={editorPlayerState}
+        onChange={handleTrackCodeChange}
+      />
 
       {/* Play controls */}
       <div className="mt-3 grid grid-cols-3 gap-2">

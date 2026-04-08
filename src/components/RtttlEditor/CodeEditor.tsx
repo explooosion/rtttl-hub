@@ -33,6 +33,7 @@ interface CodeEditorProps {
   currentNoteIndex: number;
   playerState: "idle" | "playing" | "paused";
   notesOnly?: boolean;
+  minHeight?: string;
   onChange: (value: string) => void;
 }
 
@@ -79,6 +80,7 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
     currentNoteIndex,
     playerState,
     notesOnly = false,
+    minHeight,
     onChange,
   },
   ref,
@@ -140,6 +142,7 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
         cmPlaceholder(placeholder),
         updateListener,
         baseTheme,
+        ...(minHeight ? [EditorView.theme({ ".cm-content": { minHeight } })] : []),
         themeCompartment.of(
           getEffectiveTheme(useThemeStore.getState().mode) === "dark" ? darkTheme : [],
         ),

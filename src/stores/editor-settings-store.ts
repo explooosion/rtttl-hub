@@ -1,8 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export type EditorMode = "raw" | "structured";
-
 export interface EditorFeatures {
   syntaxHighlight: boolean;
   playbackTracking: boolean;
@@ -27,12 +25,10 @@ export type SyntaxColorKey = keyof typeof DEFAULT_SYNTAX_COLORS;
 export type SyntaxColors = Record<SyntaxColorKey, string>;
 
 interface EditorSettingsState {
-  mode: EditorMode;
   features: EditorFeatures;
   syntaxColors: SyntaxColors;
   /** Restore point — set by "Save" action */
   savedColors: SyntaxColors;
-  setMode: (mode: EditorMode) => void;
   toggleFeature: (key: keyof EditorFeatures) => void;
   setSyntaxColor: (key: SyntaxColorKey, value: string) => void;
   saveColors: () => void;
@@ -43,14 +39,12 @@ interface EditorSettingsState {
 export const useEditorSettingsStore = create<EditorSettingsState>()(
   persist(
     (set) => ({
-      mode: "raw",
       features: {
-        syntaxHighlight: true,
+        syntaxHighlight: false,
         playbackTracking: true,
       },
       syntaxColors: { ...DEFAULT_SYNTAX_COLORS },
       savedColors: { ...DEFAULT_SYNTAX_COLORS },
-      setMode: (mode) => set({ mode }),
       toggleFeature: (key) =>
         set((state) => ({
           features: { ...state.features, [key]: !state.features[key] },
