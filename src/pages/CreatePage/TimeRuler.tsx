@@ -3,28 +3,63 @@ import { useMemo } from "react";
 interface TimeRulerProps {
   totalMs: number;
   timelineWidthPx: number;
+  pxPerSec: number;
 }
 
-function getTickInterval(totalSec: number): number {
-  if (totalSec <= 10) return 1;
-  if (totalSec <= 30) return 2;
-  if (totalSec <= 60) return 5;
-  if (totalSec <= 120) return 10;
+/** Major tick interval in seconds, based on pixels-per-second. */
+function getMajorInterval(pxPerSec: number): number {
+  // Keep at least 50px between labeled ticks
+  if (pxPerSec >= 400) return 0.5;
+  if (pxPerSec >= 160) return 1;
+  if (pxPerSec >= 80) return 2;
+  if (pxPerSec >= 30) return 5;
+  if (pxPerSec >= 12) return 10;
   return 30;
 }
 
-export function TimeRuler({ totalMs, timelineWidthPx }: TimeRulerProps) {
-  const totalSec = totalMs / 1000;
+/** Minor tick interval between major ticks (null = none). */
+function getMinorInterval(majorInterval: number): number | null {
+  if (majorInterval <= 0.5) return 0.1;
+  if (majorInterval <= 1) return 0.2;
+  if (majorInterval <= 2) return 0.5;
+  if (majorInterval <= 5) return 1;
+  return null;
+}
 
-  const ticks = useMemo<number[]>(() => {
+function formatSec(s: number): string {
+  // Show one decimal if not a whole number
+  return Number.isInteger(s) ? `${s}s` : `${s.toFixed(1)}s`;
+}
+
+export function TimeRuler({ totalMs, timelineWidthPx, pxPerSec }: TimeRulerProps) {
+  const totalSec = totalMs / 1000;
+  const majorInterval = getMajorInterval(pxPerSec);
+  const minorInterval = getMinorInterval(majorInterval);
+
+  const majorTicks = useMemo<number[]>(() => {
     if (totalSec <= 0) return [];
-    const interval = getTickInterval(totalSec);
     const result: number[] = [];
-    for (let s = 0; s <= totalSec; s += interval) {
-      result.push(s);
+    // Round to avoid floating-point drift
+    for (let s = 0; s <= totalSec + majorInterval * 0.01; s = +(s + majorInterval).toFixed(6)) {
+      if (s > totalSec + majorInterval * 0.01) break;
+      result.push(+s.toFixed(4));
     }
     return result;
-  }, [totalSec]);
+  }, [totalSec, majorInterval]);
+
+  const minorTicks = useMemo<number[]>(() => {
+    if (!minorInterval || totalSec <= 0) return [];
+    const result: number[] = [];
+    for (let s = 0; s <= totalSec + minorInterval * 0.01; s = +(s + minorInterval).toFixed(6)) {
+      const rounded = +s.toFixed(4);
+      // Skip positions that coincide with a major tick
+      const isMajor =
+        Math.abs(rounded % majorInterval) < minorInterval * 0.01 ||
+        Math.abs((rounded % majorInterval) - majorInterval) < minorInterval * 0.01;
+      if (!isMajor) result.push(rounded);
+    }
+    return result;
+  }, [totalSec, minorInterval, majorInterval]);
 
   if (totalMs <= 0) return null;
 
@@ -34,15 +69,24 @@ export function TimeRuler({ totalMs, timelineWidthPx }: TimeRulerProps) {
       <div className="sticky left-0 z-30 w-44 shrink-0 border-r border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900" />
       {/* Ruler at fixed pixel width matching the timeline canvas */}
       <div className="relative shrink-0" style={{ width: timelineWidthPx }}>
-        {ticks.map((sec) => (
+        {/* Minor ticks */}
+        {minorTicks.map((sec) => (
+          <div
+            key={`m${sec}`}
+            className="absolute top-0 w-px bg-gray-200 dark:bg-gray-700"
+            style={{ left: `${(sec / totalSec) * 100}%`, height: 5 }}
+          />
+        ))}
+        {/* Major ticks with labels */}
+        {majorTicks.map((sec) => (
           <div
             key={sec}
             className="absolute top-0 flex -translate-x-1/2 flex-col items-center"
             style={{ left: `${(sec / totalSec) * 100}%` }}
           >
-            <div className="h-2 w-px bg-gray-300 dark:bg-gray-600" />
+            <div className="h-2.5 w-px bg-gray-300 dark:bg-gray-600" />
             <span className="mt-0.5 text-[9px] leading-none text-gray-400 dark:text-gray-500">
-              {sec}s
+              {formatSec(sec)}
             </span>
           </div>
         ))}

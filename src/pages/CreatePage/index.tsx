@@ -7,10 +7,12 @@ import { usePlayerStore } from "@/stores/player-store";
 import { parseRtttl, getTotalDuration } from "@/utils/rtttl-parser";
 import type { RtttlCategory } from "@/utils/rtttl-parser";
 import type { RtttlEditorInputHandle } from "@/components/RtttlEditor/RtttlEditorInput";
+import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { DawHeader } from "./DawHeader";
 import { TransportToolbar } from "./TransportToolbar";
 import { TrackLane } from "./TrackLane";
 import { PropertiesPanel } from "./PropertiesPanel";
+import { StatusBar } from "./StatusBar";
 import { ImportDialog } from "./ImportDialog";
 import { loadDraft, saveDraft, clearDraft } from "./draft";
 import {
@@ -34,6 +36,8 @@ export function CreatePage() {
   const resume = usePlayerStore((s) => s.resume);
   const stop = usePlayerStore((s) => s.stop);
   const seekToMs = usePlayerStore((s) => s.seekToMs);
+  const trackMuted = usePlayerStore((s) => s.trackMuted);
+  const toggleMuteTrack = usePlayerStore((s) => s.toggleMuteTrack);
   const playerState = usePlayerStore((s) => s.playerState);
 
   /* ── Local state ── */
@@ -55,6 +59,8 @@ export function CreatePage() {
 
   const trackEditorRefs = useRef<(RtttlEditorInputHandle | null)[]>([]);
   const trackListRef = useRef<HTMLDivElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const [confirmRemoveIndex, setConfirmRemoveIndex] = useState<number | null>(null);
   const [guideMs, setGuideMs] = useState<number | null>(null);
   const [seekPositionMs, setSeekPositionMs] = useState(0);
   const [pxPerSec, setPxPerSec] = useState(PX_PER_SEC_DEFAULT);
@@ -220,6 +226,19 @@ export function CreatePage() {
     trackEditorRefs.current[focusedTrackIndex]?.insertText(text);
   }
 
+  /* ── New project ── */
+  function handleNew() {
+    stop();
+    clearDraft();
+    setName("");
+    setCode("");
+    setCategory("");
+    setErrors([]);
+    setTracks([""]);
+    setFocusedTrackIndex(0);
+    setExpandedTracks(new Set([0]));
+  }
+
   /* ── Playback ── */
   function handlePlayToggle() {
     if (playerState === "playing") {
@@ -379,11 +398,22 @@ export function CreatePage() {
         hasPlayableContent={hasPlayableContent}
         onPlayToggle={handlePlayToggle}
         onToolbarInsert={handleToolbarInsert}
-        onImportOpen={() => setImportOpen(true)}
+        onNew={handleNew}
+        onImport={() => setImportOpen(true)}
+        onNavigateHome={() => navigate("/")}
+        onFocusName={() => nameInputRef.current?.focus()}
+        onCreate={handleSubmit}
+        onDiscard={handleDiscard}
+        onAddTrack={handleAddTrack}
+        onRemoveFocusedTrack={() => setConfirmRemoveIndex(focusedTrackIndex)}
+        onToggleMuteFocusedTrack={() => toggleMuteTrack(focusedTrackIndex)}
+        canAddTrack={tracks.length < MAX_TRACKS}
+        canRemoveTrack={tracks.length > 1}
+        focusedTrackIsMuted={trackMuted[focusedTrackIndex] ?? false}
       />
 
       {/* Main area: track list (left) + properties panel (right) */}
-      <div className="flex flex-1 gap-3 overflow-hidden p-3">
+      <div className="flex flex-1 gap-4 overflow-hidden p-4">
         {/* Track list */}
         <div
           ref={trackListRef}
@@ -394,7 +424,11 @@ export function CreatePage() {
         >
           {/* Inner width driver — forces scrollWidth of the overflow-x-auto container */}
           <div className="relative" style={{ minWidth: `calc(11rem + ${timelineWidthPx}px)` }}>
-            <TimeRuler totalMs={maxTrackDurationMs} timelineWidthPx={timelineWidthPx} />
+            <TimeRuler
+              totalMs={maxTrackDurationMs}
+              timelineWidthPx={timelineWidthPx}
+              pxPerSec={pxPerSec}
+            />
 
             {/* Global playhead line — spans all tracks, aligned with TimeRuler */}
             {maxTrackDurationMs > 0 &&
@@ -415,7 +449,7 @@ export function CreatePage() {
               />
             )}
 
-            <div className="flex cursor-crosshair flex-col gap-2 py-2">
+            <div className="flex cursor-crosshair flex-col gap-3 py-3">
               {tracks.map((trackCode, idx) => (
                 <TrackLane
                   key={idx}
@@ -430,7 +464,7 @@ export function CreatePage() {
                   onFocus={() => setFocusedTrackIndex(idx)}
                   onToggleExpand={() => toggleTrackExpanded(idx)}
                   onChange={(val) => handleTrackCodeChange(idx, val)}
-                  onRemove={() => handleRemoveTrack(idx)}
+                  onRemove={() => setConfirmRemoveIndex(idx)}
                   editorRef={(handle) => {
                     trackEditorRefs.current[idx] = handle;
                   }}
@@ -458,20 +492,39 @@ export function CreatePage() {
         {/* Right: Properties */}
         <PropertiesPanel
           name={name}
+          nameInputRef={nameInputRef}
+          tracks={tracks}
           onNameChange={setName}
           category={category}
           onCategoryChange={setCategory}
-          hasDraft={hasDraft}
           errors={errors}
           onDiscard={handleDiscard}
           onSubmit={handleSubmit}
         />
       </div>
 
+      <StatusBar hasDraft={hasDraft} />
+
       <ImportDialog
         open={importOpen}
         onClose={() => setImportOpen(false)}
         onConfirm={handleImportConfirm}
+      />
+
+      <ConfirmDialog
+        isOpen={confirmRemoveIndex !== null}
+        title={t("editor.removeTrack", { defaultValue: "Remove Track" })}
+        message={t("editor.removeTrackConfirm", {
+          defaultValue: `Are you sure you want to remove Track ${(confirmRemoveIndex ?? 0) + 1}?`,
+          index: (confirmRemoveIndex ?? 0) + 1,
+        })}
+        confirmLabel={t("editor.removeTrack", { defaultValue: "Remove" })}
+        variant="danger"
+        onConfirm={() => {
+          if (confirmRemoveIndex !== null) handleRemoveTrack(confirmRemoveIndex);
+          setConfirmRemoveIndex(null);
+        }}
+        onCancel={() => setConfirmRemoveIndex(null)}
       />
     </div>
   );
