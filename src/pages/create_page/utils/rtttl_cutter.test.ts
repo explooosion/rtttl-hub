@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { trimRtttl, deleteRegionRtttl } from "./rtttl_cutter";
-import { parseRtttl, parseRtttlTimed } from "./rtttl_parser";
+import { parseRtttl, parseRtttlTimed } from "@/utils/rtttl_parser";
 
 // Helper: compute cumulative startMs for each note in a simple scale.
 // code = "Scale:d=4,o=5,b=120:c,d,e,f,g"

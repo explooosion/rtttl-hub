@@ -1,4 +1,4 @@
-import { parseRtttlTimed, parseRtttlOffsets } from "./rtttl_parser";
+import { parseRtttlTimed, parseRtttlOffsets } from "@/utils/rtttl_parser";
 
 /**
  * Returns the raw RTTTL header (everything up to and including the second colon).

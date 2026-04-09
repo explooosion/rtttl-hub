@@ -32,7 +32,7 @@ import { useTrackManager } from "./hooks/use_track_manager";
 import { usePlaybackLoop } from "./hooks/use_playback_loop";
 import { useTimelineInteraction } from "./hooks/use_timeline_interaction";
 import { useKeyboardShortcuts } from "./hooks/use_keyboard_shortcuts";
-import { trimRtttl, deleteRegionRtttl } from "@/utils/rtttl_cutter";
+import { trimRtttl, deleteRegionRtttl } from "./utils/rtttl_cutter";
 
 function nextProjectName(existingTitles: string[]): string {
   const lower = existingTitles.map((s) => s.toLowerCase());
