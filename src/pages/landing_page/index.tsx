@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -12,7 +12,7 @@ import { FEATURES } from "./landing_constants";
 export function LandingPage() {
   const { t } = useTranslation();
   const flyInRef = useInView();
-  const [ctaHovered, setCtaHovered] = useState(false);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
   const bgParallaxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export function LandingPage() {
           className="absolute inset-x-0 bg-linear-to-br from-indigo-700 via-purple-700 to-pink-600 will-change-transform"
           style={{ top: "-25%", bottom: "-25%" }}
         >
-          <HeroBannerAnimation boosted={ctaHovered} />
+          <HeroBannerAnimation targetRef={ctaRef} />
         </div>
         {/* Foreground content */}
         <div className="relative mx-auto max-w-7xl px-4 py-16 text-center lg:py-28">
@@ -46,10 +46,9 @@ export function LandingPage() {
             {t("landing.hero.subtitle")}
           </p>
           <Link
+            ref={ctaRef}
             to="/collections"
             className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3.5 text-base font-bold text-indigo-700 shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:bg-indigo-50 hover:shadow-2xl"
-            onMouseEnter={() => setCtaHovered(true)}
-            onMouseLeave={() => setCtaHovered(false)}
           >
             {t("landing.hero.cta")}
           </Link>

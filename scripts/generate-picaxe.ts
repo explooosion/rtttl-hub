@@ -56,7 +56,9 @@ function processTxt(fileName: string, content: string, category: string): Picaxe
   const name = artist ? fileTitle : rtttlName || fileTitle;
 
   const entry: PicaxeEntry = { name, sourceCategory: category, tracks: [code] };
-  if (artist) entry.artist = artist;
+  if (artist) {
+    entry.artist = artist;
+  }
   return entry;
 }
 
