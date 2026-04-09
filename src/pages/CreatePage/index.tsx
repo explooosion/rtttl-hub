@@ -23,6 +23,8 @@ import { PropertiesPanel } from "./PropertiesPanel";
 import { StatusBar } from "./StatusBar";
 import { ImportDialog } from "./ImportDialog";
 import { FavoriteImportDialog } from "./FavoriteImportDialog";
+import { CutDialog } from "./CutDialog";
+import type { CutMode } from "./CutDialog";
 import { loadDraft, saveDraft, clearDraft } from "./draft";
 import { MAX_TRACKS } from "./constants";
 import { TimeRuler } from "./TimeRuler";
@@ -30,6 +32,7 @@ import { useTrackManager } from "./useTrackManager";
 import { usePlaybackLoop } from "./usePlaybackLoop";
 import { useTimelineInteraction } from "./useTimelineInteraction";
 import { useKeyboardShortcuts } from "./useKeyboardShortcuts";
+import { trimRtttl, deleteRegionRtttl } from "@/utils/rtttl-cutter";
 
 function nextProjectName(existingTitles: string[]): string {
   const lower = existingTitles.map((s) => s.toLowerCase());
@@ -76,6 +79,7 @@ export function CreatePage() {
   /* ── Track manager hook ── */
   const {
     tracks,
+    setTracks: commitTracks,
     focusedTrackIndex,
     setFocusedTrackIndex,
     expandedTracks,
@@ -120,6 +124,7 @@ export function CreatePage() {
   const [playheadMs, setPlayheadMs] = useState(0);
   const [loopInMs, setLoopInMs] = useState<number | null>(null);
   const [loopOutMs, setLoopOutMs] = useState<number | null>(null);
+  const [cutDialogMode, setCutDialogMode] = useState<CutMode | null>(null);
 
   const {
     guideMs,
@@ -278,6 +283,44 @@ export function CreatePage() {
     setLoopOutMs(null);
   }
 
+  /* ── Cut (Trim / Delete Region) ── */
+  const canCutRegion = loopInMs !== null || loopOutMs !== null;
+
+  function applyCut(mode: CutMode, indices: number[]) {
+    const fn = mode === "trim" ? trimRtttl : deleteRegionRtttl;
+    const next = tracks.map((code, i) =>
+      indices.includes(i) ? fn(code, loopInMs, loopOutMs) : code,
+    );
+    commitTracks(next);
+  }
+
+  function handleTrimRegion() {
+    if (tracks.length <= 1) {
+      applyCut("trim", [0]);
+    } else {
+      setCutDialogMode("trim");
+    }
+  }
+
+  function handleDeleteRegion() {
+    if (tracks.length <= 1) {
+      applyCut("delete", [0]);
+    } else {
+      setCutDialogMode("delete");
+    }
+  }
+
+  function handleCutConfirm(selectedIndices: number[]) {
+    if (cutDialogMode !== null) {
+      applyCut(cutDialogMode, selectedIndices);
+    }
+    setCutDialogMode(null);
+  }
+
+  function handleCutCancel() {
+    setCutDialogMode(null);
+  }
+
   /* ── Playback ── */
   function handlePlayToggle() {
     if (playerState === "playing") {
@@ -401,6 +444,9 @@ export function CreatePage() {
         onSetLoopIn={handleSetLoopIn}
         onSetLoopOut={handleSetLoopOut}
         onClearLoop={handleClearLoop}
+        onTrimRegion={handleTrimRegion}
+        onDeleteRegion={handleDeleteRegion}
+        canCutRegion={canCutRegion}
         canAddTrack={tracks.length < MAX_TRACKS}
         canRemoveTrack={tracks.length > 1}
         focusedTrackIsMuted={trackMuted[focusedTrackIndex] ?? false}
@@ -615,6 +661,18 @@ export function CreatePage() {
           else _doDiscard();
         }}
         onCancel={() => setPendingAction(null)}
+      />
+
+      {/* Cut dialog — multi-track A-B trim / delete region */}
+      <CutDialog
+        mode={cutDialogMode ?? "trim"}
+        open={cutDialogMode !== null}
+        tracks={tracks}
+        trackColors={trackColors}
+        inMs={loopInMs}
+        outMs={loopOutMs}
+        onConfirm={handleCutConfirm}
+        onCancel={handleCutCancel}
       />
     </div>
   );

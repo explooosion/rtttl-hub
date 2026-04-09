@@ -25,6 +25,8 @@ import {
   FaMapMarkerAlt,
   FaHeart,
   FaInfoCircle,
+  FaCut,
+  FaEraser,
 } from "react-icons/fa";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { usePlayerStore } from "@/stores/player-store";
@@ -56,6 +58,8 @@ export interface MenuActions {
   onSetLoopIn: () => void;
   onSetLoopOut: () => void;
   onClearLoop: () => void;
+  onTrimRegion: () => void;
+  onDeleteRegion: () => void;
   canAddTrack: boolean;
   canRemoveTrack: boolean;
   focusedTrackIsMuted: boolean;
@@ -66,6 +70,7 @@ export interface MenuActions {
   hasEmptyTracks: boolean;
   allTracksMuted: boolean;
   anyTrackMuted: boolean;
+  canCutRegion: boolean;
 }
 
 interface TransportToolbarProps extends MenuActions {
@@ -317,6 +322,8 @@ export function TransportToolbar({
   onSetLoopIn,
   onSetLoopOut,
   onClearLoop,
+  onTrimRegion,
+  onDeleteRegion,
   canAddTrack,
   canRemoveTrack,
   focusedTrackIsMuted,
@@ -327,6 +334,7 @@ export function TransportToolbar({
   hasEmptyTracks,
   allTracksMuted,
   anyTrackMuted,
+  canCutRegion,
 }: TransportToolbarProps) {
   const { t } = useTranslation();
 
@@ -518,6 +526,21 @@ export function TransportToolbar({
       label: t("create.clearLoop", { defaultValue: "Clear A-B Loop" }),
       disabled: loopInMs === null && loopOutMs === null,
       onClick: onClearLoop,
+    },
+    { type: "separator" },
+    {
+      type: "action",
+      icon: <FaCut size={13} />,
+      label: t("create.trimRegion", { defaultValue: "Trim to Selection" }),
+      disabled: !canCutRegion,
+      onClick: onTrimRegion,
+    },
+    {
+      type: "action",
+      icon: <FaEraser size={13} />,
+      label: t("create.deleteRegion", { defaultValue: "Delete Selection" }),
+      disabled: !canCutRegion,
+      onClick: onDeleteRegion,
     },
   ];
 
@@ -805,6 +828,30 @@ export function TransportToolbar({
             <span>{t("create.clearLoop", { defaultValue: "Clear Loop" })}</span>
           </button>
         )}
+
+        <Separator />
+
+        {/* Cut: Trim / Delete Region */}
+        <button
+          type="button"
+          onClick={onTrimRegion}
+          disabled={!canCutRegion}
+          title={t("create.trimRegion", { defaultValue: "Trim to Selection" })}
+          className="flex h-7 items-center gap-1 rounded px-2 text-sm text-gray-500 hover:bg-indigo-50 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-30 dark:text-gray-400 dark:hover:bg-indigo-900/30 dark:hover:text-indigo-400"
+        >
+          <FaCut size={13} />
+          <span>{t("create.trimRegion", { defaultValue: "Trim" })}</span>
+        </button>
+        <button
+          type="button"
+          onClick={onDeleteRegion}
+          disabled={!canCutRegion}
+          title={t("create.deleteRegion", { defaultValue: "Delete Selection" })}
+          className="flex h-7 items-center gap-1 rounded px-2 text-sm text-gray-500 hover:bg-amber-50 hover:text-amber-600 disabled:cursor-not-allowed disabled:opacity-30 dark:text-gray-400 dark:hover:bg-amber-900/20 dark:hover:text-amber-400"
+        >
+          <FaEraser size={13} />
+          <span>{t("create.deleteRegion", { defaultValue: "Delete" })}</span>
+        </button>
       </div>
 
       <HelpDialog open={helpDialogOpen} onClose={() => setHelpDialogOpen(false)} />
