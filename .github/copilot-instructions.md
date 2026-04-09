@@ -62,6 +62,8 @@ Commit Messages: When performing any git commit, apply the rules defined in /.ag
 
 New Collections: When adding a new RTTTL collection to the platform, follow the checklist and decision framework in /.agents/skills/add-collection/SKILL.md. If any required information is missing, ask the user before proceeding.
 
+File Naming: When creating, renaming, or moving any source file, apply the rules defined in /.agents/skills/file-naming-convention/SKILL.md. All filenames must be lowercase snake_case.
+
 # Corporate Development & AI Safety Standards
 
 ## Security & Credential Management

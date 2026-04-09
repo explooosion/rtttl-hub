@@ -1,4 +1,4 @@
-import type { RtttlEntry } from "@/utils/rtttl-parser";
+import type { RtttlEntry } from "@/utils/rtttl_parser";
 
 export const MOCK_COMMUNITY_ITEMS: RtttlEntry[] = [
   {

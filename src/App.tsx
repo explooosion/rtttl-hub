@@ -1,21 +1,21 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { ScrollToTop } from "@/components/ScrollToTop";
-import { AppShell } from "@/components/AppShell";
-import { LandingPage } from "@/pages/LandingPage";
-import { CollectionsPage } from "@/pages/CollectionsPage";
-import { CollectionPage } from "@/pages/CollectionPage";
-import { FavoritesPageRoute } from "@/pages/FavoritesPageRoute";
-import { CreatorPage } from "@/pages/CreatorPage";
-import { TermsPage } from "@/pages/TermsPage";
-import { PrivacyPolicyPage } from "@/pages/PrivacyPolicyPage";
-import { CookiePolicyPage } from "@/pages/CookiePolicyPage";
-import { LoginPage } from "@/pages/LoginPage";
-import { RegisterPage } from "@/pages/RegisterPage";
-import { AccountPage } from "@/pages/AccountPage";
-import { ProfilePage } from "@/pages/ProfilePage";
-import { PasswordPage } from "@/pages/PasswordPage";
-import { CreatePage } from "@/pages/CreatePage";
+import { ThemeProvider } from "@/components/theme_provider";
+import { ScrollToTop } from "@/components/scroll_to_top";
+import { AppShell } from "@/components/app_shell";
+import { LandingPage } from "@/pages/landing_page";
+import { CollectionsPage } from "@/pages/collections_page";
+import { CollectionPage } from "@/pages/collection_page";
+import { FavoritesPageRoute } from "@/pages/favorites_page_route";
+import { CreatorPage } from "@/pages/creator_page";
+import { TermsPage } from "@/pages/terms_page";
+import { PrivacyPolicyPage } from "@/pages/privacy_policy_page";
+import { CookiePolicyPage } from "@/pages/cookie_policy_page";
+import { LoginPage } from "@/pages/login_page";
+import { RegisterPage } from "@/pages/register_page";
+import { AccountPage } from "@/pages/account_page";
+import { ProfilePage } from "@/pages/profile_page";
+import { PasswordPage } from "@/pages/password_page";
+import { CreatePage } from "@/pages/create_page";
 
 function App() {
   return (
