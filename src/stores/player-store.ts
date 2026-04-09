@@ -1,33 +1,33 @@
 import { create } from "zustand";
-import { RtttlPlayer } from "@/utils/rtttl-player";
-import { MultiTrackPlayer } from "@/utils/rtttl-multi-player";
-import type { PlayerState } from "@/utils/rtttl-player";
+import { ToneEngine } from "@/utils/tone-engine";
+import type { EngineState } from "@/utils/tone-engine";
 import type { RtttlEntry } from "@/utils/rtttl-parser";
 import { useListenedStore } from "./listened-store";
+
+/** Re-export so existing consumers that import PlayerState still work. */
+export type PlayerState = EngineState;
 
 interface PlayerStoreState {
   currentItem: RtttlEntry | null;
   playerState: PlayerState;
   currentNoteIndex: number;
   totalNotes: number;
-  /** Per-track note indices from multi-track playback. */
   trackNoteIndices: number[];
-  /** Per-track total note counts from multi-track playback. */
   trackTotalNotes: number[];
-  /** Per-track mute state. */
   trackMuted: boolean[];
   editedCode: string;
-  /** Multi-track codes (one per motor). Empty array = single-track mode. */
   editedTracks: string[];
-  /** Which track tab is active in the editor (0-based). */
   activeTrackIndex: number;
-  player: RtttlPlayer;
-  multiPlayer: MultiTrackPlayer;
+  engine: ToneEngine;
+  /** @deprecated kept for backward compat — returns the same engine instance */
+  player: ToneEngine;
+  /** @deprecated kept for backward compat — returns the same engine instance */
+  multiPlayer: ToneEngine;
   isMultiTrack: boolean;
   setCurrentItem: (item: RtttlEntry) => void;
   playItem: (item: RtttlEntry) => void;
-  playCode: (code: string) => void;
-  playTracks: (tracks: string[]) => void;
+  playCode: (code: string, startMs?: number) => void;
+  playTracks: (tracks: string[], startMs?: number) => void;
   pause: () => void;
   resume: () => void;
   stop: () => void;
@@ -40,31 +40,21 @@ interface PlayerStoreState {
   addTrack: () => void;
   removeTrack: (index: number) => void;
   toggleMuteTrack: (index: number) => void;
-  /** Play a single track from the current multi-track item without disrupting editedTracks. */
+  resetMutedTracks: () => void;
   playSoloTrack: (trackIndex: number) => void;
 }
 
-const player = new RtttlPlayer();
-const multiPlayer = new MultiTrackPlayer();
+const engine = new ToneEngine();
 
 export const usePlayerStore = create<PlayerStoreState>((set, get) => {
-  player.setCallback((state) => {
+  engine.setCallback((payload) => {
     set({
-      playerState: state.state,
-      currentNoteIndex: state.currentNoteIndex,
-      totalNotes: state.totalNotes,
-    });
-  });
-
-  multiPlayer.setCallback((state) => {
-    set({
-      playerState: state.state === "idle" ? "idle" : state.state,
-      currentNoteIndex: state.globalNoteIndex,
-      totalNotes: state.globalTotalNotes,
-      trackNoteIndices: state.tracks.map((t) => t.currentNoteIndex),
-      trackTotalNotes: state.tracks.map((t) => t.totalNotes),
-      // Don't overwrite mute state when stop() empties tracks array
-      ...(state.tracks.length > 0 ? { trackMuted: state.tracks.map((t) => t.muted) } : {}),
+      playerState: payload.state,
+      currentNoteIndex: payload.currentNoteIndex,
+      totalNotes: payload.totalNotes,
+      trackNoteIndices: payload.trackNoteIndices,
+      trackTotalNotes: payload.trackTotalNotes,
+      ...(payload.trackMuted.length > 0 ? { trackMuted: payload.trackMuted } : {}),
     });
   });
 
@@ -80,8 +70,9 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
     editedTracks: [],
     activeTrackIndex: 0,
     isMultiTrack: false,
-    player,
-    multiPlayer,
+    engine,
+    player: engine,
+    multiPlayer: engine,
     setCurrentItem: (item) => {
       const tracks = item.tracks ?? [];
       const isMulti = tracks.length > 1;
@@ -105,63 +96,41 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
       });
       useListenedStore.getState().markListened(item.id);
       if (isMulti) {
-        player.stop();
-        multiPlayer.play(tracks);
+        engine.play(tracks);
       } else {
-        multiPlayer.stop();
-        player.play(item.code);
+        engine.play([item.code]);
       }
     },
-    playCode: (code) => {
+    playCode: (code, startMs) => {
       const currentItem = get().currentItem;
       if (currentItem) {
         useListenedStore.getState().markListened(currentItem.id);
       }
-      multiPlayer.stop();
       set({ isMultiTrack: false });
-      player.play(code);
+      engine.play([code], undefined, startMs);
     },
-    playTracks: (tracks) => {
+    playTracks: (tracks, startMs) => {
       const currentItem = get().currentItem;
       if (currentItem) {
         useListenedStore.getState().markListened(currentItem.id);
       }
-      player.stop();
       set({ isMultiTrack: true, editedTracks: tracks });
-      multiPlayer.play(tracks, get().trackMuted);
+      engine.play(tracks, get().trackMuted, startMs);
     },
     pause: () => {
-      if (get().isMultiTrack) {
-        multiPlayer.pause();
-      } else {
-        player.pause();
-      }
+      engine.pause();
     },
     resume: () => {
-      if (get().isMultiTrack) {
-        multiPlayer.resume();
-      } else {
-        player.resume();
-      }
+      engine.resume();
     },
     stop: () => {
-      if (get().isMultiTrack) {
-        multiPlayer.stop();
-      } else {
-        player.stop();
-      }
+      engine.stop();
     },
     seekTo: (noteIndex) => {
-      if (get().isMultiTrack) {
-        multiPlayer.seekTo(noteIndex);
-      } else {
-        player.seekTo(noteIndex);
-      }
+      engine.seekTo(noteIndex);
     },
     seekToMs: (ms) => {
-      if (get().isMultiTrack) {
-        multiPlayer.seekToMs(ms);
-      }
+      engine.seekToMs(ms);
     },
     setEditedCode: (editedCode) => set({ editedCode }),
     setEditedTracks: (editedTracks) => set({ editedTracks }),
@@ -186,7 +155,6 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
       }
       tracks.splice(index, 1);
       const prev = get().activeTrackIndex;
-      // If removing the active track or a track before it, fall back to All (-1)
       const newActive = prev === -1 ? -1 : prev >= index ? -1 : prev;
       set({ editedTracks: tracks, activeTrackIndex: newActive });
     },
@@ -197,22 +165,23 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
       if (currentItem) {
         useListenedStore.getState().markListened(currentItem.id);
       }
-      player.stop();
-      // Play via multiPlayer so isMultiTrack stays true and TrackTabs remain visible
-      multiPlayer.play([code]);
+      engine.play([code]);
     },
     toggleMuteTrack: (index) => {
       if (get().playerState !== "idle") {
-        // Playing/paused: delegate to engine; notify() callback will sync trackMuted
-        multiPlayer.toggleMuteTrack(index);
+        engine.toggleMuteTrack(index);
       } else {
-        // Idle: engine has no tracks — update the store directly as a pre-play flag
         const prev = get().trackMuted;
         const next = [...prev];
-        while (next.length <= index) next.push(false);
+        while (next.length <= index) {
+          next.push(false);
+        }
         next[index] = !next[index];
         set({ trackMuted: next });
       }
+    },
+    resetMutedTracks: () => {
+      set({ trackMuted: [] });
     },
   };
 });

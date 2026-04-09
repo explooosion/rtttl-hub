@@ -26,6 +26,17 @@ export class MultiTrackPlayer {
   private state: MultiPlayerState = "idle";
   private callback: MultiPlayerCallback | null = null;
 
+  /** Index of the longest-duration track, used as clock source. */
+  private primaryTrackIdx = 0;
+  /** cumulativeMs[i] = sum of note durations 0..i-1 for the primary track. */
+  private primaryCumulativeMs: number[] = [0];
+  /** Wall-clock time when the current primary-track note's setTimeout actually fired. */
+  private noteAnchorWallMs = 0;
+  /** primaryCumulativeMs value at the current primary-track note index. */
+  private noteAnchorMs = 0;
+  /** Frozen elapsed ms while paused/stopped; null while playing. */
+  private frozenElapsedMs: number | null = null;
+
   setCallback(cb: MultiPlayerCallback) {
     this.callback = cb;
   }
@@ -47,18 +58,12 @@ export class MultiTrackPlayer {
     });
   }
 
-  /** Primary track = the one with the most notes (used for global progress). */
+  /** Primary track = the one with the longest total DURATION (used as clock source). */
   private getPrimaryTrack(): TrackState | null {
     if (this.tracks.length === 0) {
       return null;
     }
-    let best = this.tracks[0];
-    for (let i = 1; i < this.tracks.length; i++) {
-      if (this.tracks[i].notes.length > best.notes.length) {
-        best = this.tracks[i];
-      }
-    }
-    return best;
+    return this.tracks[this.primaryTrackIdx] ?? this.tracks[0];
   }
 
   private ensureContext(): AudioContext {
@@ -93,6 +98,29 @@ export class MultiTrackPlayer {
     this.state = "playing";
     this.notify();
 
+    // Determine the longest-duration track as the timing source.
+    this.primaryTrackIdx = 0;
+    let maxDur = 0;
+    for (let i = 0; i < this.tracks.length; i++) {
+      const dur = this.tracks[i].notes.reduce((s, n) => s + n.durationMs, 0);
+      if (dur > maxDur) {
+        maxDur = dur;
+        this.primaryTrackIdx = i;
+      }
+    }
+    // Precompute cumulative note start times for the primary track.
+    const primaryNotes = this.tracks[this.primaryTrackIdx]?.notes ?? [];
+    const cum: number[] = [0];
+    let cumAcc = 0;
+    for (const n of primaryNotes) {
+      cumAcc += n.durationMs;
+      cum.push(cumAcc);
+    }
+    this.primaryCumulativeMs = cum;
+    this.noteAnchorMs = 0;
+    this.noteAnchorWallMs = Date.now();
+    this.frozenElapsedMs = null;
+
     for (let i = 0; i < this.tracks.length; i++) {
       this.playTrackNote(i, volume);
     }
@@ -102,6 +130,12 @@ export class MultiTrackPlayer {
     const track = this.tracks[trackIdx];
     if (!track || this.state !== "playing") {
       return;
+    }
+
+    // Anchor timing to this note's nominal start time whenever the primary track advances.
+    if (trackIdx === this.primaryTrackIdx) {
+      this.noteAnchorMs = this.primaryCumulativeMs[track.currentNoteIndex] ?? 0;
+      this.noteAnchorWallMs = Date.now();
     }
 
     if (track.currentNoteIndex >= track.notes.length) {
@@ -180,6 +214,7 @@ export class MultiTrackPlayer {
     if (this.state !== "playing") {
       return;
     }
+    this.frozenElapsedMs = this.getElapsedMs();
     this.state = "paused";
     for (const track of this.tracks) {
       if (track.timeoutId) {
@@ -195,6 +230,10 @@ export class MultiTrackPlayer {
     if (this.state !== "paused") {
       return;
     }
+    // Restore the anchor so getElapsedMs() continues from the frozen position.
+    this.noteAnchorMs = this.frozenElapsedMs ?? this.noteAnchorMs;
+    this.noteAnchorWallMs = Date.now();
+    this.frozenElapsedMs = null;
     this.state = "playing";
     const volume = 0.12 / Math.max(1, this.tracks.length);
     this.notify();
@@ -214,6 +253,10 @@ export class MultiTrackPlayer {
       this.cleanupTrackOscillator(track);
     }
     this.tracks = [];
+    this.primaryCumulativeMs = [0];
+    this.noteAnchorMs = 0;
+    this.noteAnchorWallMs = 0;
+    this.frozenElapsedMs = 0;
     this.state = "idle";
     this.notify();
   }
@@ -253,7 +296,15 @@ export class MultiTrackPlayer {
       track.finished = track.currentNoteIndex >= track.notes.length;
     }
 
+    const primaryTrack = this.getPrimaryTrack();
+    const anchorIdx = primaryTrack?.currentNoteIndex ?? 0;
+    const seekAnchorMs =
+      this.primaryCumulativeMs[Math.min(anchorIdx, this.primaryCumulativeMs.length - 1)] ?? 0;
+    this.noteAnchorMs = seekAnchorMs;
+    this.noteAnchorWallMs = Date.now();
+
     if (wasPlaying) {
+      this.frozenElapsedMs = null;
       this.state = "playing";
       const volume = 0.12 / Math.max(1, this.tracks.length);
       this.notify();
@@ -263,6 +314,7 @@ export class MultiTrackPlayer {
         }
       }
     } else {
+      this.frozenElapsedMs = seekAnchorMs;
       this.state = "paused";
       this.notify();
     }
@@ -300,8 +352,29 @@ export class MultiTrackPlayer {
         }
       }
     } else {
+      // Freeze at seek target so getElapsedMs() returns correct position.
+      const primaryTrack = this.getPrimaryTrack();
+      const primaryIdx = primaryTrack?.currentNoteIndex ?? 0;
+      const seekAnchor =
+        this.primaryCumulativeMs[Math.min(primaryIdx, this.primaryCumulativeMs.length - 1)] ??
+        targetMs;
+      this.noteAnchorMs = seekAnchor;
+      this.frozenElapsedMs = seekAnchor;
       this.notify();
     }
+  }
+
+  /**
+   * Returns playback position in ms anchored to audio note boundaries.
+   * Between note advances the value interpolates with the wall clock so the
+   * visual is smooth. Any accumulated setTimeout drift is corrected at each
+   * note boundary, keeping audio and visual permanently in sync.
+   */
+  getElapsedMs(): number {
+    if (this.frozenElapsedMs !== null) {
+      return this.frozenElapsedMs;
+    }
+    return this.noteAnchorMs + (Date.now() - this.noteAnchorWallMs);
   }
 
   toggleMuteTrack(trackIdx: number) {

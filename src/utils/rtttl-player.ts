@@ -19,6 +19,15 @@ export class RtttlPlayer {
   private gainNode: GainNode | null = null;
   private oscillator: OscillatorNode | null = null;
 
+  /** cumulativeMs[i] = sum of durationMs for notes 0 .. i-1 (i.e. the start time of note i). */
+  private cumulativeMs: number[] = [0];
+  /** Wall-clock time (Date.now()) when the current note's setTimeout actually fired. */
+  private noteAnchorWallMs = 0;
+  /** primaryCumulativeMs value at the current note index. */
+  private noteAnchorMs = 0;
+  /** Frozen elapsed ms while paused; null while playing. */
+  private frozenElapsedMs: number | null = null;
+
   setCallback(cb: PlayerCallback) {
     this.callback = cb;
   }
@@ -47,7 +56,18 @@ export class RtttlPlayer {
       return;
     }
     this.notes = parsed.notes;
+    // Precompute cumulative start times so getElapsedMs() can anchor to note boundaries.
+    const cum: number[] = [0];
+    let acc = 0;
+    for (const n of this.notes) {
+      acc += n.durationMs;
+      cum.push(acc);
+    }
+    this.cumulativeMs = cum;
     this.currentNoteIndex = 0;
+    this.noteAnchorMs = 0;
+    this.noteAnchorWallMs = Date.now();
+    this.frozenElapsedMs = null;
     this.state = "playing";
     this.notify();
     this.playNextNote();
@@ -80,37 +100,28 @@ export class RtttlPlayer {
       // Smooth envelope to avoid clicks
       const attackTime = Math.min(0.01, note.durationMs / 1000 / 4);
       const releaseTime = Math.min(0.02, note.durationMs / 1000 / 4);
-      const sustainTime =
-        note.durationMs / 1000 - attackTime - releaseTime;
+      const sustainTime = note.durationMs / 1000 - attackTime - releaseTime;
 
       this.gainNode.gain.setValueAtTime(0, ctx.currentTime);
-      this.gainNode.gain.linearRampToValueAtTime(
-        0.15,
-        ctx.currentTime + attackTime,
-      );
+      this.gainNode.gain.linearRampToValueAtTime(0.15, ctx.currentTime + attackTime);
       if (sustainTime > 0) {
-        this.gainNode.gain.setValueAtTime(
-          0.15,
-          ctx.currentTime + attackTime + sustainTime,
-        );
+        this.gainNode.gain.setValueAtTime(0.15, ctx.currentTime + attackTime + sustainTime);
       }
-      this.gainNode.gain.linearRampToValueAtTime(
-        0,
-        ctx.currentTime + note.durationMs / 1000,
-      );
+      this.gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + note.durationMs / 1000);
 
       this.oscillator = ctx.createOscillator();
       this.oscillator.type = "square";
-      this.oscillator.frequency.setValueAtTime(
-        note.frequency,
-        ctx.currentTime,
-      );
+      this.oscillator.frequency.setValueAtTime(note.frequency, ctx.currentTime);
       this.oscillator.connect(this.gainNode);
       this.oscillator.start();
       this.oscillator.stop(ctx.currentTime + note.durationMs / 1000);
     }
 
     this.notify();
+
+    // Anchor timing to this note's nominal start time so visual stays in sync with audio.
+    this.noteAnchorMs = this.cumulativeMs[this.currentNoteIndex] ?? 0;
+    this.noteAnchorWallMs = Date.now();
 
     this.timeoutId = setTimeout(() => {
       this.currentNoteIndex++;
@@ -141,6 +152,7 @@ export class RtttlPlayer {
     if (this.state !== "playing") {
       return;
     }
+    this.frozenElapsedMs = this.getElapsedMs();
     this.state = "paused";
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
@@ -154,6 +166,10 @@ export class RtttlPlayer {
     if (this.state !== "paused") {
       return;
     }
+    // Restore anchor so getElapsedMs() continues from where we paused.
+    this.noteAnchorMs = this.frozenElapsedMs ?? this.noteAnchorMs;
+    this.noteAnchorWallMs = Date.now();
+    this.frozenElapsedMs = null;
     this.state = "playing";
     this.notify();
     this.playNextNote();
@@ -168,6 +184,10 @@ export class RtttlPlayer {
     this.state = "idle";
     this.currentNoteIndex = 0;
     this.notes = [];
+    this.cumulativeMs = [0];
+    this.noteAnchorMs = 0;
+    this.noteAnchorWallMs = 0;
+    this.frozenElapsedMs = 0;
     this.notify();
   }
 
@@ -182,15 +202,35 @@ export class RtttlPlayer {
     }
     this.cleanupOscillator();
     this.currentNoteIndex = clamped;
+    const seekMs = this.cumulativeMs[clamped] ?? 0;
+    this.noteAnchorMs = seekMs;
+    this.noteAnchorWallMs = Date.now();
 
     if (wasPlaying) {
+      this.frozenElapsedMs = null;
       this.state = "playing";
       this.notify();
       this.playNextNote();
     } else {
+      this.frozenElapsedMs = seekMs;
       this.state = "paused";
       this.notify();
     }
+  }
+
+  /**
+   * Returns the current playback position in milliseconds, anchored to the
+   * audio player's note boundaries.  Between note changes the value
+   * interpolates using the wall clock so the visual stays smooth.
+   * Calling this instead of a raw Date.now() calculation eliminates the
+   * accumulated setTimeout drift that caused the white line to run ahead of
+   * (or behind) the actual audio.
+   */
+  getElapsedMs(): number {
+    if (this.frozenElapsedMs !== null) {
+      return this.frozenElapsedMs;
+    }
+    return this.noteAnchorMs + (Date.now() - this.noteAnchorWallMs);
   }
 
   getState(): PlayerState {
