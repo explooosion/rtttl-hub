@@ -142,9 +142,11 @@ Work through each item in order:
 
 ### 4.6 README.md
 
-- [ ] Add entry under **Data Sources** section:
+The **Data Sources** section in `README.md` is the canonical record of every collection integrated into the platform. Every new collection **must** be appended here — this section is intentionally kept up to date as the library grows.
+
+- [ ] Add a bullet entry under **Data Sources** in `README.md`:
   ```md
-  The **{Display Name}** collection is sourced from [Name](url). {One sentence on license/usage.}
+  - **{Display Name}** — Sourced from [{Source Name}](url). {One sentence on license/usage.}
   ```
 
 ### 4.7 Generator script (if applicable)
