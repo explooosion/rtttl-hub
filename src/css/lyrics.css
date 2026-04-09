@@ -1,0 +1,28 @@
+/* ─────────────────────────────────────────────────────────────
+   lyrics.css — KTV Lyrics Panel styles
+   Highlight and playback state classes for the LyricsPanel
+   component's per-note spans.
+   ───────────────────────────────────────────────────────────── */
+
+.lyrics-note.lyrics-active {
+  background: rgba(99, 102, 241, 0.25);
+  color: rgb(79, 70, 229);
+  font-weight: 600;
+  outline: 1px solid rgba(99, 102, 241, 0.5);
+}
+
+.lyrics-note.lyrics-played {
+  color: rgb(99, 102, 241);
+  opacity: 0.65;
+}
+
+.dark .lyrics-note.lyrics-active {
+  background: rgba(129, 140, 248, 0.3);
+  color: rgb(165, 180, 252);
+  outline: 1px solid rgba(129, 140, 248, 0.5);
+}
+
+.dark .lyrics-note.lyrics-played {
+  color: rgb(129, 140, 248);
+  opacity: 0.6;
+}

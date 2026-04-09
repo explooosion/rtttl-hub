@@ -59,7 +59,7 @@ const baseTheme = EditorView.theme({
   },
   ".cm-rtttl-active-note": {
     backgroundColor: "rgba(99,102,241,0.25)",
-    borderRadius: "3px",
+    borderRadius: "0",
     outline: "1px solid rgba(99,102,241,0.5)",
   },
 });

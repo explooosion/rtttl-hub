@@ -1,0 +1,20 @@
+/* ─────────────────────────────────────────────────────────────
+   editor.css — CodeMirror RTTTL editor overrides
+   Styles for the embedded CodeMirror instance that cannot be
+   expressed via Tailwind utilities (vendor-specific selectors).
+   ───────────────────────────────────────────────────────────── */
+
+.cm-editor {
+  outline: none !important;
+}
+
+/* ── Active note highlight ───────────────────────────────────── */
+.cm-rtttl-active-note {
+  background: rgba(99, 102, 241, 0.2);
+  outline: 1px solid rgba(99, 102, 241, 0.4);
+}
+
+.dark .cm-rtttl-active-note {
+  background: rgba(129, 140, 248, 0.28);
+  outline: 1px solid rgba(129, 140, 248, 0.5);
+}

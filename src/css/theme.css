@@ -1,0 +1,28 @@
+/* ─────────────────────────────────────────────────────────────
+   theme.css — Design tokens
+   @theme overrides for Tailwind CSS v4.
+   This is the single source of truth for global design decisions.
+   To change the design system, edit the variables here.
+   ───────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Fonts */
+  --font-brand: "Orbitron", ui-monospace, monospace;
+  --font-sans: "Noto Sans TC", "Noto Sans SC", "Noto Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* ── Border Radius ───────────────────────────────────────────
+     Design decision: sharp / angular aesthetic.
+     All rounded-* utilities resolve to 0px.
+     To restore rounded corners on a specific element, use an
+     arbitrary value instead, e.g. rounded-[4px].
+  ─────────────────────────────────────────────────────────────*/
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-full: 0px;
+}
