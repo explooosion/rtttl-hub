@@ -145,7 +145,7 @@ export function AppShell() {
             <Link
               to="/create"
               className={clsx(
-                "whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
+                "whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-brand font-bold tracking-wider transition-colors",
                 isCreateActive
                   ? "bg-indigo-700 text-white"
                   : "bg-indigo-600 text-white hover:bg-indigo-700",

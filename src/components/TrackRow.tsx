@@ -5,17 +5,11 @@ import { FaPlay, FaPause, FaRegCopy, FaCheck } from "react-icons/fa";
 import { usePlayerStore } from "@/stores/player-store";
 import { useListenedStore } from "@/stores/listened-store";
 import { FavoriteButton } from "./FavoriteButton";
-import { Waveform } from "./Waveform";
+import { CanvasWaveform as Waveform } from "./CanvasWaveform";
+import { MultiTrackWaveform } from "./MultiTrackWaveform";
 import { copyToClipboard } from "@/utils/clipboard";
 import type { RtttlEntry } from "@/utils/rtttl-parser";
 import clsx from "clsx";
-
-const TRACK_PLAYED_COLORS = [
-  "rgb(99, 102, 241)",
-  "rgb(16, 185, 129)",
-  "rgb(245, 158, 11)",
-  "rgb(244, 63, 94)",
-] as const;
 
 export interface TrackRowAction {
   icon: React.ReactNode;
@@ -102,33 +96,7 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
       {/* Waveform */}
       <div className="hidden min-w-0 flex-1 sm:block" onClick={(e) => e.stopPropagation()}>
         {item.tracks && item.tracks.length > 1 ? (
-          <div className="grid grid-cols-2 gap-1" style={{ height: 36 }}>
-            {([0, 1, 2, 3] as const).map((idx) => {
-              const trackCode = item.tracks![idx] ?? "";
-              return (
-                <div
-                  key={idx}
-                  className={clsx(
-                    "overflow-hidden rounded",
-                    trackCode.trim() ? "" : "bg-gray-100 dark:bg-gray-800",
-                  )}
-                >
-                  {trackCode.trim() && (
-                    <Waveform
-                      code={trackCode}
-                      isPlaying={
-                        isActive && (playerState === "playing" || playerState === "paused")
-                      }
-                      currentNoteIndex={isActive ? currentNoteIndex : 0}
-                      height={16}
-                      barCount={20}
-                      playedColor={TRACK_PLAYED_COLORS[idx]}
-                    />
-                  )}
-                </div>
-              );
-            })}
-          </div>
+          <MultiTrackWaveform tracks={item.tracks} isActive={isActive} height={16} barCount={20} />
         ) : (
           <Waveform
             code={item.code}
@@ -141,8 +109,6 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
           />
         )}
       </div>
-
-      {/* Action buttons */}
       <div className="flex shrink-0 items-center gap-2">
         <FavoriteButton itemId={item.id} size={18} />
         <button

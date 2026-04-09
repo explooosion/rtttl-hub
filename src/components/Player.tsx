@@ -2,7 +2,7 @@ import { FaPlay, FaPause, FaStop } from "react-icons/fa";
 import { usePlayerStore } from "@/stores/player-store";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
-import { Waveform } from "./Waveform";
+import { CanvasWaveform as Waveform } from "./CanvasWaveform";
 
 export function Player() {
   const { t } = useTranslation();

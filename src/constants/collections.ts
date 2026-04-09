@@ -21,19 +21,19 @@ export const COLLECTIONS: CollectionDef[] = [
     group: "community",
   },
   {
-    slug: "picaxe",
-    nameKey: "collections.picaxe.name",
-    descriptionKey: "collections.picaxe.description",
-    icon: FaDatabase,
-    source: "https://picaxe.com/rtttl-ringtones-for-tune-command/",
-    group: "library",
-  },
-  {
     slug: "esc-configurator",
     nameKey: "collections.escConfigurator.name",
     descriptionKey: "collections.escConfigurator.description",
     icon: FaMicrochip,
     source: "https://esc-configurator.com/",
+    group: "library",
+  },
+  {
+    slug: "picaxe",
+    nameKey: "collections.picaxe.name",
+    descriptionKey: "collections.picaxe.description",
+    icon: FaDatabase,
+    source: "https://picaxe.com/rtttl-ringtones-for-tune-command/",
     group: "library",
   },
 ];

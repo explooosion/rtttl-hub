@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaRegCopy, FaCheck } from "react-icons/fa";
 import { usePlayerStore } from "@/stores/player-store";
+import { useEditorSettingsStore } from "@/stores/editor-settings-store";
 import { copyToClipboard } from "@/utils/clipboard";
 import { CodeEditor } from "@/components/RtttlEditor/CodeEditor";
-import { DEFAULT_SYNTAX_COLORS } from "@/stores/editor-settings-store";
 import clsx from "clsx";
 
 const TRACK_DOT_CLASSES = [
@@ -75,6 +75,8 @@ export function CodePreviewPanel() {
   const currentNoteIndex = usePlayerStore((s) => s.currentNoteIndex);
   const playerState = usePlayerStore((s) => s.playerState);
   const trackNoteIndices = usePlayerStore((s) => s.trackNoteIndices);
+  const syntaxHighlight = useEditorSettingsStore((s) => s.features.syntaxHighlight);
+  const syntaxColors = useEditorSettingsStore((s) => s.syntaxColors);
 
   // Coerce "stopped" → "idle" for CodeEditor's narrower prop type
   const editorPlayerState = playerState === "stopped" ? "idle" : playerState;
@@ -133,9 +135,10 @@ export function CodePreviewPanel() {
               </div>
               <CodeEditor
                 value={trackCode || ""}
-                syntaxHighlight={false}
+                syntaxHighlight={syntaxHighlight}
                 playbackTracking={true}
-                syntaxColors={DEFAULT_SYNTAX_COLORS}
+                autoScroll={true}
+                syntaxColors={syntaxColors}
                 currentNoteIndex={trackNoteIndices[idx] ?? currentNoteIndex}
                 playerState={editorPlayerState}
                 minHeight="60px"
@@ -153,9 +156,10 @@ export function CodePreviewPanel() {
           </div>
           <CodeEditor
             value={currentItem.code || ""}
-            syntaxHighlight={false}
+            syntaxHighlight={syntaxHighlight}
             playbackTracking={true}
-            syntaxColors={DEFAULT_SYNTAX_COLORS}
+            autoScroll={true}
+            syntaxColors={syntaxColors}
             currentNoteIndex={currentNoteIndex}
             playerState={editorPlayerState}
             minHeight="80px"
