@@ -11,7 +11,7 @@ interface ThemeState {
 export const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
-      mode: "light",
+      mode: "system",
       setMode: (mode) => set({ mode }),
     }),
     {
@@ -22,9 +22,7 @@ export const useThemeStore = create<ThemeState>()(
 
 export function getEffectiveTheme(mode: ThemeMode): "light" | "dark" {
   if (mode === "system") {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
   return mode;
 }
