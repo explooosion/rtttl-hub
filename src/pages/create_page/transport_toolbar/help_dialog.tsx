@@ -85,9 +85,6 @@ export function HelpDialog({ open, onClose }: { open: boolean; onClose: () => vo
           <DialogTitle className="text-base font-semibold text-gray-800 dark:text-white">
             {t("editor.toolbar.helpTitle", { defaultValue: "Studio Guide" })}
           </DialogTitle>
-          <p className="mt-1 font-mono text-xs text-gray-400 dark:text-gray-500">
-            name : d=4, o=5, b=120 : c, e, g
-          </p>
 
           <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
             {/* Column 1 — Toolbar */}
