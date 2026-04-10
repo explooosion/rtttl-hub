@@ -15,8 +15,8 @@ interface PropertiesPanelProps {
   tracks: string[];
   focusedTrackIndex: number;
   onNameChange: (value: string) => void;
-  category: RtttlCategory | "";
-  onCategoryChange: (value: RtttlCategory | "") => void;
+  categories: RtttlCategory[];
+  onCategoriesChange: (value: RtttlCategory[]) => void;
   errors: string[];
   onDiscard: () => void;
   onSubmit: () => void;
@@ -28,8 +28,8 @@ export function PropertiesPanel({
   tracks,
   focusedTrackIndex,
   onNameChange,
-  category,
-  onCategoryChange,
+  categories,
+  onCategoriesChange,
   errors,
   onDiscard,
   onSubmit,
@@ -123,23 +123,39 @@ export function PropertiesPanel({
           />
         </div>
 
-        {/* Category */}
+        {/* Categories */}
         <div>
-          <label className="mb-0.5 block text-xs font-medium text-gray-500 dark:text-gray-400">
+          <label className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">
             {t("create.category")}
           </label>
-          <select
-            value={category}
-            onChange={(e) => onCategoryChange(e.target.value as RtttlCategory | "")}
-            className="w-full rounded border border-gray-400 bg-white px-2 py-1 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
-          >
-            <option value="">{t("create.categoryPlaceholder")}</option>
-            {RTTTL_CATEGORIES.map((cat) => (
-              <option key={cat} value={cat}>
-                {t(`categories.${cat}`)}
-              </option>
-            ))}
-          </select>
+          <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
+            {RTTTL_CATEGORIES.map((cat) => {
+              const checked = categories.includes(cat);
+              return (
+                <label
+                  key={cat}
+                  className={clsx(
+                    "flex cursor-pointer items-center gap-1.5 rounded px-1 py-0.5 text-xs transition-colors",
+                    checked
+                      ? "font-medium text-indigo-600 dark:text-indigo-400"
+                      : "text-gray-600 hover:bg-gray-300/40 dark:text-gray-400 dark:hover:bg-gray-700/40",
+                  )}
+                >
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() =>
+                      onCategoriesChange(
+                        checked ? categories.filter((c) => c !== cat) : [...categories, cat],
+                      )
+                    }
+                    className="h-3 w-3 rounded border-gray-400 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800"
+                  />
+                  {t(`categories.${cat}`)}
+                </label>
+              );
+            })}
+          </div>
         </div>
 
         {/* Copy All Tracks */}

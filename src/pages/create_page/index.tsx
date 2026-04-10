@@ -74,7 +74,7 @@ export function CreatePage() {
   const [name, setName] = useState(
     () => _draft?.name || nextProjectName(userItems.map((u) => u.title)),
   );
-  const [category, setCategory] = useState<RtttlCategory | "">(() => _draft?.category ?? "");
+  const [categories, setCategories] = useState<RtttlCategory[]>(() => _draft?.categories ?? []);
   const [errors, setErrors] = useState<string[]>([]);
   const [confirmRemoveIndex, setConfirmRemoveIndex] = useState<number | null>(null);
   const trackListRef = useRef<HTMLDivElement>(null);
@@ -206,9 +206,9 @@ export function CreatePage() {
   /* ── Draft persistence ── */
   useEffect(
     function saveDraftOnChange() {
-      saveDraft({ name, code: tracks[0] ?? "", category, tracks });
+      saveDraft({ name, code: tracks[0] ?? "", categories, tracks });
     },
-    [name, category, tracks],
+    [name, categories, tracks],
   );
 
   /* ── Apply pending import after dialog has closed ── */
@@ -232,7 +232,7 @@ export function CreatePage() {
     stop();
     clearDraft();
     setName(nextProjectName(userItems.map((u) => u.title)));
-    setCategory("");
+    setCategories([]);
     setErrors([]);
     setSeekPositionMs(0);
     setPlayheadMs(0);
@@ -378,7 +378,7 @@ export function CreatePage() {
           : "#",
       code: primaryCode.trim(),
       collection: "community" as const,
-      category: category || undefined,
+      categories: categories.length > 0 ? categories : undefined,
       createdAt: new Date().toISOString(),
       ...(nonEmptyTracks.length > 1 ? { tracks: nonEmptyTracks } : {}),
     };
@@ -595,8 +595,8 @@ export function CreatePage() {
           tracks={tracks}
           focusedTrackIndex={focusedTrackIndex}
           onNameChange={setName}
-          category={category}
-          onCategoryChange={setCategory}
+          categories={categories}
+          onCategoriesChange={setCategories}
           errors={errors}
           onDiscard={handleDiscard}
           onSubmit={handleSubmit}

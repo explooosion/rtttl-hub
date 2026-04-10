@@ -4,7 +4,7 @@ import { DRAFT_KEY } from "./constants";
 export interface Draft {
   name: string;
   code: string;
-  category: RtttlCategory | "";
+  categories: RtttlCategory[];
   tracks?: string[];
 }
 
