@@ -288,7 +288,7 @@
     "copyAll": "复制所有音轨",
     "copied": "已复制！",
     "newProjectConfirm": "目前有未保存的音轨数据，确定要新建项目并放弃现有数据吗？",
-    "importConfirm": "目前有未保存的音轨数据，确定要导入并替换现有数据吗？",
+    "importConfirm": "导入",
     "discardConfirm": "确定要放弃当前编辑并离开吗？",
     "menuAbout": "关于",
     "menuImportFromFavorites": "从收藏导入…",

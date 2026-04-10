@@ -288,7 +288,7 @@
     "copyAll": "전체 트랙 복사",
     "copied": "복사됨!",
     "newProjectConfirm": "저장되지 않은 데이터가 있습니다. 새 프로젝트를 만들고 삭제하시겠습니까?",
-    "importConfirm": "저장되지 않은 데이터가 있습니다. 가져오기하여 대체하시겠습니까?",
+    "importConfirm": "가져오기",
     "discardConfirm": "편집을 취소하고 종료하시겠습니까?",
     "menuAbout": "정보",
     "menuImportFromFavorites": "즐겨찾기에서 가져오기…",

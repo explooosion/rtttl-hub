@@ -288,7 +288,7 @@
     "copyAll": "複製所有音軌",
     "copied": "已複製！",
     "newProjectConfirm": "目前有未儲存的音軌資料，確定要建立新專案並放棄現有資料嗎？",
-    "importConfirm": "目前有未儲存的音軌資料，確定要匯入並取代現有資料嗎？",
+    "importConfirm": "匯入",
     "discardConfirm": "確定要放棄目前的編輯並離開嗎？",
     "menuAbout": "關於",
     "menuImportFromFavorites": "從收藏匯入…",

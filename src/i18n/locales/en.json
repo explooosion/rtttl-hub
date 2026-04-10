@@ -288,7 +288,7 @@
     "copyAll": "Copy All Tracks",
     "copied": "Copied!",
     "newProjectConfirm": "You have unsaved track data. Create a new project and discard current data?",
-    "importConfirm": "You have unsaved track data. Import and replace current data?",
+    "importConfirm": "Import",
     "discardConfirm": "Discard current edits and exit?",
     "menuAbout": "About",
     "menuImportFromFavorites": "Import from Favorites…",

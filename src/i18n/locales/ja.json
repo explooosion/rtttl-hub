@@ -288,7 +288,7 @@
     "copyAll": "全トラックコピー",
     "copied": "コピー済み！",
     "newProjectConfirm": "未保存のデータがあります。新規プロジェクトを作成して破棄しますか？",
-    "importConfirm": "未保存のデータがあります。インポートして置き換えますか？",
+    "importConfirm": "インポート",
     "discardConfirm": "編集を破棄して終了しますか？",
     "menuAbout": "バージョン情報",
     "menuImportFromFavorites": "お気に入りからインポート…",
