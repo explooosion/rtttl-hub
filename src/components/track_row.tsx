@@ -10,7 +10,20 @@ import { FavoriteButton } from "./favorite_button";
 import { CanvasWaveform as Waveform } from "./canvas_waveform";
 import { MultiTrackWaveform } from "./multi_track_waveform";
 import { copyToClipboard } from "../utils/clipboard";
-import type { RtttlEntry } from "../utils/rtttl_parser";
+import type { RtttlCategory, RtttlEntry } from "../utils/rtttl_parser";
+
+const CATEGORY_STYLES: Record<RtttlCategory, string> = {
+  pop: "bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300",
+  rock: "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
+  classical: "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
+  "movie-tv": "bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300",
+  game: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+  holiday: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
+  folk: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
+  nursery: "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300",
+  alert: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300",
+  original: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300",
+};
 
 export interface TrackRowAction {
   icon: React.ReactNode;
@@ -78,7 +91,7 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
         {isItemPlaying ? <FaPause size={14} /> : <FaPlay size={14} />}
       </button>
 
-      {/* Title + artist */}
+      {/* Title + artist + category */}
       <div className="w-28 shrink-0 sm:w-36">
         <p className="truncate text-sm font-medium text-gray-900 dark:text-white">{item.title}</p>
         {item.artist && (
@@ -91,6 +104,21 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
               {item.artist}
             </Link>
           </p>
+        )}
+        {item.categories && item.categories.length > 0 && (
+          <div className="mt-0.5 flex flex-wrap gap-0.5">
+            {item.categories.map((cat) => (
+              <span
+                key={cat}
+                className={clsx(
+                  "inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium leading-none",
+                  CATEGORY_STYLES[cat],
+                )}
+              >
+                {t(`categories.${cat}`)}
+              </span>
+            ))}
+          </div>
         )}
       </div>
 
