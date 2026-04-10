@@ -130,9 +130,7 @@ Work through each item in order:
 
 ### 4.4 Assets
 
-- [ ] `public/assets/banners/{slug}.png` — banner image (run `generate-placeholder` if unavailable)
-- [ ] `public/icons/{slug}.svg` or `.png` — icon (run `generate-logos` if unavailable)
-- [ ] `public/assets/banners/{slug}.png` referenced wherever other banners are used
+> Per-collection banner images (`public/assets/banners/{slug}.png`) are **not currently used** by any component. Do not generate them until a banner display feature is implemented.
 
 ### 4.5 Data loading
 

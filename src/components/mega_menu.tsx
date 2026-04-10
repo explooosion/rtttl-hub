@@ -9,12 +9,10 @@ import { COLLECTIONS } from "../constants/collections";
 function CollectionCard({
   slug,
   nameKey,
-  descriptionKey,
   icon: Icon,
 }: {
   slug: string;
   nameKey: string;
-  descriptionKey: string;
   icon: React.ComponentType<{ size: number; className?: string }>;
 }) {
   const { t } = useTranslation();
@@ -31,7 +29,6 @@ function CollectionCard({
         <p className="text-sm font-semibold text-gray-900 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">
           {t(nameKey)}
         </p>
-        <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">{t(descriptionKey)}</p>
       </div>
     </Link>
   );
@@ -107,12 +104,7 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
               <div>
                 {COLLECTIONS.filter((c) => c.group === "community").map((col) => (
                   <div key={col.slug} onClick={close}>
-                    <CollectionCard
-                      slug={col.slug}
-                      nameKey={col.nameKey}
-                      descriptionKey={col.descriptionKey}
-                      icon={col.icon}
-                    />
+                    <CollectionCard slug={col.slug} nameKey={col.nameKey} icon={col.icon} />
                   </div>
                 ))}
               </div>
@@ -120,12 +112,7 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
               <div className="flex flex-col">
                 {COLLECTIONS.filter((c) => c.group === "library").map((col) => (
                   <div key={col.slug} onClick={close}>
-                    <CollectionCard
-                      slug={col.slug}
-                      nameKey={col.nameKey}
-                      descriptionKey={col.descriptionKey}
-                      icon={col.icon}
-                    />
+                    <CollectionCard slug={col.slug} nameKey={col.nameKey} icon={col.icon} />
                   </div>
                 ))}
               </div>
