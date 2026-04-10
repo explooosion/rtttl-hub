@@ -324,6 +324,8 @@ export function CreatePage() {
       indices.includes(i) ? fn(code, loopInMs, loopOutMs) : code,
     );
     commitTracks(next);
+    setLoopInMs(null);
+    setLoopOutMs(null);
   }
 
   function handleTrimRegion() {
