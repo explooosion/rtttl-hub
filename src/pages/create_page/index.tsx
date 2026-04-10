@@ -117,7 +117,11 @@ export function CreatePage() {
   /* ── Derived values ── */
   const maxTrackDurationMs = useMemo(() => {
     let max = 0;
-    for (const tk of tracks) {
+    for (let i = 0; i < tracks.length; i++) {
+      if (deactivatedTracks.has(i)) {
+        continue;
+      }
+      const tk = tracks[i]!;
       const parsed = tk.trim() ? parseRtttl(tk.trim()) : null;
       if (parsed) {
         const dur = getTotalDuration(parsed.notes);
@@ -127,17 +131,20 @@ export function CreatePage() {
       }
     }
     return max;
-  }, [tracks]);
+  }, [tracks, deactivatedTracks]);
 
   const [playheadMs, setPlayheadMs] = useState(0);
   const [loopInMs, setLoopInMs] = useState<number | null>(null);
   const [loopOutMs, setLoopOutMs] = useState<number | null>(null);
   const [cutDialogMode, setCutDialogMode] = useState<CutMode | null>(null);
 
-  /** Snapshot of tracks at the last playTracks/playCode call.
-   *  Used to detect whether tracks were edited while paused,
+  /** Snapshot of tracks + deactivated set at the last playTracks/playCode call.
+   *  Used to detect whether tracks were edited or deactivated while paused,
    *  so we reload audio instead of resuming stale engine data. */
-  const lastPlayedTracksRef = useRef<string[]>([]);
+  const lastPlayedTracksRef = useRef<{ tracks: string[]; deactivated: Set<number> }>({
+    tracks: [],
+    deactivated: new Set(),
+  });
 
   const {
     guideMs,
@@ -350,12 +357,16 @@ export function CreatePage() {
   function handlePlayToggle() {
     if (playerState === "playing") {
       pause();
-    } else if (playerState === "paused" && tracks === lastPlayedTracksRef.current) {
-      // Tracks unchanged since last play: seamless resume
+    } else if (
+      playerState === "paused" &&
+      tracks === lastPlayedTracksRef.current.tracks &&
+      deactivatedTracks === lastPlayedTracksRef.current.deactivated
+    ) {
+      // Tracks and deactivated set unchanged: seamless resume
       resume();
     } else {
-      // idle, OR paused with edited tracks: start fresh with latest code
-      const nonEmpty = tracks.filter((tk) => tk.trim().length > 0);
+      // idle, OR paused with edited tracks/deactivated state: start fresh
+      const nonEmpty = tracks.filter((tk, i) => !deactivatedTracks.has(i) && tk.trim().length > 0);
       const startMs =
         playerState === "paused" ? playheadMs : seekPositionMs > 0 ? seekPositionMs : undefined;
       if (nonEmpty.length > 1) {
@@ -363,7 +374,7 @@ export function CreatePage() {
       } else if (nonEmpty.length === 1) {
         playCode(nonEmpty[0].trim(), startMs);
       }
-      lastPlayedTracksRef.current = tracks;
+      lastPlayedTracksRef.current = { tracks, deactivated: deactivatedTracks };
       if (playerState !== "paused") {
         setSeekPositionMs(0);
       }

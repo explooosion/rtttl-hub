@@ -8,7 +8,7 @@ import {
   FaFileImport,
   FaPalette,
   FaCode,
-  FaEye,
+  FaCrosshairs,
   FaPlus,
   FaTrash,
   FaVolumeUp,
@@ -278,7 +278,7 @@ export function TransportToolbar({
     },
     {
       type: "action",
-      icon: <FaEye size={13} />,
+      icon: <FaCrosshairs size={13} />,
       label: t("editor.feature.playbackTracking", { defaultValue: "Follow Playback" }),
       active: editorFeatures.playbackTracking,
       onClick: () => toggleFeature("playbackTracking"),
@@ -426,7 +426,7 @@ export function TransportToolbar({
                 : "text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700",
             )}
           >
-            <FaEye size={14} />
+            <FaCrosshairs size={14} />
           </button>
           <div className="relative">
             <button

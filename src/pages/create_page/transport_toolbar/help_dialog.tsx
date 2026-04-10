@@ -10,7 +10,7 @@ import {
   FaVolumeMute,
   FaFileImport,
   FaCode,
-  FaEye,
+  FaCrosshairs,
   FaEyeSlash,
   FaPalette,
   FaGripVertical,
@@ -147,7 +147,7 @@ export function HelpDialog({ open, onClose }: { open: boolean; onClose: () => vo
                 desc={t("editor.guide.syntaxDesc", { defaultValue: "Toggle code coloring" })}
               />
               <GuideItem
-                icon={<FaEye size={11} />}
+                icon={<FaCrosshairs size={11} />}
                 label={t("editor.guide.follow", { defaultValue: "Follow Playback" })}
                 desc={t("editor.guide.followDesc", {
                   defaultValue: "Auto-scroll editor to current note",
