@@ -122,20 +122,37 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
         )}
       </div>
 
-      {/* Waveform */}
-      <div className="hidden min-w-0 flex-1 sm:block" onClick={(e) => e.stopPropagation()}>
+      {/* Waveform — sm+ shows full bar, mobile shows compact bar */}
+      <div className="min-w-0 flex-1" onClick={(e) => e.stopPropagation()}>
         {item.tracks && item.tracks.length > 1 ? (
           <MultiTrackWaveform tracks={item.tracks} isActive={isActive} height={16} barCount={20} />
         ) : (
-          <Waveform
-            code={item.code}
-            currentNoteIndex={isActive ? currentNoteIndex : 0}
-            totalNotes={isActive ? totalNotes : 0}
-            isPlaying={isActive && (playerState === "playing" || playerState === "paused")}
-            onSeek={isActive ? seekTo : undefined}
-            height={36}
-            barCount={50}
-          />
+          <>
+            {/* Desktop waveform */}
+            <div className="hidden sm:block">
+              <Waveform
+                code={item.code}
+                currentNoteIndex={isActive ? currentNoteIndex : 0}
+                totalNotes={isActive ? totalNotes : 0}
+                isPlaying={isActive && (playerState === "playing" || playerState === "paused")}
+                onSeek={isActive ? seekTo : undefined}
+                height={36}
+                barCount={50}
+              />
+            </div>
+            {/* Mobile waveform (compact) */}
+            <div className="sm:hidden">
+              <Waveform
+                code={item.code}
+                currentNoteIndex={isActive ? currentNoteIndex : 0}
+                totalNotes={isActive ? totalNotes : 0}
+                isPlaying={isActive && (playerState === "playing" || playerState === "paused")}
+                onSeek={isActive ? seekTo : undefined}
+                height={20}
+                barCount={30}
+              />
+            </div>
+          </>
         )}
       </div>
       <div className="flex shrink-0 items-center gap-2">
