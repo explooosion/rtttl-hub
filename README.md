@@ -28,6 +28,7 @@ We deeply respect the intellectual property, authorship, and creative effort beh
 
 - **PICAXE** — Sourced from the [PICAXE RTTTL collection](https://picaxe.com/rtttl-ringtones-for-tune-command/). Used for non-commercial, educational purposes; all rights remain with the original authors.
 - **ESC Configurator** — Sourced from the [ESC Configurator](https://esc-configurator.com/) open-source project. Community-contributed melodies used under the project's open-source license.
+- **Skully RTTTL** — Sourced from [rtttl-web-composer](https://github.com/ImSkully/rtttl-web-composer) by ImSkully. Used under the GPL-2.0 license.
 
 ## License
 

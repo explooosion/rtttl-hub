@@ -60,6 +60,10 @@
       "name": "ESC Configurator",
       "description": "由社群共同維護的 FPV 馬達啟動旋律集，專為 ESC Configurator 設計。音樂由貢獻者提交，並由維護者透過 PR 審核收錄。"
     },
+    "skullyRtttl": {
+      "name": "Skully RTTTL",
+      "description": "來自 ImSkully 的 RTTTL Web Composer 專案，精選 15 首經典鈴聲範例，涵蓋流行、影視主題、提示音等類型。"
+    },
     "officialSource": "來源"
   },
   "categories": {

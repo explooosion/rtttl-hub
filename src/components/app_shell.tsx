@@ -76,11 +76,13 @@ export function AppShell() {
       Promise.all([
         fetch(`${base}picaxe.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
         fetch(`${base}esc-configurator.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
+        fetch(`${base}skully-rtttl.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
       ])
-        .then(([picaxeData, escData]) => {
+        .then(([picaxeData, escData, skullyData]) => {
           const picaxeEntries = toRtttlEntries(picaxeData, "picaxe", "picaxe");
           const escEntries = toRtttlEntries(escData, "esc-configurator", "esc");
-          setItems([...picaxeEntries, ...escEntries]);
+          const skullyEntries = toRtttlEntries(skullyData, "skully-rtttl", "skully");
+          setItems([...picaxeEntries, ...escEntries, ...skullyEntries]);
           // Read live state to avoid stale closure race in React Strict Mode
           if (useCollectionStore.getState().userItems.length === 0) {
             for (const item of MOCK_COMMUNITY_ITEMS) {

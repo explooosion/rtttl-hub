@@ -1,4 +1,4 @@
-import { FaDatabase, FaUsers, FaMicrochip } from "react-icons/fa";
+import { FaDatabase, FaUsers, FaMicrochip, FaCode } from "react-icons/fa";
 import type { IconType } from "react-icons";
 
 import type { CollectionSlug } from "../utils/rtttl_parser";
@@ -35,6 +35,14 @@ export const COLLECTIONS: CollectionDef[] = [
     descriptionKey: "collections.picaxe.description",
     icon: FaDatabase,
     source: "https://picaxe.com/rtttl-ringtones-for-tune-command/",
+    group: "library",
+  },
+  {
+    slug: "skully-rtttl",
+    nameKey: "collections.skullyRtttl.name",
+    descriptionKey: "collections.skullyRtttl.description",
+    icon: FaCode,
+    source: "https://github.com/ImSkully/rtttl-web-composer",
     group: "library",
   },
 ];

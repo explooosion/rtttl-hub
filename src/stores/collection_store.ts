@@ -139,13 +139,10 @@ export function useFilteredItems(): RtttlEntry[] {
 export function useCollectionItemCount(collection: CollectionSlug): number {
   const items = useCollectionStore((s) => s.items);
   const userItems = useCollectionStore((s) => s.userItems);
-  if (collection === "picaxe") {
-    return items.filter((item) => item.collection === "picaxe").length;
-  }
   if (collection === "community") {
     return userItems.length;
   }
-  return 0;
+  return items.filter((item) => item.collection === collection).length;
 }
 
 export function useAvailableLetters(): string[] {

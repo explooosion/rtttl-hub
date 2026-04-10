@@ -60,6 +60,10 @@
       "name": "ESC Configurator",
       "description": "ESC Configurator 向けの FPV モーター起動メロディをコミュニティが収集・管理するコレクション。メロディはコントリビューターが投稿し、メンテナーが PR を通じてレビュー・収録しています。"
     },
+    "skullyRtttl": {
+      "name": "Skully RTTTL",
+      "description": "ImSkully の RTTTL Web Composer プロジェクトから厳選した 15 曲のクラシック着信音。ポップ、映画テーマ、アラートなど多彩なジャンルを収録。"
+    },
     "officialSource": "ソース"
   },
   "categories": {

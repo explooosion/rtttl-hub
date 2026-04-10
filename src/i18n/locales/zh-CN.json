@@ -60,6 +60,10 @@
       "name": "ESC Configurator",
       "description": "由社区共同维护的 FPV 电机启动旋律合集，专为 ESC Configurator 设计。音乐由贡献者提交，经维护者通过 PR 审核后收录。"
     },
+    "skullyRtttl": {
+      "name": "Skully RTTTL",
+      "description": "来自 ImSkully 的 RTTTL Web Composer 项目，精选 15 首经典铃声示例，涵盖流行、影视主题、提示音等类型。"
+    },
     "officialSource": "来源"
   },
   "categories": {

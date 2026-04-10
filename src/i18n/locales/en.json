@@ -60,6 +60,10 @@
       "name": "ESC Configurator",
       "description": "A community-curated collection of FPV motor startup melodies for ESC Configurator. Tunes are submitted by contributors and merged into the project via pull requests by the maintainer."
     },
+    "skullyRtttl": {
+      "name": "Skully RTTTL",
+      "description": "A handpicked collection of classic ringtone examples from the RTTTL Web Composer project by ImSkully, covering pop, movie themes, alerts, and more."
+    },
     "officialSource": "Source"
   },
   "categories": {

@@ -1,4 +1,4 @@
-export type CollectionSlug = "picaxe" | "community" | "esc-configurator";
+export type CollectionSlug = "picaxe" | "community" | "esc-configurator" | "skully-rtttl";
 
 export type RtttlCategory =
   | "pop"
