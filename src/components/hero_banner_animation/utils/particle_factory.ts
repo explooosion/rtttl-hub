@@ -11,7 +11,7 @@ export interface Particle {
   opacity: number;
   rotation: number;
   rotationSpeed: number;
-  type: "note" | "wave" | "circuit" | "dot";
+  type: "note" | "beam" | "wave" | "resistor" | "capacitor";
   phase: number;
   /** Index into the Fibonacci sphere — determines orbital position */
   sphereIndex: number;
@@ -26,7 +26,7 @@ export const PARTICLE_DENSITY = 500;
 export const PARTICLE_MAX = 500;
 
 export function createParticle(width: number, height: number, index: number): Particle {
-  const types: Particle["type"][] = ["note", "wave", "circuit", "dot"];
+  const types: Particle["type"][] = ["note", "beam", "wave", "resistor", "capacitor"];
   const vx = (Math.random() - 0.5) * 1.4;
   const vy = (Math.random() - 0.5) * 1.4 - 0.3;
   return {
@@ -40,7 +40,7 @@ export function createParticle(width: number, height: number, index: number): Pa
     opacity: 0.18 + Math.random() * 0.24,
     rotation: Math.random() * Math.PI * 2,
     rotationSpeed: (Math.random() - 0.5) * 0.04,
-    type: types[Math.floor(Math.random() * types.length)],
+    type: types[index % types.length],
     phase: Math.random() * Math.PI * 2,
     sphereIndex: index,
   };
