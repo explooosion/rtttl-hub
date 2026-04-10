@@ -26,6 +26,7 @@ import { ImportDialog } from "./import_dialog";
 import { FavoriteImportDialog } from "./favorite_import_dialog";
 import { CutDialog } from "./cut_dialog";
 import { HelpDialog } from "./transport_toolbar/help_dialog";
+import { CreateSummaryModal } from "./create_summary_modal";
 import type { CutMode } from "./cut_dialog";
 import { loadDraft, saveDraft, clearDraft } from "./draft";
 import { MAX_TRACKS } from "./constants";
@@ -359,6 +360,8 @@ export function CreatePage() {
   }
 
   /* ── Submit / Discard ── */
+  const [createSummaryOpen, setCreateSummaryOpen] = useState(false);
+
   function handleSubmit() {
     const newErrors: string[] = [];
     if (!name.trim()) {
@@ -372,6 +375,12 @@ export function CreatePage() {
       setErrors(newErrors);
       return;
     }
+    setErrors([]);
+    setCreateSummaryOpen(true);
+  }
+
+  function handleConfirmCreate() {
+    const primaryCode = tracks[0] ?? "";
     const firstLetter = name.charAt(0).toUpperCase();
     const id = `user-${crypto.randomUUID()}`;
     const nonEmptyTracks = tracks.filter((tk) => tk.trim().length > 0);
@@ -631,6 +640,7 @@ export function CreatePage() {
             tracks={tracks}
             focusedTrackIndex={focusedTrackIndex}
             onNameChange={setName}
+            onRenameTrack={(newName) => handleRenameTrack(focusedTrackIndex, newName)}
             categories={categories}
             onCategoriesChange={setCategories}
             errors={errors}
@@ -724,6 +734,21 @@ export function CreatePage() {
           outMs={loopOutMs}
           onConfirm={handleCutConfirm}
           onCancel={handleCutCancel}
+        />
+
+        {/* Create summary modal */}
+        <CreateSummaryModal
+          isOpen={createSummaryOpen}
+          name={name}
+          categories={categories}
+          tracks={tracks}
+          onConfirm={() => {
+            setCreateSummaryOpen(false);
+            handleConfirmCreate();
+          }}
+          onCancel={() => setCreateSummaryOpen(false)}
+          onNameChange={setName}
+          onRenameTrack={(idx, newName) => handleRenameTrack(idx, newName)}
         />
       </div>
     </>
