@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FaSearch, FaChevronRight, FaChevronLeft, FaExternalLinkAlt } from "react-icons/fa";
 import clsx from "clsx";
@@ -71,10 +71,14 @@ export function ListPageLayout({
   emptyNode,
 }: ListPageLayoutProps) {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("a-z");
   const [activeLetter, setActiveLetter] = useState<string | null>(null);
-  const [activeCategories, setActiveCategories] = useState<RtttlCategory[]>([]);
+  const [activeCategories, setActiveCategories] = useState<RtttlCategory[]>(() => {
+    const cat = searchParams.get("category") as RtttlCategory | null;
+    return cat && RTTTL_CATEGORIES.includes(cat) ? [cat] : [];
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
