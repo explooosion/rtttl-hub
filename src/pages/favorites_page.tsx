@@ -6,7 +6,7 @@ import { useCollectionStore } from "../stores/collection_store";
 import { useFavoritesStore } from "../stores/favorites_store";
 import { ListPageLayout } from "../components/list_page_layout";
 
-export function FavoritesPageRoute() {
+export function FavoritesPage() {
   const { t } = useTranslation();
   const items = useCollectionStore((s) => s.items);
   const userItems = useCollectionStore((s) => s.userItems);

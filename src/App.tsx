@@ -16,8 +16,8 @@ const CollectionsPage = lazy(() =>
 const CollectionPage = lazy(() =>
   import("./pages/collection_page").then((m) => ({ default: m.CollectionPage })),
 );
-const FavoritesPageRoute = lazy(() =>
-  import("./pages/favorites_page_route").then((m) => ({ default: m.FavoritesPageRoute })),
+const FavoritesPage = lazy(() =>
+  import("./pages/favorites_page").then((m) => ({ default: m.FavoritesPage })),
 );
 const CreatorPage = lazy(() =>
   import("./pages/creator_page").then((m) => ({ default: m.CreatorPage })),
@@ -112,7 +112,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/collections" element={<CollectionsPage />} />
               <Route path="/collections/:slug" element={<CollectionPage />} />
-              <Route path="/favorites" element={<FavoritesPageRoute />} />
+              <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/creators/:creatorId" element={<CreatorPage />} />
               <Route path="/terms" element={<TermsPage />} />
               <Route path="/privacy" element={<PrivacyPolicyPage />} />
