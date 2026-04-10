@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaArrowRight, FaExternalLinkAlt } from "react-icons/fa";
 
 import { COLLECTIONS } from "../constants/collections";
@@ -20,11 +20,19 @@ function CollectionRow({
   source?: string;
 }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
-    <Link
-      to={`/collections/${slug}`}
-      className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-3 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-lg sm:gap-4 sm:px-5 sm:py-4 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-indigo-700"
+    <div
+      role="link"
+      tabIndex={0}
+      onClick={() => navigate(`/collections/${slug}`)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          navigate(`/collections/${slug}`);
+        }
+      }}
+      className="group flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 bg-white px-3 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-lg sm:gap-4 sm:px-5 sm:py-4 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-indigo-700"
     >
       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 transition-transform duration-300 group-hover:scale-110 sm:h-12 sm:w-12 dark:bg-indigo-900/50 dark:text-indigo-400">
         <Icon size={22} />
@@ -46,7 +54,7 @@ function CollectionRow({
         )}
       </div>
       <FaArrowRight size={14} className="shrink-0 text-gray-400 dark:text-gray-500" />
-    </Link>
+    </div>
   );
 }
 
