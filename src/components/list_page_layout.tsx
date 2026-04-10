@@ -91,7 +91,7 @@ export function ListPageLayout({
     if (activeCategories.length > 0) {
       result = result.filter(
         (item) =>
-          (item.category && activeCategories.includes(item.category)) ||
+          (item.categories && item.categories.some((c) => activeCategories.includes(c))) ||
           (item.sourceCategory && activeCategories.includes(item.sourceCategory as RtttlCategory)),
       );
     }
@@ -107,7 +107,7 @@ export function ListPageLayout({
     if (activeCategories.length > 0) {
       base = base.filter(
         (item) =>
-          (item.category && activeCategories.includes(item.category)) ||
+          (item.categories && item.categories.some((c) => activeCategories.includes(c))) ||
           (item.sourceCategory && activeCategories.includes(item.sourceCategory as RtttlCategory)),
       );
     }

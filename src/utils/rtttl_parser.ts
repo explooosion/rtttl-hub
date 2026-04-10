@@ -25,7 +25,7 @@ export interface RtttlEntry {
   code: string;
   collection: CollectionSlug;
   sourceCategory?: string;
-  category?: RtttlCategory;
+  categories?: RtttlCategory[];
   createdAt?: string;
   /** Multi-track (polyphonic) RTTTL — one string per motor/voice. */
   tracks?: string[];

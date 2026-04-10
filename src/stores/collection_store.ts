@@ -128,7 +128,7 @@ export function useFilteredItems(): RtttlEntry[] {
   if (activeCategories.length > 0) {
     filtered = filtered.filter(
       (item) =>
-        (item.category && activeCategories.includes(item.category)) ||
+        (item.categories && item.categories.some((c) => activeCategories.includes(c))) ||
         (item.sourceCategory && activeCategories.includes(item.sourceCategory as RtttlCategory)),
     );
   }
