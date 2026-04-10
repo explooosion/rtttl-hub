@@ -247,7 +247,10 @@
     "trackDefaultDuration": "Default Duration",
     "trackCodeLength": "Code Length",
     "copyCurrentTrack": "Copy Current Track",
-    "currentTrack": "Current Track"
+    "currentTrack": "Current Track",
+    "mobileNotSupported": "Desktop or Tablet Required",
+    "mobileNotSupportedDesc": "The RTTTL Editor requires a larger screen. Please use a tablet or desktop.",
+    "mobileNotSupportedBack": "Go Back"
   },
   "favorites": {
     "title": "My Favorites",

@@ -247,7 +247,10 @@
     "trackDefaultDuration": "預設時值",
     "trackCodeLength": "代碼長度",
     "copyCurrentTrack": "複製當前音軌代碼",
-    "currentTrack": "當前音軌"
+    "currentTrack": "當前音軌",
+    "mobileNotSupported": "需要桌面版或平板",
+    "mobileNotSupportedDesc": "RTTTL 編輯器需要較大的螢幕。請使用平板或桌面裝置。",
+    "mobileNotSupportedBack": "返回"
   },
   "favorites": {
     "title": "我的收藏",

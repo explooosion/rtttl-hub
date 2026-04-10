@@ -38,8 +38,8 @@ export function LandingPage() {
           <HeroBannerAnimation targetRef={ctaRef} />
         </div>
         {/* Foreground content */}
-        <div className="relative mx-auto max-w-7xl px-4 py-16 text-center lg:py-28">
-          <h2 className="font-brand mb-4 text-4xl font-extrabold tracking-[0.12em] text-white lg:text-6xl">
+        <div className="relative mx-auto max-w-7xl px-4 py-12 text-center sm:py-16 md:py-20 lg:py-28">
+          <h2 className="font-brand mb-4 text-3xl font-extrabold tracking-[0.12em] text-white sm:text-4xl md:text-5xl lg:text-6xl">
             {t("landing.hero.title")}
           </h2>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-indigo-100/90 lg:text-xl">
@@ -57,7 +57,7 @@ export function LandingPage() {
 
       <div className="mx-auto max-w-7xl px-4 py-8">
         {/* Features */}
-        <section className="grid gap-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
+        <section className="grid gap-6 py-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {FEATURES.map(({ icon: Icon, titleKey, descKey }, i) => (
             <div
               key={titleKey}
@@ -77,7 +77,7 @@ export function LandingPage() {
           <h3 className="fly-in mb-6 text-2xl font-bold text-gray-900 dark:text-white">
             {t("collections.title")}
           </h3>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             {COLLECTIONS.map((col, i) => (
               <div key={col.slug} className={`fly-in fly-in-delay-${i + 1}`}>
                 <CollectionCard

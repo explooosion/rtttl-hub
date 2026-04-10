@@ -92,7 +92,7 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
       </button>
 
       {/* Title + artist + category */}
-      <div className="w-28 shrink-0 sm:w-36">
+      <div className="min-w-0 flex-1 sm:w-36 sm:flex-none sm:shrink-0">
         <p className="truncate text-sm font-medium text-gray-900 dark:text-white">{item.title}</p>
         {item.artist && (
           <p className="truncate text-xs">

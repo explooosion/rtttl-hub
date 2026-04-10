@@ -247,7 +247,10 @@
     "trackDefaultDuration": "デフォルト音長",
     "trackCodeLength": "コード長",
     "copyCurrentTrack": "現在のトラックをコピー",
-    "currentTrack": "現在のトラック"
+    "currentTrack": "現在のトラック",
+    "mobileNotSupported": "デスクトップまたはタブレットが必要です",
+    "mobileNotSupportedDesc": "RTTTLエディタは大きな画面が必要です。タブレットまたはデスクトップをご利用ください。",
+    "mobileNotSupportedBack": "戻る"
   },
   "favorites": {
     "title": "お気に入り",

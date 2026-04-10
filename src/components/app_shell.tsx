@@ -197,11 +197,11 @@ export function AppShell() {
           </div>
         </div>
 
-        {/* Search row — only visible when NOT scrolled */}
+        {/* Search row — only visible when NOT scrolled and sidebar is closed */}
         <div
           className={clsx(
             "grid transition-[grid-template-rows] duration-300 ease-in-out",
-            scrolled ? "grid-rows-[0fr]" : "grid-rows-[1fr]",
+            scrolled || sidebarOpen ? "grid-rows-[0fr]" : "grid-rows-[1fr]",
           )}
         >
           <div className="overflow-hidden">

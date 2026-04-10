@@ -88,7 +88,7 @@ export function PropertiesPanel({
   }
 
   return (
-    <div className="flex w-64 shrink-0 flex-col border-l border-gray-400 bg-gray-200 dark:border-gray-800 dark:bg-gray-900">
+    <div className="flex w-48 shrink-0 flex-col border-l border-gray-400 bg-gray-200 sm:w-52 lg:w-64 dark:border-gray-800 dark:bg-gray-900">
       {/* Header */}
       <div className="border-b border-gray-400 px-3 py-2 dark:border-gray-800">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">

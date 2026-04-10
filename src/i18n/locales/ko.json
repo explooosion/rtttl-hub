@@ -247,7 +247,10 @@
     "trackDefaultDuration": "기본 음표 길이",
     "trackCodeLength": "코드 길이",
     "copyCurrentTrack": "현재 트랙 복사",
-    "currentTrack": "현재 트랙"
+    "currentTrack": "현재 트랙",
+    "mobileNotSupported": "데스크톱 또는 태블릿이 필요합니다",
+    "mobileNotSupportedDesc": "RTTTL 편집기는 더 큰 화면이 필요합니다. 태블릿 또는 데스크톱을 사용해 주세요.",
+    "mobileNotSupportedBack": "뒤로 가기"
   },
   "favorites": {
     "title": "즐겨찾기",

@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { FaPlus } from "react-icons/fa";
+import { useNavigate, Link } from "react-router-dom";
+import { FaPlus, FaDesktop } from "react-icons/fa";
 import {
   DndContext,
   PointerSensor,
@@ -428,268 +428,290 @@ export function CreatePage() {
 
   /* ── Render ── */
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-gray-200 dark:bg-gray-950">
-      <DawHeader />
-      <TransportToolbar
-        hasPlayableContent={hasPlayableContent}
-        onPlayToggle={handlePlayToggle}
-        onToolbarInsert={handleToolbarInsert}
-        onNew={handleNew}
-        onImport={handleImportClick}
-        onImportFromFavorites={() => setFavImportOpen(true)}
-        onNavigateHome={() => navigate("/")}
-        onFocusName={() => nameInputRef.current?.focus()}
-        onCreate={handleSubmit}
-        onDiscard={handleDiscard}
-        onStop={handleStop}
-        onAddTrack={handleAddTrack}
-        onRemoveFocusedTrack={() => setConfirmRemoveIndex(focusedTrackIndex)}
-        onToggleMuteFocusedTrack={() => toggleMuteTrack(focusedTrackIndex)}
-        onUndo={undo}
-        onRedo={redo}
-        onMuteAll={handleMuteAll}
-        onUnmuteAll={handleUnmuteAll}
-        onRemoveEmptyTracks={handleRemoveEmptyTracks}
-        onCollapseAll={collapseAllTracks}
-        onExpandAll={expandAllTracks}
-        onSetLoopIn={handleSetLoopIn}
-        onSetLoopOut={handleSetLoopOut}
-        onClearLoop={handleClearLoop}
-        onTrimRegion={handleTrimRegion}
-        onDeleteRegion={handleDeleteRegion}
-        canCutRegion={canCutRegion}
-        canAddTrack={tracks.length < MAX_TRACKS}
-        canRemoveTrack={tracks.length > 1}
-        focusedTrackIsMuted={trackMuted[focusedTrackIndex] ?? false}
-        canUndo={canUndo}
-        canRedo={canRedo}
-        loopInMs={loopInMs}
-        loopOutMs={loopOutMs}
-        hasEmptyTracks={hasEmptyTracks}
-        allTracksMuted={allTracksMuted}
-        anyTrackMuted={anyTrackMuted}
-      />
-
-      {/* Main area: track list (left) + properties panel (right) */}
-      <div className="flex flex-1 gap-4 overflow-hidden p-4">
-        {/* Track list */}
-        <div
-          ref={trackListRef}
-          className="relative flex flex-1 flex-col overflow-x-auto overflow-y-auto border border-gray-400 bg-gray-300 pb-12 dark:border-gray-800 dark:bg-gray-900"
-          onMouseMove={handleTrackAreaMouseMove}
-          onMouseLeave={() => setGuideMs(null)}
-          onClick={handleTrackAreaClick}
+    <>
+      {/* Mobile not-supported screen — visible on phones (< sm: 640px) */}
+      <div className="flex h-screen flex-col items-center justify-center gap-6 bg-gray-50 px-8 text-center sm:hidden dark:bg-gray-950">
+        <FaDesktop size={64} className="text-indigo-400 dark:text-indigo-500" />
+        <div>
+          <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+            {t("create.mobileNotSupported")}
+          </h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            {t("create.mobileNotSupportedDesc")}
+          </p>
+        </div>
+        <Link
+          to="/"
+          className="rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
         >
-          {/* Inner width driver — forces scrollWidth of the overflow-x-auto container */}
-          <div className="relative" style={{ minWidth: `calc(12rem + ${timelineWidthPx}px)` }}>
-            <TimeRuler
-              totalMs={maxTrackDurationMs}
-              timelineWidthPx={timelineWidthPx}
-              pxPerSec={pxPerSec}
-            />
+          {t("create.mobileNotSupportedBack")}
+        </Link>
+      </div>
 
-            {/* Global playhead line — spans all tracks, aligned with TimeRuler.
+      {/* Full DAW — visible on tablet and above (>= sm: 640px) */}
+      <div className="hidden h-screen flex-col overflow-hidden bg-gray-200 sm:flex dark:bg-gray-950">
+        <DawHeader />
+        <TransportToolbar
+          hasPlayableContent={hasPlayableContent}
+          onPlayToggle={handlePlayToggle}
+          onToolbarInsert={handleToolbarInsert}
+          onNew={handleNew}
+          onImport={handleImportClick}
+          onImportFromFavorites={() => setFavImportOpen(true)}
+          onNavigateHome={() => navigate("/")}
+          onFocusName={() => nameInputRef.current?.focus()}
+          onCreate={handleSubmit}
+          onDiscard={handleDiscard}
+          onStop={handleStop}
+          onAddTrack={handleAddTrack}
+          onRemoveFocusedTrack={() => setConfirmRemoveIndex(focusedTrackIndex)}
+          onToggleMuteFocusedTrack={() => toggleMuteTrack(focusedTrackIndex)}
+          onUndo={undo}
+          onRedo={redo}
+          onMuteAll={handleMuteAll}
+          onUnmuteAll={handleUnmuteAll}
+          onRemoveEmptyTracks={handleRemoveEmptyTracks}
+          onCollapseAll={collapseAllTracks}
+          onExpandAll={expandAllTracks}
+          onSetLoopIn={handleSetLoopIn}
+          onSetLoopOut={handleSetLoopOut}
+          onClearLoop={handleClearLoop}
+          onTrimRegion={handleTrimRegion}
+          onDeleteRegion={handleDeleteRegion}
+          canCutRegion={canCutRegion}
+          canAddTrack={tracks.length < MAX_TRACKS}
+          canRemoveTrack={tracks.length > 1}
+          focusedTrackIsMuted={trackMuted[focusedTrackIndex] ?? false}
+          canUndo={canUndo}
+          canRedo={canRedo}
+          loopInMs={loopInMs}
+          loopOutMs={loopOutMs}
+          hasEmptyTracks={hasEmptyTracks}
+          allTracksMuted={allTracksMuted}
+          anyTrackMuted={anyTrackMuted}
+        />
+
+        {/* Main area: track list (left) + properties panel (right) */}
+        <div className="flex flex-1 gap-2 overflow-hidden p-2 sm:gap-4 sm:p-4">
+          {/* Track list */}
+          <div
+            ref={trackListRef}
+            className="relative flex flex-1 flex-col overflow-x-auto overflow-y-auto border border-gray-400 bg-gray-300 pb-12 dark:border-gray-800 dark:bg-gray-900"
+            onMouseMove={handleTrackAreaMouseMove}
+            onMouseLeave={() => setGuideMs(null)}
+            onClick={handleTrackAreaClick}
+          >
+            {/* Inner width driver — forces scrollWidth of the overflow-x-auto container */}
+            <div className="relative" style={{ minWidth: `calc(12rem + ${timelineWidthPx}px)` }}>
+              <TimeRuler
+                totalMs={maxTrackDurationMs}
+                timelineWidthPx={timelineWidthPx}
+                pxPerSec={pxPerSec}
+              />
+
+              {/* Global playhead line — spans all tracks, aligned with TimeRuler.
                 Position is driven by --playhead-px CSS var (set by rAF or sync useEffect)
                 to avoid React re-render jitter. React-computed fallback covers initial render. */}
-            {maxTrackDurationMs > 0 &&
-              (playerState !== "idle" || seekPositionMs > 0 || playheadMs > 0) && (
+              {maxTrackDurationMs > 0 &&
+                (playerState !== "idle" || seekPositionMs > 0 || playheadMs > 0) && (
+                  <div
+                    className="pointer-events-none absolute top-7 bottom-0 z-20 w-0.5 bg-white/90 shadow-[0_0_4px_rgba(255,255,255,0.35)]"
+                    style={{
+                      left: `var(--playhead-px, ${192 + ((playerState !== "idle" ? playheadMs : seekPositionMs) / maxTrackDurationMs) * timelineWidthPx}px)`,
+                    }}
+                  />
+                )}
+
+              {/* A marker line */}
+              {loopInMs !== null && maxTrackDurationMs > 0 && (
                 <div
-                  className="pointer-events-none absolute top-7 bottom-0 z-20 w-0.5 bg-white/90 shadow-[0_0_4px_rgba(255,255,255,0.35)]"
-                  style={{
-                    left: `var(--playhead-px, ${192 + ((playerState !== "idle" ? playheadMs : seekPositionMs) / maxTrackDurationMs) * timelineWidthPx}px)`,
-                  }}
+                  className="pointer-events-none absolute top-7 bottom-0 z-19 w-0.5 bg-white/80 shadow-[0_0_4px_rgba(255,255,255,0.3)]"
+                  style={{ left: `${192 + (loopInMs / maxTrackDurationMs) * timelineWidthPx}px` }}
                 />
               )}
 
-            {/* A marker line */}
-            {loopInMs !== null && maxTrackDurationMs > 0 && (
-              <div
-                className="pointer-events-none absolute top-7 bottom-0 z-19 w-0.5 bg-white/80 shadow-[0_0_4px_rgba(255,255,255,0.3)]"
-                style={{ left: `${192 + (loopInMs / maxTrackDurationMs) * timelineWidthPx}px` }}
-              />
-            )}
+              {/* B marker line */}
+              {loopOutMs !== null && maxTrackDurationMs > 0 && (
+                <div
+                  className="pointer-events-none absolute top-7 bottom-0 z-19 w-0.5 bg-white/80 shadow-[0_0_4px_rgba(255,255,255,0.3)]"
+                  style={{ left: `${192 + (loopOutMs / maxTrackDurationMs) * timelineWidthPx}px` }}
+                />
+              )}
 
-            {/* B marker line */}
-            {loopOutMs !== null && maxTrackDurationMs > 0 && (
-              <div
-                className="pointer-events-none absolute top-7 bottom-0 z-19 w-0.5 bg-white/80 shadow-[0_0_4px_rgba(255,255,255,0.3)]"
-                style={{ left: `${192 + (loopOutMs / maxTrackDurationMs) * timelineWidthPx}px` }}
-              />
-            )}
+              {/* Hover guide line */}
+              {guideMs !== null && maxTrackDurationMs > 0 && (
+                <div
+                  className="pointer-events-none absolute top-0 bottom-0 z-30 w-px bg-indigo-400/60"
+                  style={{ left: `${192 + (guideMs / maxTrackDurationMs) * timelineWidthPx}px` }}
+                />
+              )}
 
-            {/* Hover guide line */}
-            {guideMs !== null && maxTrackDurationMs > 0 && (
-              <div
-                className="pointer-events-none absolute top-0 bottom-0 z-30 w-px bg-indigo-400/60"
-                style={{ left: `${192 + (guideMs / maxTrackDurationMs) * timelineWidthPx}px` }}
-              />
-            )}
-
-            <DndContext
-              sensors={dndSensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
-            >
-              <SortableContext items={trackIds} strategy={verticalListSortingStrategy}>
-                <div className="flex cursor-crosshair flex-col gap-3 py-3">
-                  {tracks.map((trackCode, idx) => (
-                    <div
-                      key={trackIds[idx]}
-                      ref={(el) => {
-                        trackRowsRef.current[idx] = el;
-                      }}
-                    >
-                      <TrackLane
+              <DndContext
+                sensors={dndSensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+              >
+                <SortableContext items={trackIds} strategy={verticalListSortingStrategy}>
+                  <div className="flex cursor-crosshair flex-col gap-3 py-3">
+                    {tracks.map((trackCode, idx) => (
+                      <div
                         key={trackIds[idx]}
-                        id={trackIds[idx]!}
-                        index={idx}
-                        code={trackCode}
-                        totalMs={maxTrackDurationMs}
-                        timelineWidthPx={timelineWidthPx}
-                        playheadMs={playerState !== "idle" ? playheadMs : seekPositionMs}
-                        isFocused={focusedTrackIndex === idx}
-                        isExpanded={expandedTracks.has(idx)}
-                        isDeactivated={deactivatedTracks.has(idx)}
-                        canRemove={tracks.length > 1}
-                        canDuplicate={tracks.length < MAX_TRACKS}
-                        trackColor={trackColors[idx] ?? `rgb(99, 102, 241)`}
-                        onColorChange={(color) => setTrackColor(idx, color)}
-                        onFocus={() => setFocusedTrackIndex(idx)}
-                        onToggleExpand={() => toggleTrackExpanded(idx)}
-                        onChange={(val) => handleTrackCodeChange(idx, val)}
-                        onRemove={() => setConfirmRemoveIndex(idx)}
-                        onRename={(newName) => handleRenameTrack(idx, newName)}
-                        onDuplicate={() => handleDuplicateTrack(idx)}
-                        onDeactivate={() => toggleDeactivateTrack(idx)}
-                        editorRef={(handle) => {
-                          trackEditorRefs.current[idx] = handle;
+                        ref={(el) => {
+                          trackRowsRef.current[idx] = el;
                         }}
-                      />
-                    </div>
-                  ))}
+                      >
+                        <TrackLane
+                          key={trackIds[idx]}
+                          id={trackIds[idx]!}
+                          index={idx}
+                          code={trackCode}
+                          totalMs={maxTrackDurationMs}
+                          timelineWidthPx={timelineWidthPx}
+                          playheadMs={playerState !== "idle" ? playheadMs : seekPositionMs}
+                          isFocused={focusedTrackIndex === idx}
+                          isExpanded={expandedTracks.has(idx)}
+                          isDeactivated={deactivatedTracks.has(idx)}
+                          canRemove={tracks.length > 1}
+                          canDuplicate={tracks.length < MAX_TRACKS}
+                          trackColor={trackColors[idx] ?? `rgb(99, 102, 241)`}
+                          onColorChange={(color) => setTrackColor(idx, color)}
+                          onFocus={() => setFocusedTrackIndex(idx)}
+                          onToggleExpand={() => toggleTrackExpanded(idx)}
+                          onChange={(val) => handleTrackCodeChange(idx, val)}
+                          onRemove={() => setConfirmRemoveIndex(idx)}
+                          onRename={(newName) => handleRenameTrack(idx, newName)}
+                          onDuplicate={() => handleDuplicateTrack(idx)}
+                          onDeactivate={() => toggleDeactivateTrack(idx)}
+                          editorRef={(handle) => {
+                            trackEditorRefs.current[idx] = handle;
+                          }}
+                        />
+                      </div>
+                    ))}
 
-                  {tracks.length < MAX_TRACKS && (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleAddTrack();
-                      }}
-                      className="flex w-full items-center justify-center gap-1.5 rounded-md border border-dashed border-gray-300 py-2 text-sm text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
-                    >
-                      <FaPlus size={11} />
-                      {t("editor.addTrack", { defaultValue: "Add Track" })}
-                    </button>
-                  )}
-                </div>
-              </SortableContext>
-            </DndContext>
+                    {tracks.length < MAX_TRACKS && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddTrack();
+                        }}
+                        className="flex w-full items-center justify-center gap-1.5 rounded-md border border-dashed border-gray-300 py-2 text-sm text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
+                      >
+                        <FaPlus size={11} />
+                        {t("editor.addTrack", { defaultValue: "Add Track" })}
+                      </button>
+                    )}
+                  </div>
+                </SortableContext>
+              </DndContext>
+            </div>
+            {/* end inner width driver */}
           </div>
-          {/* end inner width driver */}
+
+          {/* Right: Properties */}
+          <PropertiesPanel
+            name={name}
+            nameInputRef={nameInputRef}
+            tracks={tracks}
+            focusedTrackIndex={focusedTrackIndex}
+            onNameChange={setName}
+            categories={categories}
+            onCategoriesChange={setCategories}
+            errors={errors}
+            onDiscard={handleDiscard}
+            onSubmit={handleSubmit}
+          />
         </div>
 
-        {/* Right: Properties */}
-        <PropertiesPanel
-          name={name}
-          nameInputRef={nameInputRef}
-          tracks={tracks}
+        <StatusBar
+          hasDraft={hasDraft}
           focusedTrackIndex={focusedTrackIndex}
-          onNameChange={setName}
-          categories={categories}
-          onCategoriesChange={setCategories}
-          errors={errors}
-          onDiscard={handleDiscard}
-          onSubmit={handleSubmit}
+          focusedTrackName={focusedTrackName}
+          maxTrackDurationMs={maxTrackDurationMs}
+          playheadMs={playheadMs}
+          seekPositionMs={seekPositionMs}
+          guideMs={guideMs}
+        />
+
+        <ImportDialog
+          open={importOpen}
+          onClose={() => setImportOpen(false)}
+          onConfirm={handleImportConfirm}
+        />
+
+        <FavoriteImportDialog
+          open={favImportOpen}
+          onClose={() => setFavImportOpen(false)}
+          onConfirm={handleImportConfirm}
+        />
+
+        <ConfirmDialog
+          isOpen={confirmRemoveIndex !== null}
+          title={t("editor.removeTrack", { defaultValue: "Remove Track" })}
+          message={(() => {
+            const idx = confirmRemoveIndex ?? 0;
+            const code = tracks[idx] ?? "";
+            const colonIdx = code.indexOf(":");
+            const trackName =
+              (colonIdx > 0 ? code.slice(0, colonIdx).trim() : "") || `Track ${idx + 1}`;
+            return t("editor.removeTrackConfirm", {
+              defaultValue: `Are you sure you want to remove "${trackName}"?`,
+              trackName,
+            });
+          })()}
+          confirmLabel={t("editor.removeTrack", { defaultValue: "Remove" })}
+          variant="danger"
+          onConfirm={() => {
+            if (confirmRemoveIndex !== null) {
+              handleRemoveTrack(confirmRemoveIndex);
+            }
+            setConfirmRemoveIndex(null);
+          }}
+          onCancel={() => setConfirmRemoveIndex(null)}
+        />
+
+        {/* Confirm: new project / discard when data exists */}
+        <ConfirmDialog
+          isOpen={pendingAction !== null}
+          title={
+            pendingAction === "new"
+              ? t("create.menuNew", { defaultValue: "New Project" })
+              : t("create.cancel", { defaultValue: "Discard" })
+          }
+          message={
+            pendingAction === "new"
+              ? t("create.newProjectConfirm", {
+                  defaultValue:
+                    "You have unsaved track data. Create a new project and discard current data?",
+                })
+              : t("create.discardConfirm", { defaultValue: "Discard current edits and exit?" })
+          }
+          confirmLabel={t("confirm.ok", { defaultValue: "Yes" })}
+          onConfirm={() => {
+            const action = pendingAction;
+            setPendingAction(null);
+            if (action === "new") {
+              _doNew();
+            } else {
+              _doDiscard();
+            }
+          }}
+          onCancel={() => setPendingAction(null)}
+        />
+
+        {/* Cut dialog — multi-track A-B trim / delete region */}
+        <CutDialog
+          mode={cutDialogMode ?? "trim"}
+          open={cutDialogMode !== null}
+          tracks={tracks}
+          trackColors={trackColors}
+          inMs={loopInMs}
+          outMs={loopOutMs}
+          onConfirm={handleCutConfirm}
+          onCancel={handleCutCancel}
         />
       </div>
-
-      <StatusBar
-        hasDraft={hasDraft}
-        focusedTrackIndex={focusedTrackIndex}
-        focusedTrackName={focusedTrackName}
-        maxTrackDurationMs={maxTrackDurationMs}
-        playheadMs={playheadMs}
-        seekPositionMs={seekPositionMs}
-        guideMs={guideMs}
-      />
-
-      <ImportDialog
-        open={importOpen}
-        onClose={() => setImportOpen(false)}
-        onConfirm={handleImportConfirm}
-      />
-
-      <FavoriteImportDialog
-        open={favImportOpen}
-        onClose={() => setFavImportOpen(false)}
-        onConfirm={handleImportConfirm}
-      />
-
-      <ConfirmDialog
-        isOpen={confirmRemoveIndex !== null}
-        title={t("editor.removeTrack", { defaultValue: "Remove Track" })}
-        message={(() => {
-          const idx = confirmRemoveIndex ?? 0;
-          const code = tracks[idx] ?? "";
-          const colonIdx = code.indexOf(":");
-          const trackName =
-            (colonIdx > 0 ? code.slice(0, colonIdx).trim() : "") || `Track ${idx + 1}`;
-          return t("editor.removeTrackConfirm", {
-            defaultValue: `Are you sure you want to remove "${trackName}"?`,
-            trackName,
-          });
-        })()}
-        confirmLabel={t("editor.removeTrack", { defaultValue: "Remove" })}
-        variant="danger"
-        onConfirm={() => {
-          if (confirmRemoveIndex !== null) {
-            handleRemoveTrack(confirmRemoveIndex);
-          }
-          setConfirmRemoveIndex(null);
-        }}
-        onCancel={() => setConfirmRemoveIndex(null)}
-      />
-
-      {/* Confirm: new project / discard when data exists */}
-      <ConfirmDialog
-        isOpen={pendingAction !== null}
-        title={
-          pendingAction === "new"
-            ? t("create.menuNew", { defaultValue: "New Project" })
-            : t("create.cancel", { defaultValue: "Discard" })
-        }
-        message={
-          pendingAction === "new"
-            ? t("create.newProjectConfirm", {
-                defaultValue:
-                  "You have unsaved track data. Create a new project and discard current data?",
-              })
-            : t("create.discardConfirm", { defaultValue: "Discard current edits and exit?" })
-        }
-        confirmLabel={t("confirm.ok", { defaultValue: "Yes" })}
-        onConfirm={() => {
-          const action = pendingAction;
-          setPendingAction(null);
-          if (action === "new") {
-            _doNew();
-          } else {
-            _doDiscard();
-          }
-        }}
-        onCancel={() => setPendingAction(null)}
-      />
-
-      {/* Cut dialog — multi-track A-B trim / delete region */}
-      <CutDialog
-        mode={cutDialogMode ?? "trim"}
-        open={cutDialogMode !== null}
-        tracks={tracks}
-        trackColors={trackColors}
-        inMs={loopInMs}
-        outMs={loopOutMs}
-        onConfirm={handleCutConfirm}
-        onCancel={handleCutCancel}
-      />
-    </div>
+    </>
   );
 }
