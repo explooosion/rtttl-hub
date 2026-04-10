@@ -29,10 +29,19 @@ export function AboutDialog({ open, onClose }: { open: boolean; onClose: () => v
           <div className="mt-4 space-y-1.5 rounded-xl bg-gray-50 p-3 dark:bg-gray-800/50">
             {(
               [
-                ["Format", "Ring Tone Transfer Language (RTTTL)"],
-                ["Max Tracks", "8"],
-                ["Storage", "Local browser storage (draft)"],
-                ["Shortcuts", "Ctrl/⌘+Z  Undo · Ctrl/⌘+Shift+Z  Redo"],
+                [
+                  t("create.aboutFormat", { defaultValue: "Format" }),
+                  "Ring Tone Transfer Language (RTTTL)",
+                ],
+                [t("create.aboutMaxTracks", { defaultValue: "Max Tracks" }), "8"],
+                [
+                  t("create.aboutStorage", { defaultValue: "Storage" }),
+                  t("create.aboutStorageValue", { defaultValue: "Local browser storage (draft)" }),
+                ],
+                [
+                  t("create.aboutShortcuts", { defaultValue: "Shortcuts" }),
+                  "Ctrl/⌘+Z  Undo · Ctrl/⌘+Shift+Z  Redo",
+                ],
               ] as [string, string][]
             ).map(([k, v]) => (
               <div key={k} className="flex items-start gap-2 text-xs">
