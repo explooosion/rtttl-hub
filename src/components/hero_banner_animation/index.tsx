@@ -2,11 +2,17 @@ import { useRef, useEffect } from "react";
 import type { RefObject } from "react";
 
 import type { AnimPhase, Particle } from "./utils/particle_factory";
-import { type SphereProjection, projectSphereParticle } from "./utils/sphere_math";
-import { renderParticle } from "./utils/particle_renderer";
+import { projectSphereParticle } from "./utils/sphere_math";
 import { useCanvasInit } from "./hooks/use_canvas_init";
 import { useSphereHover } from "./hooks/use_sphere_hover";
 import { useRipple } from "./hooks/use_ripple";
+import {
+  type DrawEntry,
+  runScatterPhase,
+  runGatheringPhase,
+  runOrbitingPhase,
+  runDispersingPhase,
+} from "./utils/phase_renderers";
 
 interface HeroBannerAnimationProps {
   targetRef: RefObject<HTMLElement | null>;
@@ -143,10 +149,7 @@ export function HeroBannerAnimation({ targetRef }: HeroBannerAnimationProps) {
         targetTiltYRef.current *= 0.97;
       }
 
-      // ------------------------------------------------------------------
       // Depth-sorted draw list (only built for sphere phases)
-      // ------------------------------------------------------------------
-      type DrawEntry = { p: Particle; proj: SphereProjection };
       let drawList: DrawEntry[] | null = null;
 
       if (phase === "gathering" || phase === "orbiting") {
@@ -167,130 +170,33 @@ export function HeroBannerAnimation({ targetRef }: HeroBannerAnimationProps) {
         drawList.sort((a, b) => a.proj.pz - b.proj.pz);
       }
 
-      // ------------------------------------------------------------------
-      // SCATTER — dense drifting default state with ripple recovery
-      // ------------------------------------------------------------------
+      // Phase dispatch
       if (phase === "scatter") {
-        for (const p of particles) {
-          // Friction toward natural base velocity (recovers from ripple impulse)
-          p.vx += (p.baseVx - p.vx) * 0.05;
-          p.vy += (p.baseVy - p.vy) * 0.05;
-
-          p.x += p.vx;
-          p.y += p.vy;
-          p.rotation += p.rotationSpeed;
-          p.phase += 0.02;
-
-          // Wrap around canvas edges
-          if (p.x < -p.size) {
-            p.x = w + p.size;
-          }
-          if (p.x > w + p.size) {
-            p.x = -p.size;
-          }
-          if (p.y < -p.size) {
-            p.y = h + p.size;
-          }
-          if (p.y > h + p.size) {
-            p.y = -p.size;
-          }
-
-          const pulse = 0.7 + 0.3 * Math.sin(timeRef.current * 0.8 + p.phase);
-          const opacity = Math.min(p.opacity * pulse, 0.45);
-          renderParticle(ctx, p, opacity, p.size);
-        }
+        runScatterPhase(ctx, particles, w, h, timeRef.current);
       }
 
-      // ------------------------------------------------------------------
-      // GATHERING — lerp each particle toward its sphere surface position
-      // ------------------------------------------------------------------
       if (phase === "gathering" && drawList !== null) {
-        let allGathered = true;
-
-        for (const { p, proj } of drawList) {
-          p.x += (proj.px - p.x) * 0.08;
-          p.y += (proj.py - p.y) * 0.08;
-          p.rotation += p.rotationSpeed;
-          p.phase += 0.025;
-
-          if (Math.hypot(p.x - proj.px, p.y - proj.py) > 5) {
-            allGathered = false;
-          }
-
-          const pulse = 0.7 + 0.3 * Math.sin(timeRef.current * 1.5 + p.phase);
-          const opacity = Math.min(p.opacity * 2.2 * pulse, 0.75);
-          renderParticle(ctx, p, opacity, p.size);
-        }
-
-        if (allGathered) {
+        if (runGatheringPhase(ctx, drawList, timeRef.current)) {
           phaseRef.current = "orbiting";
         }
       }
 
-      // ------------------------------------------------------------------
-      // ORBITING — particles locked to sphere, 3-D perspective rendered
-      // ------------------------------------------------------------------
       if (phase === "orbiting" && drawList !== null) {
-        for (const { p, proj } of drawList) {
-          p.x = proj.px;
-          p.y = proj.py;
-          p.rotation += p.rotationSpeed * 2;
-          p.phase += 0.03;
-
-          const depth = proj.depth; // 0 = far, 1 = near
-          const opacity = Math.min(0.15 + depth * 0.75, 0.9);
-          const sizeMul = (0.5 + depth * 0.8) * proj.perspScale;
-          renderParticle(ctx, p, opacity, p.size * sizeMul);
-        }
+        runOrbitingPhase(ctx, drawList);
       }
 
-      // ------------------------------------------------------------------
-      // DISPERSING — particles lerp to random canvas positions, then scatter
-      // ------------------------------------------------------------------
       if (phase === "dispersing") {
-        // Assign random destinations once; zero velocity so departure from
-        // sphere starts from rest (orbiting locks position, not velocity).
-        if (dispersionTargetsRef.current.length !== particles.length) {
-          dispersionTargetsRef.current = particles.map(() => ({
-            x: Math.random() * w,
-            y: Math.random() * h,
-          }));
-          for (const p of particles) {
-            p.vx = 0;
-            p.vy = 0;
-          }
-        }
-
-        let allArrived = true;
-
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
-          const target = dispersionTargetsRef.current[i];
-
-          // Write the lerp delta back into vx/vy so that when scatter takes
-          // over, its friction loop (vx → baseVx at 0.05/frame) produces a
-          // smooth continuous acceleration rather than a sudden jump.
-          const nextX = p.x + (target.x - p.x) * 0.04;
-          const nextY = p.y + (target.y - p.y) * 0.04;
-          p.vx = nextX - p.x;
-          p.vy = nextY - p.y;
-          p.x = nextX;
-          p.y = nextY;
-          p.rotation += p.rotationSpeed;
-          p.phase += 0.02;
-
-          if (Math.hypot(p.x - target.x, p.y - target.y) > 2) {
-            allArrived = false;
-          }
-
-          const pulse = 0.7 + 0.3 * Math.sin(timeRef.current * 0.8 + p.phase);
-          const opacity = Math.min(p.opacity * pulse, 0.45);
-          renderParticle(ctx, p, opacity, p.size);
-        }
-
-        if (allArrived) {
+        const result = runDispersingPhase(
+          ctx,
+          particles,
+          w,
+          h,
+          timeRef.current,
+          dispersionTargetsRef.current,
+        );
+        dispersionTargetsRef.current = result.targets;
+        if (result.allArrived) {
           dispersionTargetsRef.current = [];
-          // vx/vy ≈ 0; scatter friction naturally accelerates to baseVx/baseVy
           phaseRef.current = "scatter";
         }
       }
