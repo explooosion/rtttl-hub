@@ -15,10 +15,10 @@ export function AppFooter({ resetConsent }: AppFooterProps) {
   return (
     <footer className="mt-12 border-t border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900/50">
       <div className="mx-auto max-w-7xl px-4 py-10">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 text-center sm:text-left sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand / About */}
           <div>
-            <Link to="/" className="mb-3 flex items-center gap-2">
+            <Link to="/" className="mb-3 inline-flex items-center gap-2">
               <span className="font-brand text-lg font-bold tracking-wider text-gray-900 dark:text-white">
                 {t("app.title")}
               </span>
@@ -166,7 +166,9 @@ export function AppFooter({ resetConsent }: AppFooterProps) {
         {/* Bottom bar */}
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-gray-200 pt-6 text-xs text-gray-400 sm:flex-row dark:border-gray-800 dark:text-gray-500">
           <span>{t("footer.copyright")}</span>
-          <LanguageSwitcher />
+          <div className="hidden sm:block">
+            <LanguageSwitcher />
+          </div>
         </div>
       </div>
     </footer>
