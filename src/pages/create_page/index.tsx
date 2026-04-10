@@ -484,6 +484,8 @@ export function CreatePage() {
           onSetLoopIn={handleSetLoopIn}
           onSetLoopOut={handleSetLoopOut}
           onClearLoop={handleClearLoop}
+          onLoopInChange={setLoopInMs}
+          onLoopOutChange={setLoopOutMs}
           onTrimRegion={handleTrimRegion}
           onDeleteRegion={handleDeleteRegion}
           canCutRegion={canCutRegion}
@@ -498,6 +500,10 @@ export function CreatePage() {
           allTracksMuted={allTracksMuted}
           anyTrackMuted={anyTrackMuted}
           onHelpOpen={() => setHelpOpen(true)}
+          maxTrackDurationMs={maxTrackDurationMs}
+          playheadMs={playheadMs}
+          seekPositionMs={seekPositionMs}
+          guideMs={guideMs}
         />
 
         {/* Main area: track list (left) + properties panel (right) */}
@@ -524,7 +530,7 @@ export function CreatePage() {
               {maxTrackDurationMs > 0 &&
                 (playerState !== "idle" || seekPositionMs > 0 || playheadMs > 0) && (
                   <div
-                    className="pointer-events-none absolute top-7 bottom-0 z-20 w-0.5 bg-white/90 shadow-[0_0_4px_rgba(255,255,255,0.35)]"
+                    className="pointer-events-none absolute top-0 bottom-0 z-20 w-0.5 bg-gray-600/80 dark:bg-white/90"
                     style={{
                       left: `var(--playhead-px, ${192 + ((playerState !== "idle" ? playheadMs : seekPositionMs) / maxTrackDurationMs) * timelineWidthPx}px)`,
                     }}
@@ -534,7 +540,7 @@ export function CreatePage() {
               {/* A marker line */}
               {loopInMs !== null && maxTrackDurationMs > 0 && (
                 <div
-                  className="pointer-events-none absolute top-7 bottom-0 z-19 w-0.5 bg-white/80 shadow-[0_0_4px_rgba(255,255,255,0.3)]"
+                  className="pointer-events-none absolute top-0 bottom-0 z-[21] w-0.5 bg-indigo-500/70 dark:bg-indigo-400/80"
                   style={{ left: `${192 + (loopInMs / maxTrackDurationMs) * timelineWidthPx}px` }}
                 />
               )}
@@ -542,7 +548,7 @@ export function CreatePage() {
               {/* B marker line */}
               {loopOutMs !== null && maxTrackDurationMs > 0 && (
                 <div
-                  className="pointer-events-none absolute top-7 bottom-0 z-19 w-0.5 bg-white/80 shadow-[0_0_4px_rgba(255,255,255,0.3)]"
+                  className="pointer-events-none absolute top-0 bottom-0 z-[21] w-0.5 bg-purple-500/70 dark:bg-purple-400/80"
                   style={{ left: `${192 + (loopOutMs / maxTrackDurationMs) * timelineWidthPx}px` }}
                 />
               )}
@@ -550,7 +556,7 @@ export function CreatePage() {
               {/* Hover guide line */}
               {guideMs !== null && maxTrackDurationMs > 0 && (
                 <div
-                  className="pointer-events-none absolute top-0 bottom-0 z-30 w-px bg-indigo-400/60"
+                  className="pointer-events-none absolute top-0 bottom-0 z-30 w-px bg-indigo-500/60 dark:bg-indigo-400/60"
                   style={{ left: `${192 + (guideMs / maxTrackDurationMs) * timelineWidthPx}px` }}
                 />
               )}
@@ -637,10 +643,6 @@ export function CreatePage() {
           hasDraft={hasDraft}
           focusedTrackIndex={focusedTrackIndex}
           focusedTrackName={focusedTrackName}
-          maxTrackDurationMs={maxTrackDurationMs}
-          playheadMs={playheadMs}
-          seekPositionMs={seekPositionMs}
-          guideMs={guideMs}
           onHelpOpen={() => setHelpOpen(true)}
         />
 

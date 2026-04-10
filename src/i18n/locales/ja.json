@@ -256,7 +256,7 @@
     "localStorageHint": "作成した着信音はブラウザのローカルストレージに保存されます。",
     "preview": "プレビュー",
     "previewHint": "RTTTL コードを入力してプレビューしてください",
-    "draftSaved": "● 下書きを保存しました",
+    "draftSaved": "下書きを保存しました",
     "menuFile": "ファイル",
     "menuEdit": "編集",
     "menuHelp": "ヘルプ",

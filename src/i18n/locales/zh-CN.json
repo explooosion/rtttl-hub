@@ -256,7 +256,7 @@
     "localStorageHint": "您创建的铃声会保存在浏览器的本地存储中。",
     "preview": "预览",
     "previewHint": "请在上方输入 RTTTL 代码以预览",
-    "draftSaved": "● 草稿已保存",
+    "draftSaved": "草稿已保存",
     "menuFile": "文件",
     "menuEdit": "编辑",
     "menuHelp": "帮助",

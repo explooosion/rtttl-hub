@@ -256,7 +256,7 @@
     "localStorageHint": "만든 벨소리는 브라우저의 로컬 저장소에 저장됩니다.",
     "preview": "미리보기",
     "previewHint": "RTTTL 코드를 입력하면 미리보기가 가능합니다",
-    "draftSaved": "● 임시 저장됨",
+    "draftSaved": "임시 저장됨",
     "menuFile": "파일",
     "menuEdit": "편집",
     "menuHelp": "도움말",

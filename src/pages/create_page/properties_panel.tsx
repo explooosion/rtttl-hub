@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { FaRegCopy, FaCheck } from "react-icons/fa";
+import { FaRegCopy, FaCheck, FaChevronDown } from "react-icons/fa";
 import { useState, useMemo } from "react";
 import clsx from "clsx";
 
@@ -37,7 +37,8 @@ export function PropertiesPanel({
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [copiedTrack, setCopiedTrack] = useState(false);
-  void useRef; // suppress unused warning — used via nameInputRef prop
+  const [catOpen, setCatOpen] = useState(false);
+  const catDropdownRef = useRef<HTMLDivElement>(null);
 
   const focusedCode = tracks[focusedTrackIndex] ?? "";
 
@@ -62,7 +63,23 @@ export function PropertiesPanel({
       ? focusedCode.slice(0, colonIdx).trim() || `Track ${focusedTrackIndex + 1}`
       : `Track ${focusedTrackIndex + 1}`;
   }, [focusedCode, focusedTrackIndex]);
-  void useRef;
+
+  useEffect(
+    function closeCatDropdownOnClickOutside() {
+      if (!catOpen) {
+        return;
+      }
+      function handleMouseDown(e: MouseEvent) {
+        if (catDropdownRef.current?.contains(e.target as Node)) {
+          return;
+        }
+        setCatOpen(false);
+      }
+      document.addEventListener("mousedown", handleMouseDown);
+      return () => document.removeEventListener("mousedown", handleMouseDown);
+    },
+    [catOpen],
+  );
 
   async function handleCopyAll() {
     const all = tracks.filter((tk) => tk.trim()).join("\n");
@@ -125,36 +142,57 @@ export function PropertiesPanel({
 
         {/* Categories */}
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-500 dark:text-gray-400">
+          <label className="mb-0.5 block text-sm font-medium text-gray-500 dark:text-gray-400">
             {t("create.category")}
           </label>
-          <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
-            {RTTTL_CATEGORIES.map((cat) => {
-              const checked = categories.includes(cat);
-              return (
-                <label
-                  key={cat}
-                  className={clsx(
-                    "flex cursor-pointer items-center gap-1.5 rounded px-1 py-0.5 text-sm transition-colors",
-                    checked
-                      ? "font-medium text-indigo-600 dark:text-indigo-400"
-                      : "text-gray-600 hover:bg-gray-300/40 dark:text-gray-400 dark:hover:bg-gray-700/40",
-                  )}
-                >
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    onChange={() =>
-                      onCategoriesChange(
-                        checked ? categories.filter((c) => c !== cat) : [...categories, cat],
-                      )
-                    }
-                    className="h-3 w-3 rounded border-gray-400 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800"
-                  />
-                  {t(`categories.${cat}`)}
-                </label>
-              );
-            })}
+          <div className="relative" ref={catDropdownRef}>
+            <button
+              type="button"
+              onClick={() => setCatOpen((v) => !v)}
+              className="flex w-full items-center justify-between rounded border border-gray-400 bg-white px-2 py-1 text-sm text-gray-700 focus:border-indigo-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+            >
+              <span className="truncate">
+                {categories.length === 0
+                  ? t("create.noneSelected", { defaultValue: "None selected" })
+                  : categories.map((c) => t(`categories.${c}`)).join(", ")}
+              </span>
+              <FaChevronDown
+                size={11}
+                className={clsx("ml-1 shrink-0 transition-transform", catOpen && "rotate-180")}
+              />
+            </button>
+            {catOpen && (
+              <div className="absolute left-0 top-full z-10 mt-1 w-full rounded border border-gray-300 bg-white shadow-lg dark:border-gray-600 dark:bg-gray-800">
+                <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 p-2">
+                  {RTTTL_CATEGORIES.map((cat) => {
+                    const checked = categories.includes(cat);
+                    return (
+                      <label
+                        key={cat}
+                        className={clsx(
+                          "flex cursor-pointer items-center gap-1.5 rounded px-1 py-0.5 text-sm transition-colors",
+                          checked
+                            ? "font-medium text-indigo-600 dark:text-indigo-400"
+                            : "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700/40",
+                        )}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          onChange={() =>
+                            onCategoriesChange(
+                              checked ? categories.filter((c) => c !== cat) : [...categories, cat],
+                            )
+                          }
+                          className="h-3 w-3 rounded border-gray-400 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800"
+                        />
+                        {t(`categories.${cat}`)}
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -192,7 +230,7 @@ export function PropertiesPanel({
             <div className="flex justify-between">
               <dt>{t("create.trackDuration", { defaultValue: "Duration" })}</dt>
               <dd className="font-mono text-gray-800 dark:text-gray-200">
-                {(trackStats.duration / 1000).toFixed(2)}s
+                {(trackStats.duration / 1000).toFixed(3)}s
               </dd>
             </div>
             <div className="flex justify-between">
