@@ -2,13 +2,19 @@
   {
     "name": "Bluejay Default",
     "artist": "Bluejay",
-    "category": "alert",
-    "tracks": ["bluejay:b=570,o=4,d=32:4b,p,4e5,p,4b,p,4f#5,2p,4e5,2b5,8b5"]
+    "categories": [
+      "alert"
+    ],
+    "tracks": [
+      "bluejay:b=570,o=4,d=32:4b,p,4e5,p,4b,p,4f#5,2p,4e5,2b5,8b5"
+    ]
   },
   {
     "name": "Hit Em Up",
     "artist": "2Pac",
-    "category": "pop",
+    "categories": [
+      "pop"
+    ],
     "tracks": [
       "2pac_hit_em_up:d=4,o=5,b=200:a,8p,a,8g,a,p,a,c6,a,d6,8p,d6,8c6,d6,2p,8p,8d6,8d#6,e6,8p,e6,8d6,e6,p,c6,8b,8g,e,a.,a,8g,a"
     ]
@@ -16,7 +22,9 @@
   {
     "name": "Chiquitita",
     "artist": "Abba",
-    "category": "pop",
+    "categories": [
+      "pop"
+    ],
     "tracks": [
       "ab_chiq_m1:b=104,o=5,d=16:8f#,c#,p,c#,p,c#,p,c#,p,c#,p,c#,h4,c#,d,8f#,e6,e,e6,p,e6,e,e6,e,e6,e,e6,e,e6,e,g#6,g#,g#6,g#,g#6,g#,g#6,g#,a6,a,a6,a,a6,a,a6,a,g#6,g#,g#6,g#,a6,a,a6,a,h6,h,h6,h,8a6",
       "ab_chiq_m2:b=104,o=6,d=16:8f#,c#,p,c#,p,c#,p,c#,p,c#,p,c#,h5,c#,d,8f#,a5,p,a5,p,a5,p,a5,p,a5,p,a5,p,a5,p,d,p,d,p,d,p,d,p,d,p,d,p,d,p,d,p,d,p,d,p,d,p,d,p,d,p,d,p,8d",
@@ -27,7 +35,9 @@
   {
     "name": "Among Us - Theme",
     "artist": "Innersloth",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "Amongus:b=95,o=5,d=4:c4,8c6,8d#6,8f6,8f#6,8f6,8d#6,c6,8c6,16a#,16d6,c6,16c6,8g3,c4,8c6,8d#6,8f6,8f#6,8f6,8d#6,2f#6,16f#6,16f6,16d#6,16f#6,16f6,16d#6"
     ]
@@ -35,7 +45,9 @@
   {
     "name": "Back in Black",
     "artist": "AC/DC",
-    "category": "rock",
+    "categories": [
+      "pop"
+    ],
     "tracks": [
       "ACDCBack1:b=180,o=5,d=4:16b4,8p.,2p,16d,16p,16d,16p,16d,8p.,2p,16a4,16p,16a4,16p,16a4,8p.,2p.,8p,16g4,16p,16e4,16p,16d4,16p,16b3,16p,16a3,16b3,16a3,16p,16g3,16p",
       "ACDCBack2:b=180,o=5,d=4:16g#4,8p.,2p,16d4,16p,16d4,16p,16d4,8p.,2p,16e4,16p,16e4,16p,16e4,8p.,2p.,1p",
@@ -46,7 +58,9 @@
   {
     "name": "TNT",
     "artist": "AC/DC",
-    "category": "rock",
+    "categories": [
+      "pop"
+    ],
     "tracks": [
       "tnt1:d=4,o=3,b=250:2c6,4c6,2p,4d#6,4p,2f6,4f6,4p,4d#5,4f6,4d#5,4p,2c6",
       "tnt2:d=4,o=3,b=250:2g5,4g5,2p,4a#5,4p,2c6,4c6,2p,4c6,2p,2g5",
@@ -57,7 +71,9 @@
   {
     "name": "Bad Apple",
     "artist": "ZUN",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "Melody:b=147,o=5,d=8:d#,f,f#,g#,16a#,p,16a#,d#6,c#6,16a#,p,16a#,16d#,p,16d#,1p,1p,2p,d#,f,f#,g#,16a#,p,16a#,d#6,c#6,16a#,p,16a#,16d#,1p,1p,4p",
       "Melody:b=147,o=5,d=8:1p,2p,a#,g#,f#,f,d#,f,f#,g#,16a#,p,16a#,g#,f#,f,d#,f,f#,f,d#,d,f,1p,2p,a#,g#,f#,f,d#,f,f#,g#,16a#,p,16a#,1p,p",
@@ -68,7 +84,9 @@
   {
     "name": "Batman - Theme",
     "artist": "Danny Elfman",
-    "category": "movie-tv",
+    "categories": [
+      "movie-tv"
+    ],
     "tracks": [
       "bm_0:b=180,o=4,d=32:8d#5,p,8d#5,p,8d5,p,8d5,p,8c#5,p,8c#5,p,8d5,p,8d5,p,4d#5,p,p,2d#5",
       "bm_1:b=180,o=4,d=32:8g#,p,8g#,p,8g#,p,8g#,p,8g#,p,8g#,p,8g#,p,8g#,p,4g#,p,p,2g#",
@@ -79,7 +97,9 @@
   {
     "name": "Brain Power",
     "artist": "NOMA",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "Brainpower:b=170,o=4,d=32:16e5,16p,16f#5,16p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,e5,p,e5,p,e5,p,e5,p,16b,16p,16c#5,16p,16a,16p,16f#5,16p,16f#5,16p,16e5",
       "Brainpower:b=170,o=4,d=32:16e5,16p,16f#5,16p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,f#5,p,e5,p,e5,p,e5,p,e5,p,16b,16p,16c#5,16p,16a,16p,16f#5,16p,16f#5,16p,16e5",
@@ -90,7 +110,9 @@
   {
     "name": "Doom - Theme (E1M1)",
     "artist": "id Software",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "e1m1:b=420,o=4,d=32:8c4,8p,4c4,4c5,8c4,8p,4c4,4a#4,8c4,8p,4c4,4g#4,8c4,8p,4c4,4f#4,8c4,8p,4c4,4g4,4g#4,8c4,8p,4c4,4c5,8c4,8p,4c4,4a#4,8c4,8p,4c4,4g#4,8c4,8p,4c4,1f#4",
       "e1m1:b=420,o=4,d=32:8c4,8p,4c4,4c5,8c4,8p,4c4,4a#4,8c4,8p,4c4,4g#4,8c4,8p,4c4,4f#4,8c4,8p,4c4,4g4,4g#4,8c4,8p,4c4,4c5,8c4,8p,4c4,4a#4,8c4,8p,4c4,4g#4,8c4,8p,4c4,1c4",
@@ -101,7 +123,9 @@
   {
     "name": "Sweet Child O' Mine",
     "artist": "Guns N' Roses",
-    "category": "rock",
+    "categories": [
+      "pop"
+    ],
     "tracks": [
       "SweetChi:d=4,o=5,b=125:8c#,8c#6,8g#,8f#,8f#6,8g#,8f6,8g#,8c#,8c#6,8g#,8f#,8f#6,8g#,8f6,8g#"
     ]
@@ -109,7 +133,9 @@
   {
     "name": "Giorno's Theme",
     "artist": "Hiroshi Miyauchi",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "Girono:d=8,o=6,b=140:4f#,f#,4d,d,4p,f,32f,32p,e,32e,32p,p,c#,32c#,32p,d,32d,32p,p,4f#5,f#5,4b5,b5,4p,d65,32d,32p,16p,4p,c#,32c#,32p,a5,16a5,g5",
       "Girono:d=8,o=5,b=140:4f#,f#,4d,d,d,e,f,16f,e,16e,d,c#,16c#,d,16d,e,4p,p,4d,d,b4,c#,d,16d,e,16e,d,c#,16c#",
@@ -120,7 +146,9 @@
   {
     "name": "Megalovania",
     "artist": "Undertale",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "Megalo:b=280,o=5,d=8: 4d,d6,p,a,4p,g#,p,g,p,4f,d,f,g,4c,d6,p,a,4p,g#,p,g,p,4f,d,f,g,4b,d6,p,a,4p,g#,p,g,p,4f,d,f,g,a#,a#,d6,p,a,4p,g#,p,g,p,4f,d,f,g",
       "Megalo:b=280,o=6,d=8:4d,d7,p,a,4p,g#,p,g,p,4f,d,f,g,4c,d7,p,a,4p,g#,p,g,p,4f,d,f,g,4b,d7,p,a,4p,g#,p,g,p,4f,d,f,g,a#,a#,d7,p,a,4p,g#,p,g,p,4f,d,f,g",
@@ -131,7 +159,9 @@
   {
     "name": "Never Gonna Give You Up",
     "artist": "Rick Astley",
-    "category": "pop",
+    "categories": [
+      "pop"
+    ],
     "tracks": [
       "never1:b=210,o=3,d=4:8d5,8e5,8g5,8d5,b5,8p,b5,8p,2a5,p,8d5,8e5,8g5,8d5,a5,8p,a5,8p,g5,8g5,8f#5,e5,8d5,8e5,8g5,8e5,2g5,a5,f#5,8f#5,8e5,d5,8d5,8p,8d5,8p,a5,8a5,8p,2g5",
       "never2:b=210,o=3,d=4:2p,g5,8p,g5,8p,2f#5,p,2p,f#5,8p,f#5,8p,2e5,p,2p,2e5,p,2d5,p,2p,d5,8d5,8p,2e5",
@@ -142,7 +172,9 @@
   {
     "name": "Star Wars - Imperial March",
     "artist": "John Williams",
-    "category": "movie-tv",
+    "categories": [
+      "movie-tv"
+    ],
     "tracks": [
       "imperial1:d=4,o=3,b=450:2g5,2p,2g5,2p,2g5,2p,2d#5,4p,4a#5,2g5,2p,2d#5,4p,4a#5,1g5,2p",
       "imperial2:d=4,o=3,b=450:4g4,4p,4g4,4p,4g4,4p,4g4,4p,8g4,8p,8g4,8p,8g4,8g4,8g4,8g4,4d#4,4p,4d#4,4p,4g4,4p,4g4,4p,4d#4,4p,4d#4,4p,1g4,2p",
@@ -153,7 +185,9 @@
   {
     "name": "Star Wars - Theme",
     "artist": "John Williams",
-    "category": "movie-tv",
+    "categories": [
+      "movie-tv"
+    ],
     "tracks": [
       "starwars:d=4,o=5,b=180:8f,8f,8f,2a#.,2f.6,8d#6,8d6,8c6,2a#.6,f.6,8d#6,8d6,8c6,2a#.6,f.6,8d#6,8d6,8d#6,2c6"
     ]
@@ -161,7 +195,9 @@
   {
     "name": "Pacman - Theme",
     "artist": "Namco",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "pacman1:d=32,o=5,b=112:c#,p,c#6,p,g#,p,f,p,c#6,g#,16p,16f.,p,d,p,d6,p,a,p,f#,p,d6,a,16p,16f#.,p,c#,p,c#6,p,g#,p,f,p,c#6,g#,16p,16f.,p,e,f,f#,p,f#,g,g#,p,g#,a,a#,p,16c#6",
       "pacman2:d=16,o=4,b=112:c#,8p,g#,c#,8p,g#,d,8p,a,d,8p,a,c#,8p,g#,c#,8p,32g#.,64p,g#,p,a#,p,c5,p,c#5",
@@ -172,7 +208,9 @@
   {
     "name": "FF7 Victory Fanfare",
     "artist": "Nobuo Uematsu",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "FF7Victory1:b=240,o=4,d=16:c5,p,c5,p,c5,p,4c5.,4g#.,4a#.,8c5,8p,8a#,1c5,8p",
       "FF7Victory2:b=240,o=4,d=16:a,p,g,p,f,p,4e.,4c#.,4d.,8c,8p,8c,1d#,8p",
@@ -183,7 +221,9 @@
   {
     "name": "Mega Man 2 - Dr. Wily Stage 1",
     "artist": "Capcom",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "Melody:b=189,o=5,d=16:c#,p,32e,32p,32e,32p,32e,32p,p,32e,32p,32e,32p,32e,32p,p,c#,p,8p,c#,p,32e,32p,32e,32p,32e,32p,p,e,p,c#,p,8p,g#,p,f#,p,g#,1p,1p,1p,1p",
       "Melody:b=189,o=5,d=16:1p,1p,8p,32e,32p,32e,32p,32e,32p,p,32e,32p,32e,32p,32e,32p,p,c#,p,8p,g#5,p,8p,f#5,p,8p,e5,p,8p,f#5,1p,1p,1p,1p",
@@ -194,7 +234,9 @@
   {
     "name": "Simpsons - Theme",
     "artist": "Danny Elfman",
-    "category": "movie-tv",
+    "categories": [
+      "movie-tv"
+    ],
     "tracks": [
       "simpsons:d=4,o=5,b=160:c.6,e6,f#6,8a6,g.6,e6,c6,8a,8f#,8f#,8f#,2g,8p,8p,8f#,8f#,8f#,8g,a#.,8c6,8c6,8c6,c6"
     ]
@@ -202,7 +244,9 @@
   {
     "name": "Pokémon Red/Blue Title Theme",
     "artist": "Pokémon",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "pokemon1:b=135,o=5,d=4:8p.,16d,16g,2p,16p,32g,32p,32g,32p,p,16g,8p.,16g,8p.,32f,32p,32f,32p,16f,16p,32f,16p.,2p,16b,16p,16d6,8p.,p,16f,8p.,p,16f6,p,8p.,16d6,p,8p.,16f,p.,16p,16b4",
       "pokemon2:b=135,o=5,d=4:8p,16b4,16p,p,16g,p,16p,32d4,32p,32d4,32p,16g,8p.,16b4,8p.,16b4,16p,p,16c,8p,16f,16f#,16p,16g,p,16p,16g,16p,16b,p,8p.,16c,p,8p.,16c6,p,16p,16e6,16d#6,16b,8p.,p,16c,p,16p,16e,16d#,16d",
@@ -213,7 +257,9 @@
   {
     "name": "Super Mario Bros - Theme",
     "artist": "Nintendo",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "Super Mario Bros Intro:b=115,o=5,d=4:16e6,32p, 16e6,16p,16e6,16p,16c6,16e6,16p,16g6,8p,16p,16g5,2p",
       "Super Mario Bros Intro:b=115,o=5,d=4:16e5,32p, 16e5,16p,16e5,16p,16c5,16e5,16p,16g5,8p,16p,16g4,2p",
@@ -224,7 +270,9 @@
   {
     "name": "Zelda - Theme",
     "artist": "Koji Kondo",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "zelda1:d=4,o=5,b=80:a#,f.,16a#.,32p,16a#,16c6,16d6,16d#6,8f.6,2p,16p",
       "zelda2:d=4,o=5,b=80:8a#3,1p,16p,32a#,32p,16a#,16c6,16d6,16d#6,f6",
@@ -235,7 +283,9 @@
   {
     "name": "DJI Mavic/Phantom 4 Startup",
     "artist": "DJI",
-    "category": "alert",
+    "categories": [
+      "alert"
+    ],
     "tracks": [
       "DJI: d=2,o=2,b=295: 4c6, 4d6, 4g6, 16p, 4d6, 4g6, 16p, 4d6, 4g6",
       "DJI: d=2,o=2,b=295: 4c6, 4d6, 4g6, 16p, 4d6, 4g6, 2p, 164p, 4g6, 16p, 4d6, 4g6",
@@ -246,13 +296,19 @@
   {
     "name": "T-Motor Default",
     "artist": "T-Motor",
-    "category": "alert",
-    "tracks": ["tmotor:b=130,o=5,d=8:c,16f,16e,f,e,4c"]
+    "categories": [
+      "alert"
+    ],
+    "tracks": [
+      "tmotor:b=130,o=5,d=8:c,16f,16e,f,e,4c"
+    ]
   },
   {
     "name": "Dixie Horn",
     "artist": "Dixie",
-    "category": "folk",
+    "categories": [
+      "folk"
+    ],
     "tracks": [
       "DixieHorn:b=300,o=5,d=32:8g.,p,8e.,p,4c,p,4c,p,8c.,p,8d.,p,8e.,p,8f.,p,4g,p,4g,p,4g,p,4e"
     ]
@@ -260,7 +316,9 @@
   {
     "name": "Super Mario - One Up",
     "artist": "Nintendo",
-    "category": "game",
+    "categories": [
+      "game"
+    ],
     "tracks": [
       "powerup_1: d=2,o=2,b=960:8c4,8g3,8c4,8e4,8g4,8c5,8g4,8g#3,8c4,8d#4,8g#4,8d#4,8g#4,8c5,8d#5,8g#5,8d#5,8d4,8f4,8a#4,8f4,8a#4,8d5,8f5,8d5,8f5,8a#5,8f5",
       "powerup_2: d=2,o=2,b=960:8c5,8g4,8c5,8e5,8g5,8c6,8g5,8g#4,8c5,8d#5,8g#5,8d#5,8g#5,8c6,8d#6,8g#6,8d#6,8d5,8f5,8a#5,8f5,8a#5,8d6,8f6,8d6,8f6,8a#6,8f6"
@@ -269,13 +327,19 @@
   {
     "name": "X-Files - Theme",
     "artist": "X-Files",
-    "category": "movie-tv",
-    "tracks": ["XFiles:b=125,o=5,d=4:e,b,a,b,d6,2b."]
+    "categories": [
+      "movie-tv"
+    ],
+    "tracks": [
+      "XFiles:b=125,o=5,d=4:e,b,a,b,d6,2b."
+    ]
   },
   {
     "name": "Raining Blood",
     "artist": "Slayer",
-    "category": "rock",
+    "categories": [
+      "pop"
+    ],
     "tracks": [
       "RainingBlo:d=4,o=5,b=240:8d#3,8d#4,8a4,8a#4,a4,8f4,8a4,g#4,8e4,8g#4,g4,8d#3,8d#3,8d#3,8d#4,8a4,8a#4,a4,8f4,8a4,g#4,8e4,8g#4,g4,8d#3,8d#3,8d#3,8a#4,8e,8f,e,8c,8e,d#,8b4,8d#,d,8d#3,8d#3,8d#3,8a#4,8e,8f,e,8c,8e,d#,8b4,8d"
     ]
@@ -283,7 +347,9 @@
   {
     "name": "Revolutionary Etude",
     "artist": "Chopin",
-    "category": "classical",
+    "categories": [
+      "classical"
+    ],
     "tracks": [
       "rev_etude_0:o=5,b=160,d=16:8p,g#6,g6,f6,d6,d#6,d6,b,g,g#,g,f,d,d#,d,b4,g4,g#4,g4,f4,d4,d#4,d4,c4,g3,c4,g3,c4,g3,c4,g3,1d6,2p.,8g#.,g,1f6",
       "rev_etude_1:o=5,b=160,d=16:1b,2p.,8g#.,g,8b3,g#6,g6,f6,d6,d#6,d6,b,g,g#,g,f,d,d#,d,b4,g4,g#4,g4,f4,d4,d#4,d4,c4,g3,c4,g3,c4,g3,c4,g3,1d6",
