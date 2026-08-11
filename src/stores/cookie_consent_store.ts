@@ -17,15 +17,15 @@ export const useCookieConsentStore = create<CookieConsentState>()(
     (set) => ({
       hasConsented: false,
       necessary: true,
-      preferences: false,
-      statistics: false,
+      preferences: true,
+      statistics: true,
       acceptAll: () =>
         set({ hasConsented: true, necessary: true, preferences: true, statistics: true }),
       rejectAll: () =>
         set({ hasConsented: true, necessary: true, preferences: false, statistics: false }),
       savePreferences: (prefs) => set({ hasConsented: true, necessary: true, ...prefs }),
       resetConsent: () =>
-        set({ hasConsented: false, necessary: true, preferences: false, statistics: false }),
+        set({ hasConsented: false, necessary: true, preferences: true, statistics: true }),
     }),
     { name: "rtttl-cookie-consent" },
   ),

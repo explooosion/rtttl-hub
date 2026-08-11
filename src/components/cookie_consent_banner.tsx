@@ -8,12 +8,10 @@ import { useCookieConsentStore } from "../stores/cookie_consent_store";
 export function CookieConsentBanner() {
   const { t } = useTranslation();
   const { hasConsented, acceptAll, rejectAll, savePreferences } = useCookieConsentStore();
-  const storePreferences = useCookieConsentStore((s) => s.preferences);
-  const storeStatistics = useCookieConsentStore((s) => s.statistics);
 
   const [showDetails, setShowDetails] = useState(false);
-  const [prefEnabled, setPrefEnabled] = useState(storePreferences);
-  const [statsEnabled, setStatsEnabled] = useState(storeStatistics);
+  const [prefEnabled, setPrefEnabled] = useState(true);
+  const [statsEnabled, setStatsEnabled] = useState(true);
 
   if (hasConsented) {
     return null;
