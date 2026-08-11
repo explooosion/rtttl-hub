@@ -152,6 +152,7 @@
       "themes": "Quick Themes"
     },
     "track": "Track",
+    "tracks": "Tracks",
     "escOutput": "ESC Motor Output",
     "escEmpty": "(no track)",
     "copyAll": "Copy All",

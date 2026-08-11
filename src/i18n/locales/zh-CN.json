@@ -151,8 +151,7 @@
       "save": "保存",
       "themes": "快速主题"
     },
-    "track": "音轨",
-    "escOutput": "ESC 电机输出",
+    "track": "音轨",    "tracks": "音轨",    "escOutput": "ESC 电机输出",
     "escEmpty": "（无音轨）",
     "copyAll": "全部复制",
     "addTrack": "添加音轨",

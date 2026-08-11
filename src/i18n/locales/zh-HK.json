@@ -151,8 +151,7 @@
       "save": "儲存",
       "themes": "快速主題"
     },
-    "track": "音軌",
-    "escOutput": "ESC 摩打輸出",
+    "track": "音軌",    "tracks": "音軌",    "escOutput": "ESC 摩打輸出",
     "escEmpty": "（無音軌）",
     "copyAll": "全部複製",
     "addTrack": "新增音軌",

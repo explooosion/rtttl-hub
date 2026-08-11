@@ -152,6 +152,7 @@
       "themes": "クイックテーマ"
     },
     "track": "トラック",
+    "tracks": "トラック",
     "escOutput": "ESC モーター出力",
     "escEmpty": "（トラックなし）",
     "copyAll": "すべてコピー",

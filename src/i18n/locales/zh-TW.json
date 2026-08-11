@@ -152,6 +152,7 @@
       "themes": "快速主題"
     },
     "track": "音軌",
+    "tracks": "音軌",
     "escOutput": "ESC 馬達輸出",
     "escEmpty": "（無音軌）",
     "copyAll": "全部複製",

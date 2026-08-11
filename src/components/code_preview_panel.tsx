@@ -114,7 +114,7 @@ export function CodePreviewPanel() {
           {/* Copy All header */}
           <div className="flex items-center justify-between">
             <span className="text-xs text-gray-400 dark:text-gray-500">
-              {tracks!.length} {t("editor.track", { defaultValue: "Track" })}s
+              {tracks!.length} {t("editor.tracks", { defaultValue: "Tracks" })}
             </span>
             <CopyAllButton tracks={tracks!} />
           </div>

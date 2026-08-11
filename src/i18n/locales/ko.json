@@ -152,6 +152,7 @@
       "themes": "빠른 테마"
     },
     "track": "트랙",
+    "tracks": "트랙",
     "escOutput": "ESC 모터 출력",
     "escEmpty": "(트랙 없음)",
     "copyAll": "전체 복사",
