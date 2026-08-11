@@ -13,7 +13,7 @@ Rules:
 import json
 import os
 
-PUBLIC_DIR = os.path.join(os.path.dirname(__file__), "..", "public")
+PUBLIC_DIR = os.path.join(os.path.dirname(__file__), "..", "public", "collections")
 
 CATEGORY_REMAP = {
     "rock": "pop",

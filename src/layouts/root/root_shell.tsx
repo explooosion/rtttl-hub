@@ -63,11 +63,19 @@ export function RootShell() {
     function loadCollectionWhenMount() {
       const base = import.meta.env.BASE_URL;
       Promise.all([
-        fetch(`${base}picaxe.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
-        fetch(`${base}esc-configurator.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
-        fetch(`${base}skully-rtttl.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
-        fetch(`${base}community.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
-        fetch(`${base}esphome.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
+        fetch(`${base}collections/picaxe.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
+        fetch(`${base}collections/esc-configurator.json`).then(
+          (r) => r.json() as Promise<CollectionEntry[]>,
+        ),
+        fetch(`${base}collections/skully-rtttl.json`).then(
+          (r) => r.json() as Promise<CollectionEntry[]>,
+        ),
+        fetch(`${base}collections/community.json`).then(
+          (r) => r.json() as Promise<CollectionEntry[]>,
+        ),
+        fetch(`${base}collections/esphome.json`).then(
+          (r) => r.json() as Promise<CollectionEntry[]>,
+        ),
       ])
         .then(([picaxeData, escData, skullyData, communityData, esphomeData]) => {
           const picaxeEntries = toRtttlEntries(picaxeData, "picaxe", "picaxe");
