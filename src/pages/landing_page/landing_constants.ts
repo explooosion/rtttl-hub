@@ -6,12 +6,10 @@ import {
   FaPlusCircle,
   FaGithub,
   FaHeadphones,
-  FaGuitar,
   FaFilm,
   FaGamepad,
   FaSnowflake,
   FaGlobe,
-  FaBaby,
   FaBell,
   FaStar,
 } from "react-icons/fa";
@@ -49,13 +47,11 @@ export const FEATURES = [
 
 export const CATEGORY_ITEMS = [
   { id: "pop", icon: FaHeadphones, gradient: "from-pink-500 to-rose-500" },
-  { id: "rock", icon: FaGuitar, gradient: "from-red-500 to-orange-500" },
   { id: "classical", icon: FaMusic, gradient: "from-amber-500 to-yellow-500" },
   { id: "movie-tv", icon: FaFilm, gradient: "from-purple-500 to-indigo-500" },
   { id: "game", icon: FaGamepad, gradient: "from-emerald-500 to-teal-500" },
   { id: "holiday", icon: FaSnowflake, gradient: "from-cyan-500 to-blue-500" },
   { id: "folk", icon: FaGlobe, gradient: "from-lime-500 to-green-500" },
-  { id: "nursery", icon: FaBaby, gradient: "from-violet-500 to-purple-500" },
   { id: "alert", icon: FaBell, gradient: "from-orange-500 to-amber-500" },
   { id: "original", icon: FaStar, gradient: "from-indigo-500 to-blue-500" },
 ] as const;
