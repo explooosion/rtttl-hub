@@ -94,9 +94,7 @@ export function ListPageLayout({
     }
     if (activeCategories.length > 0) {
       result = result.filter(
-        (item) =>
-          (item.categories && item.categories.some((c) => activeCategories.includes(c))) ||
-          (item.sourceCategory && activeCategories.includes(item.sourceCategory as RtttlCategory)),
+        (item) => item.categories && item.categories.some((c) => activeCategories.includes(c)),
       );
     }
     return sortItems(result, sortMode);
@@ -110,9 +108,7 @@ export function ListPageLayout({
     }
     if (activeCategories.length > 0) {
       base = base.filter(
-        (item) =>
-          (item.categories && item.categories.some((c) => activeCategories.includes(c))) ||
-          (item.sourceCategory && activeCategories.includes(item.sourceCategory as RtttlCategory)),
+        (item) => item.categories && item.categories.some((c) => activeCategories.includes(c)),
       );
     }
     const set = new Set(base.map(getFirstLetter));
@@ -286,19 +282,23 @@ export function ListPageLayout({
       {/* Page header */}
       {(title || description) && (
         <div className="mb-4">
-          {title && <h2 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h2>}
-          {description && <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>}
-          {source && (
-            <a
-              href={source}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 inline-flex items-center gap-1 text-xs text-indigo-500 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
-            >
-              <FaExternalLinkAlt size={10} />
-              {t("collections.officialSource")}
-            </a>
+          {title && (
+            <div className="flex items-center gap-2">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h2>
+              {source && (
+                <a
+                  href={source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm text-indigo-500 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                >
+                  <FaExternalLinkAlt size={12} />
+                  <span className="font-medium">{t("collections.officialSource")}</span>
+                </a>
+              )}
+            </div>
           )}
+          {description && <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>}
         </div>
       )}
 
