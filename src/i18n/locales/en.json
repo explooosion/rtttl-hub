@@ -73,13 +73,11 @@
   "categories": {
     "all": "All",
     "pop": "Pop",
-    "rock": "Rock",
     "classical": "Classical",
     "movie-tv": "Movie & TV",
     "game": "Game",
     "holiday": "Holiday",
     "folk": "Folk & National",
-    "nursery": "Nursery Rhyme",
     "alert": "Alert & Notification",
     "original": "Original"
   },

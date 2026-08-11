@@ -73,13 +73,11 @@
   "categories": {
     "all": "전체",
     "pop": "팝",
-    "rock": "록",
     "classical": "클래식",
     "movie-tv": "영화 & TV",
     "game": "게임",
     "holiday": "홀리데이",
     "folk": "민요 & 국가",
-    "nursery": "동요",
     "alert": "알림음",
     "original": "오리지널"
   },

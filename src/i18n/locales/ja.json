@@ -73,13 +73,11 @@
   "categories": {
     "all": "すべて",
     "pop": "ポップ",
-    "rock": "ロック",
     "classical": "クラシック",
     "movie-tv": "映画・テレビ",
     "game": "ゲーム",
     "holiday": "ホリデー",
     "folk": "フォーク・国歌",
-    "nursery": "童謡",
     "alert": "アラート・通知",
     "original": "オリジナル"
   },

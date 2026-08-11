@@ -4,9 +4,7 @@ import type { CollectionSlug, RtttlCategory, RtttlEntry } from "./rtttl_parser";
 export interface CollectionEntry {
   name: string;
   artist?: string;
-  categories?: RtttlCategory[];
-  /** Source category label (e.g. "Mixed 1", "TV Themes") — picaxe only. */
-  sourceCategory?: string;
+  categories: RtttlCategory[];
   /** One RTTTL string per voice/track. tracks[0] is used as the primary `code`. */
   tracks: string[];
 }
@@ -48,7 +46,6 @@ export function toRtttlEntries(
     code: entry.tracks[0] ?? "",
     collection,
     categories: entry.categories,
-    sourceCategory: entry.sourceCategory,
     tracks: entry.tracks.length > 1 ? entry.tracks : undefined,
   }));
 }

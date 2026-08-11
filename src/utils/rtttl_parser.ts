@@ -7,13 +7,11 @@ export type CollectionSlug =
 
 export type RtttlCategory =
   | "pop"
-  | "rock"
   | "classical"
   | "movie-tv"
   | "game"
   | "holiday"
   | "folk"
-  | "nursery"
   | "alert"
   | "original";
 
@@ -24,7 +22,6 @@ export interface RtttlEntry {
   firstLetter: string;
   code: string;
   collection: CollectionSlug;
-  sourceCategory?: string;
   categories?: RtttlCategory[];
   createdAt?: string;
   /** Multi-track (polyphonic) RTTTL — one string per motor/voice. */

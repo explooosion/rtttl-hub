@@ -14,13 +14,11 @@ import type { RtttlCategory, RtttlEntry } from "../utils/rtttl_parser";
 
 const CATEGORY_STYLES: Record<RtttlCategory, string> = {
   pop: "bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300",
-  rock: "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
   classical: "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
   "movie-tv": "bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300",
   game: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
   holiday: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
   folk: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
-  nursery: "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300",
   alert: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300",
   original: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300",
 };

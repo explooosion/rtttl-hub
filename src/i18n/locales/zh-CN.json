@@ -73,13 +73,11 @@
   "categories": {
     "all": "全部",
     "pop": "流行",
-    "rock": "摇滚",
     "classical": "古典",
     "movie-tv": "影视主题",
     "game": "游戏",
     "holiday": "节日",
     "folk": "民谣与国歌",
-    "nursery": "童谣",
     "alert": "提示音",
     "original": "原创"
   },

@@ -73,13 +73,11 @@
   "categories": {
     "all": "全部",
     "pop": "流行",
-    "rock": "搖滾",
     "classical": "古典",
     "movie-tv": "影視主題",
     "game": "遊戲",
     "holiday": "節日",
     "folk": "民謠與國歌",
-    "nursery": "童謠",
     "alert": "提示音",
     "original": "原創"
   },
