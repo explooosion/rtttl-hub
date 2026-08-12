@@ -342,6 +342,7 @@
   },
   "actions": {
     "createNew": "立即創作",
+    "contribute": "分享創作",
     "showFilters": "顯示篩選",
     "hideFilters": "隱藏篩選",
     "download": "下載 .rtttl"
@@ -356,14 +357,34 @@
   "breadcrumb": {
     "home": "首頁",
     "collections": "收藏庫",
+    "contribute": "分享與貢獻",
     "account": "帳號",
     "profile": "個人資料",
     "password": "密碼"
   },
+  "contribute": {
+    "title": "分享與貢獻",
+    "subtitle": "我們透過 GitHub Issues 收集投稿，留言即完成，簡單輕鬆。分享你的音軌或推薦一個精選曲庫。",
+    "community": {
+      "badge": "社群",
+      "title": "社群音軌",
+      "description": "分享你的原創或喜愛的 RTTTL 音軌，在置頂 Issue 下方留言即完成投稿，維護者會定期整理收錄。",
+      "bullet1": "建議每次投稿一首歌曲",
+      "bullet2": "支援多音軌／和弦音軌",
+      "bullet3": "維護者定期整理收錄",
+      "cta": "分享 RTTTL 音軌"
+    },
+    "collection": {
+      "badge": "曲庫",
+      "title": "精選曲庫",
+      "description": "知道某個充滿 RTTTL 鈴聲的網站或 GitHub 專案嗎？在 Issue 留言推薦，我們可能將其收錄為新的精選曲庫。",
+      "bullet1": "提供來源名稱和網址",
+      "bullet2": "我們負責資料整理格式化",
+      "bullet3": "也接受完整 JSON 檔案投稿",
+      "cta": "分享 RTTTL 曲庫"
+    }
+  },
   "footer": {
-    "sourceCode": "GitHub",
-    "reportIssue": "Issues",
-    "picaxeCollection": "PICAXE",
     "discover": "探索",
     "allCollections": "所有收藏庫",
     "resources": "資源",

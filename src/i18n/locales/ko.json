@@ -342,6 +342,7 @@
   },
   "actions": {
     "createNew": "새로 만들기",
+    "contribute": "기여하기",
     "showFilters": "필터 표시",
     "hideFilters": "필터 숨기기",
     "download": ".rtttl 다운로드"
@@ -356,14 +357,34 @@
   "breadcrumb": {
     "home": "홈",
     "collections": "콜렉션",
+    "contribute": "공유 & 기여",
     "account": "계정",
     "profile": "프로필",
     "password": "비밀번호"
   },
+  "contribute": {
+    "title": "공유 & 기여",
+    "subtitle": "GitHub Issues를 투고 창구로 활용합니다. 댓글 하나로 완료되는 간단한 방식입니다.",
+    "community": {
+      "badge": "커뮤니티",
+      "title": "커뮤니티 트랙",
+      "description": "오리지널 또는 좋아하는 RTTTL 트랙을 공유하세요. 고정된 Issue에 댓글을 남기면 투고 완료. 메인테이너가 정기적으로 수록합니다.",
+      "bullet1": "투고당 하나의 트랙 권장",
+      "bullet2": "멀티 트랙 / 화음 지원",
+      "bullet3": "메인테이너가 정기적으로 수록",
+      "cta": "RTTTL 트랙 공유"
+    },
+    "collection": {
+      "badge": "컬렉션",
+      "title": "큐레이션 컬렉션",
+      "description": "RTTTL 벨소리가 가득한 웹사이트나 GitHub 리포지토리를 알고 계신가요? Issue에 댓글로 추천해 주세요.",
+      "bullet1": "소스 이름과 URL 제공",
+      "bullet2": "포맷 정리는 당사가 담당",
+      "bullet3": "완전한 JSON 파일 투고도 환영",
+      "cta": "RTTTL 컬렉션 공유"
+    }
+  },
   "footer": {
-    "sourceCode": "GitHub",
-    "reportIssue": "Issues",
-    "picaxeCollection": "PICAXE 컬렉션",
     "discover": "탐색",
     "allCollections": "전체 컬렉션",
     "resources": "리소스",

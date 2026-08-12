@@ -22,6 +22,7 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
   const isCollectionsActive = location.pathname.startsWith("/collections");
   const isFavoritesActive = location.pathname === "/favorites";
   const isCreateActive = location.pathname === "/create";
+  const isContributeActive = location.pathname === "/contribute";
 
   if (!isOpen) {
     return null;
@@ -83,6 +84,18 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
             )}
           >
             {t("actions.createNew")}
+          </Link>
+          <Link
+            to="/contribute"
+            onClick={onClose}
+            className={clsx(
+              "rounded-lg px-3 py-2 text-sm font-medium",
+              isContributeActive
+                ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400"
+                : "text-gray-600 dark:text-gray-400",
+            )}
+          >
+            {t("actions.contribute")}
           </Link>
         </nav>
 

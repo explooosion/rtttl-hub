@@ -342,6 +342,7 @@
   },
   "actions": {
     "createNew": "新規作成",
+    "contribute": "投稿する",
     "showFilters": "フィルタを表示",
     "hideFilters": "フィルタを非表示",
     "download": ".rtttl をダウンロード"
@@ -356,14 +357,34 @@
   "breadcrumb": {
     "home": "ホーム",
     "collections": "コレクション",
+    "contribute": "シェア & 投稿",
     "account": "アカウント",
     "profile": "プロフィール",
     "password": "パスワード"
   },
+  "contribute": {
+    "title": "シェア & 投稿",
+    "subtitle": "GitHub Issues を投稿窓口として利用しています。コメントするだけで完了、手軽に参加できます。",
+    "community": {
+      "badge": "コミュニティ",
+      "title": "コミュニティトラック",
+      "description": "オリジナルまたはお気に入りの RTTTL トラックをシェアしてください。ピン留め Issue にコメントするだけで投稿完了。メンテナーが定期的に収録します。",
+      "bullet1": "一度に一曲の投稿を推奨",
+      "bullet2": "マルチトラック / ポリフォニック対応",
+      "bullet3": "メンテナーが定期的に収録",
+      "cta": "RTTTL トラックをシェア"
+    },
+    "collection": {
+      "badge": "コレクション",
+      "title": "キュレーションコレクション",
+      "description": "RTTTL 着信音で満たされたウェブサイトや GitHub リポジトリをご存知ですか？Issue にコメントして推薦してください。",
+      "bullet1": "ソース名と URL を提供",
+      "bullet2": "フォーマット整理は当社が担当",
+      "bullet3": "完全な JSON 投稿も歓迎",
+      "cta": "RTTTL コレクションをシェア"
+    }
+  },
   "footer": {
-    "sourceCode": "GitHub",
-    "reportIssue": "Issues",
-    "picaxeCollection": "PICAXE コレクション",
     "discover": "探索",
     "allCollections": "すべてのコレクション",
     "resources": "リソース",

@@ -31,6 +31,7 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
   const isCollectionsActive = location.pathname.startsWith("/collections");
   const isFavoritesActive = location.pathname === "/favorites";
   const isCreateActive = location.pathname === "/create";
+  const isContributeActive = location.pathname === "/contribute";
 
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-950/80">
@@ -81,6 +82,17 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
             )}
           >
             {t("actions.createNew")}
+          </Link>
+          <Link
+            to="/contribute"
+            className={clsx(
+              "whitespace-nowrap rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors",
+              isContributeActive
+                ? "border-indigo-400 bg-indigo-50 text-indigo-600 dark:border-indigo-700 dark:bg-indigo-950 dark:text-indigo-400"
+                : "border-gray-300 text-gray-600 hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-600 dark:hover:text-indigo-400",
+            )}
+          >
+            {t("actions.contribute")}
           </Link>
         </nav>
 

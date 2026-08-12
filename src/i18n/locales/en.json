@@ -342,6 +342,7 @@
   },
   "actions": {
     "createNew": "Start Creating",
+    "contribute": "Share",
     "showFilters": "Show Filters",
     "hideFilters": "Hide Filters",
     "download": "Download .rtttl"
@@ -356,9 +357,32 @@
   "breadcrumb": {
     "home": "Home",
     "collections": "Collections",
+    "contribute": "Share & Contribute",
     "account": "Account",
     "profile": "Profile",
     "password": "Password"
+  },
+  "contribute": {
+    "title": "Share & Contribute",
+    "subtitle": "We use GitHub Issues as our submission channel — drop a comment and you're done. Share your tracks or recommend a curated collection.",
+    "community": {
+      "badge": "Community",
+      "title": "Community Tracks",
+      "description": "Share your original or favourite RTTTL tracks. Leave a comment on the pinned issue and we'll add it to the Community collection.",
+      "bullet1": "One track per comment preferred",
+      "bullet2": "Multi-track / polyphonic supported",
+      "bullet3": "Maintainers collect submissions periodically",
+      "cta": "Share RTTTL Track"
+    },
+    "collection": {
+      "badge": "Collection",
+      "title": "Curated Collections",
+      "description": "Know a website or GitHub repo packed with RTTTL ringtones? Leave a comment and we may add it as a new curated collection.",
+      "bullet1": "Provide source name and URL",
+      "bullet2": "We handle the formatting",
+      "bullet3": "Full JSON submission also welcome",
+      "cta": "Share RTTTL Collection"
+    }
   },
   "footer": {
     "sourceCode": "GitHub",

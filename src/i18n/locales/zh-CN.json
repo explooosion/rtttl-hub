@@ -340,6 +340,7 @@
   },
   "actions": {
     "createNew": "立即创作",
+    "contribute": "分享创作",
     "showFilters": "显示筛选",
     "hideFilters": "隐藏筛选",
     "download": "下载 .rtttl"
@@ -354,14 +355,34 @@
   "breadcrumb": {
     "home": "首页",
     "collections": "收藏库",
+    "contribute": "分享与贡献",
     "account": "账号",
     "profile": "个人资料",
     "password": "密码"
   },
+  "contribute": {
+    "title": "分享与贡献",
+    "subtitle": "我们通过 GitHub Issues 收集投稿，留言即完成，简单轻松。分享你的音轨或推荐一个精选曲库。",
+    "community": {
+      "badge": "社区",
+      "title": "社区音轨",
+      "description": "分享你的原创或喜爱的 RTTTL 音轨，在置顶 Issue 下方留言即完成投稿，维护者会定期整理收录。",
+      "bullet1": "建议每次投稿一首歌曲",
+      "bullet2": "支持多音轨／和弦音轨",
+      "bullet3": "维护者定期整理收录",
+      "cta": "分享 RTTTL 音轨"
+    },
+    "collection": {
+      "badge": "曲库",
+      "title": "精选曲库",
+      "description": "知道某个充满 RTTTL 铃声的网站或 GitHub 项目吗？在 Issue 留言推荐，我们可能将其收录为新的精选曲库。",
+      "bullet1": "提供来源名称和网址",
+      "bullet2": "我们负责整理格式化",
+      "bullet3": "同样接受完整 JSON 文件投稿",
+      "cta": "分享 RTTTL 曲库"
+    }
+  },
   "footer": {
-    "sourceCode": "GitHub",
-    "reportIssue": "Issues",
-    "picaxeCollection": "PICAXE 收藏库",
     "discover": "探索",
     "allCollections": "所有收藏库",
     "resources": "资源",
