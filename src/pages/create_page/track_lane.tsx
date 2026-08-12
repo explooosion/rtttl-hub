@@ -22,6 +22,7 @@ import { usePlayerStore } from "../../stores/player_store";
 import { useEditorSettingsStore } from "../../stores/editor_settings_store";
 import { parseRtttl, getTotalDuration } from "../../utils/rtttl_parser";
 import { copyToClipboard } from "../../utils/clipboard";
+import { validateTrackName, sanitizeTrackName } from "../../utils/track_name_validator";
 import { CanvasWaveform as Waveform } from "../../components/canvas_waveform";
 import { RtttlEditorInput } from "../../components/rtttl_editor/rtttl_editor_input";
 import type { RtttlEditorInputHandle } from "../../components/rtttl_editor/rtttl_editor_input";
@@ -120,6 +121,7 @@ export function TrackLane({
 
   const [isEditingName, setIsEditingName] = useState(false);
   const [draftName, setDraftName] = useState("");
+  const [nameError, setNameError] = useState<string | null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const colorInputRef = useRef<HTMLInputElement>(null);
 
@@ -135,15 +137,44 @@ export function TrackLane({
   function handleNameClick(e: React.MouseEvent) {
     e.stopPropagation();
     setDraftName(trackName);
+    setNameError(null); // Clear error when starting to edit
     setIsEditingName(true);
   }
 
-  function commitName() {
-    const trimmed = draftName.trim();
-    if (trimmed && trimmed !== trackName) {
-      onRename(trimmed);
+  function handleNameChange(value: string) {
+    setDraftName(value);
+    // Real-time validation
+    const validation = validateTrackName(value);
+    if (!validation.valid && validation.error) {
+      setNameError(validation.error);
+    } else {
+      setNameError(null);
     }
-    setIsEditingName(false);
+  }
+
+  function commitName() {
+    const validation = validateTrackName(draftName);
+
+    if (!validation.valid) {
+      // Try to sanitize and use the cleaned version
+      const sanitized = sanitizeTrackName(draftName);
+      if (sanitized && validateTrackName(sanitized).valid) {
+        onRename(sanitized);
+        setIsEditingName(false);
+        setNameError(null);
+      } else {
+        // Show error and keep editing
+        setNameError(validation.error || "trackNameRequired");
+        return;
+      }
+    } else {
+      const trimmed = draftName.trim();
+      if (trimmed !== trackName) {
+        onRename(trimmed);
+      }
+      setIsEditingName(false);
+      setNameError(null);
+    }
   }
 
   function handleNameKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -232,15 +263,28 @@ export function TrackLane({
               />
             </button>
             {isEditingName ? (
-              <input
-                ref={nameInputRef}
-                value={draftName}
-                onChange={(e) => setDraftName(e.target.value)}
-                onBlur={commitName}
-                onKeyDown={handleNameKeyDown}
-                onClick={(e) => e.stopPropagation()}
-                className="min-w-0 flex-1 rounded bg-transparent px-0.5 text-xs font-semibold tracking-wide text-gray-700 outline-none ring-1 ring-inset ring-indigo-400 dark:text-gray-300"
-              />
+              <div className="flex min-w-0 flex-1 flex-col">
+                <input
+                  ref={nameInputRef}
+                  value={draftName}
+                  onChange={(e) => handleNameChange(e.target.value)}
+                  onBlur={commitName}
+                  onKeyDown={handleNameKeyDown}
+                  onClick={(e) => e.stopPropagation()}
+                  className={clsx(
+                    "min-w-0 rounded bg-transparent px-0.5 text-xs font-semibold tracking-wide outline-none ring-1 ring-inset",
+                    nameError
+                      ? "text-red-600 ring-red-400 dark:text-red-400 dark:ring-red-500"
+                      : "text-gray-700 ring-indigo-400 dark:text-gray-300",
+                  )}
+                  maxLength={30}
+                />
+                {nameError && (
+                  <span className="mt-0.5 text-[10px] text-red-600 dark:text-red-400">
+                    {t(`editor.${nameError}`)}
+                  </span>
+                )}
+              </div>
             ) : (
               <span
                 className="min-w-0 flex-1 cursor-text truncate text-xs font-semibold tracking-wide text-gray-700 hover:text-indigo-500 dark:text-gray-300 dark:hover:text-indigo-400"
