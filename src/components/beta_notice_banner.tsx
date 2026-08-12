@@ -8,7 +8,7 @@ export function BetaNoticeBanner() {
   const { t } = useTranslation();
   const [dismissed, setDismissed] = useState(() => {
     try {
-      return localStorage.getItem(STORAGE_KEY) === "1";
+      return sessionStorage.getItem(STORAGE_KEY) === "1";
     } catch {
       return false;
     }
@@ -20,7 +20,7 @@ export function BetaNoticeBanner() {
 
   function handleDismiss() {
     try {
-      localStorage.setItem(STORAGE_KEY, "1");
+      sessionStorage.setItem(STORAGE_KEY, "1");
     } catch {
       // ignore storage errors in restricted environments
     }
