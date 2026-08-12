@@ -249,6 +249,7 @@
     "category": "分类",
     "categoryPlaceholder": "选择分类",
     "create": "创建",
+    "update": "保存",
     "cancel": "放弃",
     "invalidCode": "RTTTL 代码格式无效",
     "nameRequired": "名称为必填",
@@ -350,7 +351,12 @@
     "contribute": "分享创作",
     "showFilters": "显示筛选",
     "hideFilters": "隐藏筛选",
-    "download": "下载 .rtttl"
+    "download": "下载 .rtttl",
+    "edit": "编辑",
+    "delete": "删除",
+    "cancel": "取消",
+    "deleteConfirmTitle": "删除创作",
+    "deleteConfirmMessage": "确定要删除这个创作吗？此操作无法撤销。"
   },
   "letters": {
     "all": "全部"

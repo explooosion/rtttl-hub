@@ -8,7 +8,6 @@ import type { RtttlCategory } from "../../utils/rtttl_parser";
 import { parseRtttl, getTotalDuration } from "../../utils/rtttl_parser";
 import { RTTTL_CATEGORIES } from "../../constants/categories";
 import { copyToClipboard } from "../../utils/clipboard";
-import { validateTrackName } from "../../utils/track_name_validator";
 
 const COLLAPSE_KEY = "rtttl-properties-collapse";
 
@@ -49,6 +48,7 @@ interface PropertiesPanelProps {
   errors: string[];
   onDiscard: () => void;
   onSubmit: () => void;
+  isEditMode?: boolean;
 }
 
 export function PropertiesPanel({
@@ -63,11 +63,11 @@ export function PropertiesPanel({
   errors,
   onDiscard,
   onSubmit,
+  isEditMode = false,
 }: PropertiesPanelProps) {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [copiedTrack, setCopiedTrack] = useState(false);
-  const [nameError, setNameError] = useState<string | null>(null);
   const [catOpen, setCatOpen] = useState(false);
   const [trackOpen, setTrackOpen] = useState(() => loadCollapsePrefs().track);
   const [projectOpen, setProjectOpen] = useState(() => loadCollapsePrefs().project);
@@ -144,13 +144,6 @@ export function PropertiesPanel({
 
   function handleNameChange(value: string) {
     onNameChange(value);
-    // Real-time validation
-    const validation = validateTrackName(value);
-    if (!validation.valid && validation.error) {
-      setNameError(validation.error);
-    } else {
-      setNameError(null);
-    }
   }
 
   function handleCatToggle() {
@@ -256,19 +249,8 @@ export function PropertiesPanel({
                   value={name}
                   onChange={(e) => handleNameChange(e.target.value)}
                   placeholder={t("create.namePlaceholder")}
-                  maxLength={30}
-                  className={clsx(
-                    "w-full rounded border bg-white px-2 py-1 text-sm focus:outline-none focus:ring-1 dark:bg-gray-800 dark:text-gray-200",
-                    nameError
-                      ? "border-red-400 focus:border-red-500 focus:ring-red-500 dark:border-red-500"
-                      : "border-gray-400 focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600",
-                  )}
+                  className="w-full rounded border border-gray-400 bg-white px-2 py-1 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
                 />
-                {nameError && (
-                  <p className="mt-1 text-xs text-red-600 dark:text-red-400">
-                    {t(`editor.${nameError}`)}
-                  </p>
-                )}
               </div>
 
               {/* Categories — portal dropdown to escape overflow/clip constraints */}
@@ -458,7 +440,7 @@ export function PropertiesPanel({
           disabled={!tracks.some((tk) => tk.trim().length > 0)}
           className="w-full rounded bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {t("create.create")}
+          {isEditMode ? t("create.update") : t("create.create")}
         </button>
         <button
           onClick={onDiscard}

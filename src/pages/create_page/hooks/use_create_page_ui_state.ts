@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { useCollectionStore } from "../../../stores/collection_store";
 import { loadDraft } from "../draft";
@@ -19,7 +20,17 @@ function nextProjectName(existingTitles: string[]): string {
 }
 
 export function useCreatePageUiState() {
+  const [searchParams] = useSearchParams();
+  const editId = searchParams.get("edit");
+
   const userItems = useCollectionStore((s) => s.userItems);
+  const editItem = useMemo(() => {
+    if (!editId) {
+      return null;
+    }
+    return userItems.find((item) => item.id === editId) ?? null;
+  }, [editId, userItems]);
+
   const _draft = loadDraft();
 
   const [importOpen, setImportOpen] = useState(false);
@@ -31,10 +42,18 @@ export function useCreatePageUiState() {
   const [cutDialogMode, setCutDialogMode] = useState<CutMode | null>(null);
   const [confirmRemoveIndex, setConfirmRemoveIndex] = useState<number | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
-  const [name, setName] = useState(
-    () => _draft?.name || nextProjectName(userItems.map((u) => u.title)),
-  );
-  const [categories, setCategories] = useState<RtttlCategory[]>(() => _draft?.categories ?? []);
+  const [name, setName] = useState(() => {
+    if (editItem) {
+      return editItem.title;
+    }
+    return _draft?.name || nextProjectName(userItems.map((u) => u.title));
+  });
+  const [categories, setCategories] = useState<RtttlCategory[]>(() => {
+    if (editItem?.categories) {
+      return editItem.categories;
+    }
+    return _draft?.categories ?? [];
+  });
   const [playheadMs, setPlayheadMs] = useState(0);
   const [loopInMs, setLoopInMs] = useState<number | null>(null);
   const [loopOutMs, setLoopOutMs] = useState<number | null>(null);
@@ -43,6 +62,8 @@ export function useCreatePageUiState() {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const trackRowsRef = useRef<(HTMLDivElement | null)[]>([]);
   const lastPlayedTracksRef = useRef<{ tracks: string[]; deactivated: Set<number> }>({
+    editId,
+    editItem,
     tracks: [],
     deactivated: new Set(),
   });

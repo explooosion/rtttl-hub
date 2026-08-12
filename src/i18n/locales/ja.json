@@ -253,6 +253,7 @@
     "category": "カテゴリ",
     "categoryPlaceholder": "カテゴリを選択",
     "create": "作成",
+    "update": "保存",
     "cancel": "破棄",
     "invalidCode": "無効な RTTTL コード形式",
     "nameRequired": "名前は必須です",
@@ -354,7 +355,12 @@
     "contribute": "投稿する",
     "showFilters": "フィルタを表示",
     "hideFilters": "フィルタを非表示",
-    "download": ".rtttl をダウンロード"
+    "download": ".rtttl をダウンロード",
+    "edit": "編集",
+    "delete": "削除",
+    "cancel": "キャンセル",
+    "deleteConfirmTitle": "作品を削除",
+    "deleteConfirmMessage": "この作品を削除してもよろしいですか？この操作は元に戻せません。"
   },
   "letters": {
     "all": "すべて"

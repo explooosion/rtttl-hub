@@ -255,6 +255,7 @@
     "category": "分類",
     "categoryPlaceholder": "選擇分類",
     "create": "建立",
+    "update": "儲存",
     "cancel": "放棄",
     "invalidCode": "RTTTL 代碼格式無效",
     "nameRequired": "名稱為必填",
@@ -356,7 +357,12 @@
     "contribute": "分享創作",
     "showFilters": "顯示篩選",
     "hideFilters": "隱藏篩選",
-    "download": "下載 .rtttl"
+    "download": "下載 .rtttl",
+    "edit": "編輯",
+    "delete": "刪除",
+    "cancel": "取消",
+    "deleteConfirmTitle": "刪除創作",
+    "deleteConfirmMessage": "確定要刪除這個創作嗎？此操作無法復原。"
   },
   "letters": {
     "all": "全部"

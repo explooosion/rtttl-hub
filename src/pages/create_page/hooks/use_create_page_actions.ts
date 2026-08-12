@@ -13,6 +13,7 @@ import type { CutMode } from "../cut_dialog";
 import type { RtttlCategory } from "../../../utils/rtttl_parser";
 
 interface UseCreatePageActionsParams {
+  editId: string | null;
   name: string;
   tracks: string[];
   categories: RtttlCategory[];
@@ -48,6 +49,7 @@ interface UseCreatePageActionsParams {
 }
 
 export function useCreatePageActions({
+  editId,
   name,
   tracks,
   categories,
@@ -83,6 +85,7 @@ export function useCreatePageActions({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const addUserItem = useCollectionStore((s) => s.addUserItem);
+  const updateUserItem = useCollectionStore((s) => s.updateUserItem);
   const setCurrentItem = usePlayerStore((s) => s.setCurrentItem);
   const playCode = usePlayerStore((s) => s.playCode);
   const playTracks = usePlayerStore((s) => s.playTracks);
@@ -234,10 +237,10 @@ export function useCreatePageActions({
   const handleConfirmCreate = useCallback(() => {
     const primaryCode = tracks[0] ?? "";
     const firstLetter = name.charAt(0).toUpperCase();
-    const id = `user-${crypto.randomUUID()}`;
     const nonEmptyTracks = tracks.filter((tk) => tk.trim().length > 0);
+
     const newItem = {
-      id,
+      id: editId || `user-${crypto.randomUUID()}`,
       artist: "",
       title: name.trim(),
       firstLetter: /[A-Z]/.test(firstLetter)
@@ -251,12 +254,28 @@ export function useCreatePageActions({
       createdAt: new Date().toISOString(),
       ...(nonEmptyTracks.length > 1 ? { tracks: nonEmptyTracks } : {}),
     };
-    addUserItem(newItem);
+
+    if (editId) {
+      updateUserItem(editId, newItem);
+    } else {
+      addUserItem(newItem);
+    }
+
     setCurrentItem(newItem);
     clearDraft();
     stop();
     navigate("/my-creations");
-  }, [name, tracks, categories, addUserItem, setCurrentItem, stop, navigate]);
+  }, [
+    editId,
+    name,
+    tracks,
+    categories,
+    addUserItem,
+    updateUserItem,
+    setCurrentItem,
+    stop,
+    navigate,
+  ]);
 
   /* ── New project ── */
   const _doNew = useCallback(() => {

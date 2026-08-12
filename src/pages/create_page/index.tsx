@@ -21,6 +21,8 @@ export function CreatePage() {
 
   /* ── UI state + refs ── */
   const {
+    editId,
+    editItem,
     draft,
     userItemTitles,
     importOpen,
@@ -83,7 +85,9 @@ export function CreatePage() {
     resetTracks,
     trackColors,
     setTrackColor,
-  } = useTrackManager({ initialTracks: draft?.tracks ?? [] });
+  } = useTrackManager({
+    initialTracks: editItem?.tracks ?? draft?.tracks ?? [],
+  });
 
   /* ── Derived values + DnD ── */
   const {
@@ -156,6 +160,7 @@ export function CreatePage() {
     handleConfirmRemove,
     handlePendingActionConfirm,
   } = useCreatePageActions({
+    editId,
     name,
     tracks,
     categories,
@@ -336,6 +341,7 @@ export function CreatePage() {
   );
 
   const ui = {
+    editId,
     importOpen,
     setImportOpen,
     favImportOpen,

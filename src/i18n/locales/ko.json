@@ -253,6 +253,7 @@
     "category": "카테고리",
     "categoryPlaceholder": "카테고리 선택",
     "create": "만들기",
+    "update": "저장",
     "cancel": "취소",
     "invalidCode": "잘못된 RTTTL 코드 형식",
     "nameRequired": "이름은 필수입니다",
@@ -354,7 +355,12 @@
     "contribute": "기여하기",
     "showFilters": "필터 표시",
     "hideFilters": "필터 숨기기",
-    "download": ".rtttl 다운로드"
+    "download": ".rtttl 다운로드",
+    "edit": "편집",
+    "delete": "삭제",
+    "cancel": "취소",
+    "deleteConfirmTitle": "창작물 삭제",
+    "deleteConfirmMessage": "이 창작물을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다."
   },
   "letters": {
     "all": "전체"

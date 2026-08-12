@@ -14,6 +14,7 @@ import { StatusBar } from "./status_bar";
 import { CreatePageDialogs } from "./create_page_dialogs";
 
 interface UiModel {
+  editId: string | null;
   importOpen: boolean;
   setImportOpen: (v: boolean) => void;
   favImportOpen: boolean;
@@ -250,6 +251,7 @@ export function CreatePageView({
             errors={ui.errors}
             onDiscard={actions.handleDiscard}
             onSubmit={actions.handleSubmit}
+            isEditMode={!!ui.editId}
           />
         </div>
 

@@ -16,6 +16,8 @@ interface CollectionState {
   isLoading: boolean;
   setItems: (items: RtttlEntry[]) => void;
   addUserItem: (item: RtttlEntry) => void;
+  updateUserItem: (id: string, item: RtttlEntry) => void;
+  deleteUserItem: (id: string) => void;
   setSearchQuery: (query: string) => void;
   setSortMode: (mode: SortMode) => void;
   setActiveLetter: (letter: string | null) => void;
@@ -44,6 +46,14 @@ export const useCollectionStore = create<CollectionState>()(
           }
           return { userItems: [...state.userItems, item] };
         }),
+      updateUserItem: (id, item) =>
+        set((state) => ({
+          userItems: state.userItems.map((u) => (u.id === id ? item : u)),
+        })),
+      deleteUserItem: (id) =>
+        set((state) => ({
+          userItems: state.userItems.filter((u) => u.id !== id),
+        })),
       setSearchQuery: (searchQuery) => set({ searchQuery }),
       setSortMode: (sortMode) => set({ sortMode }),
       setActiveLetter: (activeLetter) => set({ activeLetter }),
