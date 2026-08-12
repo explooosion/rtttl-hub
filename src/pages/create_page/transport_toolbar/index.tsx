@@ -737,28 +737,6 @@ export function TransportToolbar({
             <FaBan size={13} />
             <span>{t("create.removeEmptyTracks", { defaultValue: "Remove Empty" })}</span>
           </button>
-
-          <Separator />
-
-          {/* Collapse All / Expand All */}
-          <button
-            type="button"
-            onClick={onCollapseAll}
-            title={t("create.collapseAll", { defaultValue: "Collapse All Tracks" })}
-            className="flex h-7 items-center gap-1 rounded px-2 text-sm text-gray-500 hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
-          >
-            <FaCompressArrowsAlt size={13} />
-            <span>{t("create.collapseAll", { defaultValue: "Collapse All" })}</span>
-          </button>
-          <button
-            type="button"
-            onClick={onExpandAll}
-            title={t("create.expandAll", { defaultValue: "Expand All Tracks" })}
-            className="flex h-7 items-center gap-1 rounded px-2 text-sm text-gray-500 hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
-          >
-            <FaExpandArrowsAlt size={13} />
-            <span>{t("create.expandAll", { defaultValue: "Expand All" })}</span>
-          </button>
         </div>
       </div>
 
