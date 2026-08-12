@@ -369,6 +369,30 @@
   "settings": {
     "clearListened": "Clear listened history"
   },
+  "about": {
+    "title": "About",
+    "originTitle": "Origin Story",
+    "originP1": "RTTTL Hub was born from a passion for FPV drones and a need for better tools to customize motor sounds. When I was tuning my flight controller's startup music, I found a lack of user-friendly editing tools and decided to build one myself.",
+    "originP2": "What started as a personal project has grown into a comprehensive platform for browsing, creating, and sharing RTTTL ringtones.",
+    "purposeTitle": "Why RTTTL Hub",
+    "purposeP1": "RTTTL (Ring Tone Text Transfer Language) is a simple text format for describing monophonic melodies. It's widely used in retro ringtones, Arduino projects, ESC motor startup sounds (via flight controller firmware like Betaflight), and various embedded systems.",
+    "purposeP2": "Whether you're tuning your flight controller, creating retro ringtones, or just exploring the nostalgic world of monophonic melodies, this platform is built for you.",
+    "techTitle": "Editor Design",
+    "techP1": "The editor was inspired by modern DAW (Digital Audio Workstation) software, bringing familiar music production workflows to the world of chiptune and embedded systems.",
+    "techP2": "It supports multi-track editing, real-time preview, syntax highlighting, and more, making the creative process intuitive and smooth.",
+    "communityTitle": "Open Source Community",
+    "communityP1": "This is an open-source project. If you encounter any issues or have suggestions, feel free to open an issue on",
+    "communityP2": ".",
+    "communityP3": "We welcome contributions of all kinds — from new track collections to your own original compositions. Learn more about sharing on the",
+    "communityP4": "page.",
+    "githubIssues": "GitHub Issues",
+    "contributePage": "Share & Contribute",
+    "creatorTitle": "About the Creator",
+    "creatorP1": "Hi, I'm Robby! I'm passionate about FPV drone flying and love exploring tech projects. If you're interested in FPV, feel free to follow my social channels and join the conversation.",
+    "followInstagram": "Follow on Instagram",
+    "subscribeYoutube": "Subscribe on YouTube",
+    "creatorP2": "Thank you for using RTTTL Hub. I hope this platform brings you help and joy."
+  },
   "breadcrumb": {
     "home": "Home",
     "collections": "Collections",

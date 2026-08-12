@@ -371,6 +371,30 @@
   "settings": {
     "clearListened": "清除試聽紀錄"
   },
+  "about": {
+    "title": "關於",
+    "originTitle": "起源故事",
+    "originP1": "RTTTL Hub 誕生於對 FPV 空拍機的熱愛，以及對客製化馬達聲音工具的需求。當我在調整飛控器的啟動音樂時，發現缺乏好用的編輯工具，於是決定自己打造一個。",
+    "originP2": "從個人專案開始，逐步發展成一個完整的 RTTTL 鈴聲瀏覽、創作與分享平台。",
+    "purposeTitle": "為什麼選擇 RTTTL Hub",
+    "purposeP1": "RTTTL（Ring Tone Text Transfer Language）是一種簡單的文字格式，用於描述單音旋律。它被廣泛應用於復古鈴聲、Arduino 專案、ESC 馬達啟動音（透過 Betaflight 等飛控韌體），以及各種嵌入式系統。",
+    "purposeP2": "無論您是在調整飛控器、創作復古鈴聲，還是單純想探索懷舊的單音旋律世界，這個平台都為您而建。",
+    "techTitle": "編輯器設計",
+    "techP1": "編輯器的靈感來自現代數位音訊工作站（DAW）軟體，將熟悉的音樂製作工作流程帶入 chiptune 和嵌入式系統的世界。",
+    "techP2": "支援多音軌編輯、即時預覽、語法高亮等功能，讓創作過程更直覺流暢。",
+    "communityTitle": "開源社群",
+    "communityP1": "這是一個開源專案。如果您在使用過程中遇到任何問題或有任何建議，歡迎在",
+    "communityP2": "提出。",
+    "communityP3": "我們誠摯歡迎各種形式的貢獻，無論是新的曲目收藏或是您的原創作品。您可以透過",
+    "communityP4": "了解分享方式。",
+    "githubIssues": "GitHub Issues",
+    "contributePage": "分享與貢獻",
+    "creatorTitle": "關於創作者",
+    "creatorP1": "嗨，我是 Robby！我熱愛 FPV 空拍機飛行，也喜歡探索各種技術專案。如果您對 FPV 有興趣，歡迎追蹤我的社群帳號，一起交流空拍機飛行的樂趣。",
+    "followInstagram": "追蹤 Instagram",
+    "subscribeYoutube": "訂閱 YouTube",
+    "creatorP2": "感謝您使用 RTTTL Hub，希望這個平台能為您帶來幫助與樂趣。"
+  },
   "breadcrumb": {
     "home": "首頁",
     "collections": "收藏庫",

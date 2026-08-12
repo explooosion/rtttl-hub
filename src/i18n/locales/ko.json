@@ -369,6 +369,30 @@
   "settings": {
     "clearListened": "청취 기록 삭제"
   },
+  "about": {
+    "title": "소개",
+    "originTitle": "프로젝트의 탄생",
+    "originP1": "RTTTL Hub는 FPV 드론에 대한 열정과 모터 소리를 사용자 정의하기 위한 더 나은 도구의 필요성에서 탄생했습니다. 비행 컨트롤러의 시작 음악을 조정하던 중 사용하기 쉬운 편집 도구가 부족하다는 것을 발견하고 직접 만들기로 결정했습니다.",
+    "originP2": "개인 프로젝트로 시작하여 RTTTL 벨소리를 탐색하고 생성하고 공유하기 위한 포괄적인 플랫폼으로 성장했습니다.",
+    "purposeTitle": "RTTTL Hub를 선택하는 이유",
+    "purposeP1": "RTTTL(Ring Tone Text Transfer Language)은 단음 멜로디를 설명하기 위한 간단한 텍스트 형식입니다. 레트로 벨소리, Arduino 프로젝트, ESC 모터 시작 사운드(Betaflight와 같은 비행 컨트롤러 펌웨어를 통해) 및 다양한 임베디드 시스템에서 널리 사용됩니다.",
+    "purposeP2": "비행 컨트롤러를 조정하거나, 레트로 벨소리를 만들거나, 단순히 단음 멜로디의 향수를 불러일으키는 세계를 탐험하든, 이 플랫폼은 당신을 위해 만들어졌습니다.",
+    "techTitle": "편집기 설계",
+    "techP1": "편집기는 현대 DAW(디지털 오디오 워크스테이션) 소프트웨어에서 영감을 받아 칩튠 및 임베디드 시스템의 세계에 익숙한 음악 제작 워크플로우를 제공합니다.",
+    "techP2": "멀티 트랙 편집, 실시간 미리보기, 구문 강조 표시 등을 지원하여 창작 과정을 직관적이고 원활하게 만듭니다.",
+    "communityTitle": "오픈 소스 커뮤니티",
+    "communityP1": "이것은 오픈 소스 프로젝트입니다. 문제가 발생하거나 제안 사항이 있으면",
+    "communityP2": "에서 이슈를 열어주세요.",
+    "communityP3": "새로운 트랙 컬렉션부터 자신의 오리지널 작품까지 모든 종류의 기여를 환영합니다. 공유 방법에 대한 자세한 내용은",
+    "communityP4": "페이지를 참조하세요.",
+    "githubIssues": "GitHub Issues",
+    "contributePage": "공유 & 기여",
+    "creatorTitle": "제작자 소개",
+    "creatorP1": "안녕하세요, Robby입니다! 저는 FPV 드론 비행에 열정적이며 기술 프로젝트를 탐구하는 것을 좋아합니다. FPV에 관심이 있으시면 제 소셜 채널을 팔로우하고 대화에 참여해 주세요.",
+    "followInstagram": "Instagram 팔로우",
+    "subscribeYoutube": "YouTube 구독",
+    "creatorP2": "RTTTL Hub를 사용해 주셔서 감사합니다. 이 플랫폼이 여러분에게 도움과 즐거움을 가져다주길 바랍니다."
+  },
   "breadcrumb": {
     "home": "홈",
     "collections": "콜렉션",

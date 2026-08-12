@@ -28,6 +28,14 @@ export function RootFooter({ resetConsent }: RootFooterProps) {
             </p>
             <ul className="space-y-2 text-sm">
               <li>
+                <Link
+                  to="/about"
+                  className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+                >
+                  {t("footer.about")}
+                </Link>
+              </li>
+              <li>
                 <a
                   href="https://github.com/explooosion/rtttl-hub"
                   target="_blank"
