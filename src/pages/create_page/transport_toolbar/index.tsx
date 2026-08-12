@@ -38,6 +38,7 @@ import type { MenuItemDef } from "./dropdown_menu";
 import { AboutDialog } from "./about_dialog";
 import { SYNTAX_ITEMS } from "./transport_constants";
 import { formatMs } from "../utils/toolbar_utils";
+import { formatTooltipWithShortcut, platformShortcut } from "../utils/keyboard_utils";
 
 export type { MenuActions } from "./transport_constants";
 
@@ -157,12 +158,14 @@ export function TransportToolbar({
       type: "action",
       icon: <FaFileAlt size={13} />,
       label: t("create.menuNew", { defaultValue: "New Project" }),
+      shortcut: platformShortcut("alt+n"),
       onClick: onNew,
     },
     {
       type: "action",
       icon: <FaFileImport size={13} />,
       label: t("create.import", { defaultValue: "Import…" }),
+      shortcut: platformShortcut("i"),
       onClick: onImport,
     },
     {
@@ -191,6 +194,7 @@ export function TransportToolbar({
       type: "action",
       icon: <FaUndo size={13} />,
       label: t("create.undo", { defaultValue: "Undo" }),
+      shortcut: platformShortcut("z"),
       disabled: !canUndo,
       onClick: onUndo,
     },
@@ -198,6 +202,7 @@ export function TransportToolbar({
       type: "action",
       icon: <FaRedo size={13} />,
       label: t("create.redo", { defaultValue: "Redo" }),
+      shortcut: platformShortcut("shift+z"),
       disabled: !canRedo,
       onClick: onRedo,
     },
@@ -206,6 +211,7 @@ export function TransportToolbar({
       type: "action",
       icon: <FaPlus size={13} />,
       label: t("editor.addTrack", { defaultValue: "Add Track" }),
+      shortcut: platformShortcut("="),
       disabled: !canAddTrack,
       onClick: onAddTrack,
     },
@@ -288,6 +294,7 @@ export function TransportToolbar({
               defaultValue: `Set Loop In (A) — ${(loopInMs / 1000).toFixed(1)}s`,
             })
           : t("create.setLoopIn", { defaultValue: "Set Loop In (A)" }),
+      shortcut: "i",
       active: loopInMs !== null,
       onClick: onSetLoopIn,
     },
@@ -300,6 +307,7 @@ export function TransportToolbar({
               defaultValue: `Set Loop Out (B) — ${(loopOutMs / 1000).toFixed(1)}s`,
             })
           : t("create.setLoopOut", { defaultValue: "Set Loop Out (B)" }),
+      shortcut: "o",
       active: loopOutMs !== null,
       onClick: onSetLoopOut,
     },
@@ -323,6 +331,7 @@ export function TransportToolbar({
       type: "action",
       icon: <FaEraser size={13} />,
       label: t("create.deleteRegion", { defaultValue: "Delete Selection" }),
+      shortcut: "delete",
       disabled: !canCutRegion,
       onClick: onDeleteRegion,
     },
@@ -443,7 +452,10 @@ export function TransportToolbar({
             type="button"
             onClick={onUndo}
             disabled={!canUndo}
-            title={t("create.undo", { defaultValue: "Undo" })}
+            title={formatTooltipWithShortcut(
+              t("create.undo", { defaultValue: "Undo" }),
+              platformShortcut("z"),
+            )}
             className="flex h-8 w-8 items-center justify-center rounded text-gray-600 hover:bg-gray-300 disabled:opacity-30 dark:text-gray-400 dark:hover:bg-gray-700"
           >
             <FaUndo size={14} />
@@ -452,7 +464,10 @@ export function TransportToolbar({
             type="button"
             onClick={onRedo}
             disabled={!canRedo}
-            title={t("create.redo", { defaultValue: "Redo" })}
+            title={formatTooltipWithShortcut(
+              t("create.redo", { defaultValue: "Redo" }),
+              platformShortcut("shift+z"),
+            )}
             className="flex h-8 w-8 items-center justify-center rounded text-gray-600 hover:bg-gray-300 disabled:opacity-30 dark:text-gray-400 dark:hover:bg-gray-700"
           >
             <FaRedo size={14} />
@@ -464,7 +479,10 @@ export function TransportToolbar({
           <button
             type="button"
             onClick={onImport}
-            title={t("create.import", { defaultValue: "Import RTTTL" })}
+            title={formatTooltipWithShortcut(
+              t("create.import", { defaultValue: "Import RTTTL" }),
+              platformShortcut("i"),
+            )}
             className="flex h-8 w-8 items-center justify-center rounded text-gray-600 hover:bg-gray-300 dark:text-gray-400 dark:hover:bg-gray-700"
           >
             <FaFileImport size={16} />
@@ -506,10 +524,10 @@ export function TransportToolbar({
             )}
             title={
               playerState === "playing"
-                ? t("player.pause")
+                ? formatTooltipWithShortcut(t("player.pause"), "space")
                 : playerState === "paused"
-                  ? t("player.resume")
-                  : t("player.play")
+                  ? formatTooltipWithShortcut(t("player.resume"), "space")
+                  : formatTooltipWithShortcut(t("player.play"), "space")
             }
           >
             {playerState === "playing" ? <FaPause size={14} /> : <FaPlay size={14} />}
@@ -549,7 +567,10 @@ export function TransportToolbar({
           <button
             type="button"
             onClick={loopInEditing ? undefined : onSetLoopIn}
-            title={t("create.setLoopIn", { defaultValue: "Set Loop In (A)" })}
+            title={formatTooltipWithShortcut(
+              t("create.setLoopIn", { defaultValue: "Set Loop In (A)" }),
+              "i",
+            )}
             className={clsx(
               "flex h-7 items-center gap-1 rounded px-2 text-sm transition-colors",
               loopInMs !== null
@@ -609,7 +630,10 @@ export function TransportToolbar({
           <button
             type="button"
             onClick={loopOutEditing ? undefined : onSetLoopOut}
-            title={t("create.setLoopOut", { defaultValue: "Set Loop Out (B)" })}
+            title={formatTooltipWithShortcut(
+              t("create.setLoopOut", { defaultValue: "Set Loop Out (B)" }),
+              "o",
+            )}
             className={clsx(
               "flex h-7 items-center gap-1 rounded px-2 text-sm transition-colors",
               loopOutMs !== null

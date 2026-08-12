@@ -18,7 +18,10 @@ import {
   FaClone,
   FaEraser,
   FaRegCopy,
+  FaKeyboard,
 } from "react-icons/fa";
+
+import { formatShortcut, platformShortcut } from "../utils/keyboard_utils";
 
 interface GuideItemProps {
   icon: React.ReactNode;
@@ -38,6 +41,22 @@ function GuideItem({ icon, label, desc }: GuideItemProps) {
         </span>
         <span className="block text-sm text-gray-500 dark:text-gray-400">{desc}</span>
       </div>
+    </div>
+  );
+}
+
+interface ShortcutItemProps {
+  keys: string;
+  label: string;
+}
+
+function ShortcutItem({ keys, label }: ShortcutItemProps) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <span className="text-sm text-gray-700 dark:text-gray-200">{label}</span>
+      <kbd className="rounded-md border border-gray-300 bg-gray-100 px-2 py-1 font-mono text-xs font-semibold text-gray-700 shadow-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300">
+        {formatShortcut(keys)}
+      </kbd>
     </div>
   );
 }
@@ -315,6 +334,58 @@ export function HelpDialog({ open, onClose }: { open: boolean; onClose: () => vo
                 </div>
               </div>
             </Section>
+          </div>
+
+          {/* Keyboard Shortcuts */}
+          <div className="mt-4 rounded-xl border border-indigo-200 bg-indigo-50/50 p-4 dark:border-indigo-800/50 dark:bg-indigo-950/30">
+            <div className="mb-3 flex items-center gap-2">
+              <FaKeyboard className="text-indigo-600 dark:text-indigo-400" size={16} />
+              <p className="text-sm font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-400">
+                {t("editor.guide.shortcuts", { defaultValue: "Keyboard Shortcuts" })}
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2 md:grid-cols-3">
+              <ShortcutItem
+                keys="space"
+                label={t("editor.guide.shortcutPlay", { defaultValue: "Play / Pause" })}
+              />
+              <ShortcutItem
+                keys="i"
+                label={t("editor.guide.shortcutLoopIn", { defaultValue: "Set Loop In (A)" })}
+              />
+              <ShortcutItem
+                keys="o"
+                label={t("editor.guide.shortcutLoopOut", { defaultValue: "Set Loop Out (B)" })}
+              />
+              <ShortcutItem
+                keys={platformShortcut("z")}
+                label={t("editor.guide.shortcutUndo", { defaultValue: "Undo" })}
+              />
+              <ShortcutItem
+                keys={platformShortcut("shift+z")}
+                label={t("editor.guide.shortcutRedo", { defaultValue: "Redo" })}
+              />
+              <ShortcutItem
+                keys={platformShortcut("=")}
+                label={t("editor.guide.shortcutAddTrack", { defaultValue: "Add Track" })}
+              />
+              <ShortcutItem
+                keys="delete"
+                label={t("editor.guide.shortcutDelete", { defaultValue: "Delete Selection" })}
+              />
+              <ShortcutItem
+                keys={platformShortcut("alt+n")}
+                label={t("editor.guide.shortcutNew", { defaultValue: "New Project" })}
+              />
+              <ShortcutItem
+                keys={platformShortcut("i")}
+                label={t("editor.guide.shortcutImport", { defaultValue: "Import" })}
+              />
+              <ShortcutItem
+                keys={platformShortcut("s")}
+                label={t("editor.guide.shortcutSave", { defaultValue: "Create / Save" })}
+              />
+            </div>
           </div>
 
           <div className="mt-5 flex justify-end">

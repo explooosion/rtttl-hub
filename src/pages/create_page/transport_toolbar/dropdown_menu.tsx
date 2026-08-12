@@ -3,6 +3,8 @@ import { createPortal } from "react-dom";
 import { FaChevronDown } from "react-icons/fa";
 import clsx from "clsx";
 
+import { formatShortcut } from "../utils/keyboard_utils";
+
 interface MenuBarContextValue {
   openId: string | null;
   setOpenId: (id: string | null) => void;
@@ -25,6 +27,8 @@ export type MenuItemDef =
       disabled?: boolean;
       /** Shows a coloured dot/check on the right to indicate an active/toggled state. */
       active?: boolean;
+      /** Keyboard shortcut descriptor (e.g. "ctrl+z", "space", "i") */
+      shortcut?: string;
       onClick: () => void;
     }
   | { type: "separator" };
@@ -152,6 +156,11 @@ export function DropdownMenu({ label, items }: { label: string; items: MenuItemD
                     </span>
                   )}
                   <span className="flex-1">{item.label}</span>
+                  {item.shortcut && (
+                    <span className="ml-2 shrink-0 font-mono text-xs text-gray-400 dark:text-gray-500">
+                      {formatShortcut(item.shortcut)}
+                    </span>
+                  )}
                   {item.active && (
                     <span className="ml-2 h-2 w-2 shrink-0 rounded-full bg-indigo-600 dark:bg-indigo-400" />
                   )}

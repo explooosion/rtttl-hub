@@ -38,10 +38,6 @@ export function AboutDialog({ open, onClose }: { open: boolean; onClose: () => v
                   t("create.aboutStorage", { defaultValue: "Storage" }),
                   t("create.aboutStorageValue", { defaultValue: "Local browser storage (draft)" }),
                 ],
-                [
-                  t("create.aboutShortcuts", { defaultValue: "Shortcuts" }),
-                  "Ctrl/⌘+Z  Undo · Ctrl/⌘+Shift+Z  Redo",
-                ],
               ] as [string, string][]
             ).map(([k, v]) => (
               <div key={k} className="flex items-start gap-2 text-xs">
