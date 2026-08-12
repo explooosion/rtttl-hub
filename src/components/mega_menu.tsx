@@ -100,8 +100,13 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              {/* Left: community */}
+              {/* Left: my-creations + community */}
               <div>
+                {COLLECTIONS.filter((c) => c.group === "my-creations").map((col) => (
+                  <div key={col.slug} onClick={close}>
+                    <CollectionCard slug={col.slug} nameKey={col.nameKey} icon={col.icon} />
+                  </div>
+                ))}
                 {COLLECTIONS.filter((c) => c.group === "community").map((col) => (
                   <div key={col.slug} onClick={close}>
                     <CollectionCard slug={col.slug} nameKey={col.nameKey} icon={col.icon} />

@@ -3,7 +3,8 @@ export type CollectionSlug =
   | "community"
   | "esc-configurator"
   | "skully-rtttl"
-  | "esphome";
+  | "esphome"
+  | "my-creations";
 
 export type RtttlCategory =
   | "pop"

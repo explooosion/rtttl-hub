@@ -92,6 +92,7 @@ function CollectionGroup({
 export function CollectionsPage() {
   const { t } = useTranslation();
 
+  const myCreationsCollections = COLLECTIONS.filter((c) => c.group === "my-creations");
   const libraryCollections = COLLECTIONS.filter((c) => c.group === "library");
   const communityCollections = COLLECTIONS.filter((c) => c.group === "community");
 
@@ -106,6 +107,13 @@ export function CollectionsPage() {
       <p className="mb-8 text-gray-600 dark:text-gray-400">{t("collections.subtitle")}</p>
 
       <div className="space-y-8">
+        {myCreationsCollections.length > 0 && (
+          <CollectionGroup
+            title={t("collections.group.myCreations")}
+            description={t("collections.group.myCreationsDesc")}
+            collections={myCreationsCollections}
+          />
+        )}
         <CollectionGroup
           title={t("collections.group.community")}
           description={t("collections.group.communityDesc")}

@@ -95,6 +95,13 @@ function getItemsByCollection(
   if (!collection) {
     return [...items, ...userItems];
   }
+  if (collection === "my-creations") {
+    return userItems.filter((item) => item.collection === "my-creations");
+  }
+  if (collection === "community") {
+    // Community only shows shared items, not user's own creations
+    return userItems.filter((item) => item.collection === "community");
+  }
   if (collection === "picaxe") {
     return items.filter((item) => item.collection === "picaxe");
   }

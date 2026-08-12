@@ -38,8 +38,8 @@
     }
   },
   "collections": {
-    "group": {
-      "libraries": "キュレーテッドライブラリ",
+    "group": {      "myCreations": "マイ作品",
+      "myCreationsDesc": "あなたが作成した RTTTL トラック。",      "libraries": "キュレーテッドライブラリ",
       "librariesDesc": "信頼できるソースとブランドの着信音コレクション。",
       "community": "コミュニティ",
       "communityDesc": "ユーザーが作成・共有した着信音。"
@@ -51,6 +51,10 @@
     "picaxe": {
       "name": "PICAXE コレクション",
       "description": "PICAXE ライブラリの膨大なクラシック RTTTL 着信音コレクション。ポップ、ロック、テレビテーマ、クリスマスソングなど。"
+    },
+    "myCreations": {
+      "name": "マイ作品",
+      "description": "あなたが作成した RTTTL トラック。"
     },
     "community": {
       "name": "コミュニティ",

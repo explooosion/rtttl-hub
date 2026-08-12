@@ -1,4 +1,4 @@
-import { FaDatabase, FaUsers, FaMicrochip, FaCode, FaHome } from "react-icons/fa";
+import { FaDatabase, FaUsers, FaMicrochip, FaCode, FaHome, FaPencilAlt } from "react-icons/fa";
 import type { IconType } from "react-icons";
 
 import type { CollectionSlug } from "../utils/rtttl_parser";
@@ -9,11 +9,18 @@ export interface CollectionDef {
   descriptionKey: string;
   icon: IconType;
   source?: string;
-  /** "community" = user-created; "library" = curated/brand datasets */
-  group: "community" | "library";
+  /** "my-creations" = user's own works; "community" = shared works; "library" = curated/brand datasets */
+  group: "my-creations" | "community" | "library";
 }
 
 export const COLLECTIONS: CollectionDef[] = [
+  {
+    slug: "my-creations",
+    nameKey: "collections.myCreations.name",
+    descriptionKey: "collections.myCreations.description",
+    icon: FaPencilAlt,
+    group: "my-creations",
+  },
   {
     slug: "community",
     nameKey: "collections.community.name",

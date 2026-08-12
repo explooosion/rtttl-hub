@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import * as Tone from "tone";
 
 import { ThemeProvider } from "./components/theme_provider";
@@ -115,6 +115,10 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/collections" element={<CollectionsPage />} />
               <Route path="/collections/:slug" element={<CollectionPage />} />
+              <Route
+                path="/my-creations"
+                element={<Navigate to="/collections/my-creations" replace />}
+              />
               <Route path="/favorites" element={<FavoritesPage />} />
               <Route path="/creators/:creatorId" element={<CreatorPage />} />
               <Route path="/terms" element={<TermsPage />} />

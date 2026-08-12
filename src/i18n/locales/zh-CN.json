@@ -38,8 +38,8 @@
     }
   },
   "collections": {
-    "group": {
-      "libraries": "精选曲库",
+    "group": {      "myCreations": "我的创作",
+      "myCreationsDesc": "您自己创建的 RTTTL 音轨作品。",      "libraries": "精选曲库",
       "librariesDesc": "来自可信来源与品牌的铃声合集。",
       "community": "社区",
       "communityDesc": "由用户创作并分享的铃声。"
@@ -51,8 +51,10 @@
     "picaxe": {
       "name": "PICAXE 收藏库",
       "description": "海量经典 RTTTL 铃声收藏，涵盖流行、摇滚、电视主题曲、圣诞歌曲等多种风格。"
-    },
-    "community": {
+    },    "myCreations": {
+      "name": "我的创作",
+      "description": "您创建的 RTTTL 音轨作品。"
+    },    "community": {
       "name": "社区",
       "description": "社区创作的铃声。创建您自己的铃声并与大家分享。"
     },

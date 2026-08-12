@@ -39,6 +39,8 @@
   },
   "collections": {
     "group": {
+      "myCreations": "My Creations",
+      "myCreationsDesc": "RTTTL tracks you've created.",
       "libraries": "Curated Libraries",
       "librariesDesc": "Ringtone collections from trusted sources and brands.",
       "community": "Community",
@@ -51,8 +53,10 @@
     "picaxe": {
       "name": "PICAXE",
       "description": "A massive collection of classic RTTTL ringtones from the PICAXE library. Covers pop, rock, TV themes, Christmas tunes, and more."
-    },
-    "community": {
+    },    "myCreations": {
+      "name": "My Creations",
+      "description": "RTTTL tracks you've created."
+    },    "community": {
       "name": "Community",
       "description": "Ringtones created by the community. Create your own and share with everyone."
     },

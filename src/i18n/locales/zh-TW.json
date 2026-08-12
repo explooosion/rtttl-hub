@@ -39,6 +39,8 @@
   },
   "collections": {
     "group": {
+      "myCreations": "我的創作",
+      "myCreationsDesc": "您自己創建的 RTTTL 音軌作品。",
       "libraries": "精選曲庫",
       "librariesDesc": "來自可信來源與品牌的鈴聲合集。",
       "community": "社群",
@@ -51,6 +53,10 @@
     "picaxe": {
       "name": "PICAXE",
       "description": "海量經典 RTTTL 鈴聲收藏，涵蓋流行、搖滾、電視主題曲、聖誕歌曲等多種風格。"
+    },
+    "myCreations": {
+      "name": "我的創作",
+      "description": "您創建的 RTTTL 音軌作品。"
     },
     "community": {
       "name": "社群",

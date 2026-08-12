@@ -38,8 +38,8 @@
     }
   },
   "collections": {
-    "group": {
-      "libraries": "精選曲庫",
+    "group": {      "myCreations": "我嘅創作",
+      "myCreationsDesc": "你自己創建嘅 RTTTL 音軌作品。",      "libraries": "精選曲庫",
       "librariesDesc": "來自可信來源同品牌嘅鈴聲合集。",
       "community": "社群",
       "communityDesc": "由用戶創作同分享嘅鈴聲。"
@@ -51,8 +51,10 @@
     "picaxe": {
       "name": "PICAXE 收藏庫",
       "description": "海量經典 RTTTL 鈴聲收藏，涵蓋流行、搖滾、電視主題曲、聖誕歌曲等多種風格。"
-    },
-    "community": {
+    },    "myCreations": {
+      "name": "我嘅創作",
+      "description": "你創建嘅 RTTTL 音軌作品。"
+    },    "community": {
       "name": "社群",
       "description": "社群創作嘅鈴聲。建立你自己嘅鈴聲同大家分享。"
     },

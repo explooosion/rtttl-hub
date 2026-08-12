@@ -38,8 +38,8 @@
     }
   },
   "collections": {
-    "group": {
-      "libraries": "큐레이티드 라이브러리",
+    "group": {      "myCreations": "내 창작물",
+      "myCreationsDesc": "내가 만든 RTTTL 트랙.",      "libraries": "큐레이티드 라이브러리",
       "librariesDesc": "신뢰할 수 있는 소스와 브랜드의 벨소리 컬렉션입니다.",
       "community": "커뮤니티",
       "communityDesc": "사용자가 만들고 공유한 벨소리입니다."
@@ -51,6 +51,10 @@
     "picaxe": {
       "name": "PICAXE 컬렉션",
       "description": "PICAXE 라이브러리의 방대한 클래식 RTTTL 벨소리 컬렉션. 팝, 록, TV 테마, 크리스마스 노래 등."
+    },
+    "myCreations": {
+      "name": "내 창작물",
+      "description": "내가 만든 RTTTL 트랙."
     },
     "community": {
       "name": "커뮤니티",

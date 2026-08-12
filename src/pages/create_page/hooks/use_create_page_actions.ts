@@ -246,7 +246,7 @@ export function useCreatePageActions({
           ? "0-9"
           : "#",
       code: primaryCode.trim(),
-      collection: "community" as const,
+      collection: "my-creations" as const,
       categories: categories.length > 0 ? categories : undefined,
       createdAt: new Date().toISOString(),
       ...(nonEmptyTracks.length > 1 ? { tracks: nonEmptyTracks } : {}),
@@ -255,7 +255,7 @@ export function useCreatePageActions({
     setCurrentItem(newItem);
     clearDraft();
     stop();
-    navigate("/collections/community");
+    navigate("/my-creations");
   }, [name, tracks, categories, addUserItem, setCurrentItem, stop, navigate]);
 
   /* ── New project ── */
