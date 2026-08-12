@@ -115,9 +115,6 @@ function getItemsByCollection(
   if (collection === "picaxe") {
     return items.filter((item) => item.collection === "picaxe");
   }
-  if (collection === "community") {
-    return [...items.filter((item) => item.collection === "community"), ...userItems];
-  }
   return [...items, ...userItems].filter((item) => item.collection === collection);
 }
 
@@ -144,9 +141,7 @@ export function useFilteredItems(): RtttlEntry[] {
 
   if (activeCategories.length > 0) {
     filtered = filtered.filter(
-      (item) =>
-        (item.categories && item.categories.some((c) => activeCategories.includes(c))) ||
-        (item.sourceCategory && activeCategories.includes(item.sourceCategory as RtttlCategory)),
+      (item) => item.categories && item.categories.some((c) => activeCategories.includes(c)),
     );
   }
 

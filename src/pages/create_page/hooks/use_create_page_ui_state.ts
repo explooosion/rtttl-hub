@@ -62,8 +62,6 @@ export function useCreatePageUiState() {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const trackRowsRef = useRef<(HTMLDivElement | null)[]>([]);
   const lastPlayedTracksRef = useRef<{ tracks: string[]; deactivated: Set<number> }>({
-    editId,
-    editItem,
     tracks: [],
     deactivated: new Set(),
   });
@@ -72,6 +70,8 @@ export function useCreatePageUiState() {
   const userItemTitles = userItems.map((u) => u.title);
 
   return {
+    editId,
+    editItem,
     draft,
     userItemTitles,
     /* dialog toggles */
