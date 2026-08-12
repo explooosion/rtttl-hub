@@ -5,8 +5,7 @@
   },
   "nav": {
     "collection": "收藏库",
-    "collections": "收藏库",
-    "favorites": "我的收藏",
+    "collections": "收藏库",    "myCreations": "我的创作",    "favorites": "我的收藏",
     "home": "首页"
   },
   "landing": {
@@ -38,7 +37,7 @@
     }
   },
   "collections": {
-    "group": {      "myCreations": "我的创作",
+    "group": {      "myCreations": "我的专区",
       "myCreationsDesc": "您自己创建的 RTTTL 音轨作品。",      "libraries": "外部资源",
       "librariesDesc": "来自外部网站与项目的 RTTTL 铃声资源。",
       "community": "社区",
@@ -54,6 +53,10 @@
     },    "myCreations": {
       "name": "我的创作",
       "description": "您创建的 RTTTL 音轨作品。"
+    },
+    "favorites": {
+      "name": "我的收藏",
+      "description": "您收藏的 RTTTL 音轨。"
     },    "community": {
       "name": "社区",
       "description": "社区创作的铃声。创建您自己的铃声并与大家分享。"

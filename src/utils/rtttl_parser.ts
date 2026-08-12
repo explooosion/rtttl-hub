@@ -4,7 +4,8 @@ export type CollectionSlug =
   | "esc-configurator"
   | "skully-rtttl"
   | "esphome"
-  | "my-creations";
+  | "my-creations"
+  | "favorites";
 
 export type RtttlCategory =
   | "pop"

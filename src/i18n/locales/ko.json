@@ -6,6 +6,7 @@
   "nav": {
     "collection": "컬렉션",
     "collections": "컬렉션",
+    "myCreations": "내 창작물",
     "favorites": "즐겨찾기",
     "home": "홈"
   },
@@ -38,7 +39,7 @@
     }
   },
   "collections": {
-    "group": {      "myCreations": "내 창작물",
+    "group": {      "myCreations": "내 라이브러리",
       "myCreationsDesc": "내가 만든 RTTTL 트랙.",      "libraries": "외부 리소스",
       "librariesDesc": "외부 웹사이트 및 프로젝트의 RTTTL 벨소리 리소스.",
       "community": "커뮤니티",
@@ -55,6 +56,10 @@
     "myCreations": {
       "name": "내 창작물",
       "description": "내가 만든 RTTTL 트랙."
+    },
+    "favorites": {
+      "name": "내 즐겨찾기",
+      "description": "즐겨찾는 RTTTL 트랙."
     },
     "community": {
       "name": "커뮤니티",

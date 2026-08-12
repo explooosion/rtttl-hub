@@ -84,10 +84,10 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
       </button>
 
       {open && (
-        <div className="absolute left-0 z-50 mt-4 w-135 rounded-xl border border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+        <div className="absolute left-0 z-50 mt-4 w-180 rounded-xl border border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-gray-900">
           {/* Collections */}
           <div className="mb-4">
-            <div className="mb-2 flex items-center justify-between">
+            <div className="mb-4 flex items-center justify-between">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
                 {t("nav.collections")}
               </h3>
@@ -99,22 +99,34 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
                 {t("collections.browseAll")} →
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-2">
-              {/* Left: my-creations + community */}
+            <div className="grid grid-cols-3 gap-4">
+              {/* Left: My Creations */}
               <div>
+                <h4 className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
+                  {t("collections.group.myCreations")}
+                </h4>
                 {COLLECTIONS.filter((c) => c.group === "my-creations").map((col) => (
                   <div key={col.slug} onClick={close}>
                     <CollectionCard slug={col.slug} nameKey={col.nameKey} icon={col.icon} />
                   </div>
                 ))}
+              </div>
+              {/* Middle: Community */}
+              <div>
+                <h4 className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
+                  {t("collections.group.community")}
+                </h4>
                 {COLLECTIONS.filter((c) => c.group === "community").map((col) => (
                   <div key={col.slug} onClick={close}>
                     <CollectionCard slug={col.slug} nameKey={col.nameKey} icon={col.icon} />
                   </div>
                 ))}
               </div>
-              {/* Right: library */}
-              <div className="flex flex-col">
+              {/* Right: External Resources (Library) */}
+              <div>
+                <h4 className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
+                  {t("collections.group.libraries")}
+                </h4>
                 {COLLECTIONS.filter((c) => c.group === "library").map((col) => (
                   <div key={col.slug} onClick={close}>
                     <CollectionCard slug={col.slug} nameKey={col.nameKey} icon={col.icon} />

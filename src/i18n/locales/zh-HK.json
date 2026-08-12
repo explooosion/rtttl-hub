@@ -5,8 +5,7 @@
   },
   "nav": {
     "collection": "收藏庫",
-    "collections": "收藏庫",
-    "favorites": "我的收藏",
+    "collections": "收藏庫",    "myCreations": "我嘅創作",    "favorites": "我的收藏",
     "home": "首頁"
   },
   "landing": {
@@ -38,7 +37,7 @@
     }
   },
   "collections": {
-    "group": {      "myCreations": "我嘅創作",
+    "group": {      "myCreations": "我嘅專區",
       "myCreationsDesc": "你自己創建嘅 RTTTL 音軌作品。",      "libraries": "外部資源",
       "librariesDesc": "來自外部網站同專案嘅 RTTTL 鈴聲資源。",
       "community": "社群",
@@ -54,6 +53,10 @@
     },    "myCreations": {
       "name": "我嘅創作",
       "description": "你創建嘅 RTTTL 音軌作品。"
+    },
+    "favorites": {
+      "name": "我嘅收藏",
+      "description": "你收藏嘅 RTTTL 音軌。"
     },    "community": {
       "name": "社群",
       "description": "社群創作嘅鈴聲。建立你自己嘅鈴聲同大家分享。"

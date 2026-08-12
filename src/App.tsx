@@ -16,9 +16,6 @@ const CollectionsPage = lazy(() =>
 const CollectionPage = lazy(() =>
   import("./pages/collection_page").then((m) => ({ default: m.CollectionPage })),
 );
-const FavoritesPage = lazy(() =>
-  import("./pages/favorites_page").then((m) => ({ default: m.FavoritesPage })),
-);
 const CreatorPage = lazy(() =>
   import("./pages/creator_page").then((m) => ({ default: m.CreatorPage })),
 );
@@ -120,7 +117,7 @@ function App() {
                 path="/my-creations"
                 element={<Navigate to="/collections/my-creations" replace />}
               />
-              <Route path="/favorites" element={<FavoritesPage />} />
+              <Route path="/favorites" element={<Navigate to="/collections/favorites" replace />} />
               <Route path="/creators/:creatorId" element={<CreatorPage />} />
               <Route path="/terms" element={<TermsPage />} />
               <Route path="/privacy" element={<PrivacyPolicyPage />} />

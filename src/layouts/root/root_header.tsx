@@ -29,7 +29,8 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
   const setSearchQuery = useCollectionStore((s) => s.setSearchQuery);
 
   const isCollectionsActive = location.pathname.startsWith("/collections");
-  const isFavoritesActive = location.pathname === "/favorites";
+  const isMyCreationsActive = location.pathname === "/collections/my-creations";
+  const isFavoritesActive = location.pathname === "/collections/favorites";
   const isCreateActive = location.pathname === "/create";
   const isContributeActive = location.pathname === "/contribute";
 
@@ -60,7 +61,18 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
         >
           <MegaMenu isActive={isCollectionsActive} />
           <Link
-            to="/favorites"
+            to="/collections/my-creations"
+            className={clsx(
+              "whitespace-nowrap text-sm font-medium transition-colors",
+              isMyCreationsActive
+                ? "text-indigo-600 dark:text-indigo-400"
+                : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
+            )}
+          >
+            {t("nav.myCreations")}
+          </Link>
+          <Link
+            to="/collections/favorites"
             className={clsx(
               "whitespace-nowrap text-sm font-medium transition-colors",
               isFavoritesActive

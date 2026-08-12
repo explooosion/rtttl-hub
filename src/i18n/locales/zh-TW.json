@@ -6,6 +6,7 @@
   "nav": {
     "collection": "收藏庫",
     "collections": "收藏庫",
+    "myCreations": "我的創作",
     "favorites": "我的收藏",
     "home": "首頁"
   },
@@ -39,7 +40,7 @@
   },
   "collections": {
     "group": {
-      "myCreations": "我的創作",
+      "myCreations": "我的專區",
       "myCreationsDesc": "您自己創建的 RTTTL 音軌作品。",
       "libraries": "外部資源",
       "librariesDesc": "來自外部網站與專案的 RTTTL 鈴聲資源。",
@@ -57,6 +58,10 @@
     "myCreations": {
       "name": "我的創作",
       "description": "您創建的 RTTTL 音軌作品。"
+    },
+    "favorites": {
+      "name": "我的收藏",
+      "description": "您收藏的 RTTTL 音軌。"
     },
     "community": {
       "name": "社群",

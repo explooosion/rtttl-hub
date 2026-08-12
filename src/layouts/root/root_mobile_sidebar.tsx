@@ -20,7 +20,8 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
   const location = useLocation();
 
   const isCollectionsActive = location.pathname.startsWith("/collections");
-  const isFavoritesActive = location.pathname === "/favorites";
+  const isMyCreationsActive = location.pathname === "/collections/my-creations";
+  const isFavoritesActive = location.pathname === "/collections/favorites";
   const isCreateActive = location.pathname === "/create";
   const isContributeActive = location.pathname === "/contribute";
 
@@ -60,7 +61,19 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
             {t("nav.collections")}
           </Link>
           <Link
-            to="/favorites"
+            to="/collections/my-creations"
+            onClick={onClose}
+            className={clsx(
+              "rounded-lg px-3 py-2 text-sm font-medium",
+              isMyCreationsActive
+                ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400"
+                : "text-gray-600 dark:text-gray-400",
+            )}
+          >
+            {t("nav.myCreations")}
+          </Link>
+          <Link
+            to="/collections/favorites"
             onClick={onClose}
             className={clsx(
               "rounded-lg px-3 py-2 text-sm font-medium",

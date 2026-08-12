@@ -6,6 +6,7 @@
   "nav": {
     "collection": "コレクション",
     "collections": "コレクション",
+    "myCreations": "マイ作品",
     "favorites": "お気に入り",
     "home": "ホーム"
   },
@@ -38,7 +39,7 @@
     }
   },
   "collections": {
-    "group": {      "myCreations": "マイ作品",
+    "group": {      "myCreations": "マイライブラリ",
       "myCreationsDesc": "あなたが作成した RTTTL トラック。",      "libraries": "外部リソース",
       "librariesDesc": "外部のウェブサイトやプロジェクトからの RTTTL 着信音リソース。",
       "community": "コミュニティ",
@@ -55,6 +56,10 @@
     "myCreations": {
       "name": "マイ作品",
       "description": "あなたが作成した RTTTL トラック。"
+    },
+    "favorites": {
+      "name": "マイお気に入り",
+      "description": "お気に入りの RTTTL トラック。"
     },
     "community": {
       "name": "コミュニティ",

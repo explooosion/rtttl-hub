@@ -1,4 +1,12 @@
-import { FaDatabase, FaUsers, FaMicrochip, FaCode, FaHome, FaPencilAlt } from "react-icons/fa";
+import {
+  FaDatabase,
+  FaUsers,
+  FaMicrochip,
+  FaCode,
+  FaHome,
+  FaPencilAlt,
+  FaHeart,
+} from "react-icons/fa";
 import type { IconType } from "react-icons";
 
 import type { CollectionSlug } from "../utils/rtttl_parser";
@@ -19,6 +27,13 @@ export const COLLECTIONS: CollectionDef[] = [
     nameKey: "collections.myCreations.name",
     descriptionKey: "collections.myCreations.description",
     icon: FaPencilAlt,
+    group: "my-creations",
+  },
+  {
+    slug: "favorites",
+    nameKey: "collections.favorites.name",
+    descriptionKey: "collections.favorites.description",
+    icon: FaHeart,
     group: "my-creations",
   },
   {

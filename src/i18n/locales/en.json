@@ -5,8 +5,7 @@
   },
   "nav": {
     "collection": "Collection",
-    "collections": "Collections",
-    "favorites": "Favorites",
+    "collections": "Collections",    "myCreations": "My Creations",    "favorites": "Favorites",
     "home": "Home"
   },
   "landing": {
@@ -39,7 +38,7 @@
   },
   "collections": {
     "group": {
-      "myCreations": "My Creations",
+      "myCreations": "My Library",
       "myCreationsDesc": "RTTTL tracks you've created.",
       "libraries": "External Resources",
       "librariesDesc": "RTTTL ringtone resources from external websites and projects.",
@@ -56,6 +55,9 @@
     },    "myCreations": {
       "name": "My Creations",
       "description": "RTTTL tracks you've created."
+    },    "favorites": {
+      "name": "My Favorites",
+      "description": "Your favorite RTTTL tracks."
     },    "community": {
       "name": "Community",
       "description": "Ringtones created by the community. Create your own and share with everyone."

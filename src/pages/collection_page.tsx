@@ -1,11 +1,12 @@
 import { useCallback, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash, FaHeart } from "react-icons/fa";
 
 import { ListPageLayout } from "../layouts/list_page_layout";
 import type { BreadcrumbItem } from "../layouts/list_page_layout";
 import { useCollectionStore } from "../stores/collection_store";
+import { useFavoritesStore } from "../stores/favorites_store";
 import { getCollectionBySlug } from "../constants/collections";
 import type { CollectionSlug, RtttlEntry } from "../utils/rtttl_parser";
 import type { TrackRowAction } from "../components/track_row";
@@ -23,6 +24,7 @@ export function CollectionPage() {
   const items = useCollectionStore((s) => s.items);
   const userItems = useCollectionStore((s) => s.userItems);
   const deleteUserItem = useCollectionStore((s) => s.deleteUserItem);
+  const favoriteIds = useFavoritesStore((s) => s.favoriteIds);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<RtttlEntry | null>(null);
 
@@ -32,6 +34,11 @@ export function CollectionPage() {
     if (!slug) {
       return [...items, ...userItems];
     }
+    if (slug === "favorites") {
+      const allItems = [...items, ...userItems];
+      const idSet = new Set(favoriteIds);
+      return allItems.filter((item) => idSet.has(item.id));
+    }
     if (slug === "picaxe") {
       return items.filter((item) => item.collection === (slug as CollectionSlug));
     }
@@ -39,7 +46,7 @@ export function CollectionPage() {
       return [...items.filter((item) => item.collection === "community"), ...userItems];
     }
     return [...items, ...userItems].filter((item) => item.collection === (slug as CollectionSlug));
-  }, [slug, items, userItems]);
+  }, [slug, items, userItems, favoriteIds]);
 
   const handleCreateNew = useCallback(() => {
     navigate("/create");
@@ -89,6 +96,14 @@ export function CollectionPage() {
     ...(collectionDef ? [{ label: t(collectionDef.nameKey) }] : []),
   ];
 
+  const emptyNode =
+    slug === "favorites" ? (
+      <div className="flex h-64 flex-col items-center justify-center gap-3 text-gray-400 dark:text-gray-500">
+        <FaHeart size={48} className="opacity-50" />
+        <p className="text-center">{t("favorites.empty")}</p>
+      </div>
+    ) : undefined;
+
   const headerActions =
     slug === "community" || slug === "my-creations" ? (
       <button
@@ -112,6 +127,7 @@ export function CollectionPage() {
         source={collectionDef?.source}
         headerActions={headerActions}
         extraRowActions={extraActions}
+        emptyNode={emptyNode}
       />
       <ConfirmDialog
         isOpen={deleteConfirmOpen}
