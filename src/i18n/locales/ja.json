@@ -39,8 +39,8 @@
   },
   "collections": {
     "group": {      "myCreations": "マイ作品",
-      "myCreationsDesc": "あなたが作成した RTTTL トラック。",      "libraries": "キュレーテッドライブラリ",
-      "librariesDesc": "信頼できるソースとブランドの着信音コレクション。",
+      "myCreationsDesc": "あなたが作成した RTTTL トラック。",      "libraries": "外部リソース",
+      "librariesDesc": "外部のウェブサイトやプロジェクトからの RTTTL 着信音リソース。",
       "community": "コミュニティ",
       "communityDesc": "ユーザーが作成・共有した着信音。"
     },
@@ -426,7 +426,7 @@
   "footer": {
     "discover": "探索",
     "allCollections": "すべてのコレクション",
-    "resources": "リソース",
+    "resources": "外部リソース",
     "documentation": "ドキュメント",
     "about": "概要",
     "aboutDescription": "RTTTL Hub はレトロ RTTTL 着信音を探索・再生するためのプラットフォームです。",

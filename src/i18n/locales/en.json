@@ -41,8 +41,8 @@
     "group": {
       "myCreations": "My Creations",
       "myCreationsDesc": "RTTTL tracks you've created.",
-      "libraries": "Curated Libraries",
-      "librariesDesc": "Ringtone collections from trusted sources and brands.",
+      "libraries": "External Resources",
+      "librariesDesc": "RTTTL ringtone resources from external websites and projects.",
       "community": "Community",
       "communityDesc": "Ringtones created and shared by users."
     },
@@ -429,7 +429,7 @@
     "picaxeCollection": "PICAXE",
     "discover": "Discover",
     "allCollections": "All Collections",
-    "resources": "Resources",
+    "resources": "External Resources",
     "documentation": "Documentation",
     "about": "About",
     "aboutDescription": "RTTTL Hub is a platform for exploring and playing retro RTTTL ringtones.",

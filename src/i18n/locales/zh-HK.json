@@ -39,8 +39,8 @@
   },
   "collections": {
     "group": {      "myCreations": "我嘅創作",
-      "myCreationsDesc": "你自己創建嘅 RTTTL 音軌作品。",      "libraries": "精選曲庫",
-      "librariesDesc": "來自可信來源同品牌嘅鈴聲合集。",
+      "myCreationsDesc": "你自己創建嘅 RTTTL 音軌作品。",      "libraries": "外部資源",
+      "librariesDesc": "來自外部網站同專案嘅 RTTTL 鈴聲資源。",
       "community": "社群",
       "communityDesc": "由用戶創作同分享嘅鈴聲。"
     },
@@ -399,7 +399,7 @@
   },
   "contribute": {
     "title": "分享與貢獻",
-    "subtitle": "我哋透過 GitHub Issues 收集投稿，留言即完成，簡單輕鬆。分享你嘅音軌或推薦一個精選曲庫。",
+    "subtitle": "我哋透過 GitHub Issues 收集投稿，留言即完成，簡單輕鬆。分享你嘅音軌或推薦外部資源。",
     "community": {
       "badge": "社群",
       "title": "社群音軌",
@@ -411,8 +411,8 @@
     },
     "collection": {
       "badge": "曲庫",
-      "title": "精選曲庫",
-      "description": "知道某個充滿 RTTTL 鈴聲嘅網站或 GitHub 專案咩？喺 Issue 留言推薦，我哋可能將其收錄為新嘅精選曲庫。",
+      "title": "外部資源",
+      "description": "知道某個充滿 RTTTL 鈴聲嘅網站或 GitHub 專案咩？喺 Issue 留言推薦，我哋可能將其收錄為新嘅外部資源。",
       "bullet1": "提供來源名稱同網址",
       "bullet2": "我哋負責資料整理格式化",
       "bullet3": "亦接受完整 JSON 檔案投稿",
@@ -422,7 +422,7 @@
   "footer": {
     "discover": "探索",
     "allCollections": "所有收藏庫",
-    "resources": "資源",
+    "resources": "外部資源",
     "documentation": "文件",
     "about": "關於",
     "aboutDescription": "RTTTL Hub 係一個用嚟探索同播放復古 RTTTL 鈴聲嘅平台。",
