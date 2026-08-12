@@ -2,6 +2,14 @@ import { useMemo } from "react";
 import { PointerSensor, useSensor, useSensors, type DragEndEvent } from "@dnd-kit/core";
 
 import { parseRtttl, getTotalDuration } from "../../../utils/rtttl_parser";
+import {
+  computeHasEmptyTracks,
+  computeHasPlayableContent,
+  computeAllTracksMuted,
+  computeAnyTrackMuted,
+  computeCanCutRegion,
+  computeFocusedTrackName,
+} from "../utils/derived_state";
 
 interface UseCreatePageDerivedParams {
   tracks: string[];
@@ -61,28 +69,17 @@ export function useCreatePageDerived({
   }
 
   const hasDraft = name.trim().length > 0 || tracks.some((tk) => tk.trim().length > 0);
-  const hasPlayableContent = tracks.some((tk) => tk.trim().length > 0);
+  const hasPlayableContent = computeHasPlayableContent(tracks);
   const hasUnsavedData = tracks.some((tk) => tk.trim().length > 0);
-  const hasEmptyTracks = tracks.some((tk) => {
-    const colon = tk.indexOf(":");
-    const body = colon >= 0 ? tk.slice(colon + 1).trim() : tk.trim();
-    return body.length === 0;
-  });
-  const allTracksMuted = tracks.length > 0 && tracks.every((_, i) => trackMuted[i] ?? false);
-  const anyTrackMuted = tracks.some((_, i) => trackMuted[i] ?? false);
-  const canCutRegion = loopInMs !== null || loopOutMs !== null;
+  const hasEmptyTracks = computeHasEmptyTracks(tracks);
+  const allTracksMuted = computeAllTracksMuted(tracks, trackMuted);
+  const anyTrackMuted = computeAnyTrackMuted(tracks, trackMuted);
+  const canCutRegion = computeCanCutRegion(loopInMs, loopOutMs);
 
-  const focusedTrackName = useMemo(() => {
-    const code = tracks[focusedTrackIndex] ?? "";
-    if (!code.trim()) {
-      return `Track ${focusedTrackIndex + 1}`;
-    }
-    const colonIdx = code.indexOf(":");
-    if (colonIdx > 0) {
-      return code.slice(0, colonIdx).trim() || `Track ${focusedTrackIndex + 1}`;
-    }
-    return `Track ${focusedTrackIndex + 1}`;
-  }, [tracks, focusedTrackIndex]);
+  const focusedTrackName = useMemo(
+    () => computeFocusedTrackName(tracks, focusedTrackIndex),
+    [tracks, focusedTrackIndex],
+  );
 
   return {
     maxTrackDurationMs,

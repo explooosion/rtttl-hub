@@ -8,6 +8,7 @@ import { parseRtttl } from "../../../utils/rtttl_parser";
 import { clearDraft } from "../draft";
 import { MAX_TRACKS } from "../constants";
 import { trimRtttl, deleteRegionRtttl } from "../utils/rtttl_cutter";
+import { nextProjectName } from "../utils/toolbar_utils";
 import type { CutMode } from "../cut_dialog";
 import type { RtttlCategory } from "../../../utils/rtttl_parser";
 
@@ -258,19 +259,6 @@ export function useCreatePageActions({
   }, [name, tracks, categories, addUserItem, setCurrentItem, stop, navigate]);
 
   /* ── New project ── */
-  function nextProjectName(titles: string[]): string {
-    const lower = titles.map((s) => s.toLowerCase());
-    const base = "untitled project";
-    if (!lower.includes(base)) {
-      return "Untitled Project";
-    }
-    let n = 2;
-    while (lower.includes(`${base} ${n}`)) {
-      n++;
-    }
-    return `Untitled Project ${n}`;
-  }
-
   const _doNew = useCallback(() => {
     stop();
     clearDraft();

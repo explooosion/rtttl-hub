@@ -1,7 +1,17 @@
 import { useState, useCallback, useRef } from "react";
 
 import type { RtttlEditorInputHandle } from "../../../components/rtttl_editor/rtttl_editor_input";
-import { MAX_TRACKS, TRACK_COLORS, NEW_TRACK_STUB_BODY } from "../constants";
+import { TRACK_COLORS, NEW_TRACK_STUB_BODY } from "../constants";
+import {
+  addTrack,
+  removeTrack,
+  duplicateTrack,
+  removeEmptyTracks,
+  reorderTracks,
+  renameTrack,
+  adjustFocusedIndexAfterRemove,
+  adjustFocusedIndexAfterReorder,
+} from "../utils/track_operations";
 
 interface UseTrackManagerInit {
   initialTracks: string[];
@@ -79,12 +89,10 @@ export function useTrackManager({ initialTracks }: UseTrackManagerInit) {
   }
 
   const handleAddTrack = useCallback(() => {
-    if (tracks.length >= MAX_TRACKS) {
+    const next = addTrack(tracks);
+    if (!next) {
       return;
     }
-    const n = tracks.length + 1;
-    const stub = `Track${n}:${NEW_TRACK_STUB_BODY}`;
-    const next = [...tracks, stub];
     commitTracks(next);
     const newIdx = next.length - 1;
     setFocusedTrackIndex(newIdx);
@@ -94,18 +102,13 @@ export function useTrackManager({ initialTracks }: UseTrackManagerInit) {
 
   const handleRemoveTrack = useCallback(
     (index: number) => {
-      if (tracks.length <= 1) {
+      const next = removeTrack(tracks, index);
+      if (!next) {
         return;
       }
-      const next = [...tracks];
-      next.splice(index, 1);
       commitTracks(next);
 
-      if (focusedTrackIndex >= next.length) {
-        setFocusedTrackIndex(next.length - 1);
-      } else if (focusedTrackIndex === index) {
-        setFocusedTrackIndex(Math.max(0, index - 1));
-      }
+      setFocusedTrackIndex((fi) => adjustFocusedIndexAfterRemove(fi, index, next.length));
 
       setExpandedTracks((prev) => {
         const rebuilt = new Set<number>();
@@ -142,20 +145,10 @@ export function useTrackManager({ initialTracks }: UseTrackManagerInit) {
   );
 
   function handleDuplicateTrack(index: number) {
-    if (tracks.length >= MAX_TRACKS) {
+    const next = duplicateTrack(tracks, index);
+    if (!next) {
       return;
     }
-    const original = tracks[index] ?? "";
-    const colon = original.indexOf(":");
-    let copy: string;
-    if (colon >= 0) {
-      const name = original.slice(0, colon);
-      copy = `${name}_copy${original.slice(colon)}`;
-    } else {
-      copy = `${original}_copy`;
-    }
-    const next = [...tracks];
-    next.splice(index + 1, 0, copy);
     commitTracks(next);
     const newIdx = index + 1;
     setFocusedTrackIndex(newIdx);
@@ -204,16 +197,8 @@ export function useTrackManager({ initialTracks }: UseTrackManagerInit) {
   }
 
   function handleRemoveEmptyTracks() {
-    const next = tracks.filter((tk) => {
-      const colon = tk.indexOf(":");
-      const body = colon >= 0 ? tk.slice(colon + 1).trim() : tk.trim();
-      return body.length > 0;
-    });
-    if (next.length === 0) {
-      commitTracks([""]);
-    } else {
-      commitTracks(next);
-    }
+    const next = removeEmptyTracks(tracks);
+    commitTracks(next);
     setFocusedTrackIndex(0);
     setExpandedTracks(new Set(next.map((_, i) => i)));
     setDeactivatedTracks(new Set());
@@ -240,21 +225,7 @@ export function useTrackManager({ initialTracks }: UseTrackManagerInit) {
   }
 
   function handleRenameTrack(idx: number, newName: string) {
-    const current = tracks[idx] ?? "";
-    let updated: string;
-    if (!current.trim()) {
-      updated = `${newName}:`;
-    } else {
-      const colonIdx = current.indexOf(":");
-      if (colonIdx >= 0) {
-        updated = newName + current.slice(colonIdx);
-      } else {
-        updated = `${newName}:${current}`;
-      }
-    }
-    const next = [...tracks];
-    next[idx] = updated;
-    commitTracks(next);
+    commitTracks(renameTrack(tracks, idx, newName));
   }
 
   function handleToolbarInsert(text: string) {
@@ -265,10 +236,7 @@ export function useTrackManager({ initialTracks }: UseTrackManagerInit) {
     if (fromIndex === toIndex) {
       return;
     }
-    const next = [...tracks];
-    const [moved] = next.splice(fromIndex, 1);
-    next.splice(toIndex, 0, moved);
-    commitTracks(next);
+    commitTracks(reorderTracks(tracks, fromIndex, toIndex));
 
     setExpandedTracks((prev) => {
       const rebuilt = new Set<number>();
@@ -302,21 +270,7 @@ export function useTrackManager({ initialTracks }: UseTrackManagerInit) {
       return rebuilt;
     });
 
-    if (focusedTrackIndex === fromIndex) {
-      setFocusedTrackIndex(toIndex);
-    } else if (
-      fromIndex < toIndex &&
-      focusedTrackIndex > fromIndex &&
-      focusedTrackIndex <= toIndex
-    ) {
-      setFocusedTrackIndex(focusedTrackIndex - 1);
-    } else if (
-      fromIndex > toIndex &&
-      focusedTrackIndex >= toIndex &&
-      focusedTrackIndex < fromIndex
-    ) {
-      setFocusedTrackIndex(focusedTrackIndex + 1);
-    }
+    setFocusedTrackIndex((fi) => adjustFocusedIndexAfterReorder(fi, fromIndex, toIndex));
 
     setTrackColorsState((prev) => {
       const c = [...prev];

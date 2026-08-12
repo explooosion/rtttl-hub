@@ -37,16 +37,9 @@ import { DropdownMenu, MenuBar, Separator } from "./dropdown_menu";
 import type { MenuItemDef } from "./dropdown_menu";
 import { AboutDialog } from "./about_dialog";
 import { SYNTAX_ITEMS } from "./transport_constants";
+import { formatMs } from "../utils/toolbar_utils";
 
 export type { MenuActions } from "./transport_constants";
-
-/** Format milliseconds as mm:ss.xxx (ms precision) */
-function formatMs(ms: number): string {
-  const totalSec = ms / 1000;
-  const m = Math.floor(totalSec / 60);
-  const s = totalSec % 60;
-  return `${String(m).padStart(2, "0")}:${s.toFixed(3).padStart(6, "0")}`;
-}
 
 interface TransportToolbarProps {
   hasPlayableContent: boolean;
