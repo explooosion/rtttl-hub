@@ -321,7 +321,7 @@
     "importInvalidSkipped": "無效嘅行會被略過。",
     "changeTrackColor": "更改音軌顏色",
     "draftSavedTooltip": "每次修改後自動儲存，下次開啟時自動還原。",
-    "aboutDesc": "多軌 RTTTL 編輯器，支援作曲、預覽及匯出鈴聲。最多支援 8 個同步音軌，具備即時波形預覽與 A-B 循環標記功能。",
+    "aboutDesc": "多軌 RTTTL 編輯器，支援作曲、預覽及匯出鈴聲。最多支援 4 個同步音軌，具備即時波形預覽與 A-B 循環標記功能。",
     "aboutFormat": "格式",
     "aboutMaxTracks": "最多音軌",
     "aboutStorage": "儲存",

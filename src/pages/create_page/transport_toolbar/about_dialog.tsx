@@ -23,7 +23,7 @@ export function AboutDialog({ open, onClose }: { open: boolean; onClose: () => v
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {t("create.aboutDesc", {
               defaultValue:
-                "A multi-track RTTTL editor for composing, previewing, and exporting ringtone tunes. Supports up to 8 simultaneous tracks with real-time waveform preview and A-B loop markers.",
+                "A multi-track RTTTL editor for composing, previewing, and exporting ringtone tunes. Supports up to 4 simultaneous tracks with real-time waveform preview and A-B loop markers.",
             })}
           </p>
           <div className="mt-4 space-y-1.5 rounded-xl bg-gray-50 p-3 dark:bg-gray-800/50">
@@ -33,7 +33,7 @@ export function AboutDialog({ open, onClose }: { open: boolean; onClose: () => v
                   t("create.aboutFormat", { defaultValue: "Format" }),
                   "Ring Tone Transfer Language (RTTTL)",
                 ],
-                [t("create.aboutMaxTracks", { defaultValue: "Max Tracks" }), "8"],
+                [t("create.aboutMaxTracks", { defaultValue: "Max Tracks" }), "4"],
                 [
                   t("create.aboutStorage", { defaultValue: "Storage" }),
                   t("create.aboutStorageValue", { defaultValue: "Local browser storage (draft)" }),

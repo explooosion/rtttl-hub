@@ -323,7 +323,7 @@
     "importInvalidSkipped": "유효하지 않은 줄은 건너뜁니다.",
     "changeTrackColor": "트랙 색상 변경",
     "draftSavedTooltip": "변경할 때마다 자동 저장됩니다. 다음 방문 시 자동으로 복원됩니다.",
-    "aboutDesc": "작곡, 미리보기, 내보내기를 지원하는 멀티트랙 RTTTL 편집기. 최대 8개 트랙 동시 재생, 실시간 파형 미리보기 및 A-B 루프 마커를 지원합니다.",
+    "aboutDesc": "작곡, 미리보기, 내보내기를 지원하는 멀티트랙 RTTTL 편집기. 최대 4개 트랙 동시 재생, 실시간 파형 미리보기 및 A-B 루프 마커를 지원합니다.",
     "aboutFormat": "형식",
     "aboutMaxTracks": "최대 트랙 수",
     "aboutStorage": "저장소",
