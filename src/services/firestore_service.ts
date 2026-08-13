@@ -1,0 +1,179 @@
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+  Timestamp,
+} from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import { db, storage } from "../lib/firebase";
+import type { RtttlEntry } from "../utils/rtttl_parser";
+
+export interface FirestoreUser {
+  uid: string;
+  displayName: string;
+  email: string;
+  photoURL: string | null;
+  customPhotoURL: string | null;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+export interface FirestoreCreation {
+  id: string;
+  userId: string;
+  title: string;
+  artist: string;
+  code: string;
+  tracks?: string[];
+  categories?: string[];
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+
+export interface FirestoreFavorites {
+  userId: string;
+  favorites: string[];
+  updatedAt: Timestamp;
+}
+
+// User operations
+export async function createOrUpdateUser(
+  uid: string,
+  data: Partial<Omit<FirestoreUser, "uid" | "createdAt" | "updatedAt">>,
+): Promise<void> {
+  const userRef = doc(db, "users", uid);
+  const userDoc = await getDoc(userRef);
+
+  if (userDoc.exists()) {
+    await updateDoc(userRef, {
+      ...data,
+      updatedAt: Timestamp.now(),
+    });
+  } else {
+    await setDoc(userRef, {
+      ...data,
+      uid,
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
+    });
+  }
+}
+
+export async function getUser(uid: string): Promise<FirestoreUser | null> {
+  const userRef = doc(db, "users", uid);
+  const userDoc = await getDoc(userRef);
+  return userDoc.exists() ? (userDoc.data() as FirestoreUser) : null;
+}
+
+export async function deleteUser(uid: string): Promise<void> {
+  const userRef = doc(db, "users", uid);
+  await deleteDoc(userRef);
+}
+
+// Creation operations
+export async function syncCreations(userId: string, creations: RtttlEntry[]): Promise<void> {
+  const batch = creations.map((creation) => {
+    const creationRef = doc(db, "user_creations", creation.id);
+    return setDoc(creationRef, {
+      id: creation.id,
+      userId,
+      title: creation.title,
+      artist: creation.artist,
+      code: creation.code,
+      tracks: creation.tracks || null,
+      categories: creation.categories || [],
+      createdAt: creation.createdAt
+        ? Timestamp.fromDate(new Date(creation.createdAt))
+        : Timestamp.now(),
+      updatedAt: Timestamp.now(),
+    });
+  });
+
+  await Promise.all(batch);
+}
+
+export async function getUserCreations(userId: string): Promise<RtttlEntry[]> {
+  const q = query(collection(db, "user_creations"), where("userId", "==", userId));
+  const snapshot = await getDocs(q);
+
+  return snapshot.docs.map((doc) => {
+    const data = doc.data() as FirestoreCreation;
+    return {
+      id: data.id,
+      title: data.title,
+      artist: data.artist,
+      code: data.code,
+      tracks: data.tracks,
+      categories: data.categories as RtttlEntry["categories"],
+      collection: "my-creations" as const,
+      firstLetter: data.title[0]?.toUpperCase() || "#",
+      createdAt: data.createdAt.toDate().toISOString(),
+      updatedAt: data.updatedAt.toDate().toISOString(),
+      isSynced: true,
+    };
+  });
+}
+
+export async function deleteCreation(creationId: string): Promise<void> {
+  const creationRef = doc(db, "user_creations", creationId);
+  await deleteDoc(creationRef);
+}
+
+// Favorites operations
+export async function syncFavorites(userId: string, favoriteIds: string[]): Promise<void> {
+  const favRef = doc(db, "user_favorites", userId);
+  await setDoc(favRef, {
+    userId,
+    favorites: favoriteIds,
+    updatedAt: Timestamp.now(),
+  });
+}
+
+export async function getUserFavorites(userId: string): Promise<string[]> {
+  const favRef = doc(db, "user_favorites", userId);
+  const favDoc = await getDoc(favRef);
+  return favDoc.exists() ? (favDoc.data() as FirestoreFavorites).favorites : [];
+}
+
+// Avatar upload
+export async function uploadAvatar(userId: string, file: Blob): Promise<string> {
+  const timestamp = Date.now();
+  const avatarRef = ref(storage, `user_avatars/${userId}/${timestamp}.jpg`);
+  await uploadBytes(avatarRef, file);
+  return await getDownloadURL(avatarRef);
+}
+
+export async function deleteAvatar(_userId: string, photoURL: string): Promise<void> {
+  try {
+    const avatarRef = ref(storage, photoURL);
+    await deleteObject(avatarRef);
+  } catch (error) {
+    console.warn("Failed to delete avatar:", error);
+  }
+}
+
+// Delete all user data
+export async function deleteAllUserData(userIdToDelete: string): Promise<void> {
+  // Delete user document
+  await deleteUser(userIdToDelete);
+
+  // Delete all creations
+  const creationsQuery = query(
+    collection(db, "user_creations"),
+    where("userId", "==", userIdToDelete),
+  );
+  const creationsSnapshot = await getDocs(creationsQuery);
+  await Promise.all(creationsSnapshot.docs.map((doc) => deleteDoc(doc.ref)));
+
+  // Delete favorites
+  const favRef = doc(db, "user_favorites", userIdToDelete);
+  await deleteDoc(favRef);
+
+  // Note: Avatar deletion should be handled separately in the auth flow
+}

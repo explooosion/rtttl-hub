@@ -1,4 +1,9 @@
 {
+  "common": {
+    "loading": "Завантаження...",
+    "loadingAccount": "Завантаження облікового запису...",
+    "loadingProfile": "Завантаження профілю..."
+  },
   "app": {
     "title": "RTTTL Hub",
     "subtitle": "Browse, Play & Create Retro Ringtones"
@@ -625,23 +630,51 @@
     "setPassword": "Set password",
     "skipForNow": "Skip for now",
     "passwordTooShort": "Password must be at least 6 characters",
-    "passwordMismatch": "Passwords do not match"
+    "passwordMismatch": "Passwords do not match",
+    "signingIn": "Вхід...",
+    "signInSuccess": "Успішно увійшли!",
+    "signInFailed": "Не вдалося увійти. Спробуйте ще раз.",
+    "agreementText": "Продовжуючи, ви погоджуєтеся з нашими Умовами використання та Політикою конфіденційності."
   },
   "account": {
-    "title": "Account",
-    "settings": "Account Settings",
-    "information": "Account Information",
+    "title": "Мій Обліковий Запис",
+    "settings": "Профіль",
+    "information": "Інформація про Обліковий Запис",
     "editProfile": "Edit profile",
     "email": "Email",
-    "helpCenter": "Help center",
-    "profileDetails": "Account Details",
-    "profileNotice": "Some fields may be managed by your login provider.",
+    "profileDetails": "Деталі Облікового Запису",
+    "profileNotice": "Деякі поля можуть управлятися вашим постачальником входу.",
     "displayName": "Display Name",
     "saveChanges": "Save Changes",
     "setPassword": "Set Password",
     "changePassword": "Change Password",
     "currentPassword": "Current Password",
-    "passwordSuccess": "Password updated successfully."
+    "passwordSuccess": "Password updated successfully.",
+    "emailNotEditable": "Email не можна змінити (керується Google)",
+    "statistics": "Статистика",
+    "creationsCount": "Творіння",
+    "favoritesCount": "Вибране",
+    "save": "Зберегти",
+    "saving": "Збереження...",
+    "profileUpdated": "Профіль успішно оновлено!",
+    "updateFailed": "Не вдалося оновити профіль. Спробуйте ще раз.",
+    "uploadAvatar": "Завантажити Аватар",
+    "selectImage": "Виберіть зображення",
+    "maxSize5MB": "Максимум 5 МБ (JPEG, PNG, WebP)",
+    "invalidFileType": "Неправильний тип файлу. Виберіть JPEG, PNG або WebP.",
+    "fileTooLarge": "Файл занадто великий. Максимальний розмір 5 МБ.",
+    "zoom": "Масштаб",
+    "uploading": "Завантаження...",
+    "avatarUpdated": "Аватар успішно оновлено!",
+    "uploadFailed": "Не вдалося завантажити аватар. Спробуйте ще раз.",
+    "dangerZone": "Небезпечна Зона",
+    "deleteAccount": "Видалити Акаунт",
+    "deleteAccountWarning": "Безповоротно видалити ваш акаунт та всі пов'язані дані. Цю дію неможливо скасувати.",
+    "deleteAccountButton": "Видалити Акаунт",
+    "deleteAccountConfirmTitle": "Видалити Акаунт",
+    "deleteAccountConfirmMessage": "Ви впевнені, що хочете безповоротно видалити свій акаунт? Це видалить всі ваші творіння, вподобання та дані профілю. Цю дію неможливо скасувати.",    "deleteAccountInputPlaceholder": "Введіть своє відображуване ім'я {{name}} для підтвердження видалення",    "deleting": "Видалення...",
+    "accountDeleted": "Акаунт успішно видалено.",
+    "deleteFailed": "Не вдалося видалити акаунт. Спробуйте ще раз."
   },
   "pagination": {
     "pageInfo": "Page {{current}} / {{total}}"

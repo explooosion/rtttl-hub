@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import { useAuthStore } from "../stores/auth_store";
 
@@ -32,28 +33,37 @@ function GoogleIcon({ size = 18 }: { size?: number }) {
 export function LoginPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const login = useAuthStore((s) => s.login);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const signInWithGoogle = useAuthStore((s) => s.signInWithGoogle);
+  const [isLoading, setIsLoading] = useState(false);
 
-  function handleEmailLogin(e: React.FormEvent) {
-    e.preventDefault();
-    // Mock: skip actual auth
-    login({
-      displayName: email.split("@")[0] || "User",
-      email,
-      hasPassword: true,
-    });
-    navigate("/account");
-  }
+  async function handleGoogleLogin() {
+    setIsLoading(true);
+    try {
+      await signInWithGoogle();
+      toast.success(t("auth.signInSuccess"));
+      navigate("/account");
+    } catch (error: unknown) {
+      console.error("Login error:", error);
 
-  function handleGoogleLogin() {
-    // Mock: skip actual Google auth
-    login({
-      displayName: "User",
-      email: "user@gmail.com",
-    });
-    navigate("/account");
+      // More specific error messages
+      let errorMessage = t("auth.signInFailed");
+      if (error && typeof error === "object" && "code" in error) {
+        const firebaseError = error as { code: string };
+        if (firebaseError.code === "auth/popup-closed-by-user") {
+          errorMessage = "登入視窗已關閉";
+        } else if (firebaseError.code === "auth/popup-blocked") {
+          errorMessage = "彈出視窗被封鎖，請允許瀏覽器彈出視窗";
+        } else if (firebaseError.code === "auth/unauthorized-domain") {
+          errorMessage = "此網域未經授權，請檢查 Firebase 設定";
+        } else if (firebaseError.code === "permission-denied") {
+          errorMessage = "權限不足，請檢查 Firestore 安全規則";
+        }
+      }
+
+      toast.error(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -86,72 +96,15 @@ export function LoginPage() {
           {/* Google login */}
           <button
             onClick={handleGoogleLogin}
-            className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+            disabled={isLoading}
+            className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
           >
             <GoogleIcon size={18} />
-            {t("auth.continueWithGoogle")}
+            {isLoading ? t("auth.signingIn") : t("auth.continueWithGoogle")}
           </button>
 
-          <div className="my-6 flex items-center gap-3">
-            <div className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
-            <span className="text-xs text-gray-400 dark:text-gray-500">{t("auth.or")}</span>
-            <div className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
-          </div>
-
-          {/* Email login form */}
-          <form onSubmit={handleEmailLogin} className="space-y-4">
-            <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t("auth.email")}
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
-              />
-            </div>
-            <div>
-              <div className="mb-1 flex items-center justify-between">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t("auth.password")}
-                </label>
-                <button
-                  type="button"
-                  className="text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400"
-                >
-                  {t("auth.forgot")}
-                </button>
-              </div>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full rounded-lg bg-indigo-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
-            >
-              {t("auth.signIn")}
-            </button>
-          </form>
-
-          <p className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-            {t("auth.noAccount")}{" "}
-            <Link
-              to="/register"
-              className="font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400"
-            >
-              {t("auth.createAccount")}
-            </Link>
-          </p>
-
-          <p className="mt-4 text-center text-xs text-gray-400 dark:text-gray-500">
-            {t("auth.termsNotice")}
+          <p className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">
+            {t("auth.agreementText")}
           </p>
         </div>
       </div>

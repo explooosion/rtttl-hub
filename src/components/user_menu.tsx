@@ -10,7 +10,7 @@ export function UserMenu() {
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
-  const logout = useAuthStore((s) => s.logout);
+  const signOut = useAuthStore((s) => s.signOut);
 
   if (!isAuthenticated || !user) {
     return (
@@ -23,12 +23,22 @@ export function UserMenu() {
     );
   }
 
+  const currentAvatar = user.customPhotoURL || user.photoURL;
+
   return (
     <Menu as="div" className="relative">
       <MenuButton className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
-        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-600 dark:bg-indigo-900 dark:text-indigo-400">
-          {user.displayName.charAt(0).toUpperCase()}
-        </div>
+        {currentAvatar ? (
+          <img
+            src={currentAvatar}
+            alt={user.displayName}
+            className="h-7 w-7 rounded-full object-cover"
+          />
+        ) : (
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-600 dark:bg-indigo-900 dark:text-indigo-400">
+            {user.displayName.charAt(0).toUpperCase()}
+          </div>
+        )}
         <span className="hidden sm:inline">{user.displayName}</span>
         <FaChevronDown size={10} />
       </MenuButton>
@@ -39,14 +49,14 @@ export function UserMenu() {
             className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
           >
             <FaCog size={14} />
-            {t("account.settings")}
+            {t("account.title")}
           </Link>
         </MenuItem>
         <div className="my-1 border-t border-gray-100 dark:border-gray-800" />
         <MenuItem>
           <button
             onClick={() => {
-              logout();
+              signOut();
               navigate("/");
             }}
             className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"

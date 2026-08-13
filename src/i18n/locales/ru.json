@@ -1,4 +1,9 @@
 {
+  "common": {
+    "loading": "Загрузка...",
+    "loadingAccount": "Загрузка аккаунта...",
+    "loadingProfile": "Загрузка профиля..."
+  },
   "app": {
     "title": "RTTTL Hub",
     "subtitle": "Browse, Play & Create Retro Ringtones"
@@ -625,23 +630,51 @@
     "setPassword": "Set password",
     "skipForNow": "Skip for now",
     "passwordTooShort": "Password must be at least 6 characters",
-    "passwordMismatch": "Passwords do not match"
+    "passwordMismatch": "Passwords do not match",
+    "signingIn": "Вход...",
+    "signInSuccess": "Вход выполнен успешно!",
+    "signInFailed": "Не удалось войти. Попробуйте снова.",
+    "agreementText": "Продолжая, вы соглашаетесь с нашими Условиями использования и Политикой конфиденциальности."
   },
   "account": {
-    "title": "Account",
-    "settings": "Account Settings",
-    "information": "Account Information",
+    "title": "Мой Аккаунт",
+    "settings": "Профиль",
+    "information": "Информация об Аккаунте",
     "editProfile": "Edit profile",
     "email": "Email",
-    "helpCenter": "Help center",
-    "profileDetails": "Account Details",
-    "profileNotice": "Some fields may be managed by your login provider.",
+    "profileDetails": "Детали Аккаунта",
+    "profileNotice": "Некоторые поля могут управляться вашим поставщиком входа.",
     "displayName": "Display Name",
     "saveChanges": "Save Changes",
     "setPassword": "Set Password",
     "changePassword": "Change Password",
     "currentPassword": "Current Password",
-    "passwordSuccess": "Password updated successfully."
+    "passwordSuccess": "Password updated successfully.",
+    "emailNotEditable": "Email нельзя изменить (управляется Google)",
+    "statistics": "Статистика",
+    "creationsCount": "Творения",
+    "favoritesCount": "Избранное",
+    "save": "Сохранить",
+    "saving": "Сохранение...",
+    "profileUpdated": "Профиль успешно обновлён!",
+    "updateFailed": "Не удалось обновить профиль. Попробуйте снова.",
+    "uploadAvatar": "Загрузить Аватар",
+    "selectImage": "Выберите изображение",
+    "maxSize5MB": "Максимум 5 МБ (JPEG, PNG, WebP)",
+    "invalidFileType": "Неверный тип файла. Выберите JPEG, PNG или WebP.",
+    "fileTooLarge": "Файл слишком большой. Максимальный размер 5 МБ.",
+    "zoom": "Масштаб",
+    "uploading": "Загрузка...",
+    "avatarUpdated": "Аватар успешно обновлён!",
+    "uploadFailed": "Не удалось загрузить аватар. Попробуйте снова.",
+    "dangerZone": "Опасная Зона",
+    "deleteAccount": "Удалить Аккаунт",
+    "deleteAccountWarning": "Безвозвратно удалить ваш аккаунт и все связанные данные. Это действие необратимо.",
+    "deleteAccountButton": "Удалить Аккаунт",
+    "deleteAccountConfirmTitle": "Удалить Аккаунт",
+    "deleteAccountConfirmMessage": "Вы уверены, что хотите безвозвратно удалить свой аккаунт? Это удалит все ваши творения, избранное и данные профиля. Это действие необратимо.",    "deleteAccountInputPlaceholder": "Введите отображаемое имя {{name}} для подтверждения удаления",    "deleting": "Удаление...",
+    "accountDeleted": "Аккаунт успешно удалён.",
+    "deleteFailed": "Не удалось удалить аккаунт. Попробуйте снова."
   },
   "pagination": {
     "pageInfo": "Page {{current}} / {{total}}"

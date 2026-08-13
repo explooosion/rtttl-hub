@@ -1,4 +1,9 @@
 {
+  "common": {
+    "loading": "Cargando...",
+    "loadingAccount": "Cargando cuenta...",
+    "loadingProfile": "Cargando perfil..."
+  },
   "app": {
     "title": "RTTTL Hub",
     "subtitle": "Browse, Play & Create Retro Ringtones"
@@ -625,23 +630,51 @@
     "setPassword": "Set password",
     "skipForNow": "Skip for now",
     "passwordTooShort": "Password must be at least 6 characters",
-    "passwordMismatch": "Passwords do not match"
+    "passwordMismatch": "Passwords do not match",
+    "signingIn": "Iniciando sesión...",
+    "signInSuccess": "¡Sesión iniciada correctamente!",
+    "signInFailed": "Error al iniciar sesión. Por favor, inténtalo de nuevo.",
+    "agreementText": "Al continuar, aceptas nuestros Términos de Uso y Política de Privacidad."
   },
   "account": {
-    "title": "Account",
-    "settings": "Account Settings",
-    "information": "Account Information",
+    "title": "Mi Cuenta",
+    "settings": "Perfil",
+    "information": "Información de Cuenta",
     "editProfile": "Edit profile",
     "email": "Email",
-    "helpCenter": "Help center",
-    "profileDetails": "Account Details",
-    "profileNotice": "Some fields may be managed by your login provider.",
+    "profileDetails": "Detalles de la Cuenta",
+    "profileNotice": "Algunos campos pueden ser gestionados por su proveedor de inicio de sesión.",
     "displayName": "Display Name",
     "saveChanges": "Save Changes",
     "setPassword": "Set Password",
     "changePassword": "Change Password",
     "currentPassword": "Current Password",
-    "passwordSuccess": "Password updated successfully."
+    "passwordSuccess": "Password updated successfully.",
+    "emailNotEditable": "El correo electrónico no se puede cambiar (administrado por Google)",
+    "statistics": "Estadísticas",
+    "creationsCount": "Creaciones",
+    "favoritesCount": "Favoritos",
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "profileUpdated": "¡Perfil actualizado correctamente!",
+    "updateFailed": "Error al actualizar el perfil. Por favor, inténtalo de nuevo.",
+    "uploadAvatar": "Subir Avatar",
+    "selectImage": "Selecciona una imagen",
+    "maxSize5MB": "Máximo 5MB (JPEG, PNG, WebP)",
+    "invalidFileType": "Tipo de archivo no válido. Por favor, selecciona JPEG, PNG o WebP.",
+    "fileTooLarge": "El archivo es demasiado grande. El tamaño máximo es 5MB.",
+    "zoom": "Zoom",
+    "uploading": "Subiendo...",
+    "avatarUpdated": "¡Avatar actualizado correctamente!",
+    "uploadFailed": "Error al subir el avatar. Por favor, inténtalo de nuevo.",
+    "dangerZone": "Zona de Peligro",
+    "deleteAccount": "Eliminar Cuenta",
+    "deleteAccountWarning": "Eliminar permanentemente tu cuenta y todos los datos asociados. Esta acción no se puede deshacer.",
+    "deleteAccountButton": "Eliminar Cuenta",
+    "deleteAccountConfirmTitle": "Eliminar Cuenta",
+    "deleteAccountConfirmMessage": "¿Estás seguro de que quieres eliminar permanentemente tu cuenta? Esto eliminará todas tus creaciones, favoritos y datos de perfil. Esta acción no se puede deshacer.",    "deleteAccountInputPlaceholder": "Escribe tu nombre de usuario {{name}} para confirmar la eliminación",    "deleting": "Eliminando...",
+    "accountDeleted": "Cuenta eliminada correctamente.",
+    "deleteFailed": "Error al eliminar la cuenta. Por favor, inténtalo de nuevo."
   },
   "pagination": {
     "pageInfo": "Page {{current}} / {{total}}"

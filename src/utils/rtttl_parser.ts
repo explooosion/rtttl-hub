@@ -28,6 +28,9 @@ export interface RtttlEntry {
   collection: CollectionSlug;
   categories?: RtttlCategory[];
   createdAt?: string;
+  updatedAt?: string;
+  /** Flag indicating if this entry is synced to Firestore (for logged-in users) */
+  isSynced?: boolean;
   /** Multi-track (polyphonic) RTTTL — one string per motor/voice. */
   tracks?: string[];
   /** Total number of plays (from Firestore) */

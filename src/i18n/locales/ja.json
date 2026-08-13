@@ -1,5 +1,8 @@
-{
-  "app": {
+{  "common": {
+    "loading": "読み込み中...",
+    "loadingAccount": "アカウント読み込み中...",
+    "loadingProfile": "プロフィール読み込み中..."
+  },  "app": {
     "title": "RTTTL Hub",
     "subtitle": "レトロ着信音を閲覧・再生・作成"
   },
@@ -624,15 +627,21 @@
     "setPassword": "パスワードを設定",
     "skipForNow": "後で設定する",
     "passwordTooShort": "パスワードは6文字以上必要です",
-    "passwordMismatch": "パスワードが一致しません"
+    "passwordMismatch": "パスワードが一致しません",
+    "signingIn": "ログイン中...",
+    "signInSuccess": "ログインに成功しました！",
+    "signInFailed": "ログインに失敗しました。もう一度お試しください。",
+    "agreementText": "続行すると、利用規約とプライバシーポリシーに同意したことになります。"
   },
   "account": {
-    "title": "アカウント",
-    "settings": "アカウント設定",
+    "title": "マイアカウント",
+    "settings": "プロフィール",
     "information": "アカウント情報",
     "editProfile": "プロフィールを編集",
     "email": "メールアドレス",
-    "helpCenter": "ヘルプセンター",
+    "statistics": "統計",
+    "creationsCount": "作品数",
+    "favoritesCount": "お気に入り数",
     "profileDetails": "アカウント詳細",
     "profileNotice": "一部のフィールドはログインプロバイダーが管理しています。",
     "displayName": "表示名",
@@ -640,7 +649,31 @@
     "setPassword": "パスワードを設定",
     "changePassword": "パスワードを変更",
     "currentPassword": "現在のパスワード",
-    "passwordSuccess": "パスワードが正常に更新されました。"
+    "passwordSuccess": "パスワードが正常に更新されました。",
+    "emailNotEditable": "メールアドレスは変更できません（Google が管理）",
+    "save": "保存",
+    "saving": "保存中...",
+    "profileUpdated": "プロフィールが正常に更新されました！",
+    "updateFailed": "プロフィールの更新に失敗しました。もう一度お試しください。",
+    "uploadAvatar": "アバターをアップロード",
+    "selectImage": "画像を選択",
+    "maxSize5MB": "最大 5MB（JPEG、PNG、WebP）",
+    "invalidFileType": "無効なファイルタイプです。JPEG、PNG、または WebP を選択してください。",
+    "fileTooLarge": "ファイルが大きすぎます。最大サイズは 5MB です。",
+    "zoom": "ズーム",
+    "uploading": "アップロード中...",
+    "avatarUpdated": "アバターが正常に更新されました！",
+    "uploadFailed": "アバターのアップロードに失敗しました。もう一度お試しください。",
+    "dangerZone": "危険区域",
+    "deleteAccount": "アカウントを削除",
+    "deleteAccountWarning": "アカウントとすべての関連データを完全に削除します。この操作は元に戻せません。",
+    "deleteAccountButton": "アカウントを削除",
+    "deleteAccountConfirmTitle": "アカウントを削除",
+    "deleteAccountConfirmMessage": "本当にアカウントを完全に削除しますか？すべての作品、お気に入り、プロフィールデータが削除されます。この操作は元に戻せません。",
+    "deleteAccountInputPlaceholder": "削除を確認するには、表示名 {{name}} を入力してください",
+    "deleting": "削除中...",
+    "accountDeleted": "アカウントが正常に削除されました。",
+    "deleteFailed": "アカウントの削除に失敗しました。もう一度お試しください。"
   },
   "pagination": {
     "pageInfo": "{{current}} / {{total}} ページ"

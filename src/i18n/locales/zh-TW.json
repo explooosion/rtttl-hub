@@ -1,4 +1,9 @@
 {
+  "common": {
+    "loading": "載入中...",
+    "loadingAccount": "載入帳號中...",
+    "loadingProfile": "載入個人資料中..."
+  },
   "app": {
     "title": "RTTTL Hub",
     "subtitle": "瀏覽、播放 & 創作復古鈴聲"
@@ -626,15 +631,21 @@
     "setPassword": "設定密碼",
     "skipForNow": "稍後再說",
     "passwordTooShort": "密碼至少需要 6 個字元",
-    "passwordMismatch": "密碼不一致"
+    "passwordMismatch": "密碼不一致",
+    "signingIn": "登入中...",
+    "signInSuccess": "登入成功！",
+    "signInFailed": "登入失敗，請重試。",
+    "agreementText": "繼續即表示您同意我們的使用條款和隱私權政策。"
   },
   "account": {
-    "title": "帳號",
-    "settings": "帳號設定",
+    "title": "我的帳號",
+    "settings": "個人資料",
     "information": "帳號資訊",
     "editProfile": "編輯個人資料",
     "email": "電子郵件",
-    "helpCenter": "幫助中心",
+    "statistics": "統計數據",
+    "creationsCount": "創作數量",
+    "favoritesCount": "收藏數量",
     "profileDetails": "帳號詳細資料",
     "profileNotice": "部分欄位可能由登入提供者管理。",
     "displayName": "顯示名稱",
@@ -642,7 +653,31 @@
     "setPassword": "設定密碼",
     "changePassword": "變更密碼",
     "currentPassword": "目前密碼",
-    "passwordSuccess": "密碼更新成功。"
+    "passwordSuccess": "密碼更新成功。",
+    "emailNotEditable": "電子郵件無法變更（由 Google 管理）",
+    "save": "儲存",
+    "saving": "儲存中...",
+    "profileUpdated": "個人資料更新成功！",
+    "updateFailed": "個人資料更新失敗，請重試。",
+    "uploadAvatar": "上傳頭像",
+    "selectImage": "選擇圖片",
+    "maxSize5MB": "最大 5MB（JPEG、PNG、WebP）",
+    "invalidFileType": "檔案類型無效。請選擇 JPEG、PNG 或 WebP。",
+    "fileTooLarge": "檔案過大，最大限制為 5MB。",
+    "zoom": "縮放",
+    "uploading": "上傳中...",
+    "avatarUpdated": "頭像更新成功！",
+    "uploadFailed": "頭像上傳失敗，請重試。",
+    "dangerZone": "危險區域",
+    "deleteAccount": "刪除帳號",
+    "deleteAccountWarning": "永久刪除您的帳號和所有相關資料。此操作無法復原。",
+    "deleteAccountButton": "刪除帳號",
+    "deleteAccountConfirmTitle": "刪除帳號",
+    "deleteAccountConfirmMessage": "確定要永久刪除您的帳號嗎？這將刪除您所有的創作、收藏和個人資料。此操作無法復原。",
+    "deleteAccountInputPlaceholder": "請輸入您的顯示名稱 {{name}} 以確認刪除",
+    "deleting": "刪除中...",
+    "accountDeleted": "帳號已成功刪除。",
+    "deleteFailed": "帳號刪除失敗，請重試。"
   },
   "pagination": {
     "pageInfo": "第 {{current}} / {{total}} 頁"

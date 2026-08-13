@@ -1,4 +1,9 @@
 {
+  "common": {
+    "loading": "Chargement...",
+    "loadingAccount": "Chargement du compte...",
+    "loadingProfile": "Chargement du profil..."
+  },
   "app": {
     "title": "RTTTL Hub",
     "subtitle": "Browse, Play & Create Retro Ringtones"
@@ -625,23 +630,53 @@
     "setPassword": "Set password",
     "skipForNow": "Skip for now",
     "passwordTooShort": "Password must be at least 6 characters",
-    "passwordMismatch": "Passwords do not match"
+    "passwordMismatch": "Passwords do not match",
+    "signingIn": "Connexion en cours...",
+    "signInSuccess": "Connexion réussie !",
+    "signInFailed": "Échec de la connexion. Veuillez réessayer.",
+    "agreementText": "En continuant, vous acceptez nos Conditions d'Utilisation et notre Politique de Confidentialité."
   },
   "account": {
-    "title": "Account",
-    "settings": "Account Settings",
-    "information": "Account Information",
+    "title": "Mon Compte",
+    "settings": "Profil",
+    "information": "Informations du Compte",
     "editProfile": "Edit profile",
     "email": "Email",
-    "helpCenter": "Help center",
-    "profileDetails": "Account Details",
-    "profileNotice": "Some fields may be managed by your login provider.",
+    "statistics": "Statistiques",
+    "creationsCount": "Créations",
+    "favoritesCount": "Favoris",
+    "profileDetails": "Détails du Compte",
+    "profileNotice": "Certains champs peuvent être gérés par votre fournisseur de connexion.",
     "displayName": "Display Name",
     "saveChanges": "Save Changes",
     "setPassword": "Set Password",
     "changePassword": "Change Password",
     "currentPassword": "Current Password",
-    "passwordSuccess": "Password updated successfully."
+    "passwordSuccess": "Password updated successfully.",
+    "emailNotEditable": "L'e-mail ne peut pas être modifié (géré par Google)",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "profileUpdated": "Profil mis à jour avec succès !",
+    "updateFailed": "Échec de la mise à jour du profil. Veuillez réessayer.",
+    "uploadAvatar": "Télécharger un Avatar",
+    "selectImage": "Sélectionnez une image",
+    "maxSize5MB": "Maximum 5 Mo (JPEG, PNG, WebP)",
+    "invalidFileType": "Type de fichier non valide. Veuillez sélectionner JPEG, PNG ou WebP.",
+    "fileTooLarge": "Le fichier est trop volumineux. La taille maximale est de 5 Mo.",
+    "zoom": "Zoom",
+    "uploading": "Téléchargement...",
+    "avatarUpdated": "Avatar mis à jour avec succès !",
+    "uploadFailed": "Échec du téléchargement de l'avatar. Veuillez réessayer.",
+    "dangerZone": "Zone Dangereuse",
+    "deleteAccount": "Supprimer le Compte",
+    "deleteAccountWarning": "Supprimer définitivement votre compte et toutes les données associées. Cette action est irréversible.",
+    "deleteAccountButton": "Supprimer le Compte",
+    "deleteAccountConfirmTitle": "Supprimer le Compte",
+    "deleteAccountConfirmMessage": "Êtes-vous sûr de vouloir supprimer définitivement votre compte ? Cela supprimera toutes vos créations, favoris et données de profil. Cette action est irréversible.",
+    "deleteAccountInputPlaceholder": "Tapez votre nom d'affichage {{name}} pour confirmer la suppression",
+    "deleting": "Suppression...",
+    "accountDeleted": "Compte supprimé avec succès.",
+    "deleteFailed": "Échec de la suppression du compte. Veuillez réessayer."
   },
   "pagination": {
     "pageInfo": "Page {{current}} / {{total}}"

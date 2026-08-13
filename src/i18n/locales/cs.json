@@ -1,4 +1,9 @@
 {
+  "common": {
+    "loading": "Načítání...",
+    "loadingAccount": "Načítání účtu...",
+    "loadingProfile": "Načítání profilu..."
+  },
   "app": {
     "title": "RTTTL Hub",
     "subtitle": "Browse, Play & Create Retro Ringtones"
@@ -625,23 +630,53 @@
     "setPassword": "Set password",
     "skipForNow": "Skip for now",
     "passwordTooShort": "Password must be at least 6 characters",
-    "passwordMismatch": "Passwords do not match"
+    "passwordMismatch": "Passwords do not match",
+    "signingIn": "Přihlašování...",
+    "signInSuccess": "Úspěšně přihlášeno!",
+    "signInFailed": "Přihlášení se nezdařilo. Zkuste to prosím znovu.",
+    "agreementText": "Pokračováním souhlasíte s našimi Podmínkami použití a Zásadami ochrany osobních údajů."
   },
   "account": {
-    "title": "Account",
-    "settings": "Account Settings",
-    "information": "Account Information",
+    "title": "Můj Účet",
+    "settings": "Profil",
+    "information": "Informace o Účtu",
     "editProfile": "Edit profile",
     "email": "Email",
-    "helpCenter": "Help center",
-    "profileDetails": "Account Details",
-    "profileNotice": "Some fields may be managed by your login provider.",
+    "statistics": "Statistiky",
+    "creationsCount": "Výtvory",
+    "favoritesCount": "Oblíbené",
+    "profileDetails": "Podrobnosti Účtu",
+    "profileNotice": "Některá pole mohou být spravována vaším poskytovatelem přihlášení.",
     "displayName": "Display Name",
     "saveChanges": "Save Changes",
     "setPassword": "Set Password",
     "changePassword": "Change Password",
     "currentPassword": "Current Password",
-    "passwordSuccess": "Password updated successfully."
+    "passwordSuccess": "Password updated successfully.",
+    "emailNotEditable": "Email nelze změnit (spravován Googlem)",
+    "save": "Uložit",
+    "saving": "Ukládání...",
+    "profileUpdated": "Profil úspěšně aktualizován!",
+    "updateFailed": "Aktualizace profilu se nezdařila. Zkuste to prosím znovu.",
+    "uploadAvatar": "Nahrát Avatar",
+    "selectImage": "Vyberte obrázek",
+    "maxSize5MB": "Maximálně 5 MB (JPEG, PNG, WebP)",
+    "invalidFileType": "Neplatný typ souboru. Vyberte prosím JPEG, PNG nebo WebP.",
+    "fileTooLarge": "Soubor je příliš velký. Maximální velikost je 5 MB.",
+    "zoom": "Přiblížení",
+    "uploading": "Nahrávání...",
+    "avatarUpdated": "Avatar úspěšně aktualizován!",
+    "uploadFailed": "Nahrání avatara se nezdařilo. Zkuste to prosím znovu.",
+    "dangerZone": "Nebezpečná Zóna",
+    "deleteAccount": "Smazat Účet",
+    "deleteAccountWarning": "Trvale smazat váš účet a všechna související data. Tuto akci nelze vrátit zpět.",
+    "deleteAccountButton": "Smazat Účet",
+    "deleteAccountConfirmTitle": "Smazat Účet",
+    "deleteAccountConfirmMessage": "Jste si jisti, že chcete trvale smazat svůj účet? Tím se smažou všechny vaše kreace, oblíbené položky a data profilu. Tuto akci nelze vrátit zpět.",
+    "deleteAccountInputPlaceholder": "Zadejte své zobrazované jméno {{name}} pro potvrzení smazání",
+    "deleting": "Mazání...",
+    "accountDeleted": "Účet úspěšně smazán.",
+    "deleteFailed": "Smazání účtu se nezdařilo. Zkuste to prosím znovu."
   },
   "pagination": {
     "pageInfo": "Page {{current}} / {{total}}"
