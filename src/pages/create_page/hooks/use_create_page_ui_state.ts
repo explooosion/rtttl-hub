@@ -1,10 +1,18 @@
 import { useState, useRef, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 
 import { useCollectionStore } from "../../../stores/collection_store";
 import { loadDraft } from "../draft";
 import type { CutMode } from "../cut_dialog";
 import type { RtttlCategory } from "../../../utils/rtttl_parser";
+
+interface ImportTrackState {
+  title: string;
+  artist?: string;
+  code?: string;
+  tracks?: string[];
+  categories?: RtttlCategory[];
+}
 
 function nextProjectName(existingTitles: string[]): string {
   const lower = existingTitles.map((s) => s.toLowerCase());
@@ -22,6 +30,8 @@ function nextProjectName(existingTitles: string[]): string {
 export function useCreatePageUiState() {
   const [searchParams] = useSearchParams();
   const editId = searchParams.get("edit");
+  const location = useLocation();
+  const importTrack = (location.state as { importTrack?: ImportTrackState })?.importTrack;
 
   const userItems = useCollectionStore((s) => s.userItems);
   const editItem = useMemo(() => {
@@ -46,11 +56,17 @@ export function useCreatePageUiState() {
     if (editItem) {
       return editItem.title;
     }
+    if (importTrack) {
+      return importTrack.title;
+    }
     return _draft?.name || nextProjectName(userItems.map((u) => u.title));
   });
   const [categories, setCategories] = useState<RtttlCategory[]>(() => {
     if (editItem?.categories) {
       return editItem.categories;
+    }
+    if (importTrack?.categories) {
+      return importTrack.categories;
     }
     return _draft?.categories ?? [];
   });
@@ -74,6 +90,7 @@ export function useCreatePageUiState() {
     editItem,
     draft,
     userItemTitles,
+    importTrack,
     /* dialog toggles */
     importOpen,
     setImportOpen,

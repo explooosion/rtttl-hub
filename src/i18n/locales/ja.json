@@ -379,7 +379,8 @@
     "delete": "削除",
     "cancel": "キャンセル",
     "deleteConfirmTitle": "作品を削除",
-    "deleteConfirmMessage": "この作品を削除してもよろしいですか？この操作は元に戻せません。"
+    "deleteConfirmMessage": "この作成を削除してもよろしいですか？この操作は元に戻せません。",
+    "importToCreate": "作成にインポート"
   },
   "letters": {
     "all": "すべて"

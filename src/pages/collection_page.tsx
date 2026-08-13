@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FaPlus, FaEdit, FaTrash, FaHeart } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash, FaHeart, FaFileImport } from "react-icons/fa";
 
 import { generateMockStats } from "../types/track_stats";
 import { ListPageLayout } from "../layouts/list_page_layout";
@@ -90,23 +90,48 @@ export function CollectionPage() {
     setItemToDelete(null);
   }, [itemToDelete, deleteUserItem]);
 
+  const handleImportToCreate = useCallback(
+    (item: RtttlEntry) => {
+      // Navigate to create page with track data
+      navigate("/create", {
+        state: {
+          importTrack: {
+            title: item.title,
+            artist: item.artist,
+            code: item.code,
+            tracks: item.tracks,
+            categories: item.categories,
+          },
+        },
+      });
+    },
+    [navigate],
+  );
+
   const extraActions: TrackRowAction[] | undefined = useMemo(() => {
-    if (slug !== "my-creations") {
-      return undefined;
+    if (slug === "my-creations") {
+      return [
+        {
+          icon: <FaEdit size={18} />,
+          title: t("actions.edit"),
+          onClick: handleEditItem,
+        },
+        {
+          icon: <FaTrash size={18} />,
+          title: t("actions.delete"),
+          onClick: handleDeleteItem,
+        },
+      ];
     }
+    // For all other collections, show import button
     return [
       {
-        icon: <FaEdit size={18} />,
-        title: t("actions.edit"),
-        onClick: handleEditItem,
-      },
-      {
-        icon: <FaTrash size={18} />,
-        title: t("actions.delete"),
-        onClick: handleDeleteItem,
+        icon: <FaFileImport size={18} />,
+        title: t("actions.importToCreate"),
+        onClick: handleImportToCreate,
       },
     ];
-  }, [slug, t, handleEditItem, handleDeleteItem]);
+  }, [slug, t, handleEditItem, handleDeleteItem, handleImportToCreate]);
 
   const breadcrumbs: BreadcrumbItem[] = [
     { label: t("breadcrumb.home"), to: "/" },

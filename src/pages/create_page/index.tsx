@@ -25,6 +25,7 @@ export function CreatePage() {
     editItem,
     draft,
     userItemTitles,
+    importTrack,
     importOpen,
     setImportOpen,
     favImportOpen,
@@ -86,7 +87,9 @@ export function CreatePage() {
     trackColors,
     setTrackColor,
   } = useTrackManager({
-    initialTracks: editItem?.tracks ?? draft?.tracks ?? [],
+    initialTracks:
+      importTrack?.tracks ??
+      (importTrack?.code ? [importTrack.code] : (editItem?.tracks ?? draft?.tracks ?? [])),
   });
 
   /* ── Derived values + DnD ── */

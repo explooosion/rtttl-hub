@@ -377,7 +377,8 @@
     "delete": "삭제",
     "cancel": "취소",
     "deleteConfirmTitle": "창작물 삭제",
-    "deleteConfirmMessage": "이 창작물을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다."
+    "deleteConfirmMessage": "이 작품을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+    "importToCreate": "작성으로 가져오기"
   },
   "letters": {
     "all": "전체"

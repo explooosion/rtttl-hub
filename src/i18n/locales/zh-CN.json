@@ -372,7 +372,8 @@
     "delete": "删除",
     "cancel": "取消",
     "deleteConfirmTitle": "删除创作",
-    "deleteConfirmMessage": "确定要删除这个创作吗？此操作无法撤销。"
+    "deleteConfirmMessage": "确定要删除这个创作吗？此操作无法撤销。",
+    "importToCreate": "导入至创作"
   },
   "letters": {
     "all": "全部"
