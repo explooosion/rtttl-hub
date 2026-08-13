@@ -376,10 +376,10 @@ python3 --version
 
 ## Related Files
 
-- **Script**: `scripts/categorize_tracks.py`
-- **Category Constants**: `src/constants/categories.ts`
-- **Collection Data**: `public/collections/*.json`
-- **Parser**: `src/utils/rtttl_parser.ts`
+- **Script**: [scripts/categorize_tracks.py](../../../scripts/categorize_tracks.py)
+- **Category Constants**: [src/constants/categories.ts](../../../src/constants/categories.ts)
+- **Collection Data**: [public/collections/](../../../public/collections/)
+- **Parser**: [src/utils/rtttl_parser.ts](../../../src/utils/rtttl_parser.ts)
 
 ---
 
