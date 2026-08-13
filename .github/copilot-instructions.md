@@ -66,6 +66,8 @@ File Naming: When creating, renaming, or moving any source file, apply the rules
 
 Code Style: When writing or editing any TypeScript/TSX source file, apply the rules defined in /.agents/skills/code-style/SKILL.md. This covers import grouping (external vs relative separated by blank line) and mandatory braces on all `if` statements.
 
+Track Categorization: When needing to automatically assign categories to large collections of RTTTL tracks, apply the rules and workflow defined in /.agents/skills/categorize-tracks/SKILL.md. This covers the auto-categorization tool usage, keyword patterns, best practices, and validation steps.
+
 # Corporate Development & AI Safety Standards
 
 ## Security & Credential Management
