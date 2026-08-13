@@ -97,7 +97,7 @@
     "backToCollection": "返回收藏库"
   },
   "search": {
-    "placeholder": "搜索名称或演出者...",
+    "placeholder": "搜索名称或创作者...",
     "noResults": "找不到结果",
     "totalItems": "共 {{count}} 项"
   },
@@ -105,8 +105,16 @@
     "label": "排序",
     "aToZ": "标题 A-Z",
     "zToA": "标题 Z-A",
-    "artistAZ": "演出者 A-Z",
-    "artistZA": "演出者 Z-A"
+    "artistAZ": "创作者 A-Z",
+    "artistZA": "创作者 Z-A",
+    "playsHigh": "播放最多",
+    "playsLow": "播放最少",
+    "likesHigh": "最受欢迎",
+    "likesLow": "最不受欢迎"
+  },
+  "stats": {
+    "plays": "播放次数",
+    "likes": "点赞"
   },
   "player": {
     "play": "播放",

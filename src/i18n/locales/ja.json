@@ -111,7 +111,15 @@
     "aToZ": "タイトル A-Z",
     "zToA": "タイトル Z-A",
     "artistAZ": "アーティスト A-Z",
-    "artistZA": "アーティスト Z-A"
+    "artistZA": "アーティスト Z-A",
+    "playsHigh": "再生回数が多い順",
+    "playsLow": "再生回数が少ない順",
+    "likesHigh": "人気順",
+    "likesLow": "人気が低い順"
+  },
+  "stats": {
+    "plays": "再生回数",
+    "likes": "いいね"
   },
   "player": {
     "play": "再生",

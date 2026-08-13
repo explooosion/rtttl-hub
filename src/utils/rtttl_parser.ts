@@ -30,6 +30,10 @@ export interface RtttlEntry {
   createdAt?: string;
   /** Multi-track (polyphonic) RTTTL — one string per motor/voice. */
   tracks?: string[];
+  /** Total number of plays (from Firestore) */
+  playCount?: number;
+  /** Total number of likes/recommendations (from Firestore) */
+  likeCount?: number;
 }
 
 export interface RtttlDefaults {

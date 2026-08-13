@@ -109,7 +109,15 @@
     "aToZ": "Title A-Z",
     "zToA": "Title Z-A",
     "artistAZ": "Artist A-Z",
-    "artistZA": "Artist Z-A"
+    "artistZA": "Artist Z-A",
+    "playsHigh": "Most Played",
+    "playsLow": "Least Played",
+    "likesHigh": "Most Liked",
+    "likesLow": "Least Liked"
+  },
+  "stats": {
+    "plays": "Play count",
+    "likes": "Likes"
   },
   "player": {
     "play": "Play",

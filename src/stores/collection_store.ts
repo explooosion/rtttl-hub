@@ -3,7 +3,15 @@ import { persist } from "zustand/middleware";
 
 import type { CollectionSlug, RtttlCategory, RtttlEntry } from "../utils/rtttl_parser";
 
-export type SortMode = "a-z" | "z-a" | "artist-a-z" | "artist-z-a";
+export type SortMode =
+  | "a-z"
+  | "z-a"
+  | "artist-a-z"
+  | "artist-z-a"
+  | "plays-high"
+  | "plays-low"
+  | "likes-high"
+  | "likes-low";
 
 interface CollectionState {
   items: RtttlEntry[];
@@ -93,6 +101,14 @@ function sortItems(items: RtttlEntry[], mode: SortMode): RtttlEntry[] {
     sorted.sort((a, b) => a.artist.localeCompare(b.artist) || a.title.localeCompare(b.title));
   } else if (mode === "artist-z-a") {
     sorted.sort((a, b) => b.artist.localeCompare(a.artist) || a.title.localeCompare(b.title));
+  } else if (mode === "plays-high") {
+    sorted.sort((a, b) => (b.playCount || 0) - (a.playCount || 0));
+  } else if (mode === "plays-low") {
+    sorted.sort((a, b) => (a.playCount || 0) - (b.playCount || 0));
+  } else if (mode === "likes-high") {
+    sorted.sort((a, b) => (b.likeCount || 0) - (a.likeCount || 0));
+  } else if (mode === "likes-low") {
+    sorted.sort((a, b) => (a.likeCount || 0) - (b.likeCount || 0));
   }
   return sorted;
 }

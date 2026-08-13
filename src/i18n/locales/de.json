@@ -113,7 +113,15 @@
     "aToZ": "Titel A-Z",
     "zToA": "Titel Z-A",
     "artistAZ": "Künstler A-Z",
-    "artistZA": "Künstler Z-A"
+    "artistZA": "Künstler Z-A",
+    "playsHigh": "Meist Abgespielt",
+    "playsLow": "Wenigst Abgespielt",
+    "likesHigh": "Meist Gemocht",
+    "likesLow": "Wenigst Gemocht"
+  },
+  "stats": {
+    "plays": "Wiedergaben",
+    "likes": "Likes"
   },
   "player": {
     "play": "Abspielen",

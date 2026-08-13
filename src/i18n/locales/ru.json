@@ -109,7 +109,15 @@
     "aToZ": "Title A-Z",
     "zToA": "Title Z-A",
     "artistAZ": "Artist A-Z",
-    "artistZA": "Artist Z-A"
+    "artistZA": "Artist Z-A",
+    "playsHigh": "Чаще Всего",
+    "playsLow": "Реже Всего",
+    "likesHigh": "Больше Всего Нравится",
+    "likesLow": "Меньше Всего Нравится"
+  },
+  "stats": {
+    "plays": "Просмотры",
+    "likes": "Нравится"
   },
   "player": {
     "play": "Play",

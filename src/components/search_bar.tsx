@@ -29,6 +29,10 @@ export function SearchBar() {
     { value: "z-a", label: t("sort.zToA") },
     { value: "artist-a-z", label: t("sort.artistAZ") },
     { value: "artist-z-a", label: t("sort.artistZA") },
+    { value: "plays-high", label: t("sort.playsHigh") },
+    { value: "plays-low", label: t("sort.playsLow") },
+    { value: "likes-high", label: t("sort.likesHigh") },
+    { value: "likes-low", label: t("sort.likesLow") },
   ];
 
   return (

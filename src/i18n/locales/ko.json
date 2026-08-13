@@ -109,7 +109,15 @@
     "aToZ": "제목 A-Z",
     "zToA": "제목 Z-A",
     "artistAZ": "아티스트 A-Z",
-    "artistZA": "아티스트 Z-A"
+    "artistZA": "아티스트 Z-A",
+    "playsHigh": "재생 많은 순",
+    "playsLow": "재생 적은 순",
+    "likesHigh": "좋아요 많은 순",
+    "likesLow": "좋아요 적은 순"
+  },
+  "stats": {
+    "plays": "재생 횟수",
+    "likes": "좋아요"
   },
   "player": {
     "play": "재생",

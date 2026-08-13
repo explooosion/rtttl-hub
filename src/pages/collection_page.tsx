@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FaPlus, FaEdit, FaTrash, FaHeart } from "react-icons/fa";
 
+import { generateMockStats } from "../types/track_stats";
 import { ListPageLayout } from "../layouts/list_page_layout";
 import type { BreadcrumbItem } from "../layouts/list_page_layout";
 import { useCollectionStore } from "../stores/collection_store";
@@ -31,28 +32,38 @@ export function CollectionPage() {
   const collectionDef = slug ? getCollectionBySlug(slug) : undefined;
 
   const collectionItems = useMemo(() => {
+    let filtered: RtttlEntry[];
     if (!slug) {
-      return [...items, ...userItems];
-    }
-    if (slug === "favorites") {
+      filtered = [...items, ...userItems];
+    } else if (slug === "favorites") {
       const allItems = [...items, ...userItems];
       const idSet = new Set(favoriteIds);
-      return allItems.filter((item) => idSet.has(item.id));
-    }
-    if (slug === "public") {
+      filtered = allItems.filter((item) => idSet.has(item.id));
+    } else if (slug === "public") {
       // Virtual collection: aggregate all public-libraries collections
       const publicLibrarySlugs = COLLECTIONS.filter((c) => c.group === "public-libraries").map(
         (c) => c.slug,
       );
-      return items.filter((item) => publicLibrarySlugs.includes(item.collection));
+      filtered = items.filter((item) => publicLibrarySlugs.includes(item.collection));
+    } else if (slug === "picaxe") {
+      filtered = items.filter((item) => item.collection === (slug as CollectionSlug));
+    } else if (slug === "community") {
+      filtered = [...items.filter((item) => item.collection === "community"), ...userItems];
+    } else {
+      filtered = [...items, ...userItems].filter(
+        (item) => item.collection === (slug as CollectionSlug),
+      );
     }
-    if (slug === "picaxe") {
-      return items.filter((item) => item.collection === (slug as CollectionSlug));
-    }
-    if (slug === "community") {
-      return [...items.filter((item) => item.collection === "community"), ...userItems];
-    }
-    return [...items, ...userItems].filter((item) => item.collection === (slug as CollectionSlug));
+
+    // Inject mock statistics for development (will be replaced with Firestore data)
+    return filtered.map((item) => {
+      const mockStats = generateMockStats(item.id);
+      return {
+        ...item,
+        playCount: mockStats.playCount,
+        likeCount: mockStats.likeCount,
+      };
+    });
   }, [slug, items, userItems, favoriteIds]);
 
   const handleCreateNew = useCallback(() => {

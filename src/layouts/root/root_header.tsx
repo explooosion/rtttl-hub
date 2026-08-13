@@ -34,6 +34,9 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
   const isCreateActive = location.pathname === "/create";
   const isContributeActive = location.pathname === "/contribute";
 
+  // Global searchbar should only appear on homepage and /collections page
+  const shouldShowGlobalSearch = location.pathname === "/" || location.pathname === "/collections";
+
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-950/80">
       {/* Main row: always visible */}
@@ -108,11 +111,13 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
           </Link>
         </nav>
 
-        {/* Searchbar — only visible when scrolled, desktop only */}
+        {/* Searchbar — only visible when scrolled, desktop only, and on homepage/collections */}
         <div
           className={clsx(
             "relative transition-all duration-300",
-            scrolled ? "hidden flex-1 opacity-100 sm:flex" : "w-0 overflow-hidden opacity-0",
+            scrolled && shouldShowGlobalSearch
+              ? "hidden flex-1 opacity-100 sm:flex"
+              : "w-0 overflow-hidden opacity-0",
           )}
         >
           <FaSearch size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -157,12 +162,14 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
         </div>
       </div>
 
-      {/* Search row — only visible when NOT scrolled, sidebar closed, and desktop only */}
+      {/* Search row — only visible when NOT scrolled, sidebar closed, desktop only, and on homepage/collections */}
       <div
         className={clsx(
           "hidden sm:grid",
           "grid transition-[grid-template-rows] duration-300 ease-in-out",
-          scrolled || sidebarOpen ? "grid-rows-[0fr]" : "grid-rows-[1fr]",
+          scrolled || sidebarOpen || !shouldShowGlobalSearch
+            ? "grid-rows-[0fr]"
+            : "grid-rows-[1fr]",
         )}
       >
         <div className="overflow-hidden">
