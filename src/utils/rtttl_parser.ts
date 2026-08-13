@@ -6,7 +6,8 @@ export type CollectionSlug =
   | "esphome"
   | "esctunes"
   | "my-creations"
-  | "favorites";
+  | "favorites"
+  | "public";
 
 export type RtttlCategory =
   | "pop"

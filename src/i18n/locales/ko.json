@@ -60,8 +60,10 @@
     "favorites": {
       "name": "내 즐겨찾기",
       "description": "즐겨찾는 RTTTL 트랙."
-    },
-    "community": {
+    },    "public": {
+      "name": "모든 공개 라이브러리",
+      "description": "모든 공개 RTTTL 컬렉션 통합. PICAXE, 커뮤니티, Skully RTTTL, ESPHome 및 기타 오픈소스 라이브러리가 포함됩니다."
+    },    "community": {
       "name": "커뮤니티",
       "description": "커뮤니티가 만든 벨소리. 나만의 벨소리를 만들고 공유하세요."
     },

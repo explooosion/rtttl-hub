@@ -63,6 +63,10 @@
       "name": "Meine Favoriten",
       "description": "Ihre Lieblings-RTTTL-Tracks."
     },
+    "public": {
+      "name": "Alle öffentlichen Bibliotheken",
+      "description": "Alle Titel aus öffentlichen RTTTL-Sammlungen kombiniert. Umfasst PICAXE, Community, Skully RTTTL, ESPHome und andere Open-Source-Bibliotheken."
+    },
     "community": {
       "name": "Community",
       "description": "Von der Community erstellte Klingeltöne. Erstellen Sie Ihre eigenen und teilen Sie sie mit allen."

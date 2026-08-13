@@ -58,6 +58,9 @@
     },    "favorites": {
       "name": "My Favorites",
       "description": "Your favorite RTTTL tracks."
+    },    "public": {
+      "name": "Усі публічні бібліотеки",
+      "description": "Усі треки з публічних колекцій RTTTL об'єднані. Включає PICAXE, Спільноту, Skully RTTTL, ESPHome та інші бібліотеки з відкритим вихідним кодом."
     },    "community": {
       "name": "Community",
       "description": "Ringtones created by the community. Create your own and share with everyone."

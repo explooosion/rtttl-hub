@@ -75,16 +75,35 @@ function CollectionGroup({
   title,
   description,
   collections,
+  browseAllLink,
 }: {
   title: string;
   description?: string;
   collections: CollectionDef[];
+  browseAllLink?: string;
 }) {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
   return (
     <section>
       <div className="mb-3">
-        <h3 className="text-base font-semibold text-gray-900 dark:text-white">{title}</h3>
-        {description && <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>}
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-base font-semibold text-gray-900 dark:text-white">{title}</h3>
+            {description && (
+              <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>
+            )}
+          </div>
+          {browseAllLink && (
+            <button
+              onClick={() => navigate(browseAllLink)}
+              className="text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+            >
+              {t("collections.browseAll")} →
+            </button>
+          )}
+        </div>
       </div>
       <div className="space-y-3">
         {collections.map((col) => (
@@ -132,6 +151,7 @@ export function CollectionsPage() {
           title={t("collections.group.publicLibraries")}
           description={t("collections.group.publicLibrariesDesc")}
           collections={publicLibrariesCollections}
+          browseAllLink="/collections/public"
         />
         <CollectionGroup
           title={t("collections.group.externalLinks")}

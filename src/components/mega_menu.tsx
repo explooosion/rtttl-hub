@@ -145,9 +145,13 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
               </div>
               {/* Middle: Public Libraries */}
               <div>
-                <h4 className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
-                  {t("collections.group.publicLibraries")}
-                </h4>
+                <Link
+                  to="/collections/public"
+                  onClick={close}
+                  className="mb-2 block text-xs font-semibold text-indigo-600 transition-colors hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                >
+                  {t("collections.group.publicLibraries")} →
+                </Link>
                 {COLLECTIONS.filter((c) => c.group === "public-libraries").map((col) => (
                   <div key={col.slug} onClick={close}>
                     <CollectionCard

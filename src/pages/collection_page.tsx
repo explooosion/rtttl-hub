@@ -7,7 +7,7 @@ import { ListPageLayout } from "../layouts/list_page_layout";
 import type { BreadcrumbItem } from "../layouts/list_page_layout";
 import { useCollectionStore } from "../stores/collection_store";
 import { useFavoritesStore } from "../stores/favorites_store";
-import { getCollectionBySlug } from "../constants/collections";
+import { getCollectionBySlug, COLLECTIONS } from "../constants/collections";
 import type { CollectionSlug, RtttlEntry } from "../utils/rtttl_parser";
 import type { TrackRowAction } from "../components/track_row";
 import { ConfirmDialog } from "../components/confirm_dialog";
@@ -38,6 +38,13 @@ export function CollectionPage() {
       const allItems = [...items, ...userItems];
       const idSet = new Set(favoriteIds);
       return allItems.filter((item) => idSet.has(item.id));
+    }
+    if (slug === "public") {
+      // Virtual collection: aggregate all public-libraries collections
+      const publicLibrarySlugs = COLLECTIONS.filter((c) => c.group === "public-libraries").map(
+        (c) => c.slug,
+      );
+      return items.filter((item) => publicLibrarySlugs.includes(item.collection));
     }
     if (slug === "picaxe") {
       return items.filter((item) => item.collection === (slug as CollectionSlug));

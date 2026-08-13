@@ -51,7 +51,7 @@ export function CategorySlider() {
         {items.map(({ id, icon: Icon, gradient }, i) => (
           <Link
             key={`${id}-${i}`}
-            to={`/collections/community?category=${id}`}
+            to={`/collections/public?category=${id}`}
             className="group flex shrink-0 flex-col items-center gap-2"
           >
             <div

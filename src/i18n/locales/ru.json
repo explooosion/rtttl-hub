@@ -58,6 +58,9 @@
     },    "favorites": {
       "name": "My Favorites",
       "description": "Your favorite RTTTL tracks."
+    },    "public": {
+      "name": "Все публичные библиотеки",
+      "description": "Все треки из публичных коллекций RTTTL объединены. Включает PICAXE, Сообщество, Skully RTTTL, ESPHome и другие библиотеки с открытым исходным кодом."
     },    "community": {
       "name": "Community",
       "description": "Ringtones created by the community. Create your own and share with everyone."

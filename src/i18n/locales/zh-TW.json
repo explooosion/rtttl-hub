@@ -63,6 +63,10 @@
       "name": "我的收藏",
       "description": "您收藏的 RTTTL 音軌。"
     },
+    "public": {
+      "name": "全部公開曲庫",
+      "description": "所有公開 RTTTL 曲庫的音樂合集。包含 PICAXE、社群、Skully RTTTL、ESPHome 和其他開放原始碼曲庫。"
+    },
     "community": {
       "name": "社群",
       "description": "社群創作的鈴聲。建立您自己的鈴聲並與大家分享。"

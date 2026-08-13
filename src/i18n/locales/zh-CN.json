@@ -57,6 +57,9 @@
     "favorites": {
       "name": "我的收藏",
       "description": "您收藏的 RTTTL 音轨。"
+    },    "public": {
+      "name": "全部公开曲库",
+      "description": "所有公开 RTTTL 曲库的音乐合集。包含 PICAXE、社区、Skully RTTTL、ESPHome 和其他开放源代码曲库。"
     },    "community": {
       "name": "社区",
       "description": "社区创作的铃声。创建您自己的铃声并与大家分享。"

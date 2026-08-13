@@ -61,6 +61,10 @@
       "name": "マイお気に入り",
       "description": "お気に入りの RTTTL トラック。"
     },
+    "public": {
+      "name": "すべての公開ライブラリ",
+      "description": "すべての公開 RTTTL コレクションの統合。PICAXE、コミュニティ、Skully RTTTL、ESPHome、その他のオープンソースライブラリが含まれます。"
+    },
     "community": {
       "name": "コミュニティ",
       "description": "コミュニティが作成した着信音。あなたのオリジナルを作成して共有しましょう。"
