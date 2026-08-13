@@ -134,21 +134,25 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
 
         {/* Right side controls */}
         <div className="flex shrink-0 items-center gap-2">
-          <div className="hidden sm:flex sm:items-center sm:gap-2">
+          {/* Theme Toggle - hidden on mobile, show from md */}
+          <div className="hidden md:flex md:items-center">
             <ThemeToggle />
           </div>
+          {/* GitHub - hidden on mobile/tablet, show from lg */}
           <a
             href="https://github.com/explooosion/rtttl-hub"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
+            className="hidden rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-gray-200 lg:block dark:text-gray-400 dark:hover:bg-gray-700"
           >
             <FaGithub size={18} />
           </a>
-          <div className="hidden sm:block">
+          {/* Settings Menu - show from md */}
+          <div className="hidden md:block">
             <SettingsMenu />
           </div>
+          {/* User Menu - always visible */}
           <UserMenu />
         </div>
       </div>
