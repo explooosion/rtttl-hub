@@ -640,8 +640,15 @@
     "en": "English",
     "zh-TW": "繁體中文",
     "zh-CN": "简体中文",
-    "zh-HK": "香港繁體",
     "ja": "日本語",
-    "ko": "한국어"
+    "ko": "한국어",
+    "de": "Deutsch",
+    "fr": "Français",
+    "es": "Español",
+    "it": "Italiano",
+    "cs": "Čeština",
+    "pl": "Polski",
+    "ru": "Русский",
+    "uk": "Українська"
   }
 }

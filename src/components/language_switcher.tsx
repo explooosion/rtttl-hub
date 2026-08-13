@@ -4,10 +4,17 @@ import { FaGlobe } from "react-icons/fa";
 import clsx from "clsx";
 
 const languages = [
+  { code: "cs", label: "Čeština" },
+  { code: "de", label: "Deutsch" },
   { code: "en", label: "English" },
-  { code: "zh-TW", label: "繁體中文" },
-  { code: "zh-HK", label: "繁體中文（香港）" },
+  { code: "fr", label: "Français" },
+  { code: "es", label: "Español" },
+  { code: "it", label: "Italiano" },
+  { code: "pl", label: "Polski" },
+  { code: "ru", label: "Русский" },
+  { code: "uk", label: "Українська" },
   { code: "zh-CN", label: "简体中文" },
+  { code: "zh-TW", label: "繁體中文" },
   { code: "ja", label: "日本語" },
   { code: "ko", label: "한국어" },
 ] as const;
