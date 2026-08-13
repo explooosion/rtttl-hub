@@ -9,9 +9,16 @@ interface CollectionCardProps {
   nameKey: string;
   descriptionKey: string;
   source?: string;
+  externalOnly?: boolean;
 }
 
-export function CollectionCard({ slug, nameKey, descriptionKey, source }: CollectionCardProps) {
+export function CollectionCard({
+  slug,
+  nameKey,
+  descriptionKey,
+  source,
+  externalOnly,
+}: CollectionCardProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const illustration = COLLECTION_ILLUSTRATIONS[slug] ?? {
@@ -20,12 +27,27 @@ export function CollectionCard({ slug, nameKey, descriptionKey, source }: Collec
   };
   const Icon = illustration.icon;
 
+  const handleClick = () => {
+    if (externalOnly && source) {
+      window.open(source, "_blank", "noopener,noreferrer");
+    } else {
+      navigate(`/collections/${slug}`);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleClick();
+    }
+  };
+
   return (
     <div
       role="link"
       tabIndex={0}
-      onClick={() => navigate(`/collections/${slug}`)}
-      onKeyDown={(e) => e.key === "Enter" && navigate(`/collections/${slug}`)}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-gray-900"
     >
       {/* Illustration banner */}

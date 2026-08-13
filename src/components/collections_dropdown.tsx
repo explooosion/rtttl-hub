@@ -10,13 +10,34 @@ function CollectionMenuItem({
   slug,
   nameKey,
   icon: Icon,
+  source,
+  externalOnly,
 }: {
   slug: string;
   nameKey: string;
   icon: React.ComponentType<{ size: number }>;
+  source?: string;
+  externalOnly?: boolean;
 }) {
   const { t } = useTranslation();
   const count = useCollectionItemCount(slug as "picaxe" | "community");
+
+  // For external-only collections, render as external link
+  if (externalOnly && source) {
+    return (
+      <MenuItem>
+        <a
+          href={source}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+        >
+          <Icon size={16} />
+          <span className="flex-1">{t(nameKey)}</span>
+        </a>
+      </MenuItem>
+    );
+  }
 
   return (
     <MenuItem>
@@ -65,6 +86,8 @@ export function CollectionsDropdown({ isActive }: { isActive: boolean }) {
             slug={col.slug}
             nameKey={col.nameKey}
             icon={col.icon}
+            source={col.source}
+            externalOnly={col.externalOnly}
           />
         ))}
       </MenuItems>

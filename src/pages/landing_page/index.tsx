@@ -85,6 +85,7 @@ export function LandingPage() {
                   nameKey={col.nameKey}
                   descriptionKey={col.descriptionKey}
                   source={col.source}
+                  externalOnly={col.externalOnly}
                 />
               </div>
             ))}
@@ -104,6 +105,7 @@ export function LandingPage() {
                   nameKey={col.nameKey}
                   descriptionKey={col.descriptionKey}
                   source={col.source}
+                  externalOnly={col.externalOnly}
                 />
               </div>
             ))}
