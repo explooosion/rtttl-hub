@@ -12,6 +12,9 @@ import {
   FaGlobe,
   FaBell,
   FaStar,
+  FaCode,
+  FaHome,
+  FaMicrochip,
 } from "react-icons/fa";
 
 export const COLLECTION_ILLUSTRATIONS: Record<
@@ -20,6 +23,13 @@ export const COLLECTION_ILLUSTRATIONS: Record<
 > = {
   picaxe: { icon: FaDatabase, gradient: "from-indigo-600 via-purple-600 to-pink-500" },
   community: { icon: FaUsers, gradient: "from-emerald-500 via-teal-500 to-cyan-500" },
+  "skully-rtttl": { icon: FaCode, gradient: "from-blue-600 via-sky-600 to-cyan-600" },
+  esphome: { icon: FaHome, gradient: "from-orange-500 via-red-500 to-pink-500" },
+  "esc-configurator": {
+    icon: FaMicrochip,
+    gradient: "from-violet-600 via-purple-600 to-fuchsia-600",
+  },
+  esctunes: { icon: FaMusic, gradient: "from-lime-500 via-green-500 to-emerald-600" },
 };
 
 export const FEATURES = [

@@ -72,13 +72,32 @@ export function LandingPage() {
           ))}
         </section>
 
-        {/* Collection cards */}
+        {/* Collection cards - Public Libraries */}
         <section className="py-8">
           <h3 className="fly-in mb-6 text-2xl font-bold text-gray-900 dark:text-white">
-            {t("collections.title")}
+            {t("collections.group.publicLibraries")}
           </h3>
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {COLLECTIONS.map((col, i) => (
+            {COLLECTIONS.filter((c) => c.group === "public-libraries").map((col, i) => (
+              <div key={col.slug} className={`fly-in fly-in-delay-${i + 1}`}>
+                <CollectionCard
+                  slug={col.slug}
+                  nameKey={col.nameKey}
+                  descriptionKey={col.descriptionKey}
+                  source={col.source}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Collection cards - External Resources */}
+        <section className="py-8">
+          <h3 className="fly-in mb-6 text-2xl font-bold text-gray-900 dark:text-white">
+            {t("collections.group.externalLinks")}
+          </h3>
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+            {COLLECTIONS.filter((c) => c.group === "external-links").map((col, i) => (
               <div key={col.slug} className={`fly-in fly-in-delay-${i + 1}`}>
                 <CollectionCard
                   slug={col.slug}
