@@ -107,7 +107,7 @@ export function TrackLane({
 
   const currentTrackNoteIndex = trackNoteIndices[index] ?? currentNoteIndex;
 
-  /** 從 RTTTL 代碼第一個 `:` 前解析音軌名稱，無法解析時回退到 Track N。 */
+  /** Parse track name from RTTTL code before the first `:`, fallback to Track N if unable to parse. */
   const trackName = useMemo(() => {
     if (!code.trim()) {
       return `Track ${index + 1}`;

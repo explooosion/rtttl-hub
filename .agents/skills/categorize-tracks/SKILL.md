@@ -76,35 +76,35 @@ python3 scripts/categorize_tracks.py
 
 ```
 ============================================================
-RTTTL 曲目自動分類工具
+RTTTL Track Auto-Categorization Tool
 ============================================================
 
-可用分類:
-  - pop: 流行音樂
-  - classical: 古典音樂
-  - movie-tv: 電影/電視
+Available categories:
+  - pop: Pop Music
+  - classical: Classical Music
+  - movie-tv: Movie/TV
   ...
 
-處理 picaxe.json...
-  總計: 11121 個曲目
-  已有分類: 0
-  新增分類: 998
-  無法分類: 10123
+Processing picaxe.json...
+  Total: 11121 tracks
+  Already categorized: 0
+  Newly categorized: 998
+  Uncategorized: 10123
 
-  範例變更（顯示前 10 個）:
+  Example changes (showing first 10):
     - James Bond: movie-tv
     - TakeOnMe: pop
     - Beethoven: classical
     ...
 
-總計
+Summary
 ============================================================
-總曲目數: 11145
-已有分類: 24 (0.2%)
-將新增分類: 998 (9.0%)
-無法分類: 10123 (90.8%)
+Total tracks: 11145
+Already categorized: 24 (0.2%)
+Will categorize: 998 (9.0%)
+Uncategorized: 10123 (90.8%)
 
-是否要執行變更並寫入文件？(y/N):
+Apply changes and write to files? (y/N):
 ```
 
 ---

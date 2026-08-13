@@ -1,13 +1,13 @@
 /**
- * Placeholder 來源圖片生成腳本
+ * Placeholder Source Image Generation Script
  *
- * 使用 sharp 程式化產生品牌 placeholder 圖片：
+ * Programmatically generates brand placeholder images using sharp:
  *   - scripts/sources/logo.png   (512×512)
  *   - scripts/sources/banner.png (1200×630)
  *
- * 後續可用設計稿替換這些 placeholder。
+ * These placeholders can be replaced with design files later.
  *
- * 用法：npx tsx scripts/generate-placeholder.ts
+ * Usage: npx tsx scripts/generate-placeholder.ts
  */
 
 import sharp from "sharp";
@@ -29,7 +29,7 @@ const BRAND_COLOR = "#6366f1"; // indigo-500
 const BG_COLOR = "#0f0a1e"; // cosmos-dark
 
 /**
- * 產生 SVG 文字圖片並轉為 PNG
+ * Generate SVG text image and convert to PNG
  */
 async function createTextImage(
   outputPath: string,
@@ -73,17 +73,17 @@ function escapeXml(str: string): string {
 }
 
 async function main(): Promise<void> {
-  console.log("🎨 Placeholder 來源圖片生成");
+  console.log("🎨 Placeholder Source Image Generation");
   console.log("=".repeat(50));
   console.log();
 
   // Logo: 512×512
-  console.log("📦 生成 logo.png (512×512)...");
+  console.log("📦 Generating logo.png (512×512)...");
   await createTextImage(LOGO_PATH, 512, 512, ["RTTTL", "Hub"], 72);
   console.log(`  ✅ ${LOGO_PATH}`);
 
   // Banner: 1200×630
-  console.log("📦 生成 banner.png (1200×630)...");
+  console.log("📦 Generating banner.png (1200×630)...");
   await createTextImage(
     BANNER_PATH,
     1200,
@@ -94,7 +94,7 @@ async function main(): Promise<void> {
   console.log(`  ✅ ${BANNER_PATH}`);
 
   console.log();
-  console.log("✅ 完成！可執行 npm run generate-logos 產生完整品牌圖片系列。");
+  console.log("✅ Done! Run 'npm run generate-logos' to generate full brand image series.");
 }
 
 main();

@@ -1,20 +1,20 @@
 /**
- * 品牌圖片統一生成腳本
+ * Brand Image Generation Script
  *
- * 從來源圖片生成所有 favicon、PWA icon、OG banner：
+ * Generates all favicon, PWA icons, and OG banner from source images:
  *
- * Logo（正方形 1:1）→ favicon 系列 + PWA icons（12 個檔案）
- * Banner（橫幅 1.91:1）→ OG 社群分享圖（1 個檔案）
+ * Logo (square 1:1) → favicon series + PWA icons (12 files)
+ * Banner (1.91:1 ratio) → OG social sharing image (1 file)
  *
- * 來源圖片放置於 scripts/sources/：
- *   - logo.png   (建議 1024×1024，最小 512×512)
- *   - banner.png (建議 1200×630，Facebook 官方 1.91:1 比例)
+ * Source images should be placed in scripts/sources/:
+ *   - logo.png   (recommended 1024×1024, minimum 512×512)
+ *   - banner.png (recommended 1200×630, Facebook official 1.91:1 ratio)
  *
- * 用法：
- *   npx tsx scripts/generate-logos.ts             # 生成全部
- *   npx tsx scripts/generate-logos.ts --logo-only  # 只生成 Logo 系列
- *   npx tsx scripts/generate-logos.ts --banner-only # 只生成 Banner
- *   npx tsx scripts/generate-logos.ts --no-clean   # 不清理舊檔案
+ * Usage:
+ *   npx tsx scripts/generate-logos.ts             # Generate all
+ *   npx tsx scripts/generate-logos.ts --logo-only  # Only generate logo series
+ *   npx tsx scripts/generate-logos.ts --banner-only # Only generate banner
+ *   npx tsx scripts/generate-logos.ts --no-clean   # Don't clean old files
  */
 
 import sharp from "sharp";
@@ -27,18 +27,18 @@ const ROOT_DIR = join(__dirname, "..");
 const PUBLIC_DIR = join(ROOT_DIR, "public");
 const SOURCES_DIR = join(__dirname, "sources");
 
-// 來源圖片路徑
+// Source image paths
 const LOGO_SOURCE = join(SOURCES_DIR, "logo.png");
 const BANNER_SOURCE = join(SOURCES_DIR, "banner.png");
 
-// Maskable icon 背景色（cosmos-dark）
+// Maskable icon background color (cosmos-dark)
 const COSMOS_DARK: sharp.Color = { r: 15, g: 10, b: 30, alpha: 1 };
 
-// OG Banner 目標尺寸（Facebook 官方建議 1.91:1）
+// OG Banner target size (Facebook official recommendation 1.91:1)
 const OG_BANNER_WIDTH = 1200;
 const OG_BANNER_HEIGHT = 630;
 
-// ─── 產出配置 ────────────────────────────────────────────
+// ─── Output Configuration ────────────────────────────────────────────
 
 interface OutputConfig {
   name: string;
@@ -46,7 +46,7 @@ interface OutputConfig {
   maskable?: boolean;
 }
 
-/** Favicon 系列（從 Logo 來源） */
+/** Favicon series (from logo source) */
 const FAVICON_OUTPUTS: OutputConfig[] = [
   { name: "icons/favicon-16x16.png", size: 16 },
   { name: "icons/favicon-32x32.png", size: 32 },
@@ -56,7 +56,7 @@ const FAVICON_OUTPUTS: OutputConfig[] = [
   { name: "icons/favicon-512x512.png", size: 512 },
 ];
 
-/** PWA Icons 系列（從 Logo 來源） */
+/** PWA Icons series (from logo source) */
 const PWA_OUTPUTS: OutputConfig[] = [
   { name: "icons/pwa-64x64.png", size: 64 },
   { name: "icons/pwa-192x192.png", size: 192 },
@@ -64,7 +64,7 @@ const PWA_OUTPUTS: OutputConfig[] = [
   { name: "icons/maskable-icon-512x512.png", size: 512, maskable: true },
 ];
 
-/** 需要清理的舊檔案 */
+/** Legacy files to clean up */
 const LEGACY_FILES: string[] = [
   "public/assets/banners/banner-og.jpg",
   "public/assets/banners/banner-og.png",
@@ -75,7 +75,7 @@ const LEGACY_FILES: string[] = [
   "public/apple-touch-icon.png",
 ];
 
-// ─── 工具函數 ────────────────────────────────────────────
+// ─── Utility Functions ────────────────────────────────────────
 
 function ensureDir(filePath: string): void {
   const dir = dirname(filePath);
@@ -85,7 +85,7 @@ function ensureDir(filePath: string): void {
 }
 
 /**
- * 生成指定尺寸的 PNG 圖標
+ * Generate PNG icon of specified size
  */
 async function generatePNG(inputPath: string, outputPath: string, size: number): Promise<void> {
   ensureDir(outputPath);
@@ -96,7 +96,7 @@ async function generatePNG(inputPath: string, outputPath: string, size: number):
 }
 
 /**
- * 生成 Maskable Icon（80% safe zone + cosmos-dark 背景）
+ * Generate Maskable Icon (80% safe zone + cosmos-dark background)
  */
 async function generateMaskableIcon(
   inputPath: string,
@@ -121,7 +121,7 @@ async function generateMaskableIcon(
 }
 
 /**
- * 生成 favicon.png（32×32 主圖標副本）
+ * Generate favicon.png (32×32 main icon copy)
  */
 function generateFaviconCopy(): void {
   const src = join(PUBLIC_DIR, "icons", "favicon-32x32.png");
@@ -131,7 +131,7 @@ function generateFaviconCopy(): void {
 }
 
 /**
- * 生成 SVG favicon（內嵌 base64 PNG）
+ * Generate SVG favicon (embedded base64 PNG)
  */
 function generateFaviconSVG(): void {
   const src = join(PUBLIC_DIR, "icons", "favicon-32x32.png");
@@ -146,7 +146,7 @@ function generateFaviconSVG(): void {
 }
 
 /**
- * 生成 OG Banner（1200×630，1.91:1）
+ * Generate OG Banner (1200×630, 1.91:1)
  */
 async function generateOGBanner(inputPath: string, outputPath: string): Promise<void> {
   ensureDir(outputPath);
@@ -160,7 +160,7 @@ async function generateOGBanner(inputPath: string, outputPath: string): Promise<
 }
 
 /**
- * 清理舊的不再使用的檔案
+ * Clean up old legacy files
  */
 function cleanLegacyFiles(): number {
   let cleaned = 0;
@@ -168,7 +168,7 @@ function cleanLegacyFiles(): number {
     const absPath = join(ROOT_DIR, relPath);
     if (existsSync(absPath)) {
       unlinkSync(absPath);
-      console.log(`  🗑️  已刪除: ${relPath}`);
+      console.log(`  🗑️  Deleted: ${relPath}`);
       cleaned++;
     }
   }
@@ -181,7 +181,7 @@ interface ImageMeta {
 }
 
 /**
- * 驗證來源圖片尺寸
+ * Validate source image dimensions
  */
 async function validateSource(
   path: string,
@@ -195,20 +195,20 @@ async function validateSource(
   const { width, height } = metadata;
 
   if (!width || !height) {
-    console.warn(`⚠️  ${label} 無法讀取尺寸`);
+    console.warn(`⚠️  ${label} Unable to read dimensions`);
     return null;
   }
 
   if (width < minSize || height < minSize) {
     console.warn(
-      `⚠️  ${label} 尺寸 ${width}×${height} 小於建議最小值 ${minSize}px，產出品質可能受影響`,
+      `⚠️  ${label} size ${width}×${height} is below recommended minimum ${minSize}px, output quality may be affected`,
     );
   }
 
   return { width, height };
 }
 
-// ─── 主執行流程 ──────────────────────────────────────────
+// ─── Main Execution Flow ────────────────────────────────────────
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
@@ -219,35 +219,35 @@ async function main(): Promise<void> {
   const processLogo = !bannerOnly;
   const processBanner = !logoOnly;
 
-  console.log("🎨 品牌圖片生成工具");
+  console.log("🎨 Brand Image Generation Tool");
   console.log("=".repeat(60));
   console.log();
 
-  // ── 驗證來源圖片 ──
+  // ── Validate source images ──
 
   if (processLogo) {
     if (!existsSync(LOGO_SOURCE)) {
-      console.error("❌ Logo 來源圖片不存在: scripts/sources/logo.png");
-      console.log("   請放置一張正方形 PNG（建議 1024×1024，最小 512×512）");
-      console.log("   或執行 npx tsx scripts/generate-placeholder.ts 產生 placeholder");
+      console.error("❌ Logo source image not found: scripts/sources/logo.png");
+      console.log("   Please place a square PNG (recommended 1024×1024, minimum 512×512)");
+      console.log("   or run 'npx tsx scripts/generate-placeholder.ts' to generate placeholder");
       process.exit(1);
     }
     const logoMeta = await validateSource(LOGO_SOURCE, "Logo", 512);
     if (logoMeta) {
-      console.log(`📦 Logo 來源: logo.png (${logoMeta.width}×${logoMeta.height})`);
+      console.log(`📦 Logo source: logo.png (${logoMeta.width}×${logoMeta.height})`);
     }
   }
 
   if (processBanner) {
     if (!existsSync(BANNER_SOURCE)) {
-      console.error("❌ Banner 來源圖片不存在: scripts/sources/banner.png");
-      console.log("   請放置一張橫幅 PNG（建議 1200×630，1.91:1 比例）");
-      console.log("   或執行 npx tsx scripts/generate-placeholder.ts 產生 placeholder");
+      console.error("❌ Banner source image not found: scripts/sources/banner.png");
+      console.log("   Please place a banner PNG (recommended 1200×630, 1.91:1 ratio)");
+      console.log("   or run 'npx tsx scripts/generate-placeholder.ts' to generate placeholder");
       process.exit(1);
     }
     const bannerMeta = await validateSource(BANNER_SOURCE, "Banner", 630);
     if (bannerMeta) {
-      console.log(`📦 Banner 來源: banner.png (${bannerMeta.width}×${bannerMeta.height})`);
+      console.log(`📦 Banner source: banner.png (${bannerMeta.width}×${bannerMeta.height})`);
     }
   }
 
@@ -256,10 +256,10 @@ async function main(): Promise<void> {
   let totalSuccess = 0;
   let totalFailed = 0;
 
-  // ── 生成 Logo 系列 ──
+  // ── Generate Logo series ──
 
   if (processLogo) {
-    console.log("🖼️  生成 Favicon 系列...");
+    console.log("🖼️  Generating Favicon series...");
     for (const config of FAVICON_OUTPUTS) {
       try {
         const outputPath = join(PUBLIC_DIR, config.name);
@@ -273,10 +273,10 @@ async function main(): Promise<void> {
       }
     }
 
-    // favicon.png（32×32 副本）
+    // favicon.png (32×32 copy)
     try {
       generateFaviconCopy();
-      console.log("  ✅ icons/favicon.png (32×32 主圖標)");
+      console.log("  ✅ icons/favicon.png (32×32 main icon)");
       totalSuccess++;
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
@@ -287,7 +287,7 @@ async function main(): Promise<void> {
     // favicon.svg
     try {
       generateFaviconSVG();
-      console.log("  ✅ icons/favicon.svg (內嵌 base64 PNG)");
+      console.log("  ✅ icons/favicon.svg (embedded base64 PNG)");
       totalSuccess++;
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
@@ -296,7 +296,7 @@ async function main(): Promise<void> {
     }
 
     console.log();
-    console.log("🖼️  生成 PWA Icons 系列...");
+    console.log("🖼️  Generating PWA Icons series...");
     for (const config of PWA_OUTPUTS) {
       try {
         const outputPath = join(PUBLIC_DIR, config.name);
@@ -317,10 +317,10 @@ async function main(): Promise<void> {
     console.log();
   }
 
-  // ── 生成 Banner ──
+  // ── Generate Banner ──
 
   if (processBanner) {
-    console.log("🖼️  生成 OG Banner...");
+    console.log("🖼️  Generating OG Banner...");
     try {
       const outputPath = join(PUBLIC_DIR, "assets", "banners", "banner_fb-og.png");
       await generateOGBanner(BANNER_SOURCE, outputPath);
@@ -334,27 +334,27 @@ async function main(): Promise<void> {
     console.log();
   }
 
-  // ── 清理舊檔案 ──
+  // ── Clean legacy files ──
 
   if (!noClean) {
-    console.log("🧹 清理舊檔案...");
+    console.log("🧹 Cleaning legacy files...");
     const cleaned = cleanLegacyFiles();
     if (cleaned === 0) {
-      console.log("  ℹ️  沒有需要清理的舊檔案");
+      console.log("  ℹ️  No legacy files to clean");
     }
     console.log();
   }
 
-  // ── 總結 ──
+  // ── Summary ──
 
   console.log("=".repeat(60));
   if (totalFailed === 0) {
-    console.log(`✅ 完成！成功生成 ${totalSuccess} 個檔案`);
+    console.log(`✅ Done! Successfully generated ${totalSuccess} files`);
   } else {
-    console.log(`⚠️  完成：${totalSuccess} 個成功，${totalFailed} 個失敗`);
+    console.log(`⚠️  Done: ${totalSuccess} succeeded, ${totalFailed} failed`);
   }
   console.log();
-  console.log("📝 產出摘要:");
+  console.log("📝 Output summary:");
   if (processLogo) {
     console.log("   Favicon: favicon.svg, favicon.png, 16/32/48/180/192/512px");
     console.log("   PWA:     pwa-64/192/512, maskable-512");
@@ -363,7 +363,7 @@ async function main(): Promise<void> {
     console.log(`   Banner:  banner_fb-og.png (${OG_BANNER_WIDTH}×${OG_BANNER_HEIGHT})`);
   }
   console.log();
-  console.log("💡 提示: 執行 npm run build 確認建置無誤");
+  console.log("💡 Tip: Run 'npm run build' to verify build works correctly");
 
   if (totalFailed > 0) {
     process.exit(1);
