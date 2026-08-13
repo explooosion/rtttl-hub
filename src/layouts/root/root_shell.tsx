@@ -64,9 +64,6 @@ export function RootShell() {
       const base = import.meta.env.BASE_URL;
       Promise.all([
         fetch(`${base}collections/picaxe.json`).then((r) => r.json() as Promise<CollectionEntry[]>),
-        fetch(`${base}collections/esc-configurator.json`).then(
-          (r) => r.json() as Promise<CollectionEntry[]>,
-        ),
         fetch(`${base}collections/skully-rtttl.json`).then(
           (r) => r.json() as Promise<CollectionEntry[]>,
         ),
@@ -77,19 +74,12 @@ export function RootShell() {
           (r) => r.json() as Promise<CollectionEntry[]>,
         ),
       ])
-        .then(([picaxeData, escData, skullyData, communityData, esphomeData]) => {
+        .then(([picaxeData, skullyData, communityData, esphomeData]) => {
           const picaxeEntries = toRtttlEntries(picaxeData, "picaxe", "picaxe");
-          const escEntries = toRtttlEntries(escData, "esc-configurator", "esc");
           const skullyEntries = toRtttlEntries(skullyData, "skully-rtttl", "skully");
           const communityEntries = toRtttlEntries(communityData, "community", "community");
           const esphomeEntries = toRtttlEntries(esphomeData, "esphome", "esphome");
-          setItems([
-            ...picaxeEntries,
-            ...escEntries,
-            ...skullyEntries,
-            ...communityEntries,
-            ...esphomeEntries,
-          ]);
+          setItems([...picaxeEntries, ...skullyEntries, ...communityEntries, ...esphomeEntries]);
         })
         .catch((err) => console.error("Failed to load collection:", err));
     },

@@ -78,8 +78,10 @@
     "esphome": {
       "name": "ESPHome",
       "description": "Offizielle RTTTL-Beispielmelodien aus der ESPHome-Dokumentation, einschließlich klassischer Themen von Star Wars, Mission Impossible, Super Mario und eingebauten Alarmtönen."
-    },
-    "officialSource": "Quelle"
+    },    "esctunes": {
+      "name": "EscTunes.com",
+      "description": "Eine umfassende FPV ESC-Startmelodie-Bibliothek mit Hunderten von RTTTL-Melodien. Durchsuchen und entdecken Sie benutzerdefinierte Motorstartklänge für Ihre BLHeli_S ESCs."
+    },    "officialSource": "Quelle"
   },
   "categories": {
     "all": "Alle",

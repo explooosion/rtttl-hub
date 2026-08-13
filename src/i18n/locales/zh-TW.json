@@ -78,8 +78,10 @@
     "esphome": {
       "name": "ESPHome",
       "description": "ESPHome 官方文件收錄的 RTTTL 範例音樂，包含星際大戰、不可能的任務、超級瑪利歐等經典主題及內建提示音。"
-    },
-    "officialSource": "來源"
+    },    "esctunes": {
+      "name": "EscTunes.com",
+      "description": "完整的 FPV ESC 啟動音庫，收錄數百首 RTTTL 音樂。瀏覽並探索適用於 BLHeli_S ESC 的自訂馬達啟動音效。"
+    },    "officialSource": "來源"
   },
   "categories": {
     "all": "全部",

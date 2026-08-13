@@ -72,8 +72,10 @@
     "esphome": {
       "name": "ESPHome",
       "description": "ESPHome 官方文档收录的 RTTTL 示例音乐，包含星球大战、碟中谍、超级马里奥等经典主题及内置提示音。"
-    },
-    "officialSource": "来源"
+    },    "esctunes": {
+      "name": "EscTunes.com",
+      "description": "完整的 FPV ESC 启动音库，收录数百首 RTTTL 音乐。浏览并探索适用于 BLHeli_S ESC 的自定义电机启动音效。"
+    },    "officialSource": "来源"
   },
   "categories": {
     "all": "全部",

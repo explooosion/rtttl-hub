@@ -1,6 +1,6 @@
 import type { CollectionSlug, RtttlCategory, RtttlEntry } from "./rtttl_parser";
 
-/** Unified shape for collection JSON files (picaxe.json, esc-configurator.json). */
+/** Unified shape for collection JSON files (picaxe.json, skully-rtttl.json, community.json, esphome.json). */
 export interface CollectionEntry {
   name: string;
   artist?: string;

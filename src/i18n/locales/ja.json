@@ -76,8 +76,10 @@
     "esphome": {
       "name": "ESPHome",
       "description": "ESPHome 公式ドキュメント掲載の RTTTL サンプル集。スター・ウォーズ、ミッション：インポッシブル、スーパーマリオなどの定番テーマとアラート音を収録。"
-    },
-    "officialSource": "ソース"
+    },    "esctunes": {
+      "name": "EscTunes.com",
+      "description": "包括的な FPV ESC スタートアップメロディライブラリ。数百の RTTTL メロディを収録。BLHeli_S ESC 用のカスタムモーター起動音を閲覧・発見できます。"
+    },    "officialSource": "ソース"
   },
   "categories": {
     "all": "すべて",

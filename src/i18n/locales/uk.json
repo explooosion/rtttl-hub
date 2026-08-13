@@ -74,6 +74,10 @@
       "name": "ESPHome",
       "description": "Official RTTTL example tunes from the ESPHome documentation, including classic themes from Star Wars, Mission Impossible, Super Mario, and built-in alert sounds."
     },
+    "esctunes": {
+      "name": "EscTunes.com",
+      "description": "Повна бібліотека мелодій запуску FPV ESC із сотнями мелодій RTTTL. Переглядайте та знаходьте власні звуки запуску двигуна для ваших ESC BLHeli_S."
+    },
     "officialSource": "Source"
   },
   "categories": {

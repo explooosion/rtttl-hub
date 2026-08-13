@@ -76,8 +76,10 @@
     "esphome": {
       "name": "ESPHome",
       "description": "ESPHome 공식 문서에 수록된 RTTTL 예제 모음. 스타워즈, 미션 임파서블, 슈퍼 마리오 등 클래식 테마와 기본 알림음을 포함합니다."
-    },
-    "officialSource": "소스"
+    },    "esctunes": {
+      "name": "EscTunes.com",
+      "description": "포괄적인 FPV ESC 시작 멜로디 라이브러리. 수백 개의 RTTTL 멜로디 수록. BLHeli_S ESC용 사용자 지정 모터 시작 사운드를 탐색하세요."
+    },    "officialSource": "소스"
   },
   "categories": {
     "all": "전체",

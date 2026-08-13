@@ -10,13 +10,39 @@ function CollectionCard({
   slug,
   nameKey,
   icon: Icon,
+  source,
+  externalOnly,
 }: {
   slug: string;
   nameKey: string;
   icon: React.ComponentType<{ size: number; className?: string }>;
+  source?: string;
+  externalOnly?: boolean;
 }) {
   const { t } = useTranslation();
 
+  // For external-only collections, render as external link
+  if (externalOnly && source) {
+    return (
+      <a
+        href={source}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group flex items-start gap-3 rounded-lg p-3 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 dark:bg-indigo-900/50 dark:text-indigo-400">
+          <Icon size={20} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-semibold text-gray-900 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">
+            {t(nameKey)}
+          </p>
+        </div>
+      </a>
+    );
+  }
+
+  // For regular collections, render as internal link
   return (
     <Link
       to={`/collections/${slug}`}
@@ -107,7 +133,13 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
                 </h4>
                 {COLLECTIONS.filter((c) => c.group === "my-creations").map((col) => (
                   <div key={col.slug} onClick={close}>
-                    <CollectionCard slug={col.slug} nameKey={col.nameKey} icon={col.icon} />
+                    <CollectionCard
+                      slug={col.slug}
+                      nameKey={col.nameKey}
+                      icon={col.icon}
+                      source={col.source}
+                      externalOnly={col.externalOnly}
+                    />
                   </div>
                 ))}
               </div>
@@ -118,7 +150,13 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
                 </h4>
                 {COLLECTIONS.filter((c) => c.group === "community").map((col) => (
                   <div key={col.slug} onClick={close}>
-                    <CollectionCard slug={col.slug} nameKey={col.nameKey} icon={col.icon} />
+                    <CollectionCard
+                      slug={col.slug}
+                      nameKey={col.nameKey}
+                      icon={col.icon}
+                      source={col.source}
+                      externalOnly={col.externalOnly}
+                    />
                   </div>
                 ))}
               </div>
@@ -129,7 +167,13 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
                 </h4>
                 {COLLECTIONS.filter((c) => c.group === "library").map((col) => (
                   <div key={col.slug} onClick={close}>
-                    <CollectionCard slug={col.slug} nameKey={col.nameKey} icon={col.icon} />
+                    <CollectionCard
+                      slug={col.slug}
+                      nameKey={col.nameKey}
+                      icon={col.icon}
+                      source={col.source}
+                      externalOnly={col.externalOnly}
+                    />
                   </div>
                 ))}
               </div>

@@ -12,26 +12,39 @@ function CollectionRow({
   descriptionKey,
   icon: Icon,
   source,
+  externalOnly,
 }: {
   slug: string;
   nameKey: string;
   descriptionKey: string;
   icon: React.ComponentType<{ size: number; className?: string }>;
   source?: string;
+  externalOnly?: boolean;
 }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (externalOnly && source) {
+      window.open(source, "_blank", "noopener,noreferrer");
+    } else {
+      navigate(`/collections/${slug}`);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleClick();
+    }
+  };
 
   return (
     <div
       role="link"
       tabIndex={0}
-      onClick={() => navigate(`/collections/${slug}`)}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          navigate(`/collections/${slug}`);
-        }
-      }}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       className="group flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 bg-white px-3 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-lg sm:gap-4 sm:px-5 sm:py-4 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-indigo-700"
     >
       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600 transition-transform duration-300 group-hover:scale-110 sm:h-12 sm:w-12 dark:bg-indigo-900/50 dark:text-indigo-400">
@@ -82,6 +95,7 @@ function CollectionGroup({
             descriptionKey={col.descriptionKey}
             icon={col.icon}
             source={col.source}
+            externalOnly={col.externalOnly}
           />
         ))}
       </div>

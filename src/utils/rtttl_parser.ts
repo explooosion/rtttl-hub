@@ -4,6 +4,7 @@ export type CollectionSlug =
   | "esc-configurator"
   | "skully-rtttl"
   | "esphome"
+  | "esctunes"
   | "my-creations"
   | "favorites";
 

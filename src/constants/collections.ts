@@ -6,6 +6,7 @@ import {
   FaHome,
   FaPencilAlt,
   FaHeart,
+  FaMusic,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
 
@@ -17,6 +18,8 @@ export interface CollectionDef {
   descriptionKey: string;
   icon: IconType;
   source?: string;
+  /** If true, clicking this collection opens the external source URL directly instead of navigating to /collections/:slug */
+  externalOnly?: boolean;
   /** "my-creations" = user's own works; "community" = shared works; "library" = curated/brand datasets */
   group: "my-creations" | "community" | "library";
 }
@@ -49,6 +52,7 @@ export const COLLECTIONS: CollectionDef[] = [
     descriptionKey: "collections.escConfigurator.description",
     icon: FaMicrochip,
     source: "https://esc-configurator.com/",
+    externalOnly: true,
     group: "library",
   },
   {
@@ -73,6 +77,15 @@ export const COLLECTIONS: CollectionDef[] = [
     descriptionKey: "collections.esphome.description",
     icon: FaHome,
     source: "https://esphome.io/components/rtttl.html",
+    group: "library",
+  },
+  {
+    slug: "esctunes",
+    nameKey: "collections.esctunes.name",
+    descriptionKey: "collections.esctunes.description",
+    icon: FaMusic,
+    source: "http://esctunes.com/tunes",
+    externalOnly: true,
     group: "library",
   },
 ];
