@@ -42,10 +42,10 @@
     "group": {
       "myCreations": "我的專區",
       "myCreationsDesc": "您自己創建的 RTTTL 音軌作品。",
-      "libraries": "外部資源",
-      "librariesDesc": "來自外部網站與專案的 RTTTL 鈴聲資源。",
-      "community": "社群",
-      "communityDesc": "由使用者創作與分享的鈴聲。"
+      "publicLibraries": "公開曲庫",
+      "publicLibrariesDesc": "開放原始碼的 RTTTL 鈴聲集合，提供可下載的資料。",
+      "externalLinks": "外部資源",
+      "externalLinksDesc": "外部 RTTTL 資源與工具的參考連結。"
     },
     "title": "收藏庫",
     "subtitle": "瀏覽來自不同來源的鈴聲收藏。",

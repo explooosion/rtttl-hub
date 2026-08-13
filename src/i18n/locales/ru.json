@@ -38,12 +38,12 @@
   },
   "collections": {
     "group": {
-      "myCreations": "My Library",
-      "myCreationsDesc": "RTTTL tracks you've created.",
-      "libraries": "External Resources",
-      "librariesDesc": "RTTTL ringtone resources from external websites and projects.",
-      "community": "Community",
-      "communityDesc": "Ringtones created and shared by users."
+      "myCreations": "Моя Библиотека",
+      "myCreationsDesc": "RTTTL-треки, которые вы создали.",
+      "publicLibraries": "Публичные Коллекции",
+      "publicLibrariesDesc": "Коллекции рингтонов RTTTL с открытым исходным кодом и загружаемыми данными.",
+      "externalLinks": "Внешние Ресурсы",
+      "externalLinksDesc": "Справочные ссылки на внешние ресурсы и инструменты RTTTL."
     },
     "title": "Collections",
     "subtitle": "Browse ringtone collections from different sources.",

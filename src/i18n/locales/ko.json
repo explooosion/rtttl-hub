@@ -40,10 +40,10 @@
   },
   "collections": {
     "group": {      "myCreations": "내 라이브러리",
-      "myCreationsDesc": "내가 만든 RTTTL 트랙.",      "libraries": "외부 리소스",
-      "librariesDesc": "외부 웹사이트 및 프로젝트의 RTTTL 벨소리 리소스.",
-      "community": "커뮤니티",
-      "communityDesc": "사용자가 만들고 공유한 벨소리입니다."
+      "myCreationsDesc": "내가 만든 RTTTL 트랙.",      "publicLibraries": "공개 컬렉션",
+      "publicLibrariesDesc": "다운로드 가능한 데이터가 포함된 오픈소스 RTTTL 벨소리 컬렉션.",
+      "externalLinks": "외부 리소스",
+      "externalLinksDesc": "외부 RTTTL 리소스 및 도구에 대한 참조 링크."
     },
     "title": "컬렉션",
     "subtitle": "다양한 소스에서 벨소리 컬렉션을 탐색하세요.",

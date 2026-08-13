@@ -143,12 +143,12 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
                   </div>
                 ))}
               </div>
-              {/* Middle: Community */}
+              {/* Middle: Public Libraries */}
               <div>
                 <h4 className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
-                  {t("collections.group.community")}
+                  {t("collections.group.publicLibraries")}
                 </h4>
-                {COLLECTIONS.filter((c) => c.group === "community").map((col) => (
+                {COLLECTIONS.filter((c) => c.group === "public-libraries").map((col) => (
                   <div key={col.slug} onClick={close}>
                     <CollectionCard
                       slug={col.slug}
@@ -160,12 +160,12 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
                   </div>
                 ))}
               </div>
-              {/* Right: External Resources (Library) */}
+              {/* Right: External Resources */}
               <div>
                 <h4 className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
-                  {t("collections.group.libraries")}
+                  {t("collections.group.externalLinks")}
                 </h4>
-                {COLLECTIONS.filter((c) => c.group === "library").map((col) => (
+                {COLLECTIONS.filter((c) => c.group === "external-links").map((col) => (
                   <div key={col.slug} onClick={close}>
                     <CollectionCard
                       slug={col.slug}

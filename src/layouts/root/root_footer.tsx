@@ -15,7 +15,7 @@ export function RootFooter({ resetConsent }: RootFooterProps) {
   return (
     <footer className="mt-12 border-t border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900/50">
       <div className="mx-auto max-w-7xl px-4 py-10">
-        <div className="grid gap-8 text-center sm:text-left sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 text-center sm:text-left sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {/* Brand */}
           <div>
             <Link to="/" className="mb-3 inline-flex items-center gap-2">
@@ -101,13 +101,32 @@ export function RootFooter({ resetConsent }: RootFooterProps) {
             </ul>
           </div>
 
+          {/* Public Libraries */}
+          <div>
+            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white">
+              {t("collections.group.publicLibraries")}
+            </h4>
+            <ul className="space-y-2 text-sm">
+              {COLLECTIONS.filter((c) => c.group === "public-libraries").map((col) => (
+                <li key={col.slug}>
+                  <Link
+                    to={`/collections/${col.slug}`}
+                    className="inline-flex items-center gap-1.5 text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+                  >
+                    {t(col.nameKey)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* External Resources */}
           <div>
             <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white">
-              {t("footer.resources")}
+              {t("collections.group.externalLinks")}
             </h4>
             <ul className="space-y-2 text-sm">
-              {COLLECTIONS.filter((c) => c.group === "library").map((col) => (
+              {COLLECTIONS.filter((c) => c.group === "external-links").map((col) => (
                 <li key={col.slug}>
                   <a
                     href={col.source}

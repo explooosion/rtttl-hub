@@ -40,10 +40,10 @@
     "group": {
       "myCreations": "My Library",
       "myCreationsDesc": "RTTTL tracks you've created.",
-      "libraries": "External Resources",
-      "librariesDesc": "RTTTL ringtone resources from external websites and projects.",
-      "community": "Community",
-      "communityDesc": "Ringtones created and shared by users."
+      "publicLibraries": "Public Collections",
+      "publicLibrariesDesc": "Open-source RTTTL ringtone collections with downloadable data.",
+      "externalLinks": "External Resources",
+      "externalLinksDesc": "Reference links to external RTTTL resources and tools."
     },
     "title": "Collections",
     "subtitle": "Browse ringtone collections from different sources.",

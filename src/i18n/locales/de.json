@@ -42,10 +42,10 @@
     "group": {
       "myCreations": "Meine Bibliothek",
       "myCreationsDesc": "Von Ihnen erstellte RTTTL-Tracks.",
-      "libraries": "Externe Ressourcen",
-      "librariesDesc": "RTTTL-Klingelton-Ressourcen von externen Websites und Projekten.",
-      "community": "Community",
-      "communityDesc": "Von Benutzern erstellte und geteilte Klingeltöne."
+      "publicLibraries": "Öffentliche Sammlungen",
+      "publicLibrariesDesc": "Open-Source RTTTL-Klingelton-Sammlungen mit herunterladbaren Daten.",
+      "externalLinks": "Externe Ressourcen",
+      "externalLinksDesc": "Referenzlinks zu externen RTTTL-Ressourcen und Tools."
     },
     "title": "Sammlungen",
     "subtitle": "Durchsuchen Sie Klingelton-Sammlungen aus verschiedenen Quellen.",

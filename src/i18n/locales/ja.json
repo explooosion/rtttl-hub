@@ -40,10 +40,10 @@
   },
   "collections": {
     "group": {      "myCreations": "マイライブラリ",
-      "myCreationsDesc": "あなたが作成した RTTTL トラック。",      "libraries": "外部リソース",
-      "librariesDesc": "外部のウェブサイトやプロジェクトからの RTTTL 着信音リソース。",
-      "community": "コミュニティ",
-      "communityDesc": "ユーザーが作成・共有した着信音。"
+      "myCreationsDesc": "あなたが作成した RTTTL トラック。",      "publicLibraries": "公開コレクション",
+      "publicLibrariesDesc": "ダウンロード可能なデータを含むオープンソース RTTTL 着信音コレクション。",
+      "externalLinks": "外部リソース",
+      "externalLinksDesc": "外部 RTTTL リソースとツールへの参照リンク。"
     },
     "title": "コレクション",
     "subtitle": "さまざまなソースから着信音コレクションを閲覧。",

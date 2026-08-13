@@ -38,10 +38,10 @@
   },
   "collections": {
     "group": {      "myCreations": "我的专区",
-      "myCreationsDesc": "您自己创建的 RTTTL 音轨作品。",      "libraries": "外部资源",
-      "librariesDesc": "来自外部网站与项目的 RTTTL 铃声资源。",
-      "community": "社区",
-      "communityDesc": "由用户创作并分享的铃声。"
+      "myCreationsDesc": "您自己创建的 RTTTL 音轨作品。",      "publicLibraries": "公开曲库",
+      "publicLibrariesDesc": "开放源代码的 RTTTL 铃声集合，提供可下载的数据。",
+      "externalLinks": "外部资源",
+      "externalLinksDesc": "外部 RTTTL 资源与工具的参考链接。"
     },
     "title": "收藏库",
     "subtitle": "浏览来自不同来源的铃声收藏。",

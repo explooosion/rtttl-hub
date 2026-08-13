@@ -20,8 +20,8 @@ export interface CollectionDef {
   source?: string;
   /** If true, clicking this collection opens the external source URL directly instead of navigating to /collections/:slug */
   externalOnly?: boolean;
-  /** "my-creations" = user's own works; "community" = shared works; "library" = curated/brand datasets */
-  group: "my-creations" | "community" | "library";
+  /** "my-creations" = user's own works; "public-libraries" = open-source RTTTL data collections; "external-links" = external reference links only */
+  group: "my-creations" | "public-libraries" | "external-links";
 }
 
 export const COLLECTIONS: CollectionDef[] = [
@@ -44,7 +44,7 @@ export const COLLECTIONS: CollectionDef[] = [
     nameKey: "collections.community.name",
     descriptionKey: "collections.community.description",
     icon: FaUsers,
-    group: "community",
+    group: "public-libraries",
   },
   {
     slug: "esc-configurator",
@@ -53,7 +53,7 @@ export const COLLECTIONS: CollectionDef[] = [
     icon: FaMicrochip,
     source: "https://esc-configurator.com/",
     externalOnly: true,
-    group: "library",
+    group: "external-links",
   },
   {
     slug: "picaxe",
@@ -61,7 +61,7 @@ export const COLLECTIONS: CollectionDef[] = [
     descriptionKey: "collections.picaxe.description",
     icon: FaDatabase,
     source: "https://picaxe.com/rtttl-ringtones-for-tune-command/",
-    group: "library",
+    group: "public-libraries",
   },
   {
     slug: "skully-rtttl",
@@ -69,7 +69,7 @@ export const COLLECTIONS: CollectionDef[] = [
     descriptionKey: "collections.skullyRtttl.description",
     icon: FaCode,
     source: "https://github.com/ImSkully/rtttl-web-composer",
-    group: "library",
+    group: "public-libraries",
   },
   {
     slug: "esphome",
@@ -77,7 +77,7 @@ export const COLLECTIONS: CollectionDef[] = [
     descriptionKey: "collections.esphome.description",
     icon: FaHome,
     source: "https://esphome.io/components/rtttl.html",
-    group: "library",
+    group: "public-libraries",
   },
   {
     slug: "esctunes",
@@ -86,7 +86,7 @@ export const COLLECTIONS: CollectionDef[] = [
     icon: FaMusic,
     source: "http://esctunes.com/tunes",
     externalOnly: true,
-    group: "library",
+    group: "external-links",
   },
 ];
 

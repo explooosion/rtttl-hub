@@ -107,8 +107,8 @@ export function CollectionsPage() {
   const { t } = useTranslation();
 
   const myCreationsCollections = COLLECTIONS.filter((c) => c.group === "my-creations");
-  const libraryCollections = COLLECTIONS.filter((c) => c.group === "library");
-  const communityCollections = COLLECTIONS.filter((c) => c.group === "community");
+  const publicLibrariesCollections = COLLECTIONS.filter((c) => c.group === "public-libraries");
+  const externalLinksCollections = COLLECTIONS.filter((c) => c.group === "external-links");
 
   return (
     <div className="animate-fade-in-up mx-auto max-w-7xl px-4 py-8">
@@ -129,14 +129,14 @@ export function CollectionsPage() {
           />
         )}
         <CollectionGroup
-          title={t("collections.group.community")}
-          description={t("collections.group.communityDesc")}
-          collections={communityCollections}
+          title={t("collections.group.publicLibraries")}
+          description={t("collections.group.publicLibrariesDesc")}
+          collections={publicLibrariesCollections}
         />
         <CollectionGroup
-          title={t("collections.group.libraries")}
-          description={t("collections.group.librariesDesc")}
-          collections={libraryCollections}
+          title={t("collections.group.externalLinks")}
+          description={t("collections.group.externalLinksDesc")}
+          collections={externalLinksCollections}
         />
       </div>
     </div>
