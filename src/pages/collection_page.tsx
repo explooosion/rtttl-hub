@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FaPlus, FaEdit, FaTrash, FaHeart, FaFileImport } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { FaPlus, FaEdit, FaTrash, FaHeart, FaFileImport, FaGlobe, FaLock } from "react-icons/fa";
 
 import { ListPageLayout } from "../layouts/list_page_layout";
 import type { BreadcrumbItem } from "../layouts/list_page_layout";
@@ -9,6 +10,7 @@ import { useCollectionStore } from "../stores/collection_store";
 import { useFavoritesStore } from "../stores/favorites_store";
 import { useAuthStore } from "../stores/auth_store";
 import { useTrackStatsStore } from "../stores/track_stats_store";
+import { updateCreationVisibility, getPublicCreations } from "../services/firestore_service";
 import { getCollectionBySlug, COLLECTIONS } from "../constants/collections";
 import type { CollectionSlug, RtttlEntry } from "../utils/rtttl_parser";
 import type { TrackRowAction } from "../components/track_row";
@@ -27,13 +29,39 @@ export function CollectionPage() {
   const items = useCollectionStore((s) => s.items);
   const userItems = useCollectionStore((s) => s.userItems);
   const deleteUserItem = useCollectionStore((s) => s.deleteUserItem);
+  const updateUserItem = useCollectionStore((s) => s.updateUserItem);
+  const sortMode = useCollectionStore((s) => s.sortMode);
+  const setSortMode = useCollectionStore((s) => s.setSortMode);
   const favoriteIds = useFavoritesStore((s) => s.favoriteIds);
   const loadStats = useTrackStatsStore((s) => s.loadStats);
   const getStatsForTrack = useTrackStatsStore((s) => s.getStatsForTrack);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<RtttlEntry | null>(null);
+  const [publicCreations, setPublicCreations] = useState<RtttlEntry[]>([]);
 
   const collectionDef = slug ? getCollectionBySlug(slug) : undefined;
+
+  // Set default sort mode for my-creations and community
+  useEffect(() => {
+    if (slug === "my-creations" || slug === "community") {
+      if (sortMode !== "updated-desc" && sortMode !== "updated-asc") {
+        setSortMode("updated-desc");
+      }
+    }
+  }, [slug, sortMode, setSortMode]);
+
+  // Load public creations for community collection
+  useEffect(() => {
+    if (slug === "community") {
+      getPublicCreations()
+        .then((creations) => {
+          setPublicCreations(creations);
+        })
+        .catch((error) => {
+          console.error("Failed to load public creations:", error);
+        });
+    }
+  }, [slug]);
 
   // Filter items based on current collection (without stats)
   const filteredItems = useMemo(() => {
@@ -53,14 +81,16 @@ export function CollectionPage() {
     } else if (slug === "picaxe") {
       filtered = items.filter((item) => item.collection === (slug as CollectionSlug));
     } else if (slug === "community") {
-      filtered = [...items.filter((item) => item.collection === "community"), ...userItems];
+      // Include original community items and public user creations
+      const originalCommunity = items.filter((item) => item.collection === "community");
+      filtered = [...originalCommunity, ...publicCreations];
     } else {
       filtered = [...items, ...userItems].filter(
         (item) => item.collection === (slug as CollectionSlug),
       );
     }
     return filtered;
-  }, [slug, items, userItems, favoriteIds]);
+  }, [slug, items, userItems, favoriteIds, publicCreations]);
 
   // Load statistics when filtered items change
   useEffect(() => {
@@ -123,6 +153,38 @@ export function CollectionPage() {
     [navigate],
   );
 
+  const handleTogglePublic = useCallback(
+    async (item: RtttlEntry) => {
+      if (!user) {
+        return;
+      }
+      const newIsPublic = !item.isPublic;
+      try {
+        // Update Firestore
+        await updateCreationVisibility(item.id, newIsPublic);
+
+        // Update local state
+        const updatedItem = {
+          ...item,
+          isPublic: newIsPublic,
+          updatedAt: new Date().toISOString(),
+        };
+        updateUserItem(item.id, updatedItem, user.uid);
+
+        // Show notification
+        toast.success(
+          newIsPublic
+            ? t("create.nowPublic", { name: item.title })
+            : t("create.nowPrivate", { name: item.title }),
+        );
+      } catch (error) {
+        console.error("Failed to toggle visibility:", error);
+        toast.error(t("create.visibilityUpdateFailed"));
+      }
+    },
+    [user, updateUserItem, t],
+  );
+
   const extraActions: TrackRowAction[] | undefined = useMemo(() => {
     if (slug === "my-creations") {
       return [
@@ -130,6 +192,23 @@ export function CollectionPage() {
           icon: <FaEdit size={18} />,
           title: t("actions.edit"),
           onClick: handleEditItem,
+        },
+        {
+          icon: (item: RtttlEntry) =>
+            item.isPublic ? (
+              <FaGlobe
+                size={18}
+                className="text-green-500 group-hover:text-green-600 dark:group-hover:text-green-400"
+              />
+            ) : (
+              <FaLock
+                size={18}
+                className="text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300"
+              />
+            ),
+          title: (item: RtttlEntry) =>
+            item.isPublic ? t("actions.makePrivate") : t("actions.makePublic"),
+          onClick: handleTogglePublic,
         },
         {
           icon: <FaTrash size={18} />,
@@ -146,7 +225,7 @@ export function CollectionPage() {
         onClick: handleImportToCreate,
       },
     ];
-  }, [slug, t, handleEditItem, handleDeleteItem, handleImportToCreate]);
+  }, [slug, t, handleEditItem, handleTogglePublic, handleDeleteItem, handleImportToCreate]);
 
   const breadcrumbs: BreadcrumbItem[] = [
     { label: t("breadcrumb.home"), to: "/" },

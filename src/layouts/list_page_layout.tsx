@@ -52,6 +52,22 @@ function sortItems(arr: RtttlEntry[], mode: SortMode): RtttlEntry[] {
     sorted.sort((a, b) => a.artist.localeCompare(b.artist) || a.title.localeCompare(b.title));
   } else if (mode === "artist-z-a") {
     sorted.sort((a, b) => b.artist.localeCompare(a.artist) || a.title.localeCompare(b.title));
+  } else if (mode === "plays-high") {
+    sorted.sort((a, b) => (b.playCount ?? 0) - (a.playCount ?? 0));
+  } else if (mode === "plays-low") {
+    sorted.sort((a, b) => (a.playCount ?? 0) - (b.playCount ?? 0));
+  } else if (mode === "updated-desc") {
+    sorted.sort((a, b) => {
+      const aTime = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+      const bTime = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+      return bTime - aTime;
+    });
+  } else if (mode === "updated-asc") {
+    sorted.sort((a, b) => {
+      const aTime = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+      const bTime = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+      return aTime - bTime;
+    });
   }
   return sorted;
 }

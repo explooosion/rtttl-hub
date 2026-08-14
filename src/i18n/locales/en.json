@@ -117,8 +117,8 @@
     "artistZA": "Artist Z-A",
     "playsHigh": "Most Played",
     "playsLow": "Least Played",
-    "likesHigh": "Most Liked",
-    "likesLow": "Least Liked"
+    "updatedDesc": "Recently Updated",
+    "updatedAsc": "Oldest Updated"
   },
   "stats": {
     "plays": "Play count",
@@ -360,7 +360,14 @@
     "aboutMaxTracks": "Max Tracks",
     "aboutStorage": "Storage",
     "aboutStorageValue": "Local browser storage (draft)",
-    "aboutShortcuts": "Shortcuts"
+    "aboutShortcuts": "Shortcuts",
+    "makePublic": "Make Public",
+    "publicExplanation": "Other users can see this track in the Community collection",
+    "created": "✓ Creation saved: {{name}}",
+    "updated": "✓ Changes saved: {{name}}",
+    "nowPublic": "✓ {{name}} is now public",
+    "nowPrivate": "✓ {{name}} is now private",
+    "visibilityUpdateFailed": "Failed to update visibility"
   },
   "favorites": {
     "title": "My Favorites",
@@ -383,7 +390,9 @@
     "cancel": "Cancel",
     "deleteConfirmTitle": "Delete Creation",
     "deleteConfirmMessage": "Are you sure you want to delete this creation? This action cannot be undone.",
-    "importToCreate": "Import to Create"
+    "importToCreate": "Import to Create",
+    "makePublic": "Make Public",
+    "makePrivate": "Make Private"
   },
   "letters": {
     "all": "All"
@@ -433,15 +442,15 @@
   },
   "contribute": {
     "title": "Share & Contribute",
-    "subtitle": "We use GitHub Issues as our submission channel — drop a comment and you're done. Share your tracks or recommend a curated collection.",
+    "subtitle": "Create RTTTL tracks in-platform and share with the community, or recommend external collections via GitHub.",
     "community": {
       "badge": "Community",
       "title": "Community Tracks",
-      "description": "Share your original or favourite RTTTL tracks. Leave a comment on the pinned issue and we'll add it to the Community collection.",
-      "bullet1": "One track per comment preferred",
-      "bullet2": "Multi-track / polyphonic supported",
-      "bullet3": "Maintainers collect submissions periodically",
-      "cta": "Share RTTTL Track"
+      "description": "Create your RTTTL tracks and toggle them public to share with everyone. No GitHub required — start composing now!",
+      "bullet1": "Create tracks with the built-in editor",
+      "bullet2": "Toggle visibility: Public or Private",
+      "bullet3": "Public tracks appear in Community instantly",
+      "cta": "Create Now"
     },
     "collection": {
       "badge": "Collection",

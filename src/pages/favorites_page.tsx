@@ -5,6 +5,7 @@ import { FaHeart } from "react-icons/fa";
 import { useCollectionStore } from "../stores/collection_store";
 import { useFavoritesStore } from "../stores/favorites_store";
 import { useTrackStatsStore } from "../stores/track_stats_store";
+import { useAuthStore } from "../stores/auth_store";
 import { ListPageLayout } from "../layouts/list_page_layout";
 
 export function FavoritesPage() {
@@ -14,12 +15,23 @@ export function FavoritesPage() {
   const favoriteIds = useFavoritesStore((s) => s.favoriteIds);
   const loadStats = useTrackStatsStore((s) => s.loadStats);
   const getStatsForTrack = useTrackStatsStore((s) => s.getStatsForTrack);
+  const user = useAuthStore((s) => s.user);
 
   const filteredItems = useMemo(() => {
     const allItems = [...items, ...userItems];
     const idSet = new Set(favoriteIds);
-    return allItems.filter((item) => idSet.has(item.id));
-  }, [items, userItems, favoriteIds]);
+    return allItems.filter((item) => {
+      // Must be in favorites
+      if (!idSet.has(item.id)) {
+        return false;
+      }
+      // Filter out private items from other users
+      if (item.isPublic === false && item.userId && item.userId !== user?.uid) {
+        return false;
+      }
+      return true;
+    });
+  }, [items, userItems, favoriteIds, user?.uid]);
 
   // Load statistics when filtered items change
   useEffect(() => {

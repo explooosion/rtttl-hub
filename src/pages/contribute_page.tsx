@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { FaMusic, FaLayerGroup, FaGithub, FaExternalLinkAlt, FaCheck } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import { Breadcrumb } from "../components/breadcrumb";
 
-const COMMUNITY_ISSUE_URL = "https://github.com/explooosion/rtttl-hub/issues/2";
 const COLLECTION_ISSUE_URL = "https://github.com/explooosion/rtttl-hub/issues/3";
 
 export function ContributePage() {
@@ -57,16 +57,13 @@ export function ContributePage() {
             ))}
           </ul>
 
-          <a
-            href={COMMUNITY_ISSUE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/create"
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
           >
-            <FaGithub size={15} />
+            <FaMusic size={15} />
             {t("contribute.community.cta")}
-            <FaExternalLinkAlt size={11} />
-          </a>
+          </Link>
         </div>
 
         {/* Curated Collection Submission */}

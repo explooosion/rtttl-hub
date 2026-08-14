@@ -1,8 +1,10 @@
-{  "common": {
+{
+  "common": {
     "loading": "読み込み中...",
     "loadingAccount": "アカウント読み込み中...",
     "loadingProfile": "プロフィール読み込み中..."
-  },  "app": {
+  },
+  "app": {
     "title": "RTTTL Hub",
     "subtitle": "レトロ着信音を閲覧・再生・作成"
   },
@@ -42,8 +44,10 @@
     }
   },
   "collections": {
-    "group": {      "myCreations": "マイライブラリ",
-      "myCreationsDesc": "あなたが作成した RTTTL トラック。",      "publicLibraries": "公開コレクション",
+    "group": {
+      "myCreations": "マイライブラリ",
+      "myCreationsDesc": "あなたが作成した RTTTL トラック。",
+      "publicLibraries": "公開コレクション",
       "publicLibrariesDesc": "ダウンロード可能なデータを含むオープンソース RTTTL 着信音コレクション。",
       "externalLinks": "外部リソース",
       "externalLinksDesc": "外部 RTTTL リソースとツールへの参照リンク。"
@@ -83,10 +87,12 @@
     "esphome": {
       "name": "ESPHome",
       "description": "ESPHome 公式ドキュメント掲載の RTTTL サンプル集。スター・ウォーズ、ミッション：インポッシブル、スーパーマリオなどの定番テーマとアラート音を収録。"
-    },    "esctunes": {
+    },
+    "esctunes": {
       "name": "EscTunes.com",
       "description": "包括的な FPV ESC スタートアップメロディライブラリ。数百の RTTTL メロディを収録。BLHeli_S ESC 用のカスタムモーター起動音を閲覧・発見できます。"
-    },    "officialSource": "ソース"
+    },
+    "officialSource": "ソース"
   },
   "categories": {
     "all": "すべて",
@@ -117,8 +123,8 @@
     "artistZA": "アーティスト Z-A",
     "playsHigh": "再生回数が多い順",
     "playsLow": "再生回数が少ない順",
-    "likesHigh": "人気順",
-    "likesLow": "人気が低い順"
+    "updatedDesc": "最近更新された順",
+    "updatedAsc": "更新が古い順"
   },
   "stats": {
     "plays": "再生回数",
@@ -256,10 +262,10 @@
       "headerFields": "ヘッダーフィールド",
       "noteModifiers": "音符修飾子",
       "fieldD": "デフォルト音価（1 2 4 8 16 32）",
-      "fieldO": "デフォルトオクターブ（4\u20137）",
+      "fieldO": "デフォルトオクターブ（4–7）",
       "fieldB": "BPM テンポ",
       "modSharp": "シャープ（例：c#5）",
-      "modDot": "付点 \u2014 1.5倍の音価",
+      "modDot": "付点 — 1.5倍の音価",
       "modPause": "休符 / 無音",
       "notes": "音符",
       "notesHint": "音価プレフィックスとオクターブサフィックスを自由に追加",
@@ -383,7 +389,9 @@
     "cancel": "キャンセル",
     "deleteConfirmTitle": "作品を削除",
     "deleteConfirmMessage": "この作成を削除してもよろしいですか？この操作は元に戻せません。",
-    "importToCreate": "作成にインポート"
+    "importToCreate": "作成にインポート",
+    "makePublic": "公開する",
+    "makePrivate": "非公開にする"
   },
   "letters": {
     "all": "すべて"
@@ -433,15 +441,15 @@
   },
   "contribute": {
     "title": "シェア & 投稿",
-    "subtitle": "GitHub Issues を投稿窓口として利用しています。コメントするだけで完了、手軽に参加できます。",
+    "subtitle": "プラットフォーム内で RTTTL トラックを作成してコミュニティと共有するか、GitHub で外部コレクションを推薦してください。",
     "community": {
       "badge": "コミュニティ",
       "title": "コミュニティトラック",
-      "description": "オリジナルまたはお気に入りの RTTTL トラックをシェアしてください。ピン留め Issue にコメントするだけで投稿完了。メンテナーが定期的に収録します。",
-      "bullet1": "一度に一曲の投稿を推奨",
-      "bullet2": "マルチトラック / ポリフォニック対応",
-      "bullet3": "メンテナーが定期的に収録",
-      "cta": "RTTTL トラックをシェア"
+      "description": "RTTTL トラックを作成し、公開に設定すると、すべてのユーザーと共有できます。GitHub は不要 — 今すぐ作曲を始めましょう！",
+      "bullet1": "内蔵エディタでトラックを作成",
+      "bullet2": "表示設定を切り替え：公開または非公開",
+      "bullet3": "公開トラックはすぐにコミュニティに表示",
+      "cta": "今すぐ作成"
     },
     "collection": {
       "badge": "コレクション",

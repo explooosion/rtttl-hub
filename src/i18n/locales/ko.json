@@ -1,8 +1,10 @@
-{  "common": {
+{
+  "common": {
     "loading": "로딩 중...",
     "loadingAccount": "계정 로딩 중...",
     "loadingProfile": "프로필 로딩 중..."
-  },  "app": {
+  },
+  "app": {
     "title": "RTTTL Hub",
     "subtitle": "레트로 벨소리 탐색, 재생 & 만들기"
   },
@@ -42,8 +44,10 @@
     }
   },
   "collections": {
-    "group": {      "myCreations": "내 라이브러리",
-      "myCreationsDesc": "내가 만든 RTTTL 트랙.",      "publicLibraries": "공개 컬렉션",
+    "group": {
+      "myCreations": "내 라이브러리",
+      "myCreationsDesc": "내가 만든 RTTTL 트랙.",
+      "publicLibraries": "공개 컬렉션",
       "publicLibrariesDesc": "다운로드 가능한 데이터가 포함된 오픈소스 RTTTL 벨소리 컬렉션.",
       "externalLinks": "외부 리소스",
       "externalLinksDesc": "외부 RTTTL 리소스 및 도구에 대한 참조 링크."
@@ -63,10 +67,12 @@
     "favorites": {
       "name": "내 즐겨찾기",
       "description": "즐겨찾는 RTTTL 트랙."
-    },    "public": {
+    },
+    "public": {
       "name": "모든 공개 라이브러리",
       "description": "모든 공개 RTTTL 컬렉션 통합. PICAXE, 커뮤니티, Skully RTTTL, ESPHome 및 기타 오픈소스 라이브러리가 포함됩니다."
-    },    "community": {
+    },
+    "community": {
       "name": "커뮤니티",
       "description": "커뮤니티가 만든 벨소리. 나만의 벨소리를 만들고 공유하세요."
     },
@@ -81,10 +87,12 @@
     "esphome": {
       "name": "ESPHome",
       "description": "ESPHome 공식 문서에 수록된 RTTTL 예제 모음. 스타워즈, 미션 임파서블, 슈퍼 마리오 등 클래식 테마와 기본 알림음을 포함합니다."
-    },    "esctunes": {
+    },
+    "esctunes": {
       "name": "EscTunes.com",
       "description": "포괄적인 FPV ESC 시작 멜로디 라이브러리. 수백 개의 RTTTL 멜로디 수록. BLHeli_S ESC용 사용자 지정 모터 시작 사운드를 탐색하세요."
-    },    "officialSource": "소스"
+    },
+    "officialSource": "소스"
   },
   "categories": {
     "all": "전체",
@@ -115,8 +123,8 @@
     "artistZA": "아티스트 Z-A",
     "playsHigh": "재생 많은 순",
     "playsLow": "재생 적은 순",
-    "likesHigh": "좋아요 많은 순",
-    "likesLow": "좋아요 적은 순"
+    "updatedDesc": "최근 업데이트순",
+    "updatedAsc": "오래된 업데이트순"
   },
   "stats": {
     "plays": "재생 횟수",
@@ -254,10 +262,10 @@
       "headerFields": "헤더 필드",
       "noteModifiers": "음표 수식어",
       "fieldD": "기본 음표 길이（1 2 4 8 16 32）",
-      "fieldO": "기본 옥타브（4\u20137）",
+      "fieldO": "기본 옥타브（4–7）",
       "fieldB": "BPM 템포",
       "modSharp": "샵（예: c#5）",
-      "modDot": "점음표 \u2014 1.5배 길이",
+      "modDot": "점음표 — 1.5배 길이",
       "modPause": "쉼표 / 무음",
       "notes": "음표",
       "notesHint": "음표 길이 접두사와 옥타브 접미사를 자유롭게 추가",
@@ -381,7 +389,9 @@
     "cancel": "취소",
     "deleteConfirmTitle": "창작물 삭제",
     "deleteConfirmMessage": "이 작품을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
-    "importToCreate": "작성으로 가져오기"
+    "importToCreate": "작성에 가져오기",
+    "makePublic": "공개하기",
+    "makePrivate": "비공개하기"
   },
   "letters": {
     "all": "전체"
@@ -431,15 +441,15 @@
   },
   "contribute": {
     "title": "공유 & 기여",
-    "subtitle": "GitHub Issues를 투고 창구로 활용합니다. 댓글 하나로 완료되는 간단한 방식입니다.",
+    "subtitle": "플랫폼 내에서 RTTTL 트랙을 생성하고 커뮤니티와 공유하거나, GitHub를 통해 외부 컬렉션을 추천하세요.",
     "community": {
       "badge": "커뮤니티",
       "title": "커뮤니티 트랙",
-      "description": "오리지널 또는 좋아하는 RTTTL 트랙을 공유하세요. 고정된 Issue에 댓글을 남기면 투고 완료. 메인테이너가 정기적으로 수록합니다.",
-      "bullet1": "투고당 하나의 트랙 권장",
-      "bullet2": "멀티 트랙 / 화음 지원",
-      "bullet3": "메인테이너가 정기적으로 수록",
-      "cta": "RTTTL 트랙 공유"
+      "description": "RTTTL 트랙을 생성하고 공개로 설정하면 모든 사용자와 공유할 수 있습니다. GitHub 불필요 — 지금 바로 작곡을 시작하세요!",
+      "bullet1": "내장 에디터로 트랙 생성",
+      "bullet2": "표시 설정 전환: 공개 또는 비공개",
+      "bullet3": "공개 트랙은 즉시 커뮤니티에 표시",
+      "cta": "지금 생성"
     },
     "collection": {
       "badge": "컬렉션",
@@ -674,7 +684,9 @@
     "deleteAccountWarning": "계정과 모든 관련 데이터를 영구적으로 삭제합니다. 이 작업은 되돌릴 수 없습니다.",
     "deleteAccountButton": "계정 삭제",
     "deleteAccountConfirmTitle": "계정 삭제",
-    "deleteAccountConfirmMessage": "정말로 계정을 영구적으로 삭제하시겠습니까? 모든 창작물, 즐겨찾기 및 프로필 데이터가 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",    "deleteAccountInputPlaceholder": "삭제를 확인하려면 표시 이름 {{name}}을(를) 입력하세요",    "deleting": "삭제 중...",
+    "deleteAccountConfirmMessage": "정말로 계정을 영구적으로 삭제하시겠습니까? 모든 창작물, 즐겨찾기 및 프로필 데이터가 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+    "deleteAccountInputPlaceholder": "삭제를 확인하려면 표시 이름 {{name}}을(를) 입력하세요",
+    "deleting": "삭제 중...",
     "accountDeleted": "계정이 성공적으로 삭제되었습니다.",
     "deleteFailed": "계정 삭제에 실패했습니다. 다시 시도해주세요."
   },

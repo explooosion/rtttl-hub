@@ -26,8 +26,8 @@ const CATEGORY_STYLES: Record<RtttlCategory, string> = {
 };
 
 export interface TrackRowAction {
-  icon: React.ReactNode;
-  title: string;
+  icon: React.ReactNode | ((item: RtttlEntry) => React.ReactNode);
+  title: string | ((item: RtttlEntry) => string);
   onClick: (item: RtttlEntry) => void;
 }
 
@@ -186,19 +186,23 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
         >
           {copied ? <FaCheck size={18} className="text-green-500" /> : <FaRegCopy size={18} />}
         </button>
-        {extraActions?.map((action, i) => (
-          <button
-            key={i}
-            onClick={(e) => {
-              e.stopPropagation();
-              action.onClick(item);
-            }}
-            className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
-            title={action.title}
-          >
-            {action.icon}
-          </button>
-        ))}
+        {extraActions?.map((action, i) => {
+          const icon = typeof action.icon === "function" ? action.icon(item) : action.icon;
+          const title = typeof action.title === "function" ? action.title(item) : action.title;
+          return (
+            <button
+              key={i}
+              onClick={(e) => {
+                e.stopPropagation();
+                action.onClick(item);
+              }}
+              className="group text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+              title={title}
+            >
+              {icon}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

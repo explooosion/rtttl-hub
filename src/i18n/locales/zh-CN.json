@@ -10,7 +10,9 @@
   },
   "nav": {
     "collection": "收藏库",
-    "collections": "收藏库",    "myCreations": "我的创作",    "favorites": "我的收藏",
+    "collections": "收藏库",
+    "myCreations": "我的创作",
+    "favorites": "我的收藏",
     "home": "首页"
   },
   "landing": {
@@ -42,8 +44,10 @@
     }
   },
   "collections": {
-    "group": {      "myCreations": "我的专区",
-      "myCreationsDesc": "您自己创建的 RTTTL 音轨作品。",      "publicLibraries": "公开曲库",
+    "group": {
+      "myCreations": "我的专区",
+      "myCreationsDesc": "您自己创建的 RTTTL 音轨作品。",
+      "publicLibraries": "公开曲库",
       "publicLibrariesDesc": "开放源代码的 RTTTL 铃声集合，提供可下载的数据。",
       "externalLinks": "外部资源",
       "externalLinksDesc": "外部 RTTTL 资源与工具的参考链接。"
@@ -55,17 +59,20 @@
     "picaxe": {
       "name": "PICAXE 收藏库",
       "description": "海量经典 RTTTL 铃声收藏，涵盖流行、摇滚、电视主题曲、圣诞歌曲等多种风格。"
-    },    "myCreations": {
+    },
+    "myCreations": {
       "name": "我的创作",
       "description": "您创建的 RTTTL 音轨作品。"
     },
     "favorites": {
       "name": "我的收藏",
       "description": "您收藏的 RTTTL 音轨。"
-    },    "public": {
+    },
+    "public": {
       "name": "全部公开曲库",
       "description": "所有公开 RTTTL 曲库的音乐合集。包含 PICAXE、社区、Skully RTTTL、ESPHome 和其他开放源代码曲库。"
-    },    "community": {
+    },
+    "community": {
       "name": "社区",
       "description": "社区创作的铃声。创建您自己的铃声并与大家分享。"
     },
@@ -80,10 +87,12 @@
     "esphome": {
       "name": "ESPHome",
       "description": "ESPHome 官方文档收录的 RTTTL 示例音乐，包含星球大战、碟中谍、超级马里奥等经典主题及内置提示音。"
-    },    "esctunes": {
+    },
+    "esctunes": {
       "name": "EscTunes.com",
       "description": "完整的 FPV ESC 启动音库，收录数百首 RTTTL 音乐。浏览并探索适用于 BLHeli_S ESC 的自定义电机启动音效。"
-    },    "officialSource": "来源"
+    },
+    "officialSource": "来源"
   },
   "categories": {
     "all": "全部",
@@ -114,8 +123,8 @@
     "artistZA": "创作者 Z-A",
     "playsHigh": "播放最多",
     "playsLow": "播放最少",
-    "likesHigh": "最受欢迎",
-    "likesLow": "最不受欢迎"
+    "updatedDesc": "最新更新",
+    "updatedAsc": "最旧更新"
   },
   "stats": {
     "plays": "播放次数",
@@ -174,7 +183,9 @@
       "save": "保存",
       "themes": "快速主题"
     },
-    "track": "音轨",    "tracks": "音轨",    "escOutput": "ESC 电机输出",
+    "track": "音轨",
+    "tracks": "音轨",
+    "escOutput": "ESC 电机输出",
     "escEmpty": "（无音轨）",
     "copyAll": "全部复制",
     "addTrack": "添加音轨",
@@ -251,10 +262,10 @@
       "headerFields": "标头字段",
       "noteModifiers": "音符修饰符",
       "fieldD": "默认时值（1 2 4 8 16 32）",
-      "fieldO": "默认八度（4\u20137）",
+      "fieldO": "默认八度（4–7）",
       "fieldB": "BPM 速度",
       "modSharp": "升半音（例如 c#5）",
-      "modDot": "附点 \u2014 1.5 倍时值",
+      "modDot": "附点 — 1.5 倍时值",
       "modPause": "休止符 / 静音",
       "notes": "音符",
       "notesHint": "自由添加时值前缀与八度后缀",
@@ -355,7 +366,14 @@
     "aboutMaxTracks": "最多音轨",
     "aboutStorage": "存储",
     "aboutStorageValue": "本地浏览器存储（草稿）",
-    "aboutShortcuts": "快捷键"
+    "aboutShortcuts": "快捷键",
+    "makePublic": "公开分享",
+    "publicExplanation": "其他用户可以在社区收藏中看到这个音轨",
+    "created": "✓ 已保存创作：{{name}}",
+    "updated": "✓ 已更新创作：{{name}}",
+    "nowPublic": "✓ {{name}} 已设为公开",
+    "nowPrivate": "✓ {{name}} 已设为私人",
+    "visibilityUpdateFailed": "更新可见性失败"
   },
   "favorites": {
     "title": "我的收藏",
@@ -378,7 +396,9 @@
     "cancel": "取消",
     "deleteConfirmTitle": "删除创作",
     "deleteConfirmMessage": "确定要删除这个创作吗？此操作无法撤销。",
-    "importToCreate": "导入至创作"
+    "importToCreate": "导入至创作",
+    "makePublic": "设为公开",
+    "makePrivate": "设为私人"
   },
   "letters": {
     "all": "全部"
@@ -428,15 +448,15 @@
   },
   "contribute": {
     "title": "分享与贡献",
-    "subtitle": "我们通过 GitHub Issues 收集投稿，留言即完成，简单轻松。分享你的音轨或推荐外部资源。",
+    "subtitle": "在平台内创建 RTTTL 音轨并与社区分享，或通过 GitHub 推荐外部收藏。",
     "community": {
       "badge": "社区",
       "title": "社区音轨",
-      "description": "分享你的原创或喜爱的 RTTTL 音轨，在置顶 Issue 下方留言即完成投稿，维护者会定期整理收录。",
-      "bullet1": "建议每次投稿一首歌曲",
-      "bullet2": "支持多音轨／和弦音轨",
-      "bullet3": "维护者定期整理收录",
-      "cta": "分享 RTTTL 音轨"
+      "description": "创建您的 RTTTL 音轨并选择公开，即可分享给所有用户。无需 GitHub — 立即开始创作！",
+      "bullet1": "使用内建编辑器创建音轨",
+      "bullet2": "切换可见性：公开或私人",
+      "bullet3": "公开音轨立即出现在社区收藏中",
+      "cta": "立即创作"
     },
     "collection": {
       "badge": "曲库",

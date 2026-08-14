@@ -87,10 +87,12 @@
     "esphome": {
       "name": "ESPHome",
       "description": "ESPHome 官方文件收錄的 RTTTL 範例音樂，包含星際大戰、不可能的任務、超級瑪利歐等經典主題及內建提示音。"
-    },    "esctunes": {
+    },
+    "esctunes": {
       "name": "EscTunes.com",
       "description": "完整的 FPV ESC 啟動音庫，收錄數百首 RTTTL 音樂。瀏覽並探索適用於 BLHeli_S ESC 的自訂馬達啟動音效。"
-    },    "officialSource": "來源"
+    },
+    "officialSource": "來源"
   },
   "categories": {
     "all": "全部",
@@ -121,8 +123,8 @@
     "artistZA": "創作者 Z-A",
     "playsHigh": "播放最多",
     "playsLow": "播放最少",
-    "likesHigh": "最受歡迎",
-    "likesLow": "最不受歡迎"
+    "updatedDesc": "最新更新",
+    "updatedAsc": "最舊更新"
   },
   "stats": {
     "plays": "播放次數",
@@ -260,10 +262,10 @@
       "headerFields": "標頭欄位",
       "noteModifiers": "音符修飾符",
       "fieldD": "預設時值（1 2 4 8 16 32）",
-      "fieldO": "預設八度（4\u20137）",
+      "fieldO": "預設八度（4–7）",
       "fieldB": "BPM 速度",
       "modSharp": "升半音（例如 c#5）",
-      "modDot": "附點 \u2014 1.5 倍時值",
+      "modDot": "附點 — 1.5 倍時值",
       "modPause": "休止符 / 靜音",
       "notes": "音符",
       "notesHint": "自由加入時值前綴與八度後綴",
@@ -364,7 +366,14 @@
     "aboutMaxTracks": "最多音軌",
     "aboutStorage": "儲存",
     "aboutStorageValue": "本機瀏覽器儲存（草稿）",
-    "aboutShortcuts": "快捷鍵"
+    "aboutShortcuts": "快捷鍵",
+    "makePublic": "公開分享",
+    "publicExplanation": "其他用戶可以在社群收藏中看到這個音軌",
+    "created": "✓ 已保存創作：{{name}}",
+    "updated": "✓ 已更新創作：{{name}}",
+    "nowPublic": "✓ {{name}} 已設為公開",
+    "nowPrivate": "✓ {{name}} 已設為私人",
+    "visibilityUpdateFailed": "更新可見性失敗"
   },
   "favorites": {
     "title": "我的收藏",
@@ -387,7 +396,9 @@
     "cancel": "取消",
     "deleteConfirmTitle": "刪除創作",
     "deleteConfirmMessage": "確定要刪除這個創作嗎？此操作無法復原。",
-    "importToCreate": "匯入至創作"
+    "importToCreate": "匯入至創作",
+    "makePublic": "設為公開",
+    "makePrivate": "設為私人"
   },
   "letters": {
     "all": "全部"
@@ -437,15 +448,15 @@
   },
   "contribute": {
     "title": "分享與貢獻",
-    "subtitle": "我們透過 GitHub Issues 收集投稿，留言即完成，簡單輕鬆。分享你的音軌或推薦外部資源。",
+    "subtitle": "在平台內創建 RTTTL 音軌並與社群分享，或透過 GitHub 推薦外部收藏。",
     "community": {
       "badge": "社群",
       "title": "社群音軌",
-      "description": "分享你的原創或喜愛的 RTTTL 音軌，在置頂 Issue 下方留言即完成投稿，維護者會定期整理收錄。",
-      "bullet1": "建議每次投稿一首歌曲",
-      "bullet2": "支援多音軌／和弦音軌",
-      "bullet3": "維護者定期整理收錄",
-      "cta": "分享 RTTTL 音軌"
+      "description": "創建您的 RTTTL 音軌並選擇公開，即可分享給所有用戶。無需 GitHub — 立即開始創作！",
+      "bullet1": "使用內建編輯器創建音軌",
+      "bullet2": "切換可見性：公開或私人",
+      "bullet3": "公開音軌立即出現在社群收藏中",
+      "cta": "立即創作"
     },
     "collection": {
       "badge": "曲庫",

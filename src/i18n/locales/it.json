@@ -10,7 +10,9 @@
   },
   "nav": {
     "collection": "Collection",
-    "collections": "Collections",    "myCreations": "My Creations",    "favorites": "Favorites",
+    "collections": "Collections",
+    "myCreations": "My Creations",
+    "favorites": "Favorites",
     "home": "Home"
   },
   "landing": {
@@ -57,16 +59,20 @@
     "picaxe": {
       "name": "PICAXE",
       "description": "A massive collection of classic RTTTL ringtones from the PICAXE library. Covers pop, rock, TV themes, Christmas tunes, and more."
-    },    "myCreations": {
+    },
+    "myCreations": {
       "name": "My Creations",
       "description": "RTTTL tracks you've created."
-    },    "favorites": {
+    },
+    "favorites": {
       "name": "My Favorites",
       "description": "Your favorite RTTTL tracks."
-    },    "public": {
+    },
+    "public": {
       "name": "Tutte le librerie pubbliche",
       "description": "Tutte le tracce delle collezioni RTTTL pubbliche combinate. Include PICAXE, Community, Skully RTTTL, ESPHome e altre librerie open source."
-    },    "community": {
+    },
+    "community": {
       "name": "Community",
       "description": "Ringtones created by the community. Create your own and share with everyone."
     },
@@ -117,8 +123,8 @@
     "artistZA": "Artist Z-A",
     "playsHigh": "Più Ascoltato",
     "playsLow": "Meno Ascoltato",
-    "likesHigh": "Più Piaciuto",
-    "likesLow": "Meno Piaciuto"
+    "updatedDesc": "Aggiornato di recente",
+    "updatedAsc": "Aggiornamento più vecchio"
   },
   "stats": {
     "plays": "Riproduzioni",
@@ -256,10 +262,10 @@
       "headerFields": "Header fields",
       "noteModifiers": "Note modifiers",
       "fieldD": "Default duration (1 2 4 8 16 32)",
-      "fieldO": "Default octave (4\u20137)",
+      "fieldO": "Default octave (4–7)",
       "fieldB": "Tempo in BPM",
       "modSharp": "Sharp (e.g. c#5)",
-      "modDot": "Dotted \u2014 1.5\u00d7 duration",
+      "modDot": "Dotted — 1.5× duration",
       "modPause": "Rest / silence",
       "notes": "Notes",
       "notesHint": "Prefix duration, suffix octave freely",
@@ -360,7 +366,14 @@
     "aboutMaxTracks": "Max Tracks",
     "aboutStorage": "Storage",
     "aboutStorageValue": "Local browser storage (draft)",
-    "aboutShortcuts": "Shortcuts"
+    "aboutShortcuts": "Shortcuts",
+    "makePublic": "Rendi pubblico",
+    "publicExplanation": "Altri utenti possono vedere questa traccia nella raccolta della comunità",
+    "created": "✓ Creazione salvata: {{name}}",
+    "updated": "✓ Creazione aggiornata: {{name}}",
+    "nowPublic": "✓ {{name}} ora è pubblico",
+    "nowPrivate": "✓ {{name}} ora è privato",
+    "visibilityUpdateFailed": "Errore nell'aggiornamento della visibilità"
   },
   "favorites": {
     "title": "My Favorites",
@@ -383,7 +396,9 @@
     "cancel": "Cancel",
     "deleteConfirmTitle": "Delete Creation",
     "deleteConfirmMessage": "Are you sure you want to delete this creation? This action cannot be undone.",
-    "importToCreate": "Importa per creare"
+    "importToCreate": "Importa per creare",
+    "makePublic": "Rendi pubblico",
+    "makePrivate": "Rendi privato"
   },
   "letters": {
     "all": "All"
@@ -433,15 +448,15 @@
   },
   "contribute": {
     "title": "Share & Contribute",
-    "subtitle": "We use GitHub Issues as our submission channel — drop a comment and you're done. Share your tracks or recommend a curated collection.",
+    "subtitle": "Crea tracce RTTTL nella piattaforma e condividile con la comunità, o consiglia raccolte esterne tramite GitHub.",
     "community": {
       "badge": "Community",
       "title": "Community Tracks",
-      "description": "Share your original or favourite RTTTL tracks. Leave a comment on the pinned issue and we'll add it to the Community collection.",
-      "bullet1": "One track per comment preferred",
-      "bullet2": "Multi-track / polyphonic supported",
-      "bullet3": "Maintainers collect submissions periodically",
-      "cta": "Share RTTTL Track"
+      "description": "Crea le tue tracce RTTTL e rendile pubbliche per condividerle con tutti. GitHub non richiesto — inizia a comporre ora!",
+      "bullet1": "Crea tracce con l'editor integrato",
+      "bullet2": "Cambia visibilità: Pubblico o Privato",
+      "bullet3": "Le tracce pubbliche appaiono istantaneamente nella Comunità",
+      "cta": "Crea ora"
     },
     "collection": {
       "badge": "Collection",
@@ -679,7 +694,9 @@
     "deleteAccountWarning": "Elimina permanentemente il tuo account e tutti i dati associati. Questa azione non può essere annullata.",
     "deleteAccountButton": "Elimina Account",
     "deleteAccountConfirmTitle": "Elimina Account",
-    "deleteAccountConfirmMessage": "Sei sicuro di voler eliminare permanentemente il tuo account? Questo eliminerà tutte le tue creazioni, preferiti e dati del profilo. Questa azione non può essere annullata.",    "deleteAccountInputPlaceholder": "Digita il tuo nome visualizzato {{name}} per confermare l'eliminazione",    "deleting": "Eliminazione...",
+    "deleteAccountConfirmMessage": "Sei sicuro di voler eliminare permanentemente il tuo account? Questo eliminerà tutte le tue creazioni, preferiti e dati del profilo. Questa azione non può essere annullata.",
+    "deleteAccountInputPlaceholder": "Digita il tuo nome visualizzato {{name}} per confermare l'eliminazione",
+    "deleting": "Eliminazione...",
     "accountDeleted": "Account eliminato con successo.",
     "deleteFailed": "Eliminazione account non riuscita. Riprova."
   },

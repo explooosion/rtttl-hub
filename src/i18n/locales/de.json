@@ -87,10 +87,12 @@
     "esphome": {
       "name": "ESPHome",
       "description": "Offizielle RTTTL-Beispielmelodien aus der ESPHome-Dokumentation, einschließlich klassischer Themen von Star Wars, Mission Impossible, Super Mario und eingebauten Alarmtönen."
-    },    "esctunes": {
+    },
+    "esctunes": {
       "name": "EscTunes.com",
       "description": "Eine umfassende FPV ESC-Startmelodie-Bibliothek mit Hunderten von RTTTL-Melodien. Durchsuchen und entdecken Sie benutzerdefinierte Motorstartklänge für Ihre BLHeli_S ESCs."
-    },    "officialSource": "Quelle"
+    },
+    "officialSource": "Quelle"
   },
   "categories": {
     "all": "Alle",
@@ -364,7 +366,14 @@
     "aboutMaxTracks": "Max. Spuren",
     "aboutStorage": "Speicher",
     "aboutStorageValue": "Lokaler Browser-Speicher (Entwurf)",
-    "aboutShortcuts": "Tastenkombinationen"
+    "aboutShortcuts": "Tastenkombinationen",
+    "makePublic": "Öffentlich machen",
+    "publicExplanation": "Andere Benutzer können diesen Track in der Community-Sammlung sehen",
+    "created": "✓ Erstellung gespeichert: {{name}}",
+    "updated": "✓ Erstellung aktualisiert: {{name}}",
+    "nowPublic": "✓ {{name}} ist jetzt öffentlich",
+    "nowPrivate": "✓ {{name}} ist jetzt privat",
+    "visibilityUpdateFailed": "Aktualisierung der Sichtbarkeit fehlgeschlagen"
   },
   "favorites": {
     "title": "Meine Favoriten",
@@ -436,15 +445,15 @@
   },
   "contribute": {
     "title": "Teilen & Beitragen",
-    "subtitle": "Wir verwenden GitHub Issues als unseren Einreichungskanal – hinterlassen Sie einen Kommentar und Sie sind fertig. Teilen Sie Ihre Tracks oder empfehlen Sie eine kuratierte Sammlung.",
+    "subtitle": "Erstellen Sie RTTTL-Titel in der Plattform und teilen Sie sie mit der Community, oder empfehlen Sie externe Sammlungen über GitHub.",
     "community": {
       "badge": "Community",
       "title": "Community-Tracks",
-      "description": "Teilen Sie Ihre originalen oder Lieblings-RTTTL-Tracks. Hinterlassen Sie einen Kommentar zum angehefteten Issue und wir fügen es zur Community-Sammlung hinzu.",
-      "bullet1": "Ein Track pro Kommentar bevorzugt",
-      "bullet2": "Mehrspur / polyphon unterstützt",
-      "bullet3": "Maintainer sammeln periodisch Einreichungen",
-      "cta": "RTTTL-Track teilen"
+      "description": "Erstellen Sie Ihre RTTTL-Titel und machen Sie sie öffentlich, um sie mit allen zu teilen. Kein GitHub erforderlich — jetzt mit dem Komponieren beginnen!",
+      "bullet1": "Erstellen Sie Titel mit dem integrierten Editor",
+      "bullet2": "Sichtbarkeit umschalten: Öffentlich oder Privat",
+      "bullet3": "Öffentliche Titel erscheinen sofort in der Community",
+      "cta": "Jetzt erstellen"
     },
     "collection": {
       "badge": "Sammlung",

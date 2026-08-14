@@ -10,7 +10,9 @@
   },
   "nav": {
     "collection": "Collection",
-    "collections": "Collections",    "myCreations": "My Creations",    "favorites": "Favorites",
+    "collections": "Collections",
+    "myCreations": "My Creations",
+    "favorites": "Favorites",
     "home": "Home"
   },
   "landing": {
@@ -57,16 +59,20 @@
     "picaxe": {
       "name": "PICAXE",
       "description": "A massive collection of classic RTTTL ringtones from the PICAXE library. Covers pop, rock, TV themes, Christmas tunes, and more."
-    },    "myCreations": {
+    },
+    "myCreations": {
       "name": "My Creations",
       "description": "RTTTL tracks you've created."
-    },    "favorites": {
+    },
+    "favorites": {
       "name": "My Favorites",
       "description": "Your favorite RTTTL tracks."
-    },    "public": {
+    },
+    "public": {
       "name": "Усі публічні бібліотеки",
       "description": "Усі треки з публічних колекцій RTTTL об'єднані. Включає PICAXE, Спільноту, Skully RTTTL, ESPHome та інші бібліотеки з відкритим вихідним кодом."
-    },    "community": {
+    },
+    "community": {
       "name": "Community",
       "description": "Ringtones created by the community. Create your own and share with everyone."
     },
@@ -117,8 +123,8 @@
     "artistZA": "Artist Z-A",
     "playsHigh": "Найбільше Програвань",
     "playsLow": "Найменше Програвань",
-    "likesHigh": "Найбільше Подобається",
-    "likesLow": "Найменше Подобається"
+    "updatedDesc": "Нещодавно оновлені",
+    "updatedAsc": "Давно оновлені"
   },
   "stats": {
     "plays": "Програвання",
@@ -256,10 +262,10 @@
       "headerFields": "Header fields",
       "noteModifiers": "Note modifiers",
       "fieldD": "Default duration (1 2 4 8 16 32)",
-      "fieldO": "Default octave (4\u20137)",
+      "fieldO": "Default octave (4–7)",
       "fieldB": "Tempo in BPM",
       "modSharp": "Sharp (e.g. c#5)",
-      "modDot": "Dotted \u2014 1.5\u00d7 duration",
+      "modDot": "Dotted — 1.5× duration",
       "modPause": "Rest / silence",
       "notes": "Notes",
       "notesHint": "Prefix duration, suffix octave freely",
@@ -360,7 +366,14 @@
     "aboutMaxTracks": "Max Tracks",
     "aboutStorage": "Storage",
     "aboutStorageValue": "Local browser storage (draft)",
-    "aboutShortcuts": "Shortcuts"
+    "aboutShortcuts": "Shortcuts",
+    "makePublic": "Зробити публічним",
+    "publicExplanation": "Інші користувачі зможуть побачити цей трек у колекції спільноти",
+    "created": "✓ Створення збережено: {{name}}",
+    "updated": "✓ Створення оновлено: {{name}}",
+    "nowPublic": "✓ {{name}} тепер публічний",
+    "nowPrivate": "✓ {{name}} тепер приватний",
+    "visibilityUpdateFailed": "Не вдалося оновити видимість"
   },
   "favorites": {
     "title": "My Favorites",
@@ -383,7 +396,9 @@
     "cancel": "Cancel",
     "deleteConfirmTitle": "Delete Creation",
     "deleteConfirmMessage": "Are you sure you want to delete this creation? This action cannot be undone.",
-    "importToCreate": "Імпортувати для створення"
+    "importToCreate": "Імпортувати для створення",
+    "makePublic": "Зробити публічним",
+    "makePrivate": "Зробити приватним"
   },
   "letters": {
     "all": "All"
@@ -433,15 +448,15 @@
   },
   "contribute": {
     "title": "Share & Contribute",
-    "subtitle": "We use GitHub Issues as our submission channel — drop a comment and you're done. Share your tracks or recommend a curated collection.",
+    "subtitle": "Створюйте треки RTTTL на платформі та діліться ними зі спільнотою, або рекомендуйте зовнішні колекції через GitHub.",
     "community": {
       "badge": "Community",
       "title": "Community Tracks",
-      "description": "Share your original or favourite RTTTL tracks. Leave a comment on the pinned issue and we'll add it to the Community collection.",
-      "bullet1": "One track per comment preferred",
-      "bullet2": "Multi-track / polyphonic supported",
-      "bullet3": "Maintainers collect submissions periodically",
-      "cta": "Share RTTTL Track"
+      "description": "Створюйте свої треки RTTTL і робіть їх публічними, щоб поділитися з усіма. GitHub не потрібен — почніть компонувати зараз!",
+      "bullet1": "Створюйте треки за допомогою вбудованого редактора",
+      "bullet2": "Перемикайте видимість: Публічний або Приватний",
+      "bullet3": "Публічні треки миттєво з'являються у Спільноті",
+      "cta": "Створити зараз"
     },
     "collection": {
       "badge": "Collection",
@@ -679,7 +694,9 @@
     "deleteAccountWarning": "Безповоротно видалити ваш акаунт та всі пов'язані дані. Цю дію неможливо скасувати.",
     "deleteAccountButton": "Видалити Акаунт",
     "deleteAccountConfirmTitle": "Видалити Акаунт",
-    "deleteAccountConfirmMessage": "Ви впевнені, що хочете безповоротно видалити свій акаунт? Це видалить всі ваші творіння, вподобання та дані профілю. Цю дію неможливо скасувати.",    "deleteAccountInputPlaceholder": "Введіть своє відображуване ім'я {{name}} для підтвердження видалення",    "deleting": "Видалення...",
+    "deleteAccountConfirmMessage": "Ви впевнені, що хочете безповоротно видалити свій акаунт? Це видалить всі ваші творіння, вподобання та дані профілю. Цю дію неможливо скасувати.",
+    "deleteAccountInputPlaceholder": "Введіть своє відображуване ім'я {{name}} для підтвердження видалення",
+    "deleting": "Видалення...",
     "accountDeleted": "Акаунт успішно видалено.",
     "deleteFailed": "Не вдалося видалити акаунт. Спробуйте ще раз."
   },
