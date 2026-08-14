@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback, useRef } from "react";
+import { useMemo, useState, useCallback, useRef, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FaSearch, FaChevronRight, FaChevronLeft, FaExternalLinkAlt } from "react-icons/fa";
@@ -10,6 +10,7 @@ import type { TrackRowAction } from "../components/track_row";
 import { RTTTL_CATEGORIES } from "../constants/categories";
 import type { RtttlEntry, RtttlCategory } from "../utils/rtttl_parser";
 import type { SortMode } from "../stores/collection_store";
+import { preloadUserDisplayNames } from "../services/user_profile_service";
 
 export interface BreadcrumbItem {
   label: string;
@@ -27,6 +28,8 @@ interface ListPageLayoutProps {
   headerActions?: React.ReactNode;
   /** Extra row action buttons per item (e.g. Duplicate) */
   extraRowActions?: TrackRowAction[];
+  /** Show actions as dropdown menu instead of inline buttons */
+  showActionsAsMenu?: boolean;
   /** Shown when `items` prop is empty (before local filters) */
   emptyNode?: React.ReactNode;
 }
@@ -84,6 +87,7 @@ export function ListPageLayout({
   source,
   headerActions,
   extraRowActions,
+  showActionsAsMenu = false,
   emptyNode,
 }: ListPageLayoutProps) {
   const { t } = useTranslation();
@@ -145,6 +149,11 @@ export function ListPageLayout({
     const start = (safePage - 1) * ITEMS_PER_PAGE;
     return filteredItems.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredItems, safePage]);
+
+  // Preload user display names for current page items
+  useEffect(() => {
+    preloadUserDisplayNames(pageItems);
+  }, [pageItems]);
 
   const rowData = useMemo(() => {
     const rows: Array<{ type: "header"; letter: string } | { type: "item"; item: RtttlEntry }> = [];
@@ -426,6 +435,7 @@ export function ListPageLayout({
                           key={`item-${row.item.id}`}
                           item={row.item}
                           extraActions={extraRowActions}
+                          showActionsAsMenu={showActionsAsMenu}
                         />
                       );
                     })}

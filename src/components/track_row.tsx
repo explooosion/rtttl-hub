@@ -1,10 +1,11 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { FaPlay, FaPause, FaRegCopy, FaCheck, FaHeadphones } from "react-icons/fa";
+import { FaPlay, FaPause, FaRegCopy, FaCheck, FaHeadphones, FaEllipsisV } from "react-icons/fa";
 import clsx from "clsx";
 
 import { formatCount } from "../types/track_stats";
+import { getUserDisplayName } from "../services/user_profile_service";
 
 import { usePlayerStore } from "../stores/player_store";
 import { useListenedStore } from "../stores/listened_store";
@@ -29,14 +30,16 @@ export interface TrackRowAction {
   icon: React.ReactNode | ((item: RtttlEntry) => React.ReactNode);
   title: string | ((item: RtttlEntry) => string);
   onClick: (item: RtttlEntry) => void;
+  variant?: "default" | "danger";
 }
 
 interface TrackRowProps {
   item: RtttlEntry;
   extraActions?: TrackRowAction[];
+  showActionsAsMenu?: boolean;
 }
 
-export function TrackRow({ item, extraActions }: TrackRowProps) {
+export function TrackRow({ item, extraActions, showActionsAsMenu = false }: TrackRowProps) {
   const { t } = useTranslation();
   const playItem = usePlayerStore((s) => s.playItem);
   const currentItem = usePlayerStore((s) => s.currentItem);
@@ -48,10 +51,47 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
   const seekTo = usePlayerStore((s) => s.seekTo);
   const listenedIds = useListenedStore((s) => s.listenedIds);
   const [copied, setCopied] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [creatorName, setCreatorName] = useState<string>("");
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const isActive = currentItem?.id === item.id;
   const isListened = listenedIds.includes(item.id);
   const isItemPlaying = isActive && playerState === "playing";
+
+  // Fetch creator display name if userId exists
+  useEffect(() => {
+    if (item.userId) {
+      getUserDisplayName(item.userId).then(setCreatorName);
+    }
+  }, [item.userId]);
+
+  // Compute static creator name (from artist field for static collections)
+  const staticCreatorName = useMemo(() => {
+    if (item.userId) {
+      return ""; // Will be fetched dynamically
+    }
+    return item.artist || "";
+  }, [item.userId, item.artist]);
+
+  // Display creator name: dynamic (from userId) or static (from artist)
+  const displayCreatorName = item.userId ? creatorName : staticCreatorName;
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    if (!menuOpen) {
+      return;
+    }
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [menuOpen]);
 
   const handleCopy = useCallback(async () => {
     const text = item.tracks && item.tracks.length > 1 ? item.tracks.join("\n") : item.code;
@@ -94,14 +134,14 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
       {/* Title + artist + category + stats */}
       <div className="min-w-0 flex-1 sm:w-40 sm:flex-none sm:shrink-0">
         <p className="truncate text-sm font-medium text-gray-900 dark:text-white">{item.title}</p>
-        {item.artist && (
+        {displayCreatorName && (
           <p className="truncate text-xs">
             <Link
-              to={`/creators/${encodeURIComponent(item.artist)}`}
+              to={`/creators/${encodeURIComponent(displayCreatorName)}`}
               onClick={(e) => e.stopPropagation()}
               className="text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
             >
-              {item.artist}
+              {displayCreatorName}
             </Link>
           </p>
         )}
@@ -186,23 +226,66 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
         >
           {copied ? <FaCheck size={18} className="text-green-500" /> : <FaRegCopy size={18} />}
         </button>
-        {extraActions?.map((action, i) => {
-          const icon = typeof action.icon === "function" ? action.icon(item) : action.icon;
-          const title = typeof action.title === "function" ? action.title(item) : action.title;
-          return (
+        {showActionsAsMenu && extraActions && extraActions.length > 0 ? (
+          <div className="relative" ref={menuRef}>
             <button
-              key={i}
               onClick={(e) => {
                 e.stopPropagation();
-                action.onClick(item);
+                setMenuOpen(!menuOpen);
               }}
-              className="group text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
-              title={title}
+              className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+              title={t("actions.more")}
             >
-              {icon}
+              <FaEllipsisV size={18} />
             </button>
-          );
-        })}
+            {menuOpen && (
+              <div className="absolute right-0 top-full z-50 mt-1 w-48 rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-800">
+                {extraActions.map((action, i) => {
+                  const icon = typeof action.icon === "function" ? action.icon(item) : action.icon;
+                  const title =
+                    typeof action.title === "function" ? action.title(item) : action.title;
+                  return (
+                    <button
+                      key={i}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        action.onClick(item);
+                        setMenuOpen(false);
+                      }}
+                      className={clsx(
+                        "flex w-full items-center gap-3 px-4 py-2 text-left text-sm transition-colors",
+                        action.variant === "danger"
+                          ? "text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30"
+                          : "text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700",
+                      )}
+                    >
+                      <span className="flex w-5 items-center justify-center">{icon}</span>
+                      <span>{title}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        ) : (
+          extraActions?.map((action, i) => {
+            const icon = typeof action.icon === "function" ? action.icon(item) : action.icon;
+            const title = typeof action.title === "function" ? action.title(item) : action.title;
+            return (
+              <button
+                key={i}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  action.onClick(item);
+                }}
+                className="group text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+                title={title}
+              >
+                {icon}
+              </button>
+            );
+          })
+        )}
       </div>
     </div>
   );

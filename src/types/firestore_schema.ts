@@ -55,7 +55,11 @@ export interface FirestoreUserCreation {
   /** Composition title */
   title: string;
 
-  /** Artist name (usually empty for user creations) */
+  /**
+   * Artist name - should be empty string for user creations
+   * User's display name is fetched dynamically via userId
+   * Only used for backward compatibility with static collections
+   */
   artist: string;
 
   /** RTTTL format code */

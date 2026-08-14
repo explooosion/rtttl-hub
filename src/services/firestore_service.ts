@@ -92,7 +92,7 @@ export async function getUserCreations(userId: string): Promise<RtttlEntry[]> {
     return {
       id: data.id,
       title: data.title,
-      artist: data.artist,
+      artist: "", // Empty for user creations - display name fetched via userId
       code: data.code,
       tracks: data.tracks,
       categories: data.categories as RtttlEntry["categories"],
@@ -125,7 +125,7 @@ export async function getPublicCreations(): Promise<RtttlEntry[]> {
     return {
       id: data.id,
       title: data.title,
-      artist: data.artist,
+      artist: "", // Empty for user creations - display name fetched via userId
       code: data.code,
       tracks: data.tracks,
       categories: data.categories as RtttlEntry["categories"],

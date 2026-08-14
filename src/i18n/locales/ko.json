@@ -391,7 +391,8 @@
     "deleteConfirmMessage": "이 작품을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
     "importToCreate": "작성에 가져오기",
     "makePublic": "공개하기",
-    "makePrivate": "비공개하기"
+    "makePrivate": "비공개하기",
+    "more": "더 많은 작업"
   },
   "letters": {
     "all": "전체"

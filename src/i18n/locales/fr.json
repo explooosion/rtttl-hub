@@ -398,7 +398,8 @@
     "deleteConfirmMessage": "Are you sure you want to delete this creation? This action cannot be undone.",
     "importToCreate": "Importer pour créer",
     "makePublic": "Rendre public",
-    "makePrivate": "Rendre privé"
+    "makePrivate": "Rendre privé",
+    "more": "Plus d'actions"
   },
   "letters": {
     "all": "All"

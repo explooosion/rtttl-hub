@@ -10,7 +10,9 @@
   },
   "nav": {
     "collection": "Collection",
-    "collections": "Collections",    "myCreations": "My Creations",    "favorites": "Favorites",
+    "collections": "Collections",
+    "myCreations": "My Creations",
+    "favorites": "Favorites",
     "home": "Home"
   },
   "landing": {
@@ -57,16 +59,20 @@
     "picaxe": {
       "name": "PICAXE",
       "description": "A massive collection of classic RTTTL ringtones from the PICAXE library. Covers pop, rock, TV themes, Christmas tunes, and more."
-    },    "myCreations": {
+    },
+    "myCreations": {
       "name": "My Creations",
       "description": "RTTTL tracks you've created."
-    },    "favorites": {
+    },
+    "favorites": {
       "name": "My Favorites",
       "description": "Your favorite RTTTL tracks."
-    },    "public": {
+    },
+    "public": {
       "name": "All Public Libraries",
       "description": "All tracks from public RTTTL collections combined. Includes PICAXE, Community, Skully RTTTL, ESPHome, and other open-source libraries."
-    },    "community": {
+    },
+    "community": {
       "name": "Community",
       "description": "Ringtones created by the community. Create your own and share with everyone."
     },
@@ -256,10 +262,10 @@
       "headerFields": "Header fields",
       "noteModifiers": "Note modifiers",
       "fieldD": "Default duration (1 2 4 8 16 32)",
-      "fieldO": "Default octave (4\u20137)",
+      "fieldO": "Default octave (4–7)",
       "fieldB": "Tempo in BPM",
       "modSharp": "Sharp (e.g. c#5)",
-      "modDot": "Dotted \u2014 1.5\u00d7 duration",
+      "modDot": "Dotted — 1.5× duration",
       "modPause": "Rest / silence",
       "notes": "Notes",
       "notesHint": "Prefix duration, suffix octave freely",
@@ -392,7 +398,8 @@
     "deleteConfirmMessage": "Are you sure you want to delete this creation? This action cannot be undone.",
     "importToCreate": "Import to Create",
     "makePublic": "Make Public",
-    "makePrivate": "Make Private"
+    "makePrivate": "Make Private",
+    "more": "More actions"
   },
   "letters": {
     "all": "All"

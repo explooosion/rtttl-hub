@@ -391,7 +391,8 @@
     "deleteConfirmMessage": "この作成を削除してもよろしいですか？この操作は元に戻せません。",
     "importToCreate": "作成にインポート",
     "makePublic": "公開する",
-    "makePrivate": "非公開にする"
+    "makePrivate": "非公開にする",
+    "more": "その他の操作"
   },
   "letters": {
     "all": "すべて"

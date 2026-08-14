@@ -398,7 +398,8 @@
     "deleteConfirmMessage": "確定要刪除這個創作嗎？此操作無法復原。",
     "importToCreate": "匯入至創作",
     "makePublic": "設為公開",
-    "makePrivate": "設為私人"
+    "makePrivate": "設為私人",
+    "more": "更多操作"
   },
   "letters": {
     "all": "全部"

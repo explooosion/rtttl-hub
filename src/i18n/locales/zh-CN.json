@@ -398,7 +398,8 @@
     "deleteConfirmMessage": "确定要删除这个创作吗？此操作无法撤销。",
     "importToCreate": "导入至创作",
     "makePublic": "设为公开",
-    "makePrivate": "设为私人"
+    "makePrivate": "设为私人",
+    "more": "更多操作"
   },
   "letters": {
     "all": "全部"

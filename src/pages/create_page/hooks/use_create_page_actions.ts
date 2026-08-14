@@ -244,14 +244,13 @@ export function useCreatePageActions({
     const firstLetter = name.charAt(0).toUpperCase();
     const nonEmptyTracks = tracks.filter((tk) => tk.trim().length > 0);
 
-    // Get existing item's artist when editing, or use current user's displayName for new items
+    // Get existing item's createdAt when editing
     const userItems = useCollectionStore.getState().userItems;
     const existingItem = editId ? userItems.find((item) => item.id === editId) : null;
-    const artistName = existingItem?.artist || user?.displayName || "";
 
     const newItem = {
       id: editId || `user-${crypto.randomUUID()}`,
-      artist: artistName,
+      artist: "", // Empty for user creations - display name fetched via userId
       title: name.trim(),
       firstLetter: /[A-Z]/.test(firstLetter)
         ? firstLetter

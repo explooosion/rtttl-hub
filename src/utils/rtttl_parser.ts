@@ -21,6 +21,11 @@ export type RtttlCategory =
 
 export interface RtttlEntry {
   id: string;
+  /**
+   * Artist/creator name
+   * - For static collections (JSON files): hardcoded artist name
+   * - For user creations: empty string, use userId to fetch display name dynamically
+   */
   artist: string;
   title: string;
   firstLetter: string;
@@ -37,7 +42,10 @@ export interface RtttlEntry {
   playCount?: number;
   /** Public visibility flag - if true, track is visible to all users */
   isPublic?: boolean;
-  /** Creator's user ID (for user-created tracks) */
+  /**
+   * Creator's Firebase Auth UID (for user-created tracks only)
+   * When present, fetch user's display name dynamically instead of using artist field
+   */
   userId?: string;
 }
 

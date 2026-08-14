@@ -196,15 +196,9 @@ export function CollectionPage() {
         {
           icon: (item: RtttlEntry) =>
             item.isPublic ? (
-              <FaGlobe
-                size={18}
-                className="text-green-500 group-hover:text-green-600 dark:group-hover:text-green-400"
-              />
+              <FaGlobe size={18} className="text-green-500" />
             ) : (
-              <FaLock
-                size={18}
-                className="text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300"
-              />
+              <FaLock size={18} className="text-gray-400" />
             ),
           title: (item: RtttlEntry) =>
             item.isPublic ? t("actions.makePrivate") : t("actions.makePublic"),
@@ -214,6 +208,7 @@ export function CollectionPage() {
           icon: <FaTrash size={18} />,
           title: t("actions.delete"),
           onClick: handleDeleteItem,
+          variant: "danger" as const,
         },
       ];
     }
@@ -264,6 +259,7 @@ export function CollectionPage() {
         source={collectionDef?.source}
         headerActions={headerActions}
         extraRowActions={extraActions}
+        showActionsAsMenu={slug === "my-creations"}
         emptyNode={emptyNode}
       />
       <ConfirmDialog
