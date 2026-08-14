@@ -105,20 +105,62 @@ export interface FirestoreTrackStats {
   /** Total play count */
   playCount: number;
 
-  /** Total like/favorite count */
-  likeCount: number;
-
   /** Last play timestamp (optional) */
   lastPlayedAt?: Timestamp;
-
-  /** Last like timestamp (optional) */
-  lastLikedAt?: Timestamp;
 
   /** Stats record creation timestamp */
   createdAt: Timestamp;
 
   /** Last update timestamp */
   updatedAt: Timestamp;
+}
+
+/**
+ * Collection: user_track_interactions
+ * Document ID: auto-generated
+ *
+ * Stores individual user interactions with tracks.
+ * Composite Index: [userId, trackId] for efficient user-track lookup
+ */
+export interface FirestoreUserTrackInteraction {
+  /** User's Firebase Auth UID */
+  userId: string;
+
+  /** Track identifier */
+  trackId: string;
+
+  /** Last time user played this track */
+  lastPlayedAt?: Timestamp;
+
+  /** Number of times this user played this track */
+  playCount: number;
+
+  /** Record creation timestamp */
+  createdAt: Timestamp;
+
+  /** Last update timestamp */
+  updatedAt: Timestamp;
+}
+
+/**
+ * Collection: pending_stats_updates
+ * Document ID: auto-generated
+ *
+ * Queue for pending statistics updates to be processed by Cloud Functions.
+ * TTL Index: createdAt (auto-delete after 24 hours)
+ */
+export interface FirestorePendingStatsUpdate {
+  /** Track identifier */
+  trackId: string;
+
+  /** Type of statistics update */
+  type: "play";
+
+  /** User ID (optional - null for anonymous plays) */
+  userId?: string;
+
+  /** Creation timestamp */
+  createdAt: Timestamp;
 }
 
 /**
@@ -130,6 +172,8 @@ export const FIRESTORE_COLLECTIONS = {
   USER_CREATIONS: "user_creations",
   USER_FAVORITES: "user_favorites",
   TRACK_STATS: "track_stats",
+  USER_TRACK_INTERACTIONS: "user_track_interactions",
+  PENDING_STATS_UPDATES: "pending_stats_updates",
 } as const;
 
 /**

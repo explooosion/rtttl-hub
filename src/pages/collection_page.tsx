@@ -1,14 +1,14 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FaPlus, FaEdit, FaTrash, FaHeart, FaFileImport } from "react-icons/fa";
 
-import { generateMockStats } from "../types/track_stats";
 import { ListPageLayout } from "../layouts/list_page_layout";
 import type { BreadcrumbItem } from "../layouts/list_page_layout";
 import { useCollectionStore } from "../stores/collection_store";
 import { useFavoritesStore } from "../stores/favorites_store";
 import { useAuthStore } from "../stores/auth_store";
+import { useTrackStatsStore } from "../stores/track_stats_store";
 import { getCollectionBySlug, COLLECTIONS } from "../constants/collections";
 import type { CollectionSlug, RtttlEntry } from "../utils/rtttl_parser";
 import type { TrackRowAction } from "../components/track_row";
@@ -28,12 +28,15 @@ export function CollectionPage() {
   const userItems = useCollectionStore((s) => s.userItems);
   const deleteUserItem = useCollectionStore((s) => s.deleteUserItem);
   const favoriteIds = useFavoritesStore((s) => s.favoriteIds);
+  const loadStats = useTrackStatsStore((s) => s.loadStats);
+  const getStatsForTrack = useTrackStatsStore((s) => s.getStatsForTrack);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<RtttlEntry | null>(null);
 
   const collectionDef = slug ? getCollectionBySlug(slug) : undefined;
 
-  const collectionItems = useMemo(() => {
+  // Filter items based on current collection (without stats)
+  const filteredItems = useMemo(() => {
     let filtered: RtttlEntry[];
     if (!slug) {
       filtered = [...items, ...userItems];
@@ -56,17 +59,27 @@ export function CollectionPage() {
         (item) => item.collection === (slug as CollectionSlug),
       );
     }
+    return filtered;
+  }, [slug, items, userItems, favoriteIds]);
 
-    // Inject mock statistics for development (will be replaced with Firestore data)
-    return filtered.map((item) => {
-      const mockStats = generateMockStats(item.id);
+  // Load statistics when filtered items change
+  useEffect(() => {
+    const trackIds = filteredItems.map((item) => item.id);
+    if (trackIds.length > 0) {
+      loadStats(trackIds);
+    }
+  }, [filteredItems, loadStats]);
+
+  // Inject real statistics from Firestore
+  const collectionItems = useMemo(() => {
+    return filteredItems.map((item) => {
+      const stats = getStatsForTrack(item.id);
       return {
         ...item,
-        playCount: mockStats.playCount,
-        likeCount: mockStats.likeCount,
+        playCount: stats?.playCount ?? 0,
       };
     });
-  }, [slug, items, userItems, favoriteIds]);
+  }, [filteredItems, getStatsForTrack]);
 
   const handleCreateNew = useCallback(() => {
     navigate("/create");

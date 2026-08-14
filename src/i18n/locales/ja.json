@@ -388,6 +388,13 @@
   "letters": {
     "all": "すべて"
   },
+  "filter": {
+    "tracksAll": "全トラック",
+    "tracks1": "1トラック",
+    "tracks2": "2トラック",
+    "tracks3": "3トラック",
+    "tracks4": "4トラック"
+  },
   "loading": "コレクションを読み込み中...",
   "settings": {
     "clearListened": "試聴履歴をクリア"

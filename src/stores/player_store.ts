@@ -4,6 +4,8 @@ import { ToneEngine } from "../kit/tone";
 import type { EngineState } from "../kit/tone";
 import type { RtttlEntry } from "../utils/rtttl_parser";
 import { useListenedStore } from "./listened_store";
+import { useTrackStatsStore } from "./track_stats_store";
+import { useAuthStore } from "./auth_store";
 
 /** Re-export so existing consumers that import PlayerState still work. */
 export type PlayerState = EngineState;
@@ -96,6 +98,11 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
         isMultiTrack: isMulti,
       });
       useListenedStore.getState().markListened(item.id);
+
+      // Record play statistics
+      const userId = useAuthStore.getState().user?.uid;
+      useTrackStatsStore.getState().recordPlayDebounced(item.id, userId);
+
       if (isMulti) {
         engine.play(tracks);
       } else {
@@ -106,6 +113,10 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
       const currentItem = get().currentItem;
       if (currentItem) {
         useListenedStore.getState().markListened(currentItem.id);
+
+        // Record play statistics
+        const userId = useAuthStore.getState().user?.uid;
+        useTrackStatsStore.getState().recordPlayDebounced(currentItem.id, userId);
       }
       set({ isMultiTrack: false });
       engine.play([code], undefined, startMs);
@@ -114,6 +125,10 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
       const currentItem = get().currentItem;
       if (currentItem) {
         useListenedStore.getState().markListened(currentItem.id);
+
+        // Record play statistics
+        const userId = useAuthStore.getState().user?.uid;
+        useTrackStatsStore.getState().recordPlayDebounced(currentItem.id, userId);
       }
       set({ isMultiTrack: true, editedTracks: tracks });
       engine.play(tracks, get().trackMuted, startMs);
@@ -165,6 +180,10 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
       const currentItem = get().currentItem;
       if (currentItem) {
         useListenedStore.getState().markListened(currentItem.id);
+
+        // Record play statistics
+        const userId = useAuthStore.getState().user?.uid;
+        useTrackStatsStore.getState().recordPlayDebounced(currentItem.id, userId);
       }
       engine.play([code]);
     },

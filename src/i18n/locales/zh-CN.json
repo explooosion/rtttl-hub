@@ -383,6 +383,13 @@
   "letters": {
     "all": "全部"
   },
+  "filter": {
+    "tracksAll": "所有音轨",
+    "tracks1": "1 音轨",
+    "tracks2": "2 音轨",
+    "tracks3": "3 音轨",
+    "tracks4": "4 音轨"
+  },
   "loading": "加载收藏库中...",
   "settings": {
     "clearListened": "清除试听记录"

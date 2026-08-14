@@ -154,12 +154,53 @@ Stores aggregate statistics for tracks (Cloud Functions only).
 }
 ```
 
+### user_track_interactions
+
+Stores individual user interactions with tracks for deduplication and personalization.
+
+- **Document ID**: auto-generated
+- **Composite Index**: `[userId, trackId]` for efficient user-track lookup
+- **Fields**: See `FirestoreUserTrackInteraction` interface
+
+```typescript
+{
+  userId: string;           // User's UID
+  trackId: string;          // Track identifier
+  lastPlayedAt?: Timestamp; // Last time user played this track
+  playCount: number;        // Number of times this user played this track
+  hasLiked: boolean;        // Whether user has liked this track
+  likedAt?: Timestamp;      // When user liked this track
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+```
+
+### pending_stats_updates
+
+Queue for pending statistics updates to be processed by Cloud Functions.
+
+- **Document ID**: auto-generated
+- **TTL Index**: `createdAt` (auto-delete after 24 hours)
+- **Fields**: See `FirestorePendingStatsUpdate` interface
+
+```typescript
+{
+  trackId: string;          // Track identifier
+  type: 'play' | 'like' | 'unlike'; // Type of update
+  userId?: string;          // User ID (optional - null for anonymous)
+  createdAt: Timestamp;
+}
+```
+
 ## 4. Indexes
 
 The following indexes will be automatically created on first query, or can be manually created in Firebase Console:
 
 ### user_creations
 - Single field index: `userId` (ascending)
+
+### user_track_interactions
+- Composite index: `[userId, trackId]` (both ascending)
 
 ## 5. Features
 
@@ -173,10 +214,24 @@ The following indexes will be automatically created on first query, or can be ma
 - 1-second debounce mechanism prevents excessive requests from rapid clicking
 - Favorite data syncs automatically on login/logout
 
+### Track Statistics (Real-time)
+- **Play Count Tracking**: Automatically recorded when user clicks play
+  - 3-second debounce prevents spam/abuse
+  - Supports anonymous users (play without login)
+  - Optimistic UI updates for instant feedback
+- **Like Count Tracking**: Integrated with favorites system
+  - Instant toggle response (no debounce)
+  - Optimistic updates with automatic rollback on error
+- **Display Format**: Large numbers formatted with K/M suffix (e.g., 1.2K, 3.5M)
+- **Caching**: 5-minute client-side cache for performance
+- **Offline Support**: Queues operations when offline, syncs on reconnect
+
 ### Security
 - Users can only read/write their own data
 - Creations can be read by all authenticated users (prepared for future sharing feature)
 - Favorites data is completely private
+- Track statistics are public (read-only for clients)
+- User interactions are private per user
 
 ## 6. Local Testing
 

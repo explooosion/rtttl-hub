@@ -391,6 +391,13 @@
   "letters": {
     "all": "Alle"
   },
+  "filter": {
+    "tracksAll": "Alle Spuren",
+    "tracks1": "1 Spur",
+    "tracks2": "2 Spuren",
+    "tracks3": "3 Spuren",
+    "tracks4": "4 Spuren"
+  },
   "loading": "Sammlung wird geladen...",
   "settings": {
     "clearListened": "Hör-Verlauf löschen"

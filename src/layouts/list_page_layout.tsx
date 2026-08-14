@@ -74,6 +74,7 @@ export function ListPageLayout({
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("a-z");
+  const [trackCount, setTrackCount] = useState<number | null>(null);
   const [activeLetter, setActiveLetter] = useState<string | null>(null);
   const [activeCategories, setActiveCategories] = useState<RtttlCategory[]>(() => {
     const cat = searchParams.get("category") as RtttlCategory | null;
@@ -97,8 +98,14 @@ export function ListPageLayout({
         (item) => item.categories && item.categories.some((c) => activeCategories.includes(c)),
       );
     }
+    if (trackCount !== null) {
+      result = result.filter((item) => {
+        const itemTrackCount = item.tracks && item.tracks.length > 1 ? item.tracks.length : 1;
+        return itemTrackCount === trackCount;
+      });
+    }
     return sortItems(result, sortMode);
-  }, [items, searchQuery, activeLetter, activeCategories, sortMode]);
+  }, [items, searchQuery, activeLetter, activeCategories, trackCount, sortMode]);
 
   // Available letters derived from items filtered by search+category (not letter)
   const availableLetters = useMemo(() => {
@@ -176,8 +183,6 @@ export function ListPageLayout({
     { value: "artist-z-a", label: t("sort.artistZA") },
     { value: "plays-high", label: t("sort.playsHigh") },
     { value: "plays-low", label: t("sort.playsLow") },
-    { value: "likes-high", label: t("sort.likesHigh") },
-    { value: "likes-low", label: t("sort.likesLow") },
   ];
 
   // Pagination numbers
@@ -332,14 +337,14 @@ export function ListPageLayout({
                     className="w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-4 text-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-indigo-400"
                   />
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
                   <select
                     value={sortMode}
                     onChange={(e) => {
                       setSortMode(e.target.value as SortMode);
                       setCurrentPage(1);
                     }}
-                    className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 sm:w-auto"
                   >
                     {sortOptions.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -347,9 +352,24 @@ export function ListPageLayout({
                       </option>
                     ))}
                   </select>
+                  <select
+                    value={trackCount === null ? "all" : trackCount}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setTrackCount(value === "all" ? null : parseInt(value, 10));
+                      setCurrentPage(1);
+                    }}
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 sm:w-auto"
+                  >
+                    <option value="all">{t("filter.tracksAll")}</option>
+                    <option value="1">{t("filter.tracks1")}</option>
+                    <option value="2">{t("filter.tracks2")}</option>
+                    <option value="3">{t("filter.tracks3")}</option>
+                    <option value="4">{t("filter.tracks4")}</option>
+                  </select>
                   <button
                     onClick={() => setShowMobileFilters((v) => !v)}
-                    className="rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 lg:hidden"
+                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 sm:w-auto lg:hidden"
                   >
                     {showMobileFilters ? t("actions.hideFilters") : t("actions.showFilters")}
                   </button>

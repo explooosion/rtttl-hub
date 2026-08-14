@@ -392,6 +392,13 @@
   "letters": {
     "all": "全部"
   },
+  "filter": {
+    "tracksAll": "所有音軌",
+    "tracks1": "1 音軌",
+    "tracks2": "2 音軌",
+    "tracks3": "3 音軌",
+    "tracks4": "4 音軌"
+  },
   "loading": "載入收藏庫中...",
   "settings": {
     "clearListened": "清除試聽紀錄"

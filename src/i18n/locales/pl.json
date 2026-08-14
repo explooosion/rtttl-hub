@@ -388,6 +388,13 @@
   "letters": {
     "all": "All"
   },
+  "filter": {
+    "tracksAll": "Wszystkie ścieżki",
+    "tracks1": "1 ścieżka",
+    "tracks2": "2 ścieżki",
+    "tracks3": "3 ścieżki",
+    "tracks4": "4 ścieżki"
+  },
   "loading": "Loading collection...",
   "settings": {
     "clearListened": "Clear listened history"

@@ -129,10 +129,6 @@ function sortItems(items: RtttlEntry[], mode: SortMode): RtttlEntry[] {
     sorted.sort((a, b) => (b.playCount || 0) - (a.playCount || 0));
   } else if (mode === "plays-low") {
     sorted.sort((a, b) => (a.playCount || 0) - (b.playCount || 0));
-  } else if (mode === "likes-high") {
-    sorted.sort((a, b) => (b.likeCount || 0) - (a.likeCount || 0));
-  } else if (mode === "likes-low") {
-    sorted.sort((a, b) => (a.likeCount || 0) - (b.likeCount || 0));
   }
   return sorted;
 }

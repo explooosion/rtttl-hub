@@ -386,6 +386,13 @@
   "letters": {
     "all": "전체"
   },
+  "filter": {
+    "tracksAll": "모든 트랙",
+    "tracks1": "1개 트랙",
+    "tracks2": "2개 트랙",
+    "tracks3": "3개 트랙",
+    "tracks4": "4개 트랙"
+  },
   "loading": "컬렉션 로딩 중...",
   "settings": {
     "clearListened": "청취 기록 삭제"

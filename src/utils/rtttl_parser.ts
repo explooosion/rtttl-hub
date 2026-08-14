@@ -35,8 +35,6 @@ export interface RtttlEntry {
   tracks?: string[];
   /** Total number of plays (from Firestore) */
   playCount?: number;
-  /** Total number of likes/recommendations (from Firestore) */
-  likeCount?: number;
 }
 
 export interface RtttlDefaults {

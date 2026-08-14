@@ -388,6 +388,13 @@
   "letters": {
     "all": "All"
   },
+  "filter": {
+    "tracksAll": "Всі треки",
+    "tracks1": "1 трек",
+    "tracks2": "2 треки",
+    "tracks3": "3 треки",
+    "tracks4": "4 треки"
+  },
   "loading": "Loading collection...",
   "settings": {
     "clearListened": "Clear listened history"

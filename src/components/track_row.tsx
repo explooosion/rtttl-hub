@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { FaPlay, FaPause, FaRegCopy, FaCheck, FaHeadphones, FaHeart } from "react-icons/fa";
+import { FaPlay, FaPause, FaRegCopy, FaCheck, FaHeadphones } from "react-icons/fa";
 import clsx from "clsx";
 
 import { formatCount } from "../types/track_stats";
@@ -120,21 +120,13 @@ export function TrackRow({ item, extraActions }: TrackRowProps) {
             ))}
           </div>
         )}
-        {/* Statistics: Play count + Like count */}
-        {(item.playCount !== undefined || item.likeCount !== undefined) && (
+        {/* Statistics: Play count */}
+        {item.playCount !== undefined && (
           <div className="mt-1.5 flex items-center gap-4 text-sm font-medium text-gray-600 dark:text-gray-300">
-            {item.playCount !== undefined && (
-              <span className="flex items-center gap-1.5" title={t("stats.plays")}>
-                <FaHeadphones size={14} />
-                <span>{formatCount(item.playCount)}</span>
-              </span>
-            )}
-            {item.likeCount !== undefined && (
-              <span className="flex items-center gap-1.5" title={t("stats.likes")}>
-                <FaHeart size={13} className="text-pink-500 dark:text-pink-400" />
-                <span>{formatCount(item.likeCount)}</span>
-              </span>
-            )}
+            <span className="flex items-center gap-1.5" title={t("stats.plays")}>
+              <FaHeadphones size={14} />
+              <span>{formatCount(item.playCount)}</span>
+            </span>
           </div>
         )}
       </div>

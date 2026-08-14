@@ -388,6 +388,13 @@
   "letters": {
     "all": "All"
   },
+  "filter": {
+    "tracksAll": "Všechny stopy",
+    "tracks1": "1 stopa",
+    "tracks2": "2 stopy",
+    "tracks3": "3 stopy",
+    "tracks4": "4 stopy"
+  },
   "loading": "Loading collection...",
   "settings": {
     "clearListened": "Clear listened history"
