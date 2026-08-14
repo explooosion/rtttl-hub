@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "dev:local": "VITE_USE_EMULATOR=true vite --host 0.0.0.0",
+    "dev:prod": "VITE_USE_EMULATOR=false vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
@@ -13,7 +15,10 @@
     "generate-picaxe": "tsx scripts/generate-picaxe.ts",
     "generate-logos": "tsx scripts/generate-logos.ts",
     "generate-placeholder": "tsx scripts/generate-placeholder.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "firebase:emulator": "firebase emulators:start",
+    "firebase:deploy:rules": "firebase deploy --only firestore:rules",
+    "firebase:login": "firebase login"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [

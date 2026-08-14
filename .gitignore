@@ -23,5 +23,12 @@ pnpm-debug.log*
 # TypeScript cache
 *.tsbuildinfo
 
+# Firebase
+.firebase/
+*-debug.log
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
 # PICAXE source zip files (downloaded locally to generate picaxe.json)
 public/*.zip

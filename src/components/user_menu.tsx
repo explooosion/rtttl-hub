@@ -1,7 +1,7 @@
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
-import { FaUser, FaChevronDown, FaSignOutAlt, FaCog } from "react-icons/fa";
+import { FaChevronDown, FaSignOutAlt, FaCog, FaSignInAlt } from "react-icons/fa";
 
 import { useAuthStore } from "../stores/auth_store";
 
@@ -17,8 +17,9 @@ export function UserMenu() {
       <Link
         to="/login"
         className="rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
+        aria-label={t("auth.signIn")}
       >
-        <FaUser size={18} />
+        <FaSignInAlt size={18} />
       </Link>
     );
   }

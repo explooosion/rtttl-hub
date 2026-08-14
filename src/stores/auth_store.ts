@@ -12,6 +12,8 @@ import {
   getUser,
   deleteAllUserData,
   deleteAvatar,
+  getUserCreations,
+  getUserFavorites,
 } from "../services/firestore_service";
 
 interface AuthUser {
@@ -31,6 +33,27 @@ interface AuthState {
   updateProfile: (data: { displayName?: string; customPhotoURL?: string }) => Promise<void>;
   deleteAccount: () => Promise<void>;
   initAuth: () => void;
+  loadUserData: (uid: string) => Promise<void>;
+}
+
+async function loadUserDataHelper(uid: string) {
+  try {
+    const [creations, favorites] = await Promise.all([
+      getUserCreations(uid),
+      getUserFavorites(uid),
+    ]);
+
+    const { useCollectionStore } = await import("./collection_store");
+    const { useFavoritesStore } = await import("./favorites_store");
+
+    creations.forEach((creation) => {
+      useCollectionStore.getState().addUserItem(creation);
+    });
+
+    useFavoritesStore.setState({ favoriteIds: favorites });
+  } catch (error) {
+    console.error("Failed to load user data:", error);
+  }
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -39,6 +62,10 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       isAuthenticated: false,
       isLoading: true,
+
+      loadUserData: async (uid: string) => {
+        await loadUserDataHelper(uid);
+      },
 
       initAuth: () => {
         onAuthStateChanged(auth, async (firebaseUser) => {
@@ -55,6 +82,8 @@ export const useAuthStore = create<AuthState>()(
               isAuthenticated: true,
               isLoading: false,
             });
+
+            await loadUserDataHelper(firebaseUser.uid);
           } else {
             set({ user: null, isAuthenticated: false, isLoading: false });
           }
@@ -85,6 +114,8 @@ export const useAuthStore = create<AuthState>()(
             },
             isAuthenticated: true,
           });
+
+          await loadUserDataHelper(user.uid);
         } catch (error) {
           console.error("Google sign in error:", error);
           throw error;
@@ -95,6 +126,12 @@ export const useAuthStore = create<AuthState>()(
         try {
           await firebaseSignOut(auth);
           set({ user: null, isAuthenticated: false });
+
+          const { useCollectionStore } = await import("./collection_store");
+          const { useFavoritesStore } = await import("./favorites_store");
+
+          useCollectionStore.setState({ userItems: [] });
+          useFavoritesStore.setState({ favoriteIds: [] });
         } catch (error) {
           console.error("Sign out error:", error);
           throw error;

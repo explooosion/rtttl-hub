@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { syncCreations, deleteCreation } from "../services/firestore_service";
 
 import type { CollectionSlug, RtttlCategory, RtttlEntry } from "../utils/rtttl_parser";
 
@@ -23,9 +24,9 @@ interface CollectionState {
   activeCategories: RtttlCategory[];
   isLoading: boolean;
   setItems: (items: RtttlEntry[]) => void;
-  addUserItem: (item: RtttlEntry) => void;
-  updateUserItem: (id: string, item: RtttlEntry) => void;
-  deleteUserItem: (id: string) => void;
+  addUserItem: (item: RtttlEntry, userId?: string) => void;
+  updateUserItem: (id: string, item: RtttlEntry, userId?: string) => void;
+  deleteUserItem: (id: string, userId?: string) => void;
   setSearchQuery: (query: string) => void;
   setSortMode: (mode: SortMode) => void;
   setActiveLetter: (letter: string | null) => void;
@@ -37,7 +38,7 @@ interface CollectionState {
 
 export const useCollectionStore = create<CollectionState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       items: [],
       userItems: [],
       searchQuery: "",
@@ -47,21 +48,44 @@ export const useCollectionStore = create<CollectionState>()(
       activeCategories: [],
       isLoading: true,
       setItems: (items) => set({ items, isLoading: false }),
-      addUserItem: (item) =>
+      addUserItem: (item, userId) => {
         set((state) => {
           if (state.userItems.some((u) => u.id === item.id)) {
             return state;
           }
           return { userItems: [...state.userItems, item] };
-        }),
-      updateUserItem: (id, item) =>
+        });
+
+        if (userId) {
+          const updatedItems = get().userItems;
+          syncCreations(userId, updatedItems).catch((error) => {
+            console.error("Failed to sync creation:", error);
+          });
+        }
+      },
+      updateUserItem: (id, item, userId) => {
         set((state) => ({
           userItems: state.userItems.map((u) => (u.id === id ? item : u)),
-        })),
-      deleteUserItem: (id) =>
+        }));
+
+        if (userId) {
+          const updatedItems = get().userItems;
+          syncCreations(userId, updatedItems).catch((error) => {
+            console.error("Failed to sync updated creation:", error);
+          });
+        }
+      },
+      deleteUserItem: (id, userId) => {
         set((state) => ({
           userItems: state.userItems.filter((u) => u.id !== id),
-        })),
+        }));
+
+        if (userId) {
+          deleteCreation(id).catch((error) => {
+            console.error("Failed to delete creation:", error);
+          });
+        }
+      },
       setSearchQuery: (searchQuery) => set({ searchQuery }),
       setSortMode: (sortMode) => set({ sortMode }),
       setActiveLetter: (activeLetter) => set({ activeLetter }),

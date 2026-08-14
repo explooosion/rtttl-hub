@@ -28,9 +28,9 @@ export function BetaNoticeBanner() {
   }
 
   return (
-    <div className="relative z-50 flex items-center gap-2.5 border-b border-amber-200 bg-amber-50 px-4 py-2 dark:border-amber-800/50 dark:bg-amber-900/20">
-      <FaExclamationTriangle size={12} className="shrink-0 text-amber-600 dark:text-amber-400" />
-      <p className="min-w-0 flex-1 text-xs text-amber-800 dark:text-amber-300 sm:text-[13px]">
+    <div className="relative z-50 flex items-center gap-3 border-b border-amber-200 bg-amber-50 px-4 py-3 dark:border-amber-800/50 dark:bg-amber-900/20">
+      <FaExclamationTriangle size={16} className="shrink-0 text-amber-600 dark:text-amber-400" />
+      <p className="min-w-0 flex-1 text-sm text-amber-800 dark:text-amber-300 sm:text-base">
         {t("betaBanner.message", {
           defaultValue:
             "RTTTL Hub is currently under active development. Some features may be incomplete or temporarily unavailable.",
@@ -42,7 +42,7 @@ export function BetaNoticeBanner() {
         aria-label={t("betaBanner.dismiss", { defaultValue: "Dismiss" })}
         className="shrink-0 rounded p-1 text-amber-600 hover:bg-amber-100 dark:text-amber-400 dark:hover:bg-amber-800/40"
       >
-        <FaTimes size={11} />
+        <FaTimes size={14} />
       </button>
     </div>
   );

@@ -2,6 +2,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import clsx from "clsx";
 
 import { useFavoritesStore } from "../stores/favorites_store";
+import { useAuthStore } from "../stores/auth_store";
 
 interface FavoriteButtonProps {
   itemId: string;
@@ -9,6 +10,7 @@ interface FavoriteButtonProps {
 }
 
 export function FavoriteButton({ itemId, size = 18 }: FavoriteButtonProps) {
+  const user = useAuthStore((s) => s.user);
   const favoriteIds = useFavoritesStore((s) => s.favoriteIds);
   const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
   const isFav = favoriteIds.includes(itemId);
@@ -17,7 +19,7 @@ export function FavoriteButton({ itemId, size = 18 }: FavoriteButtonProps) {
     <button
       onClick={(e) => {
         e.stopPropagation();
-        toggleFavorite(itemId);
+        toggleFavorite(itemId, user?.uid);
       }}
       className={clsx(
         "transition-colors hover:scale-110",

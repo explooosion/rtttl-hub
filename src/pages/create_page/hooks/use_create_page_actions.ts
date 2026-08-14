@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { useCollectionStore } from "../../../stores/collection_store";
 import { usePlayerStore } from "../../../stores/player_store";
+import { useAuthStore } from "../../../stores/auth_store";
 import { parseRtttl } from "../../../utils/rtttl_parser";
 import { clearDraft } from "../draft";
 import { MAX_TRACKS } from "../constants";
@@ -84,6 +85,7 @@ export function useCreatePageActions({
 }: UseCreatePageActionsParams) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
   const addUserItem = useCollectionStore((s) => s.addUserItem);
   const updateUserItem = useCollectionStore((s) => s.updateUserItem);
   const setCurrentItem = usePlayerStore((s) => s.setCurrentItem);
@@ -256,9 +258,9 @@ export function useCreatePageActions({
     };
 
     if (editId) {
-      updateUserItem(editId, newItem);
+      updateUserItem(editId, newItem, user?.uid);
     } else {
-      addUserItem(newItem);
+      addUserItem(newItem, user?.uid);
     }
 
     setCurrentItem(newItem);
@@ -270,6 +272,7 @@ export function useCreatePageActions({
     name,
     tracks,
     categories,
+    user,
     addUserItem,
     updateUserItem,
     setCurrentItem,

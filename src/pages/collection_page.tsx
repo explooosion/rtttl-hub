@@ -8,6 +8,7 @@ import { ListPageLayout } from "../layouts/list_page_layout";
 import type { BreadcrumbItem } from "../layouts/list_page_layout";
 import { useCollectionStore } from "../stores/collection_store";
 import { useFavoritesStore } from "../stores/favorites_store";
+import { useAuthStore } from "../stores/auth_store";
 import { getCollectionBySlug, COLLECTIONS } from "../constants/collections";
 import type { CollectionSlug, RtttlEntry } from "../utils/rtttl_parser";
 import type { TrackRowAction } from "../components/track_row";
@@ -22,6 +23,7 @@ export function CollectionPage() {
   const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
   const items = useCollectionStore((s) => s.items);
   const userItems = useCollectionStore((s) => s.userItems);
   const deleteUserItem = useCollectionStore((s) => s.deleteUserItem);
@@ -84,11 +86,11 @@ export function CollectionPage() {
 
   const handleConfirmDelete = useCallback(() => {
     if (itemToDelete) {
-      deleteUserItem(itemToDelete.id);
+      deleteUserItem(itemToDelete.id, user?.uid);
     }
     setDeleteConfirmOpen(false);
     setItemToDelete(null);
-  }, [itemToDelete, deleteUserItem]);
+  }, [itemToDelete, user, deleteUserItem]);
 
   const handleImportToCreate = useCallback(
     (item: RtttlEntry) => {
