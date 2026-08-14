@@ -70,6 +70,10 @@ export function useCreatePageUiState() {
     }
     return _draft?.categories ?? [];
   });
+  const [isPublic, setIsPublic] = useState(() => {
+    // When editing, use existing isPublic value; otherwise default to false (private)
+    return editItem?.isPublic ?? false;
+  });
   const [playheadMs, setPlayheadMs] = useState(0);
   const [loopInMs, setLoopInMs] = useState<number | null>(null);
   const [loopOutMs, setLoopOutMs] = useState<number | null>(null);
@@ -116,6 +120,8 @@ export function useCreatePageUiState() {
     setName,
     categories,
     setCategories,
+    isPublic,
+    setIsPublic,
     /* timeline */
     playheadMs,
     setPlayheadMs,

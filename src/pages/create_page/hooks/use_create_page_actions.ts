@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
 import { useCollectionStore } from "../../../stores/collection_store";
 import { usePlayerStore } from "../../../stores/player_store";
@@ -18,6 +19,7 @@ interface UseCreatePageActionsParams {
   name: string;
   tracks: string[];
   categories: RtttlCategory[];
+  isPublic: boolean;
   loopInMs: number | null;
   loopOutMs: number | null;
   playheadMs: number;
@@ -54,6 +56,7 @@ export function useCreatePageActions({
   name,
   tracks,
   categories,
+  isPublic,
   loopInMs,
   loopOutMs,
   playheadMs,
@@ -258,31 +261,38 @@ export function useCreatePageActions({
       code: primaryCode.trim(),
       collection: "my-creations" as const,
       categories: categories.length > 0 ? categories : undefined,
-      createdAt: new Date().toISOString(),
+      createdAt: existingItem?.createdAt || new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      isPublic: user ? isPublic : false,
+      userId: user?.uid,
       ...(nonEmptyTracks.length > 1 ? { tracks: nonEmptyTracks } : {}),
     };
 
     if (editId) {
       updateUserItem(editId, newItem, user?.uid);
+      toast.success(t("create.updated", { name: name.trim() }));
     } else {
       addUserItem(newItem, user?.uid);
+      toast.success(t("create.created", { name: name.trim() }));
     }
 
     setCurrentItem(newItem);
     clearDraft();
     stop();
-    navigate("/my-creations");
+    navigate("/collections/my-creations");
   }, [
     editId,
     name,
     tracks,
     categories,
+    isPublic,
     user,
     addUserItem,
     updateUserItem,
     setCurrentItem,
     stop,
     navigate,
+    t,
   ]);
 
   /* ── New project ── */

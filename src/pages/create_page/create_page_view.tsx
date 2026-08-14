@@ -33,6 +33,8 @@ interface UiModel {
   setName: (v: string) => void;
   categories: RtttlCategory[];
   setCategories: (v: RtttlCategory[]) => void;
+  isPublic: boolean;
+  setIsPublic: (v: boolean) => void;
   playheadMs: number;
   loopInMs: number | null;
   setLoopInMs: (v: number | null) => void;
@@ -276,6 +278,7 @@ export function CreatePageView({
           loopOutMs={ui.loopOutMs}
           name={ui.name}
           categories={ui.categories}
+          isPublic={ui.isPublic}
           onImportClose={() => ui.setImportOpen(false)}
           onImportConfirm={actions.handleImportConfirm}
           onFavImportClose={() => ui.setFavImportOpen(false)}
@@ -293,6 +296,7 @@ export function CreatePageView({
           onCreateSummaryCancel={() => ui.setCreateSummaryOpen(false)}
           onNameChange={ui.setName}
           onRenameTrack={track.handleRenameTrack}
+          onIsPublicChange={ui.setIsPublic}
         />
       </div>
     </>

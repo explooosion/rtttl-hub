@@ -69,6 +69,7 @@ export async function syncCreations(userId: string, creations: RtttlEntry[]): Pr
       code: creation.code,
       tracks: creation.tracks || null,
       categories: creation.categories || [],
+      isPublic: creation.isPublic ?? false,
       createdAt: creation.createdAt
         ? Timestamp.fromDate(new Date(creation.createdAt))
         : Timestamp.now(),
@@ -100,6 +101,8 @@ export async function getUserCreations(userId: string): Promise<RtttlEntry[]> {
       createdAt: data.createdAt.toDate().toISOString(),
       updatedAt: data.updatedAt.toDate().toISOString(),
       isSynced: true,
+      isPublic: data.isPublic ?? false,
+      userId: data.userId,
     };
   });
 }
@@ -107,6 +110,46 @@ export async function getUserCreations(userId: string): Promise<RtttlEntry[]> {
 export async function deleteCreation(creationId: string): Promise<void> {
   const creationRef = doc(db, FIRESTORE_COLLECTIONS.USER_CREATIONS, creationId);
   await deleteDoc(creationRef);
+}
+
+// Get all public creations
+export async function getPublicCreations(): Promise<RtttlEntry[]> {
+  const q = query(
+    collection(db, FIRESTORE_COLLECTIONS.USER_CREATIONS),
+    where("isPublic", "==", true),
+  );
+  const snapshot = await getDocs(q);
+
+  return snapshot.docs.map((doc) => {
+    const data = doc.data() as FirestoreUserCreation;
+    return {
+      id: data.id,
+      title: data.title,
+      artist: data.artist,
+      code: data.code,
+      tracks: data.tracks,
+      categories: data.categories as RtttlEntry["categories"],
+      collection: "community" as const,
+      firstLetter: data.title[0]?.toUpperCase() || "#",
+      createdAt: data.createdAt.toDate().toISOString(),
+      updatedAt: data.updatedAt.toDate().toISOString(),
+      isSynced: true,
+      isPublic: true,
+      userId: data.userId,
+    };
+  });
+}
+
+// Update creation visibility
+export async function updateCreationVisibility(
+  creationId: string,
+  isPublic: boolean,
+): Promise<void> {
+  const creationRef = doc(db, FIRESTORE_COLLECTIONS.USER_CREATIONS, creationId);
+  await updateDoc(creationRef, {
+    isPublic,
+    updatedAt: Timestamp.now(),
+  });
 }
 
 // Favorites operations

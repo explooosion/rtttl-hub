@@ -43,6 +43,7 @@ export interface FirestoreUser {
  *
  * Stores user-created RTTTL compositions.
  * Index: userId (ascending) for efficient querying of user's creations
+ * Index: isPublic (ascending) + updatedAt (descending) for public feed
  */
 export interface FirestoreUserCreation {
   /** Unique creation ID */
@@ -65,6 +66,9 @@ export interface FirestoreUserCreation {
 
   /** Category tags (optional) */
   categories?: string[];
+
+  /** Public visibility flag - defaults to false (private) */
+  isPublic: boolean;
 
   /** Creation timestamp */
   createdAt: Timestamp;

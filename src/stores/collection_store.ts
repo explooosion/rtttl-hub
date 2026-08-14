@@ -11,8 +11,8 @@ export type SortMode =
   | "artist-z-a"
   | "plays-high"
   | "plays-low"
-  | "likes-high"
-  | "likes-low";
+  | "updated-desc"
+  | "updated-asc";
 
 interface CollectionState {
   items: RtttlEntry[];

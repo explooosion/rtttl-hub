@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import { FaLock, FaGlobe, FaInfoCircle } from "react-icons/fa";
 
 import type { RtttlCategory } from "../../utils/rtttl_parser";
 import { parseRtttl, getTotalDuration } from "../../utils/rtttl_parser";
@@ -12,10 +13,13 @@ interface CreateSummaryModalProps {
   name: string;
   categories: RtttlCategory[];
   tracks: string[];
+  isPublic: boolean;
+  isLoggedIn: boolean;
   onConfirm: () => void;
   onCancel: () => void;
   onNameChange?: (value: string) => void;
   onRenameTrack?: (trackIndex: number, newName: string) => void;
+  onIsPublicChange?: (value: boolean) => void;
 }
 
 interface TrackSummary {
@@ -34,10 +38,13 @@ export function CreateSummaryModal({
   name,
   categories,
   tracks,
+  isPublic,
+  isLoggedIn,
   onConfirm,
   onCancel,
   onNameChange,
   onRenameTrack,
+  onIsPublicChange,
 }: CreateSummaryModalProps) {
   const { t } = useTranslation();
   const syntaxHighlight = useEditorSettingsStore((s) => s.features.syntaxHighlight);
@@ -237,6 +244,38 @@ export function CreateSummaryModal({
               </div>
             </section>
           </div>
+
+          {/* Public/Private Toggle (only for logged-in users) */}
+          {isLoggedIn && onIsPublicChange && (
+            <div className="border-t border-gray-200 px-6 py-4 dark:border-gray-700">
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="isPublic"
+                  checked={isPublic}
+                  onChange={(e) => onIsPublicChange(e.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800"
+                />
+                <div className="flex-1">
+                  <label
+                    htmlFor="isPublic"
+                    className="flex cursor-pointer items-center gap-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    {isPublic ? (
+                      <FaGlobe className="text-green-500" size={14} />
+                    ) : (
+                      <FaLock className="text-gray-400" size={14} />
+                    )}
+                    {t("create.makePublic")}
+                  </label>
+                  <p className="mt-1 flex items-start gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+                    <FaInfoCircle size={12} className="mt-0.5 shrink-0" />
+                    <span>{t("create.publicExplanation")}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Footer */}
           <div className="flex justify-end gap-3 border-t border-gray-200 px-6 py-4 dark:border-gray-700">

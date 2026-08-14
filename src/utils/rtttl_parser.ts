@@ -35,6 +35,10 @@ export interface RtttlEntry {
   tracks?: string[];
   /** Total number of plays (from Firestore) */
   playCount?: number;
+  /** Public visibility flag - if true, track is visible to all users */
+  isPublic?: boolean;
+  /** Creator's user ID (for user-created tracks) */
+  userId?: string;
 }
 
 export interface RtttlDefaults {

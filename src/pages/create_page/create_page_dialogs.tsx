@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 
+import { useAuthStore } from "../../stores/auth_store";
 import { ConfirmDialog } from "../../components/confirm_dialog";
 import { ImportDialog } from "./import_dialog";
 import { FavoriteImportDialog } from "./favorite_import_dialog";
@@ -23,6 +24,7 @@ interface CreatePageDialogsProps {
   loopOutMs: number | null;
   name: string;
   categories: RtttlCategory[];
+  isPublic: boolean;
   onImportClose: () => void;
   onImportConfirm: (parsed: string[]) => void;
   onFavImportClose: () => void;
@@ -37,6 +39,7 @@ interface CreatePageDialogsProps {
   onCreateSummaryCancel: () => void;
   onNameChange: (v: string) => void;
   onRenameTrack: (idx: number, newName: string) => void;
+  onIsPublicChange: (v: boolean) => void;
 }
 
 export function CreatePageDialogs({
@@ -53,6 +56,7 @@ export function CreatePageDialogs({
   loopOutMs,
   name,
   categories,
+  isPublic,
   onImportClose,
   onImportConfirm,
   onFavImportClose,
@@ -67,8 +71,10 @@ export function CreatePageDialogs({
   onCreateSummaryCancel,
   onNameChange,
   onRenameTrack,
+  onIsPublicChange,
 }: CreatePageDialogsProps) {
   const { t } = useTranslation();
+  const user = useAuthStore((s) => s.user);
 
   const removeTrackMessage = (() => {
     const idx = confirmRemoveIndex ?? 0;
@@ -139,10 +145,13 @@ export function CreatePageDialogs({
         name={name}
         categories={categories}
         tracks={tracks}
+        isPublic={isPublic}
+        isLoggedIn={!!user}
         onConfirm={onCreateSummaryConfirm}
         onCancel={onCreateSummaryCancel}
         onNameChange={onNameChange}
         onRenameTrack={onRenameTrack}
+        onIsPublicChange={onIsPublicChange}
       />
     </>
   );
