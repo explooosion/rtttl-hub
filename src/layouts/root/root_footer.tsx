@@ -79,7 +79,7 @@ export function RootFooter({ resetConsent }: RootFooterProps) {
                   to="/collections/favorites"
                   className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
                 >
-                  {t("nav.favorites")}
+                  {t("collections.favorites.name")}
                 </Link>
               </li>
               <li>

@@ -83,7 +83,7 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
                 : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
             )}
           >
-            {t("nav.favorites")}
+            {t("collections.favorites.name")}
           </Link>
           <Link
             to="/create"
