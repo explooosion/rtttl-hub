@@ -74,9 +74,18 @@ export function LandingPage() {
 
         {/* Collection cards - Public Libraries */}
         <section className="py-8">
-          <h3 className="fly-in mb-6 text-2xl font-bold text-gray-900 dark:text-white">
-            {t("collections.group.publicLibraries")}
-          </h3>
+          <div className="fly-in mb-6 flex items-center gap-3">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+              {t("collections.group.publicLibraries")}
+            </h3>
+            <Link
+              to="/collections/public"
+              className="group flex items-center gap-1 text-sm font-semibold text-indigo-600 transition-all hover:gap-2 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+            >
+              <span>{t("collections.browseAll")}</span>
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
+            </Link>
+          </div>
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             {COLLECTIONS.filter((c) => c.group === "public-libraries").map((col, i) => (
               <div key={col.slug} className={`fly-in fly-in-delay-${i + 1}`}>
