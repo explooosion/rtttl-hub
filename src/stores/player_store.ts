@@ -28,6 +28,7 @@ interface PlayerStoreState {
   multiPlayer: ToneEngine;
   isMultiTrack: boolean;
   setCurrentItem: (item: RtttlEntry) => void;
+  clearCurrentItem: () => void;
   playItem: (item: RtttlEntry) => void;
   playCode: (code: string, startMs?: number) => void;
   playTracks: (tracks: string[], startMs?: number) => void;
@@ -85,6 +86,22 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
         editedTracks: tracks,
         activeTrackIndex: isMulti ? -1 : 0,
         isMultiTrack: isMulti,
+      });
+    },
+    clearCurrentItem: () => {
+      engine.stop();
+      set({
+        currentItem: null,
+        playerState: "idle",
+        currentNoteIndex: 0,
+        totalNotes: 0,
+        trackNoteIndices: [],
+        trackTotalNotes: [],
+        trackMuted: [],
+        editedCode: "",
+        editedTracks: [],
+        activeTrackIndex: 0,
+        isMultiTrack: false,
       });
     },
     playItem: (item) => {

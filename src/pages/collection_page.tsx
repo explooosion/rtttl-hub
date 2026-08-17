@@ -9,6 +9,7 @@ import type { BreadcrumbItem } from "../layouts/list_page_layout";
 import { useCollectionStore } from "../stores/collection_store";
 import { useFavoritesStore } from "../stores/favorites_store";
 import { useAuthStore } from "../stores/auth_store";
+import { usePlayerStore } from "../stores/player_store";
 import { useTrackStatsStore } from "../stores/track_stats_store";
 import { updateCreationVisibility, getPublicCreations } from "../services/firestore_service";
 import { getCollectionBySlug, COLLECTIONS } from "../constants/collections";
@@ -33,6 +34,8 @@ export function CollectionPage() {
   const sortMode = useCollectionStore((s) => s.sortMode);
   const setSortMode = useCollectionStore((s) => s.setSortMode);
   const favoriteIds = useFavoritesStore((s) => s.favoriteIds);
+  const currentItem = usePlayerStore((s) => s.currentItem);
+  const clearCurrentItem = usePlayerStore((s) => s.clearCurrentItem);
   const loadStats = useTrackStatsStore((s) => s.loadStats);
   const getStatsForTrack = useTrackStatsStore((s) => s.getStatsForTrack);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
@@ -130,10 +133,13 @@ export function CollectionPage() {
   const handleConfirmDelete = useCallback(() => {
     if (itemToDelete) {
       deleteUserItem(itemToDelete.id, user?.uid);
+      if (currentItem?.id === itemToDelete.id) {
+        clearCurrentItem();
+      }
     }
     setDeleteConfirmOpen(false);
     setItemToDelete(null);
-  }, [itemToDelete, user, deleteUserItem]);
+  }, [itemToDelete, user, deleteUserItem, currentItem, clearCurrentItem]);
 
   const handleImportToCreate = useCallback(
     (item: RtttlEntry) => {
