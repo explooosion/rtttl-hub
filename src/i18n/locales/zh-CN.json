@@ -5,11 +5,9 @@
     "loadingProfile": "加载个人资料中..."
   },
   "app": {
-    "title": "RTTTL Hub",
-    "subtitle": "浏览、播放 & 创作复古铃声"
+    "title": "RTTTL Hub"
   },
   "nav": {
-    "collection": "收藏库",
     "collections": "收藏库",
     "myCreations": "我的创作",
     "favorites": "我的收藏",
@@ -55,7 +53,6 @@
     "title": "收藏库",
     "subtitle": "浏览来自不同来源的铃声收藏。",
     "browseAll": "浏览全部",
-    "items": "{{count}} 项",
     "picaxe": {
       "name": "PICAXE 收藏库",
       "description": "海量经典 RTTTL 铃声收藏，涵盖流行、摇滚、电视主题曲、圣诞歌曲等多种风格。"
@@ -67,10 +64,6 @@
     "favorites": {
       "name": "我的收藏",
       "description": "您收藏的 RTTTL 音轨。"
-    },
-    "public": {
-      "name": "全部公开曲库",
-      "description": "所有公开 RTTTL 曲库的音乐合集。包含 PICAXE、社区、Skully RTTTL、ESPHome 和其他开放源代码曲库。"
     },
     "community": {
       "name": "社区",
@@ -106,17 +99,13 @@
     "original": "原创"
   },
   "creator": {
-    "title": "创作者档案",
-    "works": "{{count}} 个作品",
-    "backToCollection": "返回收藏库"
+    "works": "{{count}} 个作品"
   },
   "search": {
     "placeholder": "搜索名称或创作者...",
-    "noResults": "找不到结果",
-    "totalItems": "共 {{count}} 项"
+    "noResults": "找不到结果"
   },
   "sort": {
-    "label": "排序",
     "aToZ": "标题 A-Z",
     "zToA": "标题 Z-A",
     "artistAZ": "创作者 A-Z",
@@ -127,8 +116,7 @@
     "updatedAsc": "最旧更新"
   },
   "stats": {
-    "plays": "播放次数",
-    "likes": "点赞"
+    "plays": "播放次数"
   },
   "player": {
     "play": "播放",
@@ -276,25 +264,18 @@
     "title": "RTTTL 编辑器",
     "name": "名称",
     "namePlaceholder": "输入铃声名称",
-    "code": "RTTTL 代码",
-    "codePlaceholder": "输入 RTTTL 代码 (name:d=4,o=5,b=120:notes...)",
     "category": "分类",
-    "categoryPlaceholder": "选择分类",
     "create": "创建",
     "update": "保存",
     "cancel": "放弃",
     "invalidCode": "RTTTL 代码格式无效",
     "nameRequired": "名称为必填",
     "multiTrack": "多音轨模式",
-    "localStorageHint": "您创建的铃声会保存在浏览器的本地存储中。",
-    "preview": "预览",
-    "previewHint": "请在上方输入 RTTTL 代码以预览",
     "draftSaved": "草稿已保存",
     "menuFile": "文件",
     "menuEdit": "编辑",
     "menuHelp": "帮助",
     "menuNew": "新建项目",
-    "menuRename": "重命名项目",
     "menuExit": "离开",
     "import": "导入…",
     "undo": "撤销",
@@ -309,7 +290,6 @@
     "clearLoop": "清除 A-B 标记",
     "trimRegion": "裁剪至选取范围",
     "deleteRegion": "删除选取区段",
-    "cutDialogTitle": "应用剪切",
     "cutDialogDesc": "选择要应用剪切的音轨：",
     "cutDialogConfirm": "应用",
     "duplicateTrack": "复制音轨",
@@ -327,13 +307,10 @@
     "menuImportFromFavorites": "从收藏导入…",
     "importFromFavoritesTitle": "从收藏导入",
     "clearTrackCode": "清除音轨代码",
-    "copyTrack": "复制此音轨代码",
-    "trackStats": "音轨信息",
     "trackDuration": "时长",
     "trackBpm": "速度",
     "trackNotes": "音符数",
     "trackOctave": "默认八度",
-    "trackDefaultDuration": "默认时值",
     "trackCodeLength": "代码长度",
     "copyCurrentTrack": "复制当前音轨代码",
     "currentTrack": "当前音轨",
@@ -342,11 +319,6 @@
     "mobileNotSupportedBack": "返回",
     "project": "项目",
     "trackName": "音轨名称",
-    "trackNameRequired": "音轨名称不能为空",
-    "trackNameTooLong": "音轨名称不能超过 30 个字符",
-    "trackNameNoColon": "音轨名称不能包含冒号 (:)",
-    "trackNameNoComma": "音轨名称不能包含逗号 (,)",
-    "trackNameAsciiOnly": "音轨名称只能使用 ASCII 字符（英文、数字、符号），不支持中文、日文、韩文等",
     "tracks": "音轨",
     "noneSelected": "未选择",
     "selected": "已选",
@@ -366,7 +338,6 @@
     "aboutMaxTracks": "最多音轨",
     "aboutStorage": "存储",
     "aboutStorageValue": "本地浏览器存储（草稿）",
-    "aboutShortcuts": "快捷键",
     "makePublic": "公开分享",
     "publicExplanation": "其他用户可以在社区收藏中看到这个音轨",
     "created": "✓ 已保存创作：{{name}}",
@@ -376,9 +347,7 @@
     "visibilityUpdateFailed": "更新可见性失败"
   },
   "favorites": {
-    "title": "我的收藏",
-    "empty": "尚无收藏。点击铃声旁的爱心图标即可加入。",
-    "remove": "从收藏中移除"
+    "empty": "尚无收藏。点击铃声旁的爱心图标即可加入。"
   },
   "theme": {
     "light": "浅色",
@@ -390,7 +359,6 @@
     "contribute": "分享创作",
     "showFilters": "显示筛选",
     "hideFilters": "隐藏筛选",
-    "download": "下载 .rtttl",
     "edit": "编辑",
     "delete": "删除",
     "cancel": "取消",
@@ -443,9 +411,7 @@
     "home": "首页",
     "collections": "收藏库",
     "contribute": "分享与贡献",
-    "account": "账号",
-    "profile": "个人资料",
-    "password": "密码"
+    "profile": "个人资料"
   },
   "contribute": {
     "title": "分享与贡献",
@@ -472,8 +438,6 @@
   "footer": {
     "discover": "探索",
     "allCollections": "所有收藏库",
-    "resources": "外部资源",
-    "documentation": "文档",
     "about": "关于",
     "aboutDescription": "RTTTL Hub 是一个用于探索和播放复古 RTTTL 铃声的平台。",
     "copyright": "© 2026 RTTTL Hub. 商标及品牌为其各自所有者的财产。",
@@ -620,37 +584,12 @@
     "ok": "确认",
     "cancel": "取消"
   },
-  "megaMenu": {
-    "quickLinks": "快速链接",
-    "popular": "热门",
-    "createNew": "新建"
-  },
   "auth": {
     "signInTitle": "登录 RTTTL Hub",
     "signInDescription": "浏览、播放和创建复古 RTTTL 铃声。登录后可保存您的收藏和自定义铃声。",
     "continueWithGoogle": "使用 Google 登录",
-    "or": "或",
-    "email": "电子邮箱",
-    "password": "密码",
-    "forgot": "忘记密码？",
     "signIn": "登录",
     "signOut": "退出登录",
-    "noAccount": "还没有账号？",
-    "createAccount": "创建账号",
-    "termsNotice": "继续即表示您同意我们的使用条款和隐私政策。",
-    "createAccountTitle": "创建您的账号",
-    "createAccountDescription": "使用 Google 账号注册。之后可以设置密码以使用邮箱登录。",
-    "registerWithGoogle": "使用您的 Google 账号创建 RTTTL Hub 账号。",
-    "haveAccount": "已有账号？",
-    "setPasswordTitle": "设置密码",
-    "registeredAs": "已注册为：",
-    "newPassword": "新密码",
-    "confirmPassword": "确认密码",
-    "passwordPlaceholder": "至少 6 个字符",
-    "setPassword": "设置密码",
-    "skipForNow": "暂时跳过",
-    "passwordTooShort": "密码至少需要 6 个字符",
-    "passwordMismatch": "密码不一致",
     "signingIn": "登录中...",
     "signInSuccess": "登录成功！",
     "signInFailed": "登录失败，请重试。",
@@ -658,21 +597,14 @@
   },
   "account": {
     "title": "我的账号",
-    "settings": "个人资料",
-    "information": "账号信息",
     "editProfile": "编辑个人资料",
     "email": "电子邮箱",
     "statistics": "统计数据",
     "creationsCount": "创作数量",
     "favoritesCount": "收藏数量",
     "profileDetails": "账号详细信息",
-    "profileNotice": "部分字段可能由登录提供方管理。",
     "displayName": "显示名称",
     "saveChanges": "保存更改",
-    "setPassword": "设置密码",
-    "changePassword": "修改密码",
-    "currentPassword": "当前密码",
-    "passwordSuccess": "密码更新成功。",
     "emailNotEditable": "电子邮箱无法更改（由 Google 管理）",
     "save": "保存",
     "saving": "保存中...",
@@ -690,27 +622,17 @@
     "dangerZone": "危险区域",
     "deleteAccount": "删除账号",
     "deleteAccountWarning": "永久删除您的账号和所有相关数据。此操作无法撤销。",
-    "deleteAccountButton": "删除账号",
     "deleteAccountConfirmTitle": "删除账号",
     "deleteAccountConfirmMessage": "确定要永久删除您的账号吗？这将删除您所有的创作、收藏和个人资料。此操作无法撤销。",
     "deleteAccountInputPlaceholder": "请输入您的显示名称 {{name}} 以确认删除",
-    "deleting": "删除中...",
     "accountDeleted": "账号已成功删除。",
     "deleteFailed": "账号删除失败，请重试。"
-  },
-  "pagination": {
-    "pageInfo": "第 {{current}} / {{total}} 页"
   },
   "betaBanner": {
     "message": "RTTTL Hub 目前正在积极开发中，部分功能可能尚未完整或暂时无法使用。",
     "dismiss": "关闭"
   },
   "language": {
-    "en": "English",
-    "zh-TW": "繁體中文",
-    "zh-CN": "简体中文",
-    "ja": "日本语",
-    "ko": "한국어",
     "de": "Deutsch",
     "fr": "Français",
     "es": "Español",

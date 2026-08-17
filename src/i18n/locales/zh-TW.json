@@ -5,11 +5,9 @@
     "loadingProfile": "載入個人資料中..."
   },
   "app": {
-    "title": "RTTTL Hub",
-    "subtitle": "瀏覽、播放 & 創作復古鈴聲"
+    "title": "RTTTL Hub"
   },
   "nav": {
-    "collection": "收藏庫",
     "collections": "收藏庫",
     "myCreations": "我的創作",
     "favorites": "我的收藏",
@@ -55,7 +53,6 @@
     "title": "收藏庫",
     "subtitle": "瀏覽來自不同來源的鈴聲收藏。",
     "browseAll": "瀏覽全部",
-    "items": "{{count}} 項",
     "picaxe": {
       "name": "PICAXE",
       "description": "海量經典 RTTTL 鈴聲收藏，涵蓋流行、搖滾、電視主題曲、聖誕歌曲等多種風格。"
@@ -67,10 +64,6 @@
     "favorites": {
       "name": "我的收藏",
       "description": "您收藏的 RTTTL 音軌。"
-    },
-    "public": {
-      "name": "全部公開曲庫",
-      "description": "所有公開 RTTTL 曲庫的音樂合集。包含 PICAXE、社群、Skully RTTTL、ESPHome 和其他開放原始碼曲庫。"
     },
     "community": {
       "name": "社群",
@@ -106,17 +99,13 @@
     "original": "原創"
   },
   "creator": {
-    "title": "創作者檔案",
-    "works": "{{count}} 個作品",
-    "backToCollection": "返回收藏庫"
+    "works": "{{count}} 個作品"
   },
   "search": {
     "placeholder": "搜尋名稱或創作者...",
-    "noResults": "找不到結果",
-    "totalItems": "共 {{count}} 項"
+    "noResults": "找不到結果"
   },
   "sort": {
-    "label": "排序",
     "aToZ": "標題 A-Z",
     "zToA": "標題 Z-A",
     "artistAZ": "創作者 A-Z",
@@ -127,8 +116,7 @@
     "updatedAsc": "最舊更新"
   },
   "stats": {
-    "plays": "播放次數",
-    "likes": "喜歡"
+    "plays": "播放次數"
   },
   "player": {
     "play": "播放",
@@ -276,25 +264,18 @@
     "title": "RTTTL 編輯器",
     "name": "名稱",
     "namePlaceholder": "輸入鈴聲名稱",
-    "code": "RTTTL 代碼",
-    "codePlaceholder": "輸入 RTTTL 代碼 (name:d=4,o=5,b=120:notes...)",
     "category": "分類",
-    "categoryPlaceholder": "選擇分類",
     "create": "建立",
     "update": "儲存",
     "cancel": "放棄",
     "invalidCode": "RTTTL 代碼格式無效",
     "nameRequired": "名稱為必填",
     "multiTrack": "多音軌模式",
-    "localStorageHint": "您建立的鈴聲會保存在瀏覽器的本機儲存中。",
-    "preview": "預覽",
-    "previewHint": "請在上方輸入 RTTTL 代碼以預覽",
     "draftSaved": "草稿已儲存",
     "menuFile": "檔案",
     "menuEdit": "編輯",
     "menuHelp": "說明",
     "menuNew": "新增專案",
-    "menuRename": "重新命名專案",
     "menuExit": "離開",
     "import": "匯入…",
     "undo": "復原",
@@ -309,7 +290,6 @@
     "clearLoop": "清除 A-B 標記",
     "trimRegion": "裁剪至選取範圍",
     "deleteRegion": "刪除選取區段",
-    "cutDialogTitle": "套用切割",
     "cutDialogDesc": "選擇要套用切割的音軌：",
     "cutDialogConfirm": "套用",
     "duplicateTrack": "複製音軌",
@@ -327,13 +307,10 @@
     "menuImportFromFavorites": "從收藏匯入…",
     "importFromFavoritesTitle": "從收藏匯入",
     "clearTrackCode": "清除音軌代碼",
-    "copyTrack": "複製此音軌代碼",
-    "trackStats": "音軌資訊",
     "trackDuration": "時長",
     "trackBpm": "速度",
     "trackNotes": "音符數",
     "trackOctave": "預設八度",
-    "trackDefaultDuration": "預設時值",
     "trackCodeLength": "代碼長度",
     "copyCurrentTrack": "複製當前音軌代碼",
     "currentTrack": "當前音軌",
@@ -342,11 +319,6 @@
     "mobileNotSupportedBack": "返回",
     "project": "專案",
     "trackName": "音軌名稱",
-    "trackNameRequired": "音軌名稱不能為空",
-    "trackNameTooLong": "音軌名稱不能超過 30 個字元",
-    "trackNameNoColon": "音軌名稱不能包含冒號 (:)",
-    "trackNameNoComma": "音軌名稱不能包含逗號 (,)",
-    "trackNameAsciiOnly": "音軌名稱只能使用 ASCII 字元（英文、數字、符號），不支援中文、日文、韓文等",
     "tracks": "音軌",
     "noneSelected": "未選取",
     "selected": "已選",
@@ -366,7 +338,6 @@
     "aboutMaxTracks": "最多音軌",
     "aboutStorage": "儲存",
     "aboutStorageValue": "本機瀏覽器儲存（草稿）",
-    "aboutShortcuts": "快捷鍵",
     "makePublic": "公開分享",
     "publicExplanation": "其他用戶可以在社群收藏中看到這個音軌",
     "created": "✓ 已保存創作：{{name}}",
@@ -376,9 +347,7 @@
     "visibilityUpdateFailed": "更新可見性失敗"
   },
   "favorites": {
-    "title": "我的收藏",
-    "empty": "尚無最愛。點擊鈴聲旁的愛心圖示即可加入。",
-    "remove": "從最愛中移除"
+    "empty": "尚無最愛。點擊鈴聲旁的愛心圖示即可加入。"
   },
   "theme": {
     "light": "淺色",
@@ -390,7 +359,6 @@
     "contribute": "分享創作",
     "showFilters": "顯示篩選",
     "hideFilters": "隱藏篩選",
-    "download": "下載 .rtttl",
     "edit": "編輯",
     "delete": "刪除",
     "cancel": "取消",
@@ -443,9 +411,7 @@
     "home": "首頁",
     "collections": "收藏庫",
     "contribute": "分享與貢獻",
-    "account": "帳號",
-    "profile": "個人資料",
-    "password": "密碼"
+    "profile": "個人資料"
   },
   "contribute": {
     "title": "分享與貢獻",
@@ -472,8 +438,6 @@
   "footer": {
     "discover": "探索",
     "allCollections": "所有收藏庫",
-    "resources": "資源",
-    "documentation": "文件",
     "about": "關於",
     "aboutDescription": "RTTTL Hub 是一個用於探索和播放復古 RTTTL 鈴聲的平台。",
     "copyright": "© 2026 RTTTL Hub. 商標及品牌為其各自擁有者之財產。",
@@ -620,37 +584,12 @@
     "ok": "確認",
     "cancel": "取消"
   },
-  "megaMenu": {
-    "quickLinks": "快速連結",
-    "popular": "熱門",
-    "createNew": "新建"
-  },
   "auth": {
     "signInTitle": "登入 RTTTL Hub",
     "signInDescription": "瀏覽、播放和創建復古 RTTTL 鈴聲。登入後可儲存您的收藏和自訂鈴聲。",
     "continueWithGoogle": "使用 Google 登入",
-    "or": "或",
-    "email": "電子郵件",
-    "password": "密碼",
-    "forgot": "忘記密碼？",
     "signIn": "登入",
     "signOut": "登出",
-    "noAccount": "還沒有帳號？",
-    "createAccount": "建立帳號",
-    "termsNotice": "繼續即表示您同意我們的使用條款和隱私權政策。",
-    "createAccountTitle": "建立您的帳號",
-    "createAccountDescription": "使用 Google 帳號註冊。之後可以設定密碼以使用電子郵件登入。",
-    "registerWithGoogle": "使用您的 Google 帳號建立 RTTTL Hub 帳號。",
-    "haveAccount": "已有帳號？",
-    "setPasswordTitle": "設定密碼",
-    "registeredAs": "已註冊為：",
-    "newPassword": "新密碼",
-    "confirmPassword": "確認密碼",
-    "passwordPlaceholder": "至少 6 個字元",
-    "setPassword": "設定密碼",
-    "skipForNow": "稍後再說",
-    "passwordTooShort": "密碼至少需要 6 個字元",
-    "passwordMismatch": "密碼不一致",
     "signingIn": "登入中...",
     "signInSuccess": "登入成功！",
     "signInFailed": "登入失敗，請重試。",
@@ -658,21 +597,14 @@
   },
   "account": {
     "title": "我的帳號",
-    "settings": "個人資料",
-    "information": "帳號資訊",
     "editProfile": "編輯個人資料",
     "email": "電子郵件",
     "statistics": "統計數據",
     "creationsCount": "創作數量",
     "favoritesCount": "收藏數量",
     "profileDetails": "帳號詳細資料",
-    "profileNotice": "部分欄位可能由登入提供者管理。",
     "displayName": "顯示名稱",
     "saveChanges": "儲存變更",
-    "setPassword": "設定密碼",
-    "changePassword": "變更密碼",
-    "currentPassword": "目前密碼",
-    "passwordSuccess": "密碼更新成功。",
     "emailNotEditable": "電子郵件無法變更（由 Google 管理）",
     "save": "儲存",
     "saving": "儲存中...",
@@ -690,27 +622,17 @@
     "dangerZone": "危險區域",
     "deleteAccount": "刪除帳號",
     "deleteAccountWarning": "永久刪除您的帳號和所有相關資料。此操作無法復原。",
-    "deleteAccountButton": "刪除帳號",
     "deleteAccountConfirmTitle": "刪除帳號",
     "deleteAccountConfirmMessage": "確定要永久刪除您的帳號嗎？這將刪除您所有的創作、收藏和個人資料。此操作無法復原。",
     "deleteAccountInputPlaceholder": "請輸入您的顯示名稱 {{name}} 以確認刪除",
-    "deleting": "刪除中...",
     "accountDeleted": "帳號已成功刪除。",
     "deleteFailed": "帳號刪除失敗，請重試。"
-  },
-  "pagination": {
-    "pageInfo": "第 {{current}} / {{total}} 頁"
   },
   "betaBanner": {
     "message": "RTTTL Hub 目前正積極開發中，部分功能可能尚未完整或暫時無法使用。",
     "dismiss": "關閉"
   },
   "language": {
-    "en": "English",
-    "zh-TW": "繁體中文",
-    "zh-CN": "简体中文",
-    "ja": "日本語",
-    "ko": "한국어",
     "de": "Deutsch",
     "fr": "Français",
     "es": "Español",

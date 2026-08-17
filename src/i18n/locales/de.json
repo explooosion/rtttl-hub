@@ -5,11 +5,9 @@
     "loadingProfile": "Profil wird geladen..."
   },
   "app": {
-    "title": "RTTTL Hub",
-    "subtitle": "Retro-Klingeltöne durchsuchen, abspielen und erstellen"
+    "title": "RTTTL Hub"
   },
   "nav": {
-    "collection": "Sammlung",
     "collections": "Sammlungen",
     "myCreations": "Meine Kreationen",
     "favorites": "Favoriten",
@@ -55,7 +53,6 @@
     "title": "Sammlungen",
     "subtitle": "Durchsuchen Sie Klingelton-Sammlungen aus verschiedenen Quellen.",
     "browseAll": "Alle durchsuchen",
-    "items": "{{count}} Elemente",
     "picaxe": {
       "name": "PICAXE",
       "description": "Eine umfangreiche Sammlung klassischer RTTTL-Klingeltöne aus der PICAXE-Bibliothek. Deckt Pop, Rock, TV-Themen, Weihnachtslieder und mehr ab."
@@ -67,10 +64,6 @@
     "favorites": {
       "name": "Meine Favoriten",
       "description": "Ihre Lieblings-RTTTL-Tracks."
-    },
-    "public": {
-      "name": "Alle öffentlichen Bibliotheken",
-      "description": "Alle Titel aus öffentlichen RTTTL-Sammlungen kombiniert. Umfasst PICAXE, Community, Skully RTTTL, ESPHome und andere Open-Source-Bibliotheken."
     },
     "community": {
       "name": "Community",
@@ -106,17 +99,13 @@
     "original": "Original"
   },
   "creator": {
-    "title": "Ersteller-Profil",
-    "works": "{{count}} Werke",
-    "backToCollection": "Zurück zur Sammlung"
+    "works": "{{count}} Werke"
   },
   "search": {
     "placeholder": "Nach Name oder Künstler suchen...",
-    "noResults": "Keine Ergebnisse gefunden",
-    "totalItems": "{{count}} Elemente"
+    "noResults": "Keine Ergebnisse gefunden"
   },
   "sort": {
-    "label": "Sortieren",
     "aToZ": "Titel A-Z",
     "zToA": "Titel Z-A",
     "artistAZ": "Künstler A-Z",
@@ -127,8 +116,7 @@
     "likesLow": "Wenigst Gemocht"
   },
   "stats": {
-    "plays": "Wiedergaben",
-    "likes": "Likes"
+    "plays": "Wiedergaben"
   },
   "player": {
     "play": "Abspielen",
@@ -276,25 +264,18 @@
     "title": "RTTTL Editor",
     "name": "Name",
     "namePlaceholder": "Klingelton-Namen eingeben",
-    "code": "RTTTL-Code",
-    "codePlaceholder": "RTTTL-Code eingeben (name:d=4,o=5,b=120:notes...)",
     "category": "Kategorie",
-    "categoryPlaceholder": "Kategorie auswählen",
     "create": "Erstellen",
     "update": "Speichern",
     "cancel": "Verwerfen",
     "invalidCode": "Ungültiges RTTTL-Code-Format",
     "nameRequired": "Name ist erforderlich",
     "multiTrack": "Mehrspur",
-    "localStorageHint": "Erstellte Klingeltöne werden lokal in Ihrem Browser gespeichert.",
-    "preview": "Vorschau",
-    "previewHint": "RTTTL-Code eingeben, um Vorschau anzuzeigen",
     "draftSaved": "Entwurf gespeichert",
     "menuFile": "Datei",
     "menuEdit": "Bearbeiten",
     "menuHelp": "Hilfe",
     "menuNew": "Neues Projekt",
-    "menuRename": "Projekt umbenennen",
     "menuExit": "Beenden",
     "import": "Importieren…",
     "undo": "Rückgängig",
@@ -309,7 +290,6 @@
     "clearLoop": "Markierungen löschen",
     "trimRegion": "Auf Auswahl zuschneiden",
     "deleteRegion": "Auswahl löschen",
-    "cutDialogTitle": "Schnitt anwenden",
     "cutDialogDesc": "Spuren auswählen, auf die der Schnitt angewendet werden soll:",
     "cutDialogConfirm": "Anwenden",
     "duplicateTrack": "Spur duplizieren",
@@ -327,13 +307,10 @@
     "menuImportFromFavorites": "Aus Favoriten importieren…",
     "importFromFavoritesTitle": "Aus Favoriten importieren",
     "clearTrackCode": "Spurcode löschen",
-    "copyTrack": "Diese Spur kopieren",
-    "trackStats": "Spurinfo",
     "trackDuration": "Dauer",
     "trackBpm": "Tempo",
     "trackNotes": "Noten",
     "trackOctave": "Standard-Oktave",
-    "trackDefaultDuration": "Standard-Dauer",
     "trackCodeLength": "Code-Länge",
     "copyCurrentTrack": "Aktuelle Spur kopieren",
     "currentTrack": "Aktuelle Spur",
@@ -342,11 +319,6 @@
     "mobileNotSupportedBack": "Zurück",
     "project": "Projekt",
     "trackName": "Spurname",
-    "trackNameRequired": "Spurname darf nicht leer sein",
-    "trackNameTooLong": "Spurname darf 30 Zeichen nicht überschreiten",
-    "trackNameNoColon": "Spurname darf keinen Doppelpunkt (:) enthalten",
-    "trackNameNoComma": "Spurname darf kein Komma (,) enthalten",
-    "trackNameAsciiOnly": "Spurname muss nur ASCII-Zeichen verwenden (englische Buchstaben, Zahlen, Symbole). Chinesisch, Japanisch, Koreanisch usw. werden nicht unterstützt",
     "tracks": "Spuren",
     "noneSelected": "Keine ausgewählt",
     "selected": "ausgewählt",
@@ -366,7 +338,6 @@
     "aboutMaxTracks": "Max. Spuren",
     "aboutStorage": "Speicher",
     "aboutStorageValue": "Lokaler Browser-Speicher (Entwurf)",
-    "aboutShortcuts": "Tastenkombinationen",
     "makePublic": "Öffentlich machen",
     "publicExplanation": "Andere Benutzer können diesen Track in der Community-Sammlung sehen",
     "created": "✓ Erstellung gespeichert: {{name}}",
@@ -376,9 +347,7 @@
     "visibilityUpdateFailed": "Aktualisierung der Sichtbarkeit fehlgeschlagen"
   },
   "favorites": {
-    "title": "Meine Favoriten",
-    "empty": "Noch keine Favoriten. Klicken Sie auf das Herz-Symbol bei einem Klingelton, um ihn hinzuzufügen.",
-    "remove": "Aus Favoriten entfernen"
+    "empty": "Noch keine Favoriten. Klicken Sie auf das Herz-Symbol bei einem Klingelton, um ihn hinzuzufügen."
   },
   "theme": {
     "light": "Hell",
@@ -390,7 +359,6 @@
     "contribute": "Teilen",
     "showFilters": "Filter anzeigen",
     "hideFilters": "Filter ausblenden",
-    "download": ".rtttl herunterladen",
     "edit": "Bearbeiten",
     "delete": "Löschen",
     "cancel": "Abbrechen",
@@ -440,9 +408,7 @@
     "home": "Startseite",
     "collections": "Sammlungen",
     "contribute": "Teilen & Beitragen",
-    "account": "Konto",
-    "profile": "Profil",
-    "password": "Passwort"
+    "profile": "Profil"
   },
   "contribute": {
     "title": "Teilen & Beitragen",
@@ -469,11 +435,8 @@
   "footer": {
     "sourceCode": "GitHub",
     "reportIssue": "Issues",
-    "picaxeCollection": "PICAXE",
     "discover": "Entdecken",
     "allCollections": "Alle Sammlungen",
-    "resources": "Externe Ressourcen",
-    "documentation": "Dokumentation",
     "about": "Über",
     "aboutDescription": "RTTTL Hub ist eine Plattform zum Erkunden und Abspielen von Retro-RTTTL-Klingeltönen.",
     "copyright": "© 2026 RTTTL Hub. Marken und Markennamen sind Eigentum ihrer jeweiligen Inhaber.",
@@ -620,37 +583,12 @@
     "ok": "Bestätigen",
     "cancel": "Abbrechen"
   },
-  "megaMenu": {
-    "quickLinks": "Schnellzugriff",
-    "popular": "Beliebt",
-    "createNew": "Neu erstellen"
-  },
   "auth": {
     "signInTitle": "Bei RTTTL Hub anmelden",
     "signInDescription": "Durchsuchen, abspielen und erstellen Sie Retro-RTTTL-Klingeltöne. Melden Sie sich an, um Ihre Favoriten und benutzerdefinierten Töne zu speichern.",
     "continueWithGoogle": "Mit Google fortfahren",
-    "or": "ODER",
-    "email": "E-Mail",
-    "password": "Passwort",
-    "forgot": "Vergessen?",
     "signIn": "Anmelden",
     "signOut": "Abmelden",
-    "noAccount": "Neu hier?",
-    "createAccount": "Konto erstellen",
-    "termsNotice": "Durch Fortfahren stimmen Sie unseren Nutzungsbedingungen und Datenschutzrichtlinien zu.",
-    "createAccountTitle": "Konto erstellen",
-    "createAccountDescription": "Melden Sie sich mit Google an, um loszulegen. Sie können danach ein Passwort für E-Mail-Anmeldung festlegen.",
-    "registerWithGoogle": "Verwenden Sie Ihr Google-Konto, um ein RTTTL Hub-Konto zu erstellen.",
-    "haveAccount": "Haben Sie bereits ein Konto?",
-    "setPasswordTitle": "Passwort festlegen",
-    "registeredAs": "Registriert als:",
-    "newPassword": "Neues Passwort",
-    "confirmPassword": "Passwort bestätigen",
-    "passwordPlaceholder": "Mindestens 6 Zeichen",
-    "setPassword": "Passwort festlegen",
-    "skipForNow": "Jetzt überspringen",
-    "passwordTooShort": "Passwort muss mindestens 6 Zeichen lang sein",
-    "passwordMismatch": "Passwörter stimmen nicht überein",
     "signingIn": "Anmeldung läuft...",
     "signInSuccess": "Erfolgreich angemeldet!",
     "signInFailed": "Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.",
@@ -658,21 +596,14 @@
   },
   "account": {
     "title": "Mein Konto",
-    "settings": "Profil",
-    "information": "Kontoinformationen",
     "editProfile": "Profil bearbeiten",
     "email": "E-Mail",
     "statistics": "Statistiken",
     "creationsCount": "Kreationen",
     "favoritesCount": "Favoriten",
     "profileDetails": "Kontodetails",
-    "profileNotice": "Einige Felder werden möglicherweise von Ihrem Anmeldeanbieter verwaltet.",
     "displayName": "Anzeigename",
     "saveChanges": "Änderungen speichern",
-    "setPassword": "Passwort festlegen",
-    "changePassword": "Passwort ändern",
-    "currentPassword": "Aktuelles Passwort",
-    "passwordSuccess": "Passwort erfolgreich aktualisiert.",
     "emailNotEditable": "E-Mail kann nicht geändert werden (von Google verwaltet)",
     "save": "Speichern",
     "saving": "Speichern...",
@@ -690,27 +621,17 @@
     "dangerZone": "Gefahrenzone",
     "deleteAccount": "Konto löschen",
     "deleteAccountWarning": "Ihr Konto und alle zugehörigen Daten dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden.",
-    "deleteAccountButton": "Konto löschen",
     "deleteAccountConfirmTitle": "Konto löschen",
     "deleteAccountConfirmMessage": "Sind Sie sicher, dass Sie Ihr Konto dauerhaft löschen möchten? Dies löscht alle Ihre Kreationen, Favoriten und Profildaten. Diese Aktion kann nicht rückgängig gemacht werden.",
     "deleteAccountInputPlaceholder": "Geben Sie Ihren Anzeigenamen {{name}} ein, um das Löschen zu bestätigen",
-    "deleting": "Löschen...",
     "accountDeleted": "Konto erfolgreich gelöscht.",
     "deleteFailed": "Konto konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
-  },
-  "pagination": {
-    "pageInfo": "Seite {{current}} / {{total}}"
   },
   "betaBanner": {
     "message": "RTTTL Hub befindet sich derzeit in aktiver Entwicklung. Einige Funktionen sind möglicherweise unvollständig oder vorübergehend nicht verfügbar.",
     "dismiss": "Schließen"
   },
   "language": {
-    "en": "English",
-    "zh-TW": "繁體中文",
-    "zh-CN": "简体中文",
-    "ja": "日本語",
-    "ko": "한국어",
     "de": "Deutsch"
   }
 }

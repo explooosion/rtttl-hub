@@ -5,11 +5,9 @@
     "loadingProfile": "プロフィール読み込み中..."
   },
   "app": {
-    "title": "RTTTL Hub",
-    "subtitle": "レトロ着信音を閲覧・再生・作成"
+    "title": "RTTTL Hub"
   },
   "nav": {
-    "collection": "コレクション",
     "collections": "コレクション",
     "myCreations": "マイ作品",
     "favorites": "お気に入り",
@@ -55,7 +53,6 @@
     "title": "コレクション",
     "subtitle": "さまざまなソースから着信音コレクションを閲覧。",
     "browseAll": "すべて閲覧",
-    "items": "{{count}} 件",
     "picaxe": {
       "name": "PICAXE コレクション",
       "description": "PICAXE ライブラリの膨大なクラシック RTTTL 着信音コレクション。ポップ、ロック、テレビテーマ、クリスマスソングなど。"
@@ -67,10 +64,6 @@
     "favorites": {
       "name": "マイお気に入り",
       "description": "お気に入りの RTTTL トラック。"
-    },
-    "public": {
-      "name": "すべての公開ライブラリ",
-      "description": "すべての公開 RTTTL コレクションの統合。PICAXE、コミュニティ、Skully RTTTL、ESPHome、その他のオープンソースライブラリが含まれます。"
     },
     "community": {
       "name": "コミュニティ",
@@ -106,17 +99,13 @@
     "original": "オリジナル"
   },
   "creator": {
-    "title": "クリエイタープロフィール",
-    "works": "{{count}} 作品",
-    "backToCollection": "コレクションに戻る"
+    "works": "{{count}} 作品"
   },
   "search": {
     "placeholder": "名前またはアーティストで検索...",
-    "noResults": "結果が見つかりません",
-    "totalItems": "{{count}} 件"
+    "noResults": "結果が見つかりません"
   },
   "sort": {
-    "label": "並び替え",
     "aToZ": "タイトル A-Z",
     "zToA": "タイトル Z-A",
     "artistAZ": "アーティスト A-Z",
@@ -127,8 +116,7 @@
     "updatedAsc": "更新が古い順"
   },
   "stats": {
-    "plays": "再生回数",
-    "likes": "いいね"
+    "plays": "再生回数"
   },
   "player": {
     "play": "再生",
@@ -276,25 +264,18 @@
     "title": "RTTTL エディター",
     "name": "名前",
     "namePlaceholder": "着信音の名前を入力",
-    "code": "RTTTL コード",
-    "codePlaceholder": "RTTTL コードを入力 (name:d=4,o=5,b=120:notes...)",
     "category": "カテゴリ",
-    "categoryPlaceholder": "カテゴリを選択",
     "create": "作成",
     "update": "保存",
     "cancel": "破棄",
     "invalidCode": "無効な RTTTL コード形式",
     "nameRequired": "名前は必須です",
     "multiTrack": "マルチトラック",
-    "localStorageHint": "作成した着信音はブラウザのローカルストレージに保存されます。",
-    "preview": "プレビュー",
-    "previewHint": "RTTTL コードを入力してプレビューしてください",
     "draftSaved": "下書きを保存しました",
     "menuFile": "ファイル",
     "menuEdit": "編集",
     "menuHelp": "ヘルプ",
     "menuNew": "新規プロジェクト",
-    "menuRename": "プロジェクト名の変更",
     "menuExit": "終了",
     "import": "インポート…",
     "undo": "元に戻す",
@@ -309,7 +290,6 @@
     "clearLoop": "A-B マーカーをクリア",
     "trimRegion": "選択範囲にトリム",
     "deleteRegion": "選択範囲を削除",
-    "cutDialogTitle": "カットを適用",
     "cutDialogDesc": "カットを適用するトラックを選択：",
     "cutDialogConfirm": "適用",
     "duplicateTrack": "トラックを複製",
@@ -327,13 +307,10 @@
     "menuImportFromFavorites": "お気に入りからインポート…",
     "importFromFavoritesTitle": "お気に入りからインポート",
     "clearTrackCode": "コードをクリア",
-    "copyTrack": "トラックをコピー",
-    "trackStats": "トラック情報",
     "trackDuration": "長さ",
     "trackBpm": "テンポ",
     "trackNotes": "音符数",
     "trackOctave": "デフォルトオクターブ",
-    "trackDefaultDuration": "デフォルト音長",
     "trackCodeLength": "コード長",
     "copyCurrentTrack": "現在のトラックをコピー",
     "currentTrack": "現在のトラック",
@@ -342,11 +319,6 @@
     "mobileNotSupportedBack": "戻る",
     "project": "プロジェクト",
     "trackName": "トラック名",
-    "trackNameRequired": "トラック名を入力してください",
-    "trackNameTooLong": "トラック名は30文字以内にしてください",
-    "trackNameNoColon": "トラック名にコロン (:) を含めることはできません",
-    "trackNameNoComma": "トラック名にカンマ (,) を含めることはできません",
-    "trackNameAsciiOnly": "トラック名はASCII文字（英字、数字、記号）のみ使用できます。日本語、中国語、韓国語などには対応していません",
     "tracks": "トラック",
     "noneSelected": "未選択",
     "selected": "選択済み",
@@ -365,13 +337,10 @@
     "aboutFormat": "フォーマット",
     "aboutMaxTracks": "最大トラック数",
     "aboutStorage": "ストレージ",
-    "aboutStorageValue": "ブラウザーローカルストレージ（ドラフト）",
-    "aboutShortcuts": "ショートカット"
+    "aboutStorageValue": "ブラウザーローカルストレージ（ドラフト）"
   },
   "favorites": {
-    "title": "お気に入り",
-    "empty": "お気に入りはまだありません。着信音のハートアイコンをクリックして追加してください。",
-    "remove": "お気に入りから削除"
+    "empty": "お気に入りはまだありません。着信音のハートアイコンをクリックして追加してください。"
   },
   "theme": {
     "light": "ライト",
@@ -383,7 +352,6 @@
     "contribute": "投稿する",
     "showFilters": "フィルタを表示",
     "hideFilters": "フィルタを非表示",
-    "download": ".rtttl をダウンロード",
     "edit": "編集",
     "delete": "削除",
     "cancel": "キャンセル",
@@ -436,9 +404,7 @@
     "home": "ホーム",
     "collections": "コレクション",
     "contribute": "シェア & 投稿",
-    "account": "アカウント",
-    "profile": "プロフィール",
-    "password": "パスワード"
+    "profile": "プロフィール"
   },
   "contribute": {
     "title": "シェア & 投稿",
@@ -465,8 +431,6 @@
   "footer": {
     "discover": "探索",
     "allCollections": "すべてのコレクション",
-    "resources": "外部リソース",
-    "documentation": "ドキュメント",
     "about": "概要",
     "aboutDescription": "RTTTL Hub はレトロ RTTTL 着信音を探索・再生するためのプラットフォームです。",
     "copyright": "© 2026 RTTTL Hub. 商標およびブランドはそれぞれの所有者に帰属します。",
@@ -613,37 +577,12 @@
     "ok": "確認",
     "cancel": "キャンセル"
   },
-  "megaMenu": {
-    "quickLinks": "クイックリンク",
-    "popular": "人気",
-    "createNew": "新規作成"
-  },
   "auth": {
     "signInTitle": "RTTTL Hub にログイン",
     "signInDescription": "レトロな RTTTL 着信音を閲覧、再生、作成。ログインしてお気に入りやカスタムトーンを保存しましょう。",
     "continueWithGoogle": "Google でログイン",
-    "or": "または",
-    "email": "メールアドレス",
-    "password": "パスワード",
-    "forgot": "お忘れですか？",
     "signIn": "ログイン",
     "signOut": "ログアウト",
-    "noAccount": "アカウントをお持ちでない方",
-    "createAccount": "アカウントを作成",
-    "termsNotice": "続行すると、利用規約とプライバシーポリシーに同意したことになります。",
-    "createAccountTitle": "アカウントを作成",
-    "createAccountDescription": "Google アカウントで登録。その後、メールログイン用のパスワードを設定できます。",
-    "registerWithGoogle": "Google アカウントで RTTTL Hub アカウントを作成します。",
-    "haveAccount": "アカウントをお持ちですか？",
-    "setPasswordTitle": "パスワードを設定",
-    "registeredAs": "登録メールアドレス：",
-    "newPassword": "新しいパスワード",
-    "confirmPassword": "パスワードの確認",
-    "passwordPlaceholder": "6文字以上",
-    "setPassword": "パスワードを設定",
-    "skipForNow": "後で設定する",
-    "passwordTooShort": "パスワードは6文字以上必要です",
-    "passwordMismatch": "パスワードが一致しません",
     "signingIn": "ログイン中...",
     "signInSuccess": "ログインに成功しました！",
     "signInFailed": "ログインに失敗しました。もう一度お試しください。",
@@ -651,21 +590,14 @@
   },
   "account": {
     "title": "マイアカウント",
-    "settings": "プロフィール",
-    "information": "アカウント情報",
     "editProfile": "プロフィールを編集",
     "email": "メールアドレス",
     "statistics": "統計",
     "creationsCount": "作品数",
     "favoritesCount": "お気に入り数",
     "profileDetails": "アカウント詳細",
-    "profileNotice": "一部のフィールドはログインプロバイダーが管理しています。",
     "displayName": "表示名",
     "saveChanges": "変更を保存",
-    "setPassword": "パスワードを設定",
-    "changePassword": "パスワードを変更",
-    "currentPassword": "現在のパスワード",
-    "passwordSuccess": "パスワードが正常に更新されました。",
     "emailNotEditable": "メールアドレスは変更できません（Google が管理）",
     "save": "保存",
     "saving": "保存中...",
@@ -683,27 +615,17 @@
     "dangerZone": "危険区域",
     "deleteAccount": "アカウントを削除",
     "deleteAccountWarning": "アカウントとすべての関連データを完全に削除します。この操作は元に戻せません。",
-    "deleteAccountButton": "アカウントを削除",
     "deleteAccountConfirmTitle": "アカウントを削除",
     "deleteAccountConfirmMessage": "本当にアカウントを完全に削除しますか？すべての作品、お気に入り、プロフィールデータが削除されます。この操作は元に戻せません。",
     "deleteAccountInputPlaceholder": "削除を確認するには、表示名 {{name}} を入力してください",
-    "deleting": "削除中...",
     "accountDeleted": "アカウントが正常に削除されました。",
     "deleteFailed": "アカウントの削除に失敗しました。もう一度お試しください。"
-  },
-  "pagination": {
-    "pageInfo": "{{current}} / {{total}} ページ"
   },
   "betaBanner": {
     "message": "RTTTL Hub は現在開発中です。一部の機能が未完成またはご利用いただけない場合があります。",
     "dismiss": "閉じる"
   },
   "language": {
-    "en": "English",
-    "zh-TW": "繁體中文",
-    "zh-CN": "简体中文",
-    "ja": "日本語",
-    "ko": "한국어",
     "de": "Deutsch",
     "fr": "Français",
     "es": "Español",

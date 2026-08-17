@@ -5,11 +5,9 @@
     "loadingProfile": "Ładowanie profilu..."
   },
   "app": {
-    "title": "RTTTL Hub",
-    "subtitle": "Browse, Play & Create Retro Ringtones"
+    "title": "RTTTL Hub"
   },
   "nav": {
-    "collection": "Collection",
     "collections": "Collections",
     "myCreations": "My Creations",
     "favorites": "Favorites",
@@ -55,7 +53,6 @@
     "title": "Collections",
     "subtitle": "Browse ringtone collections from different sources.",
     "browseAll": "Browse All",
-    "items": "{{count}} items",
     "picaxe": {
       "name": "PICAXE",
       "description": "A massive collection of classic RTTTL ringtones from the PICAXE library. Covers pop, rock, TV themes, Christmas tunes, and more."
@@ -67,10 +64,6 @@
     "favorites": {
       "name": "My Favorites",
       "description": "Your favorite RTTTL tracks."
-    },
-    "public": {
-      "name": "Wszystkie biblioteki publiczne",
-      "description": "Wszystkie utwory z publicznych kolekcji RTTTL połączone. Obejmuje PICAXE, Społeczność, Skully RTTTL, ESPHome i inne biblioteki open source."
     },
     "community": {
       "name": "Community",
@@ -106,17 +99,13 @@
     "original": "Original"
   },
   "creator": {
-    "title": "Creator Profile",
-    "works": "{{count}} works",
-    "backToCollection": "Back to Collection"
+    "works": "{{count}} works"
   },
   "search": {
     "placeholder": "Search by name or artist...",
-    "noResults": "No results found",
-    "totalItems": "{{count}} items"
+    "noResults": "No results found"
   },
   "sort": {
-    "label": "Sort",
     "aToZ": "Title A-Z",
     "zToA": "Title Z-A",
     "artistAZ": "Artist A-Z",
@@ -127,8 +116,7 @@
     "updatedAsc": "Najdawniej zaktualizowane"
   },
   "stats": {
-    "plays": "Odtworzeń",
-    "likes": "Polubienia"
+    "plays": "Odtworzeń"
   },
   "player": {
     "play": "Play",
@@ -276,25 +264,18 @@
     "title": "RTTTL Editor",
     "name": "Name",
     "namePlaceholder": "Enter ringtone name",
-    "code": "RTTTL Code",
-    "codePlaceholder": "Enter RTTTL code (name:d=4,o=5,b=120:notes...)",
     "category": "Category",
-    "categoryPlaceholder": "Select a category",
     "create": "Create",
     "update": "Save",
     "cancel": "Discard",
     "invalidCode": "Invalid RTTTL code format",
     "nameRequired": "Name is required",
     "multiTrack": "Multi-Track",
-    "localStorageHint": "Ringtones you create are saved locally in your browser.",
-    "preview": "Preview",
-    "previewHint": "Enter RTTTL code to preview",
     "draftSaved": "Draft saved",
     "menuFile": "File",
     "menuEdit": "Edit",
     "menuHelp": "Help",
     "menuNew": "New Project",
-    "menuRename": "Rename Project",
     "menuExit": "Exit",
     "import": "Import…",
     "undo": "Undo",
@@ -309,7 +290,6 @@
     "clearLoop": "Clear Markers",
     "trimRegion": "Trim to Selection",
     "deleteRegion": "Delete Selection",
-    "cutDialogTitle": "Apply Cut",
     "cutDialogDesc": "Select tracks to apply the cut to:",
     "cutDialogConfirm": "Apply",
     "duplicateTrack": "Duplicate Track",
@@ -327,13 +307,10 @@
     "menuImportFromFavorites": "Import from Favorites…",
     "importFromFavoritesTitle": "Import from Favorites",
     "clearTrackCode": "Clear Track Code",
-    "copyTrack": "Copy This Track",
-    "trackStats": "Track Info",
     "trackDuration": "Duration",
     "trackBpm": "Tempo",
     "trackNotes": "Notes",
     "trackOctave": "Default Octave",
-    "trackDefaultDuration": "Default Duration",
     "trackCodeLength": "Code Length",
     "copyCurrentTrack": "Copy Current Track",
     "currentTrack": "Current Track",
@@ -342,11 +319,6 @@
     "mobileNotSupportedBack": "Go Back",
     "project": "Project",
     "trackName": "Track Name",
-    "trackNameRequired": "Track name cannot be empty",
-    "trackNameTooLong": "Track name cannot exceed 30 characters",
-    "trackNameNoColon": "Track name cannot contain colon (:)",
-    "trackNameNoComma": "Track name cannot contain comma (,)",
-    "trackNameAsciiOnly": "Track name must use ASCII characters only (English letters, numbers, symbols). Chinese, Japanese, Korean, etc. are not supported",
     "tracks": "tracks",
     "noneSelected": "None selected",
     "selected": "selected",
@@ -366,7 +338,6 @@
     "aboutMaxTracks": "Max Tracks",
     "aboutStorage": "Storage",
     "aboutStorageValue": "Local browser storage (draft)",
-    "aboutShortcuts": "Shortcuts",
     "makePublic": "Ustaw jako publiczny",
     "publicExplanation": "Inni użytkownicy będą mogli zobaczyć ten utwór w kolekcji społeczności",
     "created": "✓ Utworzenie zapisane: {{name}}",
@@ -376,9 +347,7 @@
     "visibilityUpdateFailed": "Nie udało się zaktualizować widoczności"
   },
   "favorites": {
-    "title": "My Favorites",
-    "empty": "No favorites yet. Click the heart icon on any ringtone to add it.",
-    "remove": "Remove from favorites"
+    "empty": "No favorites yet. Click the heart icon on any ringtone to add it."
   },
   "theme": {
     "light": "Light",
@@ -390,7 +359,6 @@
     "contribute": "Share",
     "showFilters": "Show Filters",
     "hideFilters": "Hide Filters",
-    "download": "Download .rtttl",
     "edit": "Edit",
     "delete": "Delete",
     "cancel": "Cancel",
@@ -443,9 +411,7 @@
     "home": "Home",
     "collections": "Collections",
     "contribute": "Share & Contribute",
-    "account": "Account",
-    "profile": "Profile",
-    "password": "Password"
+    "profile": "Profile"
   },
   "contribute": {
     "title": "Share & Contribute",
@@ -472,11 +438,8 @@
   "footer": {
     "sourceCode": "GitHub",
     "reportIssue": "Issues",
-    "picaxeCollection": "PICAXE",
     "discover": "Discover",
     "allCollections": "All Collections",
-    "resources": "External Resources",
-    "documentation": "Documentation",
     "about": "About",
     "aboutDescription": "RTTTL Hub is a platform for exploring and playing retro RTTTL ringtones.",
     "copyright": "© 2026 RTTTL Hub. Trademarks and brands are the property of their respective owners.",
@@ -623,37 +586,12 @@
     "ok": "Confirm",
     "cancel": "Cancel"
   },
-  "megaMenu": {
-    "quickLinks": "Quick Links",
-    "popular": "Popular",
-    "createNew": "Create New"
-  },
   "auth": {
     "signInTitle": "Sign in to RTTTL Hub",
     "signInDescription": "Browse, play, and create retro RTTTL ringtones. Sign in to save your favorites and custom tones.",
     "continueWithGoogle": "Continue with Google",
-    "or": "OR",
-    "email": "Email",
-    "password": "Password",
-    "forgot": "Forgot?",
     "signIn": "Sign in",
     "signOut": "Sign Out",
-    "noAccount": "New here?",
-    "createAccount": "Create an account",
-    "termsNotice": "By continuing, you agree to our Terms of Use and Privacy Policy.",
-    "createAccountTitle": "Create your account",
-    "createAccountDescription": "Sign up with Google to get started. You can set a password for email login afterwards.",
-    "registerWithGoogle": "Use your Google account to create an RTTTL Hub account.",
-    "haveAccount": "Already have an account?",
-    "setPasswordTitle": "Set a password",
-    "registeredAs": "Registered as:",
-    "newPassword": "New password",
-    "confirmPassword": "Confirm password",
-    "passwordPlaceholder": "At least 6 characters",
-    "setPassword": "Set password",
-    "skipForNow": "Skip for now",
-    "passwordTooShort": "Password must be at least 6 characters",
-    "passwordMismatch": "Passwords do not match",
     "signingIn": "Logowanie...",
     "signInSuccess": "Zalogowano pomyślnie!",
     "signInFailed": "Nie udało się zalogować. Spróbuj ponownie.",
@@ -661,21 +599,14 @@
   },
   "account": {
     "title": "Moje Konto",
-    "settings": "Profil",
-    "information": "Informacje o Koncie",
     "editProfile": "Edit profile",
     "email": "Email",
     "statistics": "Statystyki",
     "creationsCount": "Utwory",
     "favoritesCount": "Ulubione",
     "profileDetails": "Szczegóły Konta",
-    "profileNotice": "Niektóre pola mogą być zarządzane przez dostawcę logowania.",
     "displayName": "Display Name",
     "saveChanges": "Save Changes",
-    "setPassword": "Set Password",
-    "changePassword": "Change Password",
-    "currentPassword": "Current Password",
-    "passwordSuccess": "Password updated successfully.",
     "emailNotEditable": "Email nie może być zmieniony (zarządzany przez Google)",
     "save": "Zapisz",
     "saving": "Zapisywanie...",
@@ -693,27 +624,17 @@
     "dangerZone": "Strefa Niebezpieczna",
     "deleteAccount": "Usuń Konto",
     "deleteAccountWarning": "Trwale usuń swoje konto i wszystkie powiązane dane. Tej akcji nie można cofnąć.",
-    "deleteAccountButton": "Usuń Konto",
     "deleteAccountConfirmTitle": "Usuń Konto",
     "deleteAccountConfirmMessage": "Czy na pewno chcesz trwale usunąć swoje konto? Spowoduje to usunięcie wszystkich Twoich kreacji, ulubionych i danych profilu. Tej akcji nie można cofnąć.",
     "deleteAccountInputPlaceholder": "Wpisz swoją nazwę wyświetlaną {{name}}, aby potwierdzić usunięcie",
-    "deleting": "Usuwanie...",
     "accountDeleted": "Konto usunięte pomyślnie.",
     "deleteFailed": "Nie udało się usunąć konta. Spróbuj ponownie."
-  },
-  "pagination": {
-    "pageInfo": "Page {{current}} / {{total}}"
   },
   "betaBanner": {
     "message": "RTTTL Hub is currently under active development. Some features may be incomplete or temporarily unavailable.",
     "dismiss": "Dismiss"
   },
   "language": {
-    "en": "English",
-    "zh-TW": "繁體中文",
-    "zh-CN": "简体中文",
-    "ja": "日本語",
-    "ko": "한국어",
     "de": "Deutsch",
     "fr": "Français",
     "es": "Español",
