@@ -73,6 +73,8 @@ See [FIRESTORE.md](FIRESTORE.md) for detailed Firebase configuration.
 - `npm run dev` - Start Vite development server
 - `npm run dev:local` - Start dev server with Firebase Emulator
 - `npm run dev:prod` - Start dev server with production Firebase
+- `npm run sitemap` - Regenerate `public/sitemap.xml` and `public/robots.txt`
+- `npm run sitemap:check` - Verify sitemap artifacts are up to date and committed
 - `npm run build` - Build for production
 - `npm run test` - Run unit tests
 - `npm run lint` - Run ESLint
@@ -80,6 +82,14 @@ See [FIRESTORE.md](FIRESTORE.md) for detailed Firebase configuration.
 - `npm run firebase:emulator` - Start Firebase Emulator for local testing
 - `npm run firebase:deploy:rules` - Deploy Firestore security rules
 - `npm run firebase:login` - Authenticate with Firebase CLI
+
+### Sitemap Maintenance
+
+- Sitemap and robots are generated from project routes and collection configuration via `scripts/generate-sitemap.ts`.
+- Any route/collection indexing change should be followed by `npm run sitemap`.
+- Before pushing to `main`, run `npm run sitemap:check` to ensure generated files are in sync.
+- CI also enforces this on push to `main` in `.github/workflows/deploy.yml`.
+- Google Search Console submission endpoint: `https://rtttl-hub.io/sitemap.xml`.
 
 ## License
 

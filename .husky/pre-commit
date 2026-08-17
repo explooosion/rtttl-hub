@@ -1,2 +1,5 @@
 npx lint-staged
+npm run sitemap
+git add public/sitemap.xml public/robots.txt
+npm run sitemap:check
 npx vitest run

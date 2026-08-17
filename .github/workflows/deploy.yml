@@ -42,6 +42,12 @@ jobs:
           VITE_FIREBASE_MEASUREMENT_ID=${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
           EOF
 
+      - name: Validate sitemap artifacts
+        run: npm run sitemap:check
+
+      - name: Lint
+        run: npm run lint
+
       - name: Build
         run: npm run build
 

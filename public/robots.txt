@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /account
+Disallow: /login
+Disallow: /register
+Disallow: /create
+Disallow: /collections/my-creations
+Disallow: /collections/favorites
+Sitemap: https://rtttl-hub.io/sitemap.xml
