@@ -93,7 +93,7 @@ export function ListPageLayout({
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortMode, setSortMode] = useState<SortMode>("a-z");
+  const [sortMode, setSortMode] = useState<SortMode>("plays-high");
   const [trackCount, setTrackCount] = useState<number | null>(null);
   const [activeLetter, setActiveLetter] = useState<string | null>(null);
   const [activeCategories, setActiveCategories] = useState<RtttlCategory[]>(() => {
