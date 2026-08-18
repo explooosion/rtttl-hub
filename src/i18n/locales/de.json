@@ -178,7 +178,7 @@
     "copyAll": "Alle kopieren",
     "addTrack": "Spur hinzufügen",
     "removeTrack": "Spur entfernen",
-    "removeTrackConfirm": "Möchten Sie Spur {{index}} wirklich entfernen?",
+    "removeTrackConfirm": "Möchten Sie die Spur mit dem Namen {{name}} wirklich entfernen?",
     "clickToRename": "Zum Umbenennen klicken",
     "insertToken": "\"{{token}}\" einfügen",
     "muteFocused": "Fokussierte Spur stumm schalten",

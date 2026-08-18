@@ -82,8 +82,8 @@ export function CreatePageDialogs({
     const colonIdx = code.indexOf(":");
     const trackName = (colonIdx > 0 ? code.slice(0, colonIdx).trim() : "") || `Track ${idx + 1}`;
     return t("editor.removeTrackConfirm", {
-      defaultValue: `Are you sure you want to remove "${trackName}"?`,
-      trackName,
+      defaultValue: 'Are you sure you want to remove track "{{name}}"?',
+      name: trackName,
     });
   })();
 

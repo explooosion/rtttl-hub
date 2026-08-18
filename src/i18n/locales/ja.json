@@ -178,7 +178,7 @@
     "copyAll": "すべてコピー",
     "addTrack": "トラック追加",
     "removeTrack": "トラック削除",
-    "removeTrackConfirm": "トラック {{index}} を削除しますか？",
+    "removeTrackConfirm": "名前が {{name}} のトラックを削除しますか？",
     "clickToRename": "クリックして名前を変更",
     "insertToken": "\"{{token}}\" を挿入",
     "muteFocused": "フォーカストラックをミュート",

@@ -178,7 +178,7 @@
     "copyAll": "Copy All",
     "addTrack": "Add track",
     "removeTrack": "Remove track",
-    "removeTrackConfirm": "Are you sure you want to remove Track {{index}}?",
+    "removeTrackConfirm": "Are you sure you want to remove track \"{{name}}\"?",
     "clickToRename": "Click to rename",
     "insertToken": "Insert \"{{token}}\"",
     "muteFocused": "Mute Focused Track",

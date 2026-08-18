@@ -178,7 +178,7 @@
     "copyAll": "전체 복사",
     "addTrack": "트랙 추가",
     "removeTrack": "트랙 삭제",
-    "removeTrackConfirm": "트랙 {{index}}을(를) 삭제하시겠습니까?",
+    "removeTrackConfirm": "이름이 {{name}}인 트랙을 삭제하시겠습니까?",
     "clickToRename": "클릭하여 이름 변경",
     "insertToken": "\"{{token}}\" 삽입",
     "muteFocused": "포커스 트랙 음소거",

@@ -178,7 +178,7 @@
     "copyAll": "全部複製",
     "addTrack": "新增音軌",
     "removeTrack": "移除音軌",
-    "removeTrackConfirm": "確定要移除第 {{index}} 條音軌嗎？",
+    "removeTrackConfirm": "確定要移除名稱為 {{name}} 的音軌嗎？",
     "clickToRename": "點擊以重新命名",
     "insertToken": "插入 \"{{token}}\"",
     "muteFocused": "靜音所選音軌",
