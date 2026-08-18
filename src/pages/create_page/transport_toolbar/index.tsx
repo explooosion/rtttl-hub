@@ -562,28 +562,30 @@ export function TransportToolbar({
           </button>
 
           {/* Time display — pos + cur always visible, ms precision */}
-          <div className="ml-1 flex items-stretch gap-0 overflow-hidden rounded border border-gray-400 bg-gray-900 font-mono dark:border-gray-700">
+          <div className="ml-1 flex items-stretch gap-0 overflow-hidden rounded border border-gray-300 bg-white/90 font-mono shadow-sm dark:border-gray-700 dark:bg-gray-900">
             {/* Position */}
             <div className="flex flex-col items-center justify-center px-2.5 py-0.5">
-              <span className="text-[8px] font-semibold uppercase tracking-widest text-gray-500">
+              <span className="text-[8px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
                 pos
               </span>
               <span
                 className={clsx(
                   "text-sm font-bold tabular-nums leading-none",
-                  isPreviewActive ? "text-green-400" : "text-gray-400",
+                  isPreviewActive
+                    ? "text-emerald-600 dark:text-green-400"
+                    : "text-gray-500 dark:text-gray-400",
                 )}
               >
                 {maxTrackDurationMs > 0 ? formatMs(positionMs) : "00:00.000"}
               </span>
             </div>
-            <div className="w-px bg-gray-700" />
+            <div className="w-px bg-gray-300 dark:bg-gray-700" />
             {/* Cursor — always shown */}
             <div className="flex flex-col items-center justify-center px-2.5 py-0.5">
-              <span className="text-[8px] font-semibold uppercase tracking-widest text-gray-500">
+              <span className="text-[8px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
                 cur
               </span>
-              <span className="text-sm font-bold tabular-nums leading-none text-indigo-400">
+              <span className="text-sm font-bold tabular-nums leading-none text-indigo-600 dark:text-indigo-400">
                 {guideMs !== null ? formatMs(guideMs) : "--:--.---"}
               </span>
             </div>
