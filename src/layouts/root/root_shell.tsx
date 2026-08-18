@@ -35,6 +35,22 @@ export function RootShell() {
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
 
+  const handleMobilePlayToggle = useCallback(
+    function handleMobilePlayToggle() {
+      if (!currentItem) {
+        return;
+      }
+      if (playerState === "playing") {
+        pause();
+      } else if (playerState === "paused") {
+        resume();
+      } else {
+        playItem(currentItem);
+      }
+    },
+    [currentItem, playerState, pause, resume, playItem],
+  );
+
   useEffect(() => {
     let lastScrolled = false;
     let ticking = false;
@@ -128,15 +144,7 @@ export function RootShell() {
             </div>
             {/* Play / Pause / Resume */}
             <button
-              onClick={() => {
-                if (playerState === "playing") {
-                  pause();
-                } else if (playerState === "paused") {
-                  resume();
-                } else {
-                  playItem(currentItem);
-                }
-              }}
+              onClick={handleMobilePlayToggle}
               className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95"
             >
               {playerState === "playing" ? <FaPause size={12} /> : <FaPlay size={12} />}

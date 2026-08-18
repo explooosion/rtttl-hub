@@ -32,6 +32,18 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
   const publicLibrariesCollections = COLLECTIONS.filter((c) => c.group === "public-libraries");
   const externalLinksCollections = COLLECTIONS.filter((c) => c.group === "external-links");
 
+  function handlePanelClick(e: React.MouseEvent<HTMLDivElement>) {
+    e.stopPropagation();
+  }
+
+  function handleToggleCollectionsOpen() {
+    setCollectionsOpen(!collectionsOpen);
+  }
+
+  function handleTogglePublicLibrariesOpen() {
+    setPublicLibsOpen(!publicLibsOpen);
+  }
+
   if (!isOpen) {
     return null;
   }
@@ -40,7 +52,7 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
     <div className="fixed inset-0 z-30 bg-black/20 lg:hidden" onClick={onClose}>
       <div
         className="absolute left-0 top-16 bottom-0 w-80 max-w-[85vw] overflow-auto bg-white shadow-xl sm:max-w-sm dark:bg-gray-900"
-        onClick={(e) => e.stopPropagation()}
+        onClick={handlePanelClick}
       >
         <nav className="flex flex-col py-3">
           {/* Home */}
@@ -60,7 +72,7 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
           {/* Collections - Collapsible Section */}
           <div>
             <button
-              onClick={() => setCollectionsOpen(!collectionsOpen)}
+              onClick={handleToggleCollectionsOpen}
               className={clsx(
                 "flex w-full items-center justify-between px-6 py-3 text-left text-sm font-medium transition-colors",
                 isCollectionsActive
@@ -117,7 +129,7 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
                 {/* Public Libraries Group - Collapsible */}
                 <div className="py-2">
                   <button
-                    onClick={() => setPublicLibsOpen(!publicLibsOpen)}
+                    onClick={handleTogglePublicLibrariesOpen}
                     className="flex w-full items-center justify-between px-6 pb-1.5 text-left text-[10px] font-semibold uppercase tracking-wider text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                   >
                     <span>{t("collections.group.publicLibraries")}</span>

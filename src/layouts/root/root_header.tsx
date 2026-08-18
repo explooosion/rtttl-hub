@@ -37,12 +37,23 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
   // Global searchbar should only appear on homepage and /collections page
   const shouldShowGlobalSearch = location.pathname === "/" || location.pathname === "/collections";
 
+  function handleSidebarToggle() {
+    setSidebarOpen(!sidebarOpen);
+  }
+
+  function handleGlobalSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchQuery(e.target.value);
+    if (e.target.value.trim() && !location.pathname.startsWith("/collections/")) {
+      navigate("/collections/picaxe");
+    }
+  }
+
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-950/80">
       {/* Main row: always visible */}
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3.5">
         {/* Mobile hamburger */}
-        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="shrink-0 lg:hidden">
+        <button onClick={handleSidebarToggle} className="shrink-0 lg:hidden">
           {sidebarOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
         </button>
 
@@ -125,12 +136,7 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
             type="text"
             placeholder={t("search.placeholder")}
             value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-              if (e.target.value.trim() && !location.pathname.startsWith("/collections/")) {
-                navigate("/collections/picaxe");
-              }
-            }}
+            onChange={handleGlobalSearchChange}
             className="w-full rounded-full border border-gray-300 bg-white py-3 pl-9 pr-4 text-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-indigo-400"
           />
         </div>
@@ -183,12 +189,7 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
                 type="text"
                 placeholder={t("search.placeholder")}
                 value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  if (e.target.value.trim() && !location.pathname.startsWith("/collections/")) {
-                    navigate("/collections/picaxe");
-                  }
-                }}
+                onChange={handleGlobalSearchChange}
                 className="w-full rounded-full border border-gray-300 bg-white py-3 pl-10 pr-4 text-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-indigo-400"
               />
             </div>

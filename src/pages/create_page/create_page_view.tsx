@@ -137,6 +137,63 @@ export function CreatePageView({
 }: CreatePageViewProps) {
   const { t } = useTranslation();
 
+  function handleOpenFavoriteImport() {
+    ui.setFavImportOpen(true);
+  }
+
+  function handleConfirmRemoveFocusedTrack() {
+    ui.setConfirmRemoveIndex(track.focusedTrackIndex);
+  }
+
+  function handleOpenHelp() {
+    ui.setHelpOpen(true);
+  }
+
+  function handleTrackAreaMouseLeave() {
+    timeline.setGuideMs(null);
+  }
+
+  function handleRemoveTrack(index: number) {
+    ui.setConfirmRemoveIndex(index);
+  }
+
+  function handleRenameFocusedTrack(newName: string) {
+    track.handleRenameTrack(track.focusedTrackIndex, newName);
+  }
+
+  function handleFocusedTrackCodeChange(nextCode: string) {
+    track.handleTrackCodeChange(track.focusedTrackIndex, nextCode);
+  }
+
+  function handleImportClose() {
+    ui.setImportOpen(false);
+  }
+
+  function handleFavoriteImportClose() {
+    ui.setFavImportOpen(false);
+  }
+
+  function handleHelpClose() {
+    ui.setHelpOpen(false);
+  }
+
+  function handleCancelRemove() {
+    ui.setConfirmRemoveIndex(null);
+  }
+
+  function handlePendingActionCancel() {
+    ui.setPendingAction(null);
+  }
+
+  function handleCreateSummaryConfirm() {
+    ui.setCreateSummaryOpen(false);
+    actions.handleConfirmCreate();
+  }
+
+  function handleCreateSummaryCancel() {
+    ui.setCreateSummaryOpen(false);
+  }
+
   return (
     <>
       <div className="flex h-screen flex-col items-center justify-center gap-6 bg-gray-50 px-8 text-center sm:hidden dark:bg-gray-950">
@@ -183,12 +240,12 @@ export function CreatePageView({
           onToolbarInsert={track.handleToolbarInsert}
           onNew={actions.handleNew}
           onImport={actions.handleImportClick}
-          onImportFromFavorites={() => ui.setFavImportOpen(true)}
+          onImportFromFavorites={handleOpenFavoriteImport}
           onCreate={actions.handleSubmit}
           onDiscard={actions.handleDiscard}
           onStop={actions.handleStop}
           onAddTrack={track.handleAddTrack}
-          onRemoveFocusedTrack={() => ui.setConfirmRemoveIndex(track.focusedTrackIndex)}
+          onRemoveFocusedTrack={handleConfirmRemoveFocusedTrack}
           onUndo={track.undo}
           onRedo={track.redo}
           onMuteAll={actions.handleMuteAll}
@@ -203,7 +260,7 @@ export function CreatePageView({
           onLoopOutChange={ui.setLoopOutMs}
           onTrimRegion={actions.handleTrimRegion}
           onDeleteRegion={actions.handleDeleteRegion}
-          onHelpOpen={() => ui.setHelpOpen(true)}
+          onHelpOpen={handleOpenHelp}
         />
 
         <div className="flex flex-1 gap-2 overflow-hidden p-2 sm:gap-4 sm:p-4">
@@ -228,13 +285,13 @@ export function CreatePageView({
             playerState={playerState}
             dndSensors={derived.dndSensors}
             onMouseMove={timeline.handleTrackAreaMouseMove}
-            onMouseLeave={() => timeline.setGuideMs(null)}
+            onMouseLeave={handleTrackAreaMouseLeave}
             onClick={timeline.handleTrackAreaClick}
             onDragEnd={derived.handleDragEnd}
             onFocusTrack={track.setFocusedTrackIndex}
             onToggleExpand={track.toggleTrackExpanded}
             onTrackCodeChange={track.handleTrackCodeChange}
-            onRemoveTrack={(idx) => ui.setConfirmRemoveIndex(idx)}
+            onRemoveTrack={handleRemoveTrack}
             onRenameTrack={track.handleRenameTrack}
             onDuplicateTrack={track.handleDuplicateTrack}
             onDeactivateTrack={track.toggleDeactivateTrack}
@@ -248,10 +305,8 @@ export function CreatePageView({
             tracks={track.tracks}
             focusedTrackIndex={track.focusedTrackIndex}
             onNameChange={ui.setName}
-            onRenameTrack={(newName) => track.handleRenameTrack(track.focusedTrackIndex, newName)}
-            onTrackCodeChange={(nextCode) =>
-              track.handleTrackCodeChange(track.focusedTrackIndex, nextCode)
-            }
+            onRenameTrack={handleRenameFocusedTrack}
+            onTrackCodeChange={handleFocusedTrackCodeChange}
             categories={ui.categories}
             onCategoriesChange={ui.setCategories}
             errors={ui.errors}
@@ -262,7 +317,7 @@ export function CreatePageView({
           hasDraft={derived.hasDraft}
           focusedTrackIndex={track.focusedTrackIndex}
           focusedTrackName={derived.focusedTrackName}
-          onHelpOpen={() => ui.setHelpOpen(true)}
+          onHelpOpen={handleOpenHelp}
         />
 
         <CreatePageDialogs
@@ -280,21 +335,18 @@ export function CreatePageView({
           name={ui.name}
           categories={ui.categories}
           isPublic={ui.isPublic}
-          onImportClose={() => ui.setImportOpen(false)}
+          onImportClose={handleImportClose}
           onImportConfirm={actions.handleImportConfirm}
-          onFavImportClose={() => ui.setFavImportOpen(false)}
-          onHelpClose={() => ui.setHelpOpen(false)}
+          onFavImportClose={handleFavoriteImportClose}
+          onHelpClose={handleHelpClose}
           onCutConfirm={actions.handleCutConfirm}
           onCutCancel={actions.handleCutCancel}
           onConfirmRemove={actions.handleConfirmRemove}
-          onCancelRemove={() => ui.setConfirmRemoveIndex(null)}
+          onCancelRemove={handleCancelRemove}
           onPendingActionConfirm={actions.handlePendingActionConfirm}
-          onPendingActionCancel={() => ui.setPendingAction(null)}
-          onCreateSummaryConfirm={() => {
-            ui.setCreateSummaryOpen(false);
-            actions.handleConfirmCreate();
-          }}
-          onCreateSummaryCancel={() => ui.setCreateSummaryOpen(false)}
+          onPendingActionCancel={handlePendingActionCancel}
+          onCreateSummaryConfirm={handleCreateSummaryConfirm}
+          onCreateSummaryCancel={handleCreateSummaryCancel}
           onNameChange={ui.setName}
           onRenameTrack={track.handleRenameTrack}
           onIsPublicChange={ui.setIsPublic}

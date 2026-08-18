@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { FaPlus } from "react-icons/fa";
 import {
@@ -91,22 +92,162 @@ export function CreatePageTrackArea({
   const activeTrackIndex = usePlayerStore((s) => s.activeTrackIndex);
   const setActiveTrackIndex = usePlayerStore((s) => s.setActiveTrackIndex);
 
-  function handleTrackSoloPlayToggle(index: number, code: string) {
-    if (!isMultiTrack && activeTrackIndex === index && playerState !== "idle") {
-      stop();
-      return;
-    }
+  const handleTrackSoloPlayToggle = useCallback(
+    function handleTrackSoloPlayToggle(index: number, code: string) {
+      if (!isMultiTrack && activeTrackIndex === index && playerState !== "idle") {
+        stop();
+        return;
+      }
 
-    if (!code.trim()) {
-      return;
-    }
+      if (!code.trim()) {
+        return;
+      }
 
-    const startMs = seekPositionMs > 0 ? seekPositionMs : undefined;
-    playCode(code.trim(), startMs);
-    setActiveTrackIndex(index);
-  }
+      const startMs = seekPositionMs > 0 ? seekPositionMs : undefined;
+      playCode(code.trim(), startMs);
+      setActiveTrackIndex(index);
+    },
+    [
+      isMultiTrack,
+      activeTrackIndex,
+      playerState,
+      stop,
+      seekPositionMs,
+      playCode,
+      setActiveTrackIndex,
+    ],
+  );
 
   const displayMs = playerState !== "idle" ? playheadMs : seekPositionMs;
+
+  const trackRowRefHandlers = useMemo(
+    function buildTrackRowRefHandlers() {
+      return tracks.map((_, idx) => {
+        return function handleTrackRowRef(el: HTMLDivElement | null) {
+          trackRowsRef.current[idx] = el;
+        };
+      });
+    },
+    [tracks, trackRowsRef],
+  );
+
+  const editorRefHandlers = useMemo(
+    function buildEditorRefHandlers() {
+      return tracks.map((_, idx) => {
+        return function handleEditorRef(handle: RtttlEditorInputHandle | null) {
+          trackEditorRefs.current[idx] = handle;
+        };
+      });
+    },
+    [tracks, trackEditorRefs],
+  );
+
+  const colorChangeHandlers = useMemo(
+    function buildColorChangeHandlers() {
+      return tracks.map((_, idx) => {
+        return function handleColorChange(color: string) {
+          onColorChange(idx, color);
+        };
+      });
+    },
+    [tracks, onColorChange],
+  );
+
+  const focusHandlers = useMemo(
+    function buildFocusHandlers() {
+      return tracks.map((_, idx) => {
+        return function handleFocusTrack() {
+          onFocusTrack(idx);
+        };
+      });
+    },
+    [tracks, onFocusTrack],
+  );
+
+  const expandHandlers = useMemo(
+    function buildExpandHandlers() {
+      return tracks.map((_, idx) => {
+        return function handleToggleExpand() {
+          onToggleExpand(idx);
+        };
+      });
+    },
+    [tracks, onToggleExpand],
+  );
+
+  const codeChangeHandlers = useMemo(
+    function buildCodeChangeHandlers() {
+      return tracks.map((_, idx) => {
+        return function handleTrackCodeChange(value: string) {
+          onTrackCodeChange(idx, value);
+        };
+      });
+    },
+    [tracks, onTrackCodeChange],
+  );
+
+  const removeHandlers = useMemo(
+    function buildRemoveHandlers() {
+      return tracks.map((_, idx) => {
+        return function handleRemoveTrack() {
+          onRemoveTrack(idx);
+        };
+      });
+    },
+    [tracks, onRemoveTrack],
+  );
+
+  const renameHandlers = useMemo(
+    function buildRenameHandlers() {
+      return tracks.map((_, idx) => {
+        return function handleRenameTrack(newName: string) {
+          onRenameTrack(idx, newName);
+        };
+      });
+    },
+    [tracks, onRenameTrack],
+  );
+
+  const duplicateHandlers = useMemo(
+    function buildDuplicateHandlers() {
+      return tracks.map((_, idx) => {
+        return function handleDuplicateTrack() {
+          onDuplicateTrack(idx);
+        };
+      });
+    },
+    [tracks, onDuplicateTrack],
+  );
+
+  const deactivateHandlers = useMemo(
+    function buildDeactivateHandlers() {
+      return tracks.map((_, idx) => {
+        return function handleDeactivateTrack() {
+          onDeactivateTrack(idx);
+        };
+      });
+    },
+    [tracks, onDeactivateTrack],
+  );
+
+  const soloPlayToggleHandlers = useMemo(
+    function buildSoloPlayToggleHandlers() {
+      return tracks.map((trackCode, idx) => {
+        return function handleSoloPlayToggle() {
+          handleTrackSoloPlayToggle(idx, trackCode);
+        };
+      });
+    },
+    [tracks, handleTrackSoloPlayToggle],
+  );
+
+  const handleAddTrackClick = useCallback(
+    function handleAddTrackClick(e: React.MouseEvent<HTMLButtonElement>) {
+      e.stopPropagation();
+      onAddTrack();
+    },
+    [onAddTrack],
+  );
 
   return (
     <div
@@ -163,12 +304,7 @@ export function CreatePageTrackArea({
           <SortableContext items={trackIds} strategy={verticalListSortingStrategy}>
             <div className="flex cursor-crosshair flex-col gap-3 py-3">
               {tracks.map((trackCode, idx) => (
-                <div
-                  key={trackIds[idx]}
-                  ref={(el) => {
-                    trackRowsRef.current[idx] = el;
-                  }}
-                >
+                <div key={trackIds[idx]} ref={trackRowRefHandlers[idx]}>
                   <TrackLane
                     key={trackIds[idx]}
                     id={trackIds[idx]!}
@@ -183,22 +319,20 @@ export function CreatePageTrackArea({
                     canRemove={tracks.length > 1}
                     canDuplicate={tracks.length < MAX_TRACKS}
                     trackColor={trackColors[idx] ?? `rgb(99, 102, 241)`}
-                    onColorChange={(color) => onColorChange(idx, color)}
-                    onFocus={() => onFocusTrack(idx)}
-                    onToggleExpand={() => onToggleExpand(idx)}
-                    onChange={(val) => onTrackCodeChange(idx, val)}
-                    onRemove={() => onRemoveTrack(idx)}
-                    onRename={(newName) => onRenameTrack(idx, newName)}
-                    onDuplicate={() => onDuplicateTrack(idx)}
-                    onDeactivate={() => onDeactivateTrack(idx)}
+                    onColorChange={colorChangeHandlers[idx]!}
+                    onFocus={focusHandlers[idx]!}
+                    onToggleExpand={expandHandlers[idx]!}
+                    onChange={codeChangeHandlers[idx]!}
+                    onRemove={removeHandlers[idx]!}
+                    onRename={renameHandlers[idx]!}
+                    onDuplicate={duplicateHandlers[idx]!}
+                    onDeactivate={deactivateHandlers[idx]!}
                     canSoloPlay={trackCode.trim().length > 0}
                     isSoloPlaying={
                       !isMultiTrack && activeTrackIndex === idx && playerState !== "idle"
                     }
-                    onSoloPlayToggle={() => handleTrackSoloPlayToggle(idx, trackCode)}
-                    editorRef={(handle) => {
-                      trackEditorRefs.current[idx] = handle;
-                    }}
+                    onSoloPlayToggle={soloPlayToggleHandlers[idx]!}
+                    editorRef={editorRefHandlers[idx]!}
                   />
                 </div>
               ))}
@@ -206,10 +340,7 @@ export function CreatePageTrackArea({
               {tracks.length < MAX_TRACKS && (
                 <button
                   type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onAddTrack();
-                  }}
+                  onClick={handleAddTrackClick}
                   className="flex w-full items-center justify-center gap-1.5 rounded-md border border-dashed border-gray-300 py-2 text-sm text-gray-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-gray-700 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
                 >
                   <FaPlus size={11} />

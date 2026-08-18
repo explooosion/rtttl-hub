@@ -12,6 +12,11 @@ export function UserMenu() {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const signOut = useAuthStore((s) => s.signOut);
 
+  function handleSignOut() {
+    signOut();
+    navigate("/");
+  }
+
   if (!isAuthenticated || !user) {
     return (
       <Link
@@ -56,10 +61,7 @@ export function UserMenu() {
         <div className="my-1 border-t border-gray-100 dark:border-gray-800" />
         <MenuItem>
           <button
-            onClick={() => {
-              signOut();
-              navigate("/");
-            }}
+            onClick={handleSignOut}
             className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
           >
             <FaSignOutAlt size={14} />

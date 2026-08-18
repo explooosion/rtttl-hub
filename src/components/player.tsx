@@ -18,6 +18,13 @@ export function Player() {
   const seekTo = usePlayerStore((s) => s.seekTo);
   const editedCode = usePlayerStore((s) => s.editedCode);
 
+  function handlePlay() {
+    if (!currentItem) {
+      return;
+    }
+    playCode(editedCode || currentItem.code);
+  }
+
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900">
       <h3 className="mb-3 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
@@ -82,7 +89,7 @@ export function Player() {
               </button>
             ) : (
               <button
-                onClick={() => playCode(editedCode || currentItem.code)}
+                onClick={handlePlay}
                 className={clsx(
                   "flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium",
                   "bg-indigo-600 text-white hover:bg-indigo-700",

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
@@ -9,6 +10,19 @@ export function CategoryFilter() {
   const activeCategories = useCollectionStore((s) => s.activeCategories);
   const toggleCategory = useCollectionStore((s) => s.toggleCategory);
   const clearCategories = useCollectionStore((s) => s.clearCategories);
+
+  const categoryToggleHandlers = useMemo(
+    function buildCategoryToggleHandlers() {
+      const handlers: Record<string, () => void> = {};
+      for (const category of RTTTL_CATEGORIES) {
+        handlers[category] = function handleCategoryToggle() {
+          toggleCategory(category);
+        };
+      }
+      return handlers;
+    },
+    [toggleCategory],
+  );
 
   return (
     <div>
@@ -41,7 +55,7 @@ export function CategoryFilter() {
             <input
               type="checkbox"
               checked={activeCategories.includes(cat)}
-              onChange={() => toggleCategory(cat)}
+              onChange={categoryToggleHandlers[cat]}
               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800"
             />
             <span>{t(`categories.${cat}`)}</span>

@@ -72,6 +72,18 @@ export function ProfilePage() {
     }
   }
 
+  function handleOpenAvatarUpload() {
+    setShowAvatarUpload(true);
+  }
+
+  function handleDisplayNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setDisplayName(e.target.value);
+  }
+
+  function handleCloseAvatarUpload() {
+    setShowAvatarUpload(false);
+  }
+
   return (
     <>
       <div className="animate-fade-in-up mx-auto max-w-xl px-4 py-8">
@@ -97,7 +109,7 @@ export function ProfilePage() {
                 className="h-24 w-24 rounded-full object-cover"
               />
               <button
-                onClick={() => setShowAvatarUpload(true)}
+                onClick={handleOpenAvatarUpload}
                 className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg transition-colors hover:bg-indigo-700"
               >
                 <FaCamera size={14} />
@@ -117,7 +129,7 @@ export function ProfilePage() {
               <input
                 type="text"
                 value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
+                onChange={handleDisplayNameChange}
                 className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
               />
             </div>
@@ -160,7 +172,7 @@ export function ProfilePage() {
         <AvatarUpload
           currentAvatar={currentAvatar}
           onUpload={handleAvatarUpload}
-          onCancel={() => setShowAvatarUpload(false)}
+          onCancel={handleCloseAvatarUpload}
         />
       )}
     </>

@@ -46,6 +46,10 @@ export function ConfirmDialog({
     onCancel();
   };
 
+  function handleInputValueChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value);
+  }
+
   return (
     <Dialog open={isOpen} onClose={handleCancel} className="relative z-50">
       <div className="fixed inset-0 bg-black/20" aria-hidden="true" />
@@ -64,7 +68,7 @@ export function ConfirmDialog({
               <input
                 type="text"
                 value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                onChange={handleInputValueChange}
                 placeholder={confirmText}
                 className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
                 autoFocus

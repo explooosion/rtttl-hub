@@ -25,6 +25,36 @@ export function FavoriteImportDialog({ open, onClose, onConfirm }: Props) {
     onClose();
   }
 
+  function renderFavoriteItem(item: (typeof favorites)[number], index: number) {
+    const tracks = item.tracks ?? [item.code];
+
+    function handleFavoriteSelect() {
+      handleSelect(tracks);
+    }
+
+    return (
+      <button
+        key={item.id}
+        onClick={handleFavoriteSelect}
+        className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+      >
+        <span
+          className={`h-2.5 w-2.5 shrink-0 rounded-full ${TRACK_DOT_CLASSES[index % TRACK_DOT_CLASSES.length]}`}
+        />
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
+            {item.title}
+          </p>
+          {item.tracks && item.tracks.length > 1 && (
+            <p className="text-xs text-gray-400">
+              {item.tracks.length} {t("create.tracks", { defaultValue: "tracks" })}
+            </p>
+          )}
+        </div>
+      </button>
+    );
+  }
+
   return (
     <Dialog open={open} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-black/20" aria-hidden="true" />
@@ -56,32 +86,7 @@ export function FavoriteImportDialog({ open, onClose, onConfirm }: Props) {
                 {t("create.noFavorites", { defaultValue: "No favorites yet." })}
               </p>
             ) : (
-              <div className="flex flex-col gap-0.5">
-                {favorites.map((item, idx) => {
-                  const tracks = item.tracks ?? [item.code];
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => handleSelect(tracks)}
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
-                    >
-                      <span
-                        className={`h-2.5 w-2.5 shrink-0 rounded-full ${TRACK_DOT_CLASSES[idx % TRACK_DOT_CLASSES.length]}`}
-                      />
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
-                          {item.title}
-                        </p>
-                        {item.tracks && item.tracks.length > 1 && (
-                          <p className="text-xs text-gray-400">
-                            {item.tracks.length} {t("create.tracks", { defaultValue: "tracks" })}
-                          </p>
-                        )}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
+              <div className="flex flex-col gap-0.5">{favorites.map(renderFavoriteItem)}</div>
             )}
           </div>
 

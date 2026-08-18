@@ -21,6 +21,18 @@ export function CookieConsentBanner() {
     savePreferences({ preferences: prefEnabled, statistics: statsEnabled });
   };
 
+  function handleShowDetails() {
+    setShowDetails(true);
+  }
+
+  function handleTogglePrefEnabled() {
+    setPrefEnabled(!prefEnabled);
+  }
+
+  function handleToggleStatsEnabled() {
+    setStatsEnabled(!statsEnabled);
+  }
+
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-gray-200 bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:p-6">
       <div className="mx-auto max-w-5xl">
@@ -41,7 +53,7 @@ export function CookieConsentBanner() {
                 {t("cookie.acceptAll")}
               </button>
               <button
-                onClick={() => setShowDetails(true)}
+                onClick={handleShowDetails}
                 className="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
               >
                 {t("cookie.managePreferences")}
@@ -88,7 +100,7 @@ export function CookieConsentBanner() {
                   </p>
                 </div>
                 <button
-                  onClick={() => setPrefEnabled(!prefEnabled)}
+                  onClick={handleTogglePrefEnabled}
                   className={clsx(
                     "relative h-6 w-11 shrink-0 rounded-full transition-colors",
                     prefEnabled ? "bg-indigo-600" : "bg-gray-300 dark:bg-gray-600",
@@ -114,7 +126,7 @@ export function CookieConsentBanner() {
                   </p>
                 </div>
                 <button
-                  onClick={() => setStatsEnabled(!statsEnabled)}
+                  onClick={handleToggleStatsEnabled}
                   className={clsx(
                     "relative h-6 w-11 shrink-0 rounded-full transition-colors",
                     statsEnabled ? "bg-indigo-600" : "bg-gray-300 dark:bg-gray-600",

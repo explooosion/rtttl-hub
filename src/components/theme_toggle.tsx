@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { FaSun, FaMoon, FaDesktop } from "react-icons/fa";
 import type { IconType } from "react-icons";
 import { useTranslation } from "react-i18next";
@@ -17,12 +18,24 @@ export function ThemeToggle() {
   const currentMode = useThemeStore((s) => s.mode);
   const setMode = useThemeStore((s) => s.setMode);
 
+  const modeClickHandlers = useMemo(
+    function buildModeClickHandlers() {
+      const handlers: Record<ThemeMode, () => void> = {
+        light: () => setMode("light"),
+        dark: () => setMode("dark"),
+        system: () => setMode("system"),
+      };
+      return handlers;
+    },
+    [setMode],
+  );
+
   return (
     <div className="flex items-center gap-1 rounded-lg bg-gray-200 p-1 dark:bg-gray-800">
       {modes.map(({ value, icon: Icon }) => (
         <button
           key={value}
-          onClick={() => setMode(value)}
+          onClick={modeClickHandlers[value]}
           title={t(`theme.${value}`)}
           className={clsx(
             "rounded-md p-1.5 transition-colors",

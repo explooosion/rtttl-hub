@@ -1,4 +1,13 @@
-import { useState, useRef, useEffect, useCallback, useContext, createContext, useId } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useContext,
+  createContext,
+  useId,
+  useMemo,
+} from "react";
 import { createPortal } from "react-dom";
 import { FaChevronDown } from "react-icons/fa";
 import clsx from "clsx";
@@ -103,13 +112,35 @@ export function DropdownMenu({ label, items }: { label: string; items: MenuItemD
     [open, updatePosition, menuBar],
   );
 
+  const itemClickHandlers = useMemo(
+    function buildItemClickHandlers() {
+      return items.map((item) => {
+        return function handleItemClick() {
+          if (item.type === "separator") {
+            return;
+          }
+          item.onClick();
+          setOpen(false);
+        };
+      });
+    },
+    [items, setOpen],
+  );
+
+  const handleMenuButtonClick = useCallback(
+    function handleMenuButtonClick() {
+      setOpen(!open);
+    },
+    [setOpen, open],
+  );
+
   return (
     <div>
       <button
         ref={buttonRef}
         type="button"
         onMouseEnter={handleMouseEnter}
-        onClick={() => setOpen(!open)}
+        onClick={handleMenuButtonClick}
         className={clsx(
           "flex h-8 items-center gap-0.5 rounded px-2.5 text-sm font-medium text-gray-600 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700",
           open && "bg-gray-200 dark:bg-gray-700",
@@ -135,10 +166,7 @@ export function DropdownMenu({ label, items }: { label: string; items: MenuItemD
                   key={i}
                   type="button"
                   disabled={item.disabled}
-                  onClick={() => {
-                    item.onClick();
-                    setOpen(false);
-                  }}
+                  onClick={itemClickHandlers[i]!}
                   className={clsx(
                     "flex w-full items-center gap-2 px-3 py-2 text-left text-sm",
                     item.disabled

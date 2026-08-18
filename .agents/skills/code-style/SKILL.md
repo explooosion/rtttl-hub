@@ -1,10 +1,10 @@
 ---
 name: code-style
-description: Defines TypeScript/TSX code style rules for this repository. Apply when writing, reviewing, or refactoring any source file — covers import grouping, control flow formatting, useEffect naming, return type inference, and hook ordering.
+description: Defines TypeScript/TSX code style rules for this repository. Apply when writing, reviewing, or refactoring any source file — covers import grouping, control flow formatting, useEffect naming, return type inference, hook ordering, and JSX callback style.
 license: MIT
 metadata:
   author: explooosion
-  version: "1.2.0"
+  version: "1.3.0"
 ---
 
 # Code Style Rules
@@ -263,4 +263,75 @@ useEffect(function focusInputWhenOpen() { // ← should be after handleConfirm
 function handleConfirm() {
   // ...
 }
+```
+
+---
+
+## Rule 6 — No Inline Arrow Functions In JSX
+
+Inline arrow functions in JSX props are forbidden.
+
+### Format
+
+```tsx
+// ✅ Correct — stable named handler
+function handleImportClick() {
+  onImport();
+}
+
+function handleTrackClick() {
+  onFocusTrack(trackIndex);
+}
+
+return (
+  <>
+    <button onClick={handleImportClick}>Import</button>
+    <button onClick={handleTrackClick}>Focus</button>
+  </>
+);
+
+// ✅ Correct — precomputed callback map for indexed handlers
+const trackClickHandlers = useMemo(
+  function buildTrackClickHandlers() {
+    return tracks.map((_, idx) => () => {
+      onFocusTrack(idx);
+    });
+  },
+  [tracks, onFocusTrack],
+);
+
+return tracks.map((track, idx) => (
+  <button key={track.id} onClick={trackClickHandlers[idx]}>
+    {track.name}
+  </button>
+));
+
+// ❌ Forbidden — inline arrow inside JSX
+return <button onClick={() => onImport()}>Import</button>;
+
+// ❌ Forbidden — inline arrow with args inside JSX
+return <button onClick={() => onFocusTrack(trackIndex)}>Focus</button>;
+```
+
+### Rules
+
+| Rule                    | Requirement                                                        |
+| ----------------------- | ------------------------------------------------------------------ |
+| JSX callbacks           | Do not use `() => ...` directly in JSX props                      |
+| Event handlers          | Define named handler functions before `return`                    |
+| Parameterized callbacks | Use precomputed handlers (`useMemo`) or component extraction       |
+| Stability               | Keep handler references stable where possible                      |
+| Readability             | Prefer explicit handler names like `handleXxxClick` / `handleXxx` |
+
+### Anti-patterns (Forbidden)
+
+```tsx
+// WRONG
+<button onClick={() => doSomething()} />
+
+// WRONG
+<TrackRow onRemove={() => removeTrack(index)} />
+
+// WRONG
+<input onChange={(e) => setValue(e.target.value)} />
 ```

@@ -201,6 +201,51 @@ export function ListPageLayout({
     setCurrentPage(1);
   }, []);
 
+  const categoryToggleHandlers = useMemo(
+    function buildCategoryToggleHandlers() {
+      const handlers: Record<RtttlCategory, () => void> = {} as Record<RtttlCategory, () => void>;
+      for (const category of RTTTL_CATEGORIES) {
+        handlers[category] = function handleCategoryChange() {
+          handleCategoryToggle(category);
+        };
+      }
+      return handlers;
+    },
+    [handleCategoryToggle],
+  );
+
+  function handleAllLetterClick() {
+    handleLetterToggle(null);
+  }
+
+  const letterToggleHandlers = useMemo(
+    function buildLetterToggleHandlers() {
+      const handlers: Record<string, () => void> = {};
+      for (const letter of availableLetters) {
+        handlers[letter] = function handleLetterClick() {
+          handleLetterToggle(letter);
+        };
+      }
+      return handlers;
+    },
+    [availableLetters, handleLetterToggle],
+  );
+
+  function handleSortModeChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setSortMode(e.target.value as SortMode);
+    setCurrentPage(1);
+  }
+
+  function handleTrackCountChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const value = e.target.value;
+    setTrackCount(value === "all" ? null : parseInt(value, 10));
+    setCurrentPage(1);
+  }
+
+  function handleToggleMobileFilters() {
+    setShowMobileFilters(!showMobileFilters);
+  }
+
   const sortOptions: { value: SortMode; label: string }[] = [
     { value: "a-z", label: t("sort.aToZ") },
     { value: "z-a", label: t("sort.zToA") },
@@ -211,15 +256,54 @@ export function ListPageLayout({
   ];
 
   // Pagination numbers
-  const pageNumbers: number[] = [];
   const maxVisible = 7;
-  let startPage = Math.max(1, safePage - Math.floor(maxVisible / 2));
-  const endPage = Math.min(totalPages, startPage + maxVisible - 1);
-  if (endPage - startPage + 1 < maxVisible) {
-    startPage = Math.max(1, endPage - maxVisible + 1);
+  const { pageNumbers, startPage, endPage } = useMemo(
+    function buildPageNumbers() {
+      const nextPageNumbers: number[] = [];
+      let nextStartPage = Math.max(1, safePage - Math.floor(maxVisible / 2));
+      const nextEndPage = Math.min(totalPages, nextStartPage + maxVisible - 1);
+      if (nextEndPage - nextStartPage + 1 < maxVisible) {
+        nextStartPage = Math.max(1, nextEndPage - maxVisible + 1);
+      }
+      for (let page = nextStartPage; page <= nextEndPage; page++) {
+        nextPageNumbers.push(page);
+      }
+      return {
+        pageNumbers: nextPageNumbers,
+        startPage: nextStartPage,
+        endPage: nextEndPage,
+      };
+    },
+    [safePage, totalPages],
+  );
+
+  const pageNumberClickHandlers = useMemo(
+    function buildPageNumberClickHandlers() {
+      const handlers: Record<number, () => void> = {};
+      for (const page of pageNumbers) {
+        handlers[page] = function handlePageNumberClick() {
+          goToPage(page);
+        };
+      }
+      return handlers;
+    },
+    [pageNumbers, goToPage],
+  );
+
+  function handlePrevPageClick() {
+    goToPage(safePage - 1);
   }
-  for (let i = startPage; i <= endPage; i++) {
-    pageNumbers.push(i);
+
+  function handleFirstPageClick() {
+    goToPage(1);
+  }
+
+  function handleLastPageClick() {
+    goToPage(totalPages);
+  }
+
+  function handleNextPageClick() {
+    goToPage(safePage + 1);
   }
 
   const categoryFilterUI = (
@@ -253,7 +337,7 @@ export function ListPageLayout({
             <input
               type="checkbox"
               checked={activeCategories.includes(cat)}
-              onChange={() => handleCategoryToggle(cat)}
+              onChange={categoryToggleHandlers[cat]}
               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800"
             />
             <span>{t(`categories.${cat}`)}</span>
@@ -266,7 +350,7 @@ export function ListPageLayout({
   const alphabetUI = (
     <div className="flex flex-row flex-wrap gap-1">
       <button
-        onClick={() => handleLetterToggle(null)}
+        onClick={handleAllLetterClick}
         className={clsx(
           "rounded px-2 py-1 text-xs font-medium transition-colors",
           activeLetter === null
@@ -279,7 +363,7 @@ export function ListPageLayout({
       {availableLetters.map((letter) => (
         <button
           key={letter}
-          onClick={() => handleLetterToggle(letter)}
+          onClick={letterToggleHandlers[letter]}
           className={clsx(
             "rounded px-2 py-1 text-xs font-medium transition-colors",
             activeLetter === letter
@@ -365,10 +449,7 @@ export function ListPageLayout({
                 <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
                   <select
                     value={sortMode}
-                    onChange={(e) => {
-                      setSortMode(e.target.value as SortMode);
-                      setCurrentPage(1);
-                    }}
+                    onChange={handleSortModeChange}
                     className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 sm:w-auto"
                   >
                     {sortOptions.map((opt) => (
@@ -379,11 +460,7 @@ export function ListPageLayout({
                   </select>
                   <select
                     value={trackCount === null ? "all" : trackCount}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      setTrackCount(value === "all" ? null : parseInt(value, 10));
-                      setCurrentPage(1);
-                    }}
+                    onChange={handleTrackCountChange}
                     className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 sm:w-auto"
                   >
                     <option value="all">{t("filter.tracksAll")}</option>
@@ -393,7 +470,7 @@ export function ListPageLayout({
                     <option value="4">{t("filter.tracks4")}</option>
                   </select>
                   <button
-                    onClick={() => setShowMobileFilters((v) => !v)}
+                    onClick={handleToggleMobileFilters}
                     className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 sm:w-auto lg:hidden"
                   >
                     {showMobileFilters ? t("actions.hideFilters") : t("actions.showFilters")}
@@ -445,7 +522,7 @@ export function ListPageLayout({
                   {totalPages > 1 && (
                     <div className="mt-4 flex items-center justify-center gap-1">
                       <button
-                        onClick={() => goToPage(safePage - 1)}
+                        onClick={handlePrevPageClick}
                         disabled={safePage <= 1}
                         className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-30 dark:text-gray-400 dark:hover:bg-gray-800"
                       >
@@ -454,7 +531,7 @@ export function ListPageLayout({
                       {startPage > 1 && (
                         <>
                           <button
-                            onClick={() => goToPage(1)}
+                            onClick={handleFirstPageClick}
                             className="rounded-lg px-3 py-1.5 text-sm text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
                           >
                             1
@@ -465,7 +542,7 @@ export function ListPageLayout({
                       {pageNumbers.map((page) => (
                         <button
                           key={page}
-                          onClick={() => goToPage(page)}
+                          onClick={pageNumberClickHandlers[page]}
                           className={clsx(
                             "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
                             page === safePage
@@ -482,7 +559,7 @@ export function ListPageLayout({
                             <span className="px-1 text-gray-400">…</span>
                           )}
                           <button
-                            onClick={() => goToPage(totalPages)}
+                            onClick={handleLastPageClick}
                             className="rounded-lg px-3 py-1.5 text-sm text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
                           >
                             {totalPages}
@@ -490,7 +567,7 @@ export function ListPageLayout({
                         </>
                       )}
                       <button
-                        onClick={() => goToPage(safePage + 1)}
+                        onClick={handleNextPageClick}
                         disabled={safePage >= totalPages}
                         className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-30 dark:text-gray-400 dark:hover:bg-gray-800"
                       >

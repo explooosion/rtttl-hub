@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 interface RtttlToolbarProps {
@@ -32,6 +32,39 @@ export function RtttlToolbar({ onInsert }: RtttlToolbarProps) {
   const { t } = useTranslation();
   const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
 
+  const insertHandlers = useMemo(
+    function buildInsertHandlers() {
+      const handlers: Record<string, () => void> = {};
+      for (const item of TOOLBAR_ITEMS) {
+        const key = item.insert + item.label;
+        handlers[key] = function handleInsertClick() {
+          onInsert(item.insert);
+        };
+      }
+      return handlers;
+    },
+    [onInsert],
+  );
+
+  const mouseEnterHandlers = useMemo(function buildMouseEnterHandlers() {
+    const handlers: Record<string, () => void> = {};
+    for (const item of TOOLBAR_ITEMS) {
+      const key = item.insert + item.label;
+      handlers[key] = function handleMouseEnter() {
+        setActiveTooltip(item.tipKey);
+      };
+    }
+    return handlers;
+  }, []);
+
+  function handleMouseLeaveTooltip() {
+    setActiveTooltip(null);
+  }
+
+  function handleHelpMouseEnter() {
+    setActiveTooltip("__help");
+  }
+
   return (
     <div className="flex flex-wrap items-center gap-1 rounded-t-lg border border-b-0 border-gray-300 bg-gray-50 px-2 py-1.5 dark:border-gray-600 dark:bg-gray-700/50">
       {TOOLBAR_ITEMS.map((item) => (
@@ -39,9 +72,9 @@ export function RtttlToolbar({ onInsert }: RtttlToolbarProps) {
           <button
             type="button"
             className="flex h-7 min-w-7 items-center justify-center rounded px-1.5 font-mono text-xs text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 dark:text-gray-300 dark:hover:bg-indigo-900/40 dark:hover:text-indigo-300"
-            onClick={() => onInsert(item.insert)}
-            onMouseEnter={() => setActiveTooltip(item.tipKey)}
-            onMouseLeave={() => setActiveTooltip(null)}
+            onClick={insertHandlers[item.insert + item.label]}
+            onMouseEnter={mouseEnterHandlers[item.insert + item.label]}
+            onMouseLeave={handleMouseLeaveTooltip}
           >
             {item.label}
           </button>
@@ -59,8 +92,8 @@ export function RtttlToolbar({ onInsert }: RtttlToolbarProps) {
           type="button"
           className="flex h-7 w-7 items-center justify-center rounded text-gray-400 hover:bg-gray-200 hover:text-gray-600 dark:text-gray-500 dark:hover:bg-gray-600 dark:hover:text-gray-300"
           title={t("editor.toolbar.help", { defaultValue: "RTTTL Quick Reference" })}
-          onMouseEnter={() => setActiveTooltip("__help")}
-          onMouseLeave={() => setActiveTooltip(null)}
+          onMouseEnter={handleHelpMouseEnter}
+          onMouseLeave={handleMouseLeaveTooltip}
         >
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path

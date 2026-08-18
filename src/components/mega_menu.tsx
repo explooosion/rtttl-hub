@@ -70,6 +70,28 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const close = useCallback(() => setOpen(false), []);
 
+  function handleMenuToggle() {
+    setOpen(!open);
+  }
+
+  function handleCloseMenu() {
+    close();
+  }
+
+  function renderCollectionCard(col: (typeof COLLECTIONS)[number]) {
+    return (
+      <div key={col.slug} onClick={handleCloseMenu}>
+        <CollectionCard
+          slug={col.slug}
+          nameKey={col.nameKey}
+          icon={col.icon}
+          source={col.source}
+          externalOnly={col.externalOnly}
+        />
+      </div>
+    );
+  }
+
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -97,7 +119,7 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
   return (
     <div ref={menuRef} className="relative">
       <button
-        onClick={() => setOpen(!open)}
+        onClick={handleMenuToggle}
         className={clsx(
           "flex items-center gap-1 text-sm font-medium transition-colors",
           isActive || open
@@ -119,7 +141,7 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
               </h3>
               <Link
                 to="/collections"
-                onClick={close}
+                onClick={handleCloseMenu}
                 className="text-xs font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400"
               >
                 {t("collections.browseAll")} →
@@ -130,56 +152,28 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
               <div>
                 <Link
                   to="/collections/public"
-                  onClick={close}
+                  onClick={handleCloseMenu}
                   className="mb-2 block text-xs font-semibold text-indigo-600 transition-colors hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
                 >
                   {t("collections.group.publicLibraries")} →
                 </Link>
-                {COLLECTIONS.filter((c) => c.group === "public-libraries").map((col) => (
-                  <div key={col.slug} onClick={close}>
-                    <CollectionCard
-                      slug={col.slug}
-                      nameKey={col.nameKey}
-                      icon={col.icon}
-                      source={col.source}
-                      externalOnly={col.externalOnly}
-                    />
-                  </div>
-                ))}
+                {COLLECTIONS.filter((c) => c.group === "public-libraries").map(
+                  renderCollectionCard,
+                )}
               </div>
               {/* Middle: External Resources */}
               <div>
                 <h4 className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
                   {t("collections.group.externalLinks")}
                 </h4>
-                {COLLECTIONS.filter((c) => c.group === "external-links").map((col) => (
-                  <div key={col.slug} onClick={close}>
-                    <CollectionCard
-                      slug={col.slug}
-                      nameKey={col.nameKey}
-                      icon={col.icon}
-                      source={col.source}
-                      externalOnly={col.externalOnly}
-                    />
-                  </div>
-                ))}
+                {COLLECTIONS.filter((c) => c.group === "external-links").map(renderCollectionCard)}
               </div>
               {/* Right: My Creations */}
               <div>
                 <h4 className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
                   {t("collections.group.myCreations")}
                 </h4>
-                {COLLECTIONS.filter((c) => c.group === "my-creations").map((col) => (
-                  <div key={col.slug} onClick={close}>
-                    <CollectionCard
-                      slug={col.slug}
-                      nameKey={col.nameKey}
-                      icon={col.icon}
-                      source={col.source}
-                      externalOnly={col.externalOnly}
-                    />
-                  </div>
-                ))}
+                {COLLECTIONS.filter((c) => c.group === "my-creations").map(renderCollectionCard)}
               </div>
             </div>
           </div>

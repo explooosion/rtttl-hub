@@ -98,6 +98,18 @@ export function CreatePageTransportToolbar({
   const navigate = useNavigate();
   const toggleMuteTrack = usePlayerStore((s) => s.toggleMuteTrack);
 
+  function handleNavigateHome() {
+    navigate("/");
+  }
+
+  function handleFocusName() {
+    nameInputRef.current?.focus();
+  }
+
+  function handleToggleMuteFocusedTrack() {
+    toggleMuteTrack(focusedTrackIndex);
+  }
+
   return (
     <TransportToolbar
       hasPlayableContent={hasPlayableContent}
@@ -108,14 +120,14 @@ export function CreatePageTransportToolbar({
       onNew={onNew}
       onImport={onImport}
       onImportFromFavorites={onImportFromFavorites}
-      onNavigateHome={() => navigate("/")}
-      onFocusName={() => nameInputRef.current?.focus()}
+      onNavigateHome={handleNavigateHome}
+      onFocusName={handleFocusName}
       onCreate={onCreate}
       onDiscard={onDiscard}
       onStop={onStop}
       onAddTrack={onAddTrack}
       onRemoveFocusedTrack={onRemoveFocusedTrack}
-      onToggleMuteFocusedTrack={() => toggleMuteTrack(focusedTrackIndex)}
+      onToggleMuteFocusedTrack={handleToggleMuteFocusedTrack}
       onUndo={onUndo}
       onRedo={onRedo}
       onMuteAll={onMuteAll}

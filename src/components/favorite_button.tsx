@@ -15,12 +15,14 @@ export function FavoriteButton({ itemId, size = 18 }: FavoriteButtonProps) {
   const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
   const isFav = favoriteIds.includes(itemId);
 
+  function handleToggleFavorite(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    toggleFavorite(itemId, user?.uid);
+  }
+
   return (
     <button
-      onClick={(e) => {
-        e.stopPropagation();
-        toggleFavorite(itemId, user?.uid);
-      }}
+      onClick={handleToggleFavorite}
       className={clsx(
         "transition-colors hover:scale-110",
         isFav

@@ -84,6 +84,10 @@ export const RtttlEditorInput = forwardRef<RtttlEditorInputHandle, RtttlEditorIn
       [ref],
     );
 
+    function handleToolbarInsert(text: string) {
+      codeEditorRef.current?.insertText(text);
+    }
+
     return (
       <div>
         {/* Multi-track tabs */}
@@ -98,9 +102,7 @@ export const RtttlEditorInput = forwardRef<RtttlEditorInputHandle, RtttlEditorIn
         )}
 
         {/* Editor area */}
-        {showToolbar && (
-          <RtttlToolbar onInsert={(text) => codeEditorRef.current?.insertText(text)} />
-        )}
+        {showToolbar && <RtttlToolbar onInsert={handleToolbarInsert} />}
         <CodeEditor
           ref={codeEditorRef}
           value={value}

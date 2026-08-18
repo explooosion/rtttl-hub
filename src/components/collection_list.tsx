@@ -54,24 +54,63 @@ export function CollectionList() {
     [setSearchParams],
   );
 
+  // Build page number links (show up to 7 pages around current)
+  const maxVisible = 7;
+  const { pageNumbers, startPage, endPage } = useMemo(
+    function buildPageNumbers() {
+      const nextPageNumbers: number[] = [];
+      let nextStartPage = Math.max(1, safePage - Math.floor(maxVisible / 2));
+      const nextEndPage = Math.min(totalPages, nextStartPage + maxVisible - 1);
+      if (nextEndPage - nextStartPage + 1 < maxVisible) {
+        nextStartPage = Math.max(1, nextEndPage - maxVisible + 1);
+      }
+      for (let page = nextStartPage; page <= nextEndPage; page++) {
+        nextPageNumbers.push(page);
+      }
+      return {
+        pageNumbers: nextPageNumbers,
+        startPage: nextStartPage,
+        endPage: nextEndPage,
+      };
+    },
+    [safePage, totalPages],
+  );
+
+  const pageNumberClickHandlers = useMemo(
+    function buildPageNumberClickHandlers() {
+      const handlers: Record<number, () => void> = {};
+      for (const page of pageNumbers) {
+        handlers[page] = function handlePageNumberClick() {
+          goToPage(page);
+        };
+      }
+      return handlers;
+    },
+    [pageNumbers, goToPage],
+  );
+
+  function handlePrevPageClick() {
+    goToPage(safePage - 1);
+  }
+
+  function handleFirstPageClick() {
+    goToPage(1);
+  }
+
+  function handleLastPageClick() {
+    goToPage(totalPages);
+  }
+
+  function handleNextPageClick() {
+    goToPage(safePage + 1);
+  }
+
   if (items.length === 0) {
     return (
       <div className="flex h-64 items-center justify-center text-gray-400 dark:text-gray-500">
         {t("search.noResults")}
       </div>
     );
-  }
-
-  // Build page number links (show up to 7 pages around current)
-  const pageNumbers: number[] = [];
-  const maxVisible = 7;
-  let startPage = Math.max(1, safePage - Math.floor(maxVisible / 2));
-  const endPage = Math.min(totalPages, startPage + maxVisible - 1);
-  if (endPage - startPage + 1 < maxVisible) {
-    startPage = Math.max(1, endPage - maxVisible + 1);
-  }
-  for (let i = startPage; i <= endPage; i++) {
-    pageNumbers.push(i);
   }
 
   return (
@@ -90,7 +129,7 @@ export function CollectionList() {
       {totalPages > 1 && (
         <div className="mt-4 flex items-center justify-center gap-1">
           <button
-            onClick={() => goToPage(safePage - 1)}
+            onClick={handlePrevPageClick}
             disabled={safePage <= 1}
             className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-30 dark:text-gray-400 dark:hover:bg-gray-800"
           >
@@ -99,7 +138,7 @@ export function CollectionList() {
           {startPage > 1 && (
             <>
               <button
-                onClick={() => goToPage(1)}
+                onClick={handleFirstPageClick}
                 className="rounded-lg px-3 py-1.5 text-sm text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
               >
                 1
@@ -110,7 +149,7 @@ export function CollectionList() {
           {pageNumbers.map((page) => (
             <button
               key={page}
-              onClick={() => goToPage(page)}
+              onClick={pageNumberClickHandlers[page]}
               className={clsx(
                 "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
                 page === safePage
@@ -125,7 +164,7 @@ export function CollectionList() {
             <>
               {endPage < totalPages - 1 && <span className="px-1 text-gray-400">…</span>}
               <button
-                onClick={() => goToPage(totalPages)}
+                onClick={handleLastPageClick}
                 className="rounded-lg px-3 py-1.5 text-sm text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
               >
                 {totalPages}
@@ -133,7 +172,7 @@ export function CollectionList() {
             </>
           )}
           <button
-            onClick={() => goToPage(safePage + 1)}
+            onClick={handleNextPageClick}
             disabled={safePage >= totalPages}
             className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-30 dark:text-gray-400 dark:hover:bg-gray-800"
           >

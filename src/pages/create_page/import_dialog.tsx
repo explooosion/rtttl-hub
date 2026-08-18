@@ -48,6 +48,10 @@ export function ImportDialog({ open, onClose, onConfirm }: ImportDialogProps) {
     setText("");
   }
 
+  function handleTextChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setText(e.target.value);
+  }
+
   /* Focus textarea when dialog opens; clear text when it closes. */
   useEffect(
     function focusTextareaWhenOpen() {
@@ -92,7 +96,7 @@ export function ImportDialog({ open, onClose, onConfirm }: ImportDialogProps) {
             <textarea
               ref={textareaRef}
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={handleTextChange}
               placeholder={"Track1:d=8,o=5,b=120:c,e,g\nTrack2:d=8,o=5,b=120:e,g,c6"}
               rows={10}
               spellCheck={false}

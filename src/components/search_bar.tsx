@@ -24,6 +24,13 @@ export function SearchBar() {
     [setSearchQuery],
   );
 
+  const handleSortModeChange = useCallback(
+    function handleSortModeChange(e: React.ChangeEvent<HTMLSelectElement>) {
+      setSortMode(e.target.value as SortMode);
+    },
+    [setSortMode],
+  );
+
   const sortOptions: { value: SortMode; label: string }[] = [
     { value: "a-z", label: t("sort.aToZ") },
     { value: "z-a", label: t("sort.zToA") },
@@ -48,7 +55,7 @@ export function SearchBar() {
       </div>
       <select
         value={sortMode}
-        onChange={(e) => setSortMode(e.target.value as SortMode)}
+        onChange={handleSortModeChange}
         className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
       >
         {sortOptions.map((opt) => (

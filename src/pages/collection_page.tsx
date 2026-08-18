@@ -255,6 +255,10 @@ export function CollectionPage() {
       </button>
     ) : undefined;
 
+  function handleCloseDeleteConfirm() {
+    setDeleteConfirmOpen(false);
+  }
+
   return (
     <>
       <ListPageLayout
@@ -275,7 +279,7 @@ export function CollectionPage() {
         confirmLabel={t("actions.delete")}
         cancelLabel={t("actions.cancel")}
         onConfirm={handleConfirmDelete}
-        onCancel={() => setDeleteConfirmOpen(false)}
+        onCancel={handleCloseDeleteConfirm}
         variant="danger"
       />
     </>

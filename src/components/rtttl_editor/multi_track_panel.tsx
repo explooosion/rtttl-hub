@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { FaRegCopy, FaCheck, FaPlus, FaTimes } from "react-icons/fa";
 import clsx from "clsx";
@@ -38,6 +38,18 @@ export function EscOutputPanel({ tracks }: EscOutputPanelProps) {
       setTimeout(() => setCopiedAll(false), 2000);
     }
   }, [tracks]);
+
+  const copyHandlers = useMemo(
+    function buildCopyHandlers() {
+      return [0, 1, 2, 3].map((motorIdx) => {
+        return function handleTrackCopy() {
+          const code = tracks[motorIdx] ?? "";
+          void handleCopy(code, motorIdx);
+        };
+      });
+    },
+    [tracks, handleCopy],
+  );
 
   return (
     <div className="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-800/50">
@@ -92,7 +104,7 @@ export function EscOutputPanel({ tracks }: EscOutputPanelProps) {
               {hasCode && (
                 <button
                   type="button"
-                  onClick={() => handleCopy(code, motorIdx)}
+                  onClick={copyHandlers[motorIdx]}
                   className="shrink-0 rounded p-1 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                   title={t("editor.copyCode", { defaultValue: "Copy" })}
                 >
@@ -132,6 +144,14 @@ export function TrackTabs({
 }: TrackTabsProps) {
   const { t } = useTranslation();
 
+  function handleActiveTrackChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    onSelect(Number(e.target.value));
+  }
+
+  function handleRemoveActiveTrack() {
+    onRemove(activeIndex);
+  }
+
   const activeDotColor =
     activeIndex === -1
       ? "bg-gray-400 dark:bg-gray-500"
@@ -145,7 +165,7 @@ export function TrackTabs({
       {/* Motor dropdown */}
       <select
         value={activeIndex}
-        onChange={(e) => onSelect(Number(e.target.value))}
+        onChange={handleActiveTrackChange}
         className="flex-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium text-gray-700 transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:focus:border-indigo-400"
       >
         {tracks.length > 1 && (
@@ -162,7 +182,7 @@ export function TrackTabs({
       {tracks.length > 1 && activeIndex >= 0 && (
         <button
           type="button"
-          onClick={() => onRemove(activeIndex)}
+          onClick={handleRemoveActiveTrack}
           className="flex items-center rounded-md border border-gray-300 px-2 py-1 text-gray-400 transition-colors hover:border-red-300 hover:text-red-500 dark:border-gray-600 dark:text-gray-500 dark:hover:border-red-500 dark:hover:text-red-400"
           title={t("editor.removeTrack", { defaultValue: "Remove track" })}
         >

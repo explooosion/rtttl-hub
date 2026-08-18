@@ -39,6 +39,10 @@ function CollectionRow({
     }
   };
 
+  function handleSourceClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.stopPropagation();
+  }
+
   return (
     <div
       role="link"
@@ -58,7 +62,7 @@ function CollectionRow({
             href={source}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
+            onClick={handleSourceClick}
             className="mt-1 inline-flex items-center gap-1 text-xs text-indigo-500 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
           >
             <FaExternalLinkAlt size={10} />
@@ -85,6 +89,12 @@ function CollectionGroup({
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  function handleBrowseAllClick() {
+    if (browseAllLink) {
+      navigate(browseAllLink);
+    }
+  }
+
   return (
     <section>
       <div className="mb-3">
@@ -97,7 +107,7 @@ function CollectionGroup({
           </div>
           {browseAllLink && (
             <button
-              onClick={() => navigate(browseAllLink)}
+              onClick={handleBrowseAllClick}
               className="text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
             >
               {t("collections.browseAll")} →

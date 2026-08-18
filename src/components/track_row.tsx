@@ -102,6 +102,58 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
     }
   }, [item.code, item.tracks]);
 
+  function handleSelectItem() {
+    setCurrentItem(item);
+  }
+
+  function handlePlayToggleClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    if (isItemPlaying) {
+      pause();
+    } else {
+      playItem(item);
+    }
+  }
+
+  function handleStopPropagation(e: React.MouseEvent<HTMLElement>) {
+    e.stopPropagation();
+  }
+
+  function handleCopyClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    void handleCopy();
+  }
+
+  function handleMenuToggle(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    setMenuOpen(!menuOpen);
+  }
+
+  const menuActionHandlers = useMemo(
+    function buildMenuActionHandlers() {
+      return (extraActions ?? []).map((action) => {
+        return function handleMenuActionClick(e: React.MouseEvent<HTMLButtonElement>) {
+          e.stopPropagation();
+          action.onClick(item);
+          setMenuOpen(false);
+        };
+      });
+    },
+    [extraActions, item],
+  );
+
+  const inlineActionHandlers = useMemo(
+    function buildInlineActionHandlers() {
+      return (extraActions ?? []).map((action) => {
+        return function handleInlineActionClick(e: React.MouseEvent<HTMLButtonElement>) {
+          e.stopPropagation();
+          action.onClick(item);
+        };
+      });
+    },
+    [extraActions, item],
+  );
+
   return (
     <div
       className={clsx(
@@ -109,18 +161,11 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
         isActive && "bg-indigo-50 dark:bg-indigo-950/30",
         !isActive && isListened && "bg-amber-50/30 dark:bg-amber-950/10",
       )}
-      onClick={() => setCurrentItem(item)}
+      onClick={handleSelectItem}
     >
       {/* Play/Pause button */}
       <button
-        onClick={(e) => {
-          e.stopPropagation();
-          if (isItemPlaying) {
-            pause();
-          } else {
-            playItem(item);
-          }
-        }}
+        onClick={handlePlayToggleClick}
         className={clsx(
           "flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors",
           isItemPlaying
@@ -138,7 +183,7 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
           <p className="truncate text-xs">
             <Link
               to={`/creators/${encodeURIComponent(displayCreatorName)}`}
-              onClick={(e) => e.stopPropagation()}
+              onClick={handleStopPropagation}
               className="text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
             >
               {displayCreatorName}
@@ -172,7 +217,7 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
       </div>
 
       {/* Waveform — sm+ shows full bar, mobile shows compact bar */}
-      <div className="min-w-0 flex-1" onClick={(e) => e.stopPropagation()}>
+      <div className="min-w-0 flex-1" onClick={handleStopPropagation}>
         {item.tracks && item.tracks.length > 1 ? (
           <MultiTrackWaveform tracks={item.tracks} isActive={isActive} height={16} barCount={20} />
         ) : (
@@ -217,10 +262,7 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
       <div className="flex shrink-0 items-center gap-2">
         <FavoriteButton itemId={item.id} size={18} />
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            handleCopy();
-          }}
+          onClick={handleCopyClick}
           className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
           title={t("editor.copyCode")}
         >
@@ -229,10 +271,7 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
         {showActionsAsMenu && extraActions && extraActions.length > 0 ? (
           <div className="relative" ref={menuRef}>
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setMenuOpen(!menuOpen);
-              }}
+              onClick={handleMenuToggle}
               className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
               title={t("actions.more")}
             >
@@ -247,11 +286,7 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
                   return (
                     <button
                       key={i}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        action.onClick(item);
-                        setMenuOpen(false);
-                      }}
+                      onClick={menuActionHandlers[i]!}
                       className={clsx(
                         "flex w-full items-center gap-3 px-4 py-2 text-left text-sm transition-colors",
                         action.variant === "danger"
@@ -274,10 +309,7 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
             return (
               <button
                 key={i}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  action.onClick(item);
-                }}
+                onClick={inlineActionHandlers[i]!}
                 className="group text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
                 title={title}
               >

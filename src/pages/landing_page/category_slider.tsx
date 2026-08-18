@@ -12,6 +12,14 @@ export function CategorySlider() {
   // Duplicate items 3x for seamless loop
   const items = [...CATEGORY_ITEMS, ...CATEGORY_ITEMS, ...CATEGORY_ITEMS];
 
+  function handleMouseEnterSlider() {
+    pausedRef.current = true;
+  }
+
+  function handleMouseLeaveSlider() {
+    pausedRef.current = false;
+  }
+
   useEffect(() => {
     const track = trackRef.current;
     if (!track) {
@@ -40,12 +48,8 @@ export function CategorySlider() {
   return (
     <div
       className="relative overflow-hidden"
-      onMouseEnter={() => {
-        pausedRef.current = true;
-      }}
-      onMouseLeave={() => {
-        pausedRef.current = false;
-      }}
+      onMouseEnter={handleMouseEnterSlider}
+      onMouseLeave={handleMouseLeaveSlider}
     >
       <div ref={trackRef} className="flex gap-4 px-4 py-2 will-change-transform">
         {items.map(({ id, icon: Icon, gradient }, i) => (

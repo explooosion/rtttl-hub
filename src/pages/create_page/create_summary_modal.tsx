@@ -89,6 +89,25 @@ export function CreateSummaryModal({
     [trackSummaries],
   );
 
+  function handleProjectNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+    onNameChange?.(e.target.value);
+  }
+
+  const trackRenameHandlers = useMemo(
+    function buildTrackRenameHandlers() {
+      return trackSummaries.map((trackSummary) => {
+        return function handleTrackRename(e: React.ChangeEvent<HTMLInputElement>) {
+          onRenameTrack?.(trackSummary.originalIndex, e.target.value);
+        };
+      });
+    },
+    [trackSummaries, onRenameTrack],
+  );
+
+  function handleIsPublicChange(e: React.ChangeEvent<HTMLInputElement>) {
+    onIsPublicChange?.(e.target.checked);
+  }
+
   return (
     <Dialog open={isOpen} onClose={onCancel} className="relative z-50">
       <div className="fixed inset-0 bg-black/40" aria-hidden="true" />
@@ -124,7 +143,7 @@ export function CreateSummaryModal({
                         <input
                           type="text"
                           value={name}
-                          onChange={(e) => onNameChange(e.target.value)}
+                          onChange={handleProjectNameChange}
                           className="w-full rounded border-0 bg-transparent px-0 py-0.5 text-sm font-medium text-gray-900 outline-none hover:bg-black/5 focus:bg-black/5 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
                         />
                       ) : (
@@ -180,7 +199,7 @@ export function CreateSummaryModal({
                         <input
                           type="text"
                           value={tk.name}
-                          onChange={(e) => onRenameTrack(tk.originalIndex, e.target.value)}
+                          onChange={trackRenameHandlers[i]!}
                           className="w-full rounded border-0 bg-transparent px-2 py-0.5 text-sm font-semibold text-gray-800 outline-none hover:bg-black/5 focus:bg-black/5 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
                         />
                       ) : (
@@ -253,7 +272,7 @@ export function CreateSummaryModal({
                   type="checkbox"
                   id="isPublic"
                   checked={isPublic}
-                  onChange={(e) => onIsPublicChange(e.target.checked)}
+                  onChange={handleIsPublicChange}
                   className="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800"
                 />
                 <div className="flex-1">

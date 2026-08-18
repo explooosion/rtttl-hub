@@ -193,6 +193,10 @@ export function PropertiesPanel({
     onNameChange(value);
   }
 
+  function handleProjectNameInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    handleNameChange(e.target.value);
+  }
+
   function handleCatToggle() {
     if (!catOpen && catTriggerRef.current) {
       const r = catTriggerRef.current.getBoundingClientRect();
@@ -263,6 +267,40 @@ export function PropertiesPanel({
     }
   }
 
+  const categoryCheckboxHandlers = useMemo(
+    function buildCategoryCheckboxHandlers() {
+      const handlers: Record<RtttlCategory, () => void> = {} as Record<RtttlCategory, () => void>;
+      for (const category of RTTTL_CATEGORIES) {
+        handlers[category] = function handleCategoryCheckboxChange() {
+          const checked = categories.includes(category);
+          onCategoriesChange(
+            checked
+              ? categories.filter((currentCategory) => currentCategory !== category)
+              : [...categories, category],
+          );
+        };
+      }
+      return handlers;
+    },
+    [categories, onCategoriesChange],
+  );
+
+  function handleTrackNameInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    onRenameTrack(e.target.value);
+  }
+
+  function handleDurationDefaultInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    commitTrackDefault("d", e.currentTarget.value, 1, 64);
+  }
+
+  function handleOctaveDefaultInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    commitTrackDefault("o", e.currentTarget.value, 1, 8);
+  }
+
+  function handleBpmDefaultInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    commitTrackDefault("b", e.currentTarget.value, 20, 900);
+  }
+
   const sharedBtnClass = clsx(
     "flex w-full items-center justify-center gap-1.5 rounded border px-3 py-1.5 text-sm font-medium transition-colors",
     "border-gray-400 text-gray-600 hover:border-gray-500 hover:bg-gray-200",
@@ -321,7 +359,7 @@ export function PropertiesPanel({
                   ref={nameInputRef}
                   type="text"
                   value={name}
-                  onChange={(e) => handleNameChange(e.target.value)}
+                  onChange={handleProjectNameInputChange}
                   placeholder={t("create.namePlaceholder")}
                   className="w-full rounded border border-gray-400 bg-white px-2 py-1 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
                 />
@@ -378,13 +416,7 @@ export function PropertiesPanel({
                           <input
                             type="checkbox"
                             checked={checked}
-                            onChange={() =>
-                              onCategoriesChange(
-                                checked
-                                  ? categories.filter((c) => c !== cat)
-                                  : [...categories, cat],
-                              )
-                            }
+                            onChange={categoryCheckboxHandlers[cat]}
                             className="h-3 w-3 rounded border-gray-400 text-indigo-600 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800"
                           />
                           {t(`categories.${cat}`)}
@@ -445,7 +477,7 @@ export function PropertiesPanel({
                 <input
                   type="text"
                   value={focusedTrackName}
-                  onChange={(e) => onRenameTrack(e.target.value)}
+                  onChange={handleTrackNameInputChange}
                   className="w-full rounded border border-gray-400 bg-white px-2 py-1 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
                 />
               </div>
@@ -465,9 +497,7 @@ export function PropertiesPanel({
                       min={1}
                       max={64}
                       value={editableDefaults.duration}
-                      onChange={(e) => {
-                        commitTrackDefault("d", e.currentTarget.value, 1, 64);
-                      }}
+                      onChange={handleDurationDefaultInputChange}
                       className="w-full rounded border border-gray-400 bg-white px-2 py-1 text-sm font-mono text-gray-800 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
                     />
                   </div>
@@ -484,9 +514,7 @@ export function PropertiesPanel({
                       min={1}
                       max={8}
                       value={editableDefaults.octave}
-                      onChange={(e) => {
-                        commitTrackDefault("o", e.currentTarget.value, 1, 8);
-                      }}
+                      onChange={handleOctaveDefaultInputChange}
                       className="w-full rounded border border-gray-400 bg-white px-2 py-1 text-sm font-mono text-gray-800 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
                     />
                   </div>
@@ -503,9 +531,7 @@ export function PropertiesPanel({
                       min={20}
                       max={900}
                       value={editableDefaults.bpm}
-                      onChange={(e) => {
-                        commitTrackDefault("b", e.currentTarget.value, 20, 900);
-                      }}
+                      onChange={handleBpmDefaultInputChange}
                       className="w-full rounded border border-gray-400 bg-white px-2 py-1 text-sm font-mono text-gray-800 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
                     />
                   </div>

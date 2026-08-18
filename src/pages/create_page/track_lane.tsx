@@ -229,6 +229,67 @@ export function TrackLane({
     onChange(pasted.trim());
   }
 
+  function handleStopPropagation(e: React.MouseEvent) {
+    e.stopPropagation();
+  }
+
+  function handleTrackColorButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    colorInputRef.current?.click();
+  }
+
+  function handleTrackColorInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    e.stopPropagation();
+    onColorChange(e.target.value);
+  }
+
+  function handleNameInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    handleNameChange(e.target.value);
+  }
+
+  function handleExpandButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    onToggleExpand();
+  }
+
+  function handleMuteButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    toggleMuteTrack(index);
+  }
+
+  function handleDuplicateButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    if (canDuplicate) {
+      onDuplicate();
+    }
+  }
+
+  function handleDeactivateButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    onDeactivate();
+  }
+
+  function handleRemoveButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    if (canRemove) {
+      onRemove();
+    }
+  }
+
+  function handleSoloPlayToggleClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    onSoloPlayToggle();
+  }
+
+  function handleExpandedEditorAreaClick(e: React.MouseEvent<HTMLDivElement>) {
+    e.stopPropagation();
+  }
+
+  function handleClearCodeClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    onChange(`${trackName}:`);
+  }
+
   return (
     <div
       ref={setNodeRef}
@@ -253,7 +314,7 @@ export function TrackLane({
               type="button"
               {...listeners}
               className="flex h-5 w-4 shrink-0 cursor-grab items-center justify-center text-gray-300 hover:text-gray-500 active:cursor-grabbing dark:text-gray-700 dark:hover:text-gray-400"
-              onClick={(e) => e.stopPropagation()}
+              onClick={handleStopPropagation}
               title="Drag to reorder"
             >
               <FaGripVertical size={11} />
@@ -262,10 +323,7 @@ export function TrackLane({
             <button
               type="button"
               title={t("create.changeTrackColor", { defaultValue: "Change track color" })}
-              onClick={(e) => {
-                e.stopPropagation();
-                colorInputRef.current?.click();
-              }}
+              onClick={handleTrackColorButtonClick}
               className="relative inline-flex h-2.5 w-2.5 shrink-0 rounded-full ring-offset-1 hover:ring-2 hover:ring-white/60 focus:outline-none"
               style={{ backgroundColor: trackColor }}
             >
@@ -273,11 +331,8 @@ export function TrackLane({
                 ref={colorInputRef}
                 type="color"
                 value={trackColor}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  onColorChange(e.target.value);
-                }}
-                onClick={(e) => e.stopPropagation()}
+                onChange={handleTrackColorInputChange}
+                onClick={handleStopPropagation}
                 className="invisible absolute h-0 w-0"
                 tabIndex={-1}
               />
@@ -287,10 +342,10 @@ export function TrackLane({
                 <input
                   ref={nameInputRef}
                   value={draftName}
-                  onChange={(e) => handleNameChange(e.target.value)}
+                  onChange={handleNameInputChange}
                   onBlur={commitName}
                   onKeyDown={handleNameKeyDown}
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={handleStopPropagation}
                   className={clsx(
                     "min-w-0 rounded bg-transparent px-0.5 text-xs font-semibold tracking-wide outline-none ring-1 ring-inset",
                     nameError
@@ -316,10 +371,7 @@ export function TrackLane({
             )}
             <button
               type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleExpand();
-              }}
+              onClick={handleExpandButtonClick}
               title={isExpanded ? "Collapse" : "Expand"}
               className="flex h-6 w-6 shrink-0 items-center justify-center rounded text-gray-400 hover:bg-gray-200 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300"
             >
@@ -332,10 +384,7 @@ export function TrackLane({
             {/* Mute */}
             <button
               type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleMuteTrack(index);
-              }}
+              onClick={handleMuteButtonClick}
               title={isMuted ? "Unmute" : "Mute"}
               className={clsx(
                 "flex h-7 w-7 items-center justify-center rounded border text-[10px] font-bold transition-colors",
@@ -350,12 +399,7 @@ export function TrackLane({
             <span title={duplicateTooltip} className="inline-flex">
               <button
                 type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (canDuplicate) {
-                    onDuplicate();
-                  }
-                }}
+                onClick={handleDuplicateButtonClick}
                 disabled={!canDuplicate}
                 className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-30 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
               >
@@ -365,10 +409,7 @@ export function TrackLane({
             {/* Deactivate */}
             <button
               type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onDeactivate();
-              }}
+              onClick={handleDeactivateButtonClick}
               title={
                 isDeactivated
                   ? t("create.activateTrack", { defaultValue: "Activate Track" })
@@ -387,12 +428,7 @@ export function TrackLane({
             <span title={removeTooltip} className="inline-flex">
               <button
                 type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (canRemove) {
-                    onRemove();
-                  }
-                }}
+                onClick={handleRemoveButtonClick}
                 disabled={!canRemove}
                 className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-30 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
               >
@@ -413,10 +449,7 @@ export function TrackLane({
             >
               <button
                 type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSoloPlayToggle();
-                }}
+                onClick={handleSoloPlayToggleClick}
                 disabled={!canSoloPlay}
                 className={clsx(
                   "flex h-7 w-7 items-center justify-center rounded border transition-colors",
@@ -495,17 +528,14 @@ export function TrackLane({
       {isExpanded && (
         <div
           className="flex border-t border-gray-200 dark:border-gray-800/50"
-          onClick={(e) => e.stopPropagation()}
+          onClick={handleExpandedEditorAreaClick}
         >
           {/* Sticky spacer to match the header column */}
           <div className="sticky left-0 z-10 flex w-48 shrink-0 items-center gap-1 border-t border-r border-gray-400 bg-gray-200 px-2.5 py-1.5 dark:border-gray-800 dark:bg-gray-900">
             {/* Clear code */}
             <button
               type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onChange(`${trackName}:`);
-              }}
+              onClick={handleClearCodeClick}
               title={t("create.clearTrackCode", { defaultValue: "Clear code" })}
               className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
             >
@@ -540,13 +570,16 @@ function CopyButton({ text, disabled }: { text: string; disabled?: boolean }) {
       setTimeout(() => setCopied(false), 2000);
     }
   }
+
+  function handleCopyClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    void handleCopy();
+  }
+
   return (
     <button
       type="button"
-      onClick={(e) => {
-        e.stopPropagation();
-        void handleCopy();
-      }}
+      onClick={handleCopyClick}
       disabled={disabled}
       title="Copy"
       className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-30 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"

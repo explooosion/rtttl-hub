@@ -42,6 +42,10 @@ export function CollectionCard({
     }
   };
 
+  function handleSourceClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.stopPropagation();
+  }
+
   return (
     <div
       role="link"
@@ -68,7 +72,7 @@ export function CollectionCard({
               href={source}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
+              onClick={handleSourceClick}
               className="inline-flex items-center gap-1 text-xs text-indigo-500 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
             >
               <FaExternalLinkAlt size={10} />

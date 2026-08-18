@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { FaCut, FaEraser } from "react-icons/fa";
@@ -82,6 +82,17 @@ export function CutDialog({
 
   const isTrim = mode === "trim";
 
+  const trackToggleHandlers = useMemo(
+    function buildTrackToggleHandlers() {
+      return tracks.map((_, index) => {
+        return function handleTrackToggle() {
+          toggleTrack(index);
+        };
+      });
+    },
+    [tracks],
+  );
+
   return (
     <Dialog open={open} onClose={handleCancel} className="relative z-50">
       <div className="fixed inset-0 bg-black/20" aria-hidden="true" />
@@ -129,7 +140,7 @@ export function CutDialog({
                   <input
                     type="checkbox"
                     checked={isChecked}
-                    onChange={() => toggleTrack(i)}
+                    onChange={trackToggleHandlers[i]!}
                     className="h-4 w-4 rounded accent-indigo-500"
                   />
                   <span

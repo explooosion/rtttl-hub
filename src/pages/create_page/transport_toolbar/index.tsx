@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
 import {
@@ -156,6 +156,121 @@ export function TransportToolbar({
   const [loopInInputVal, setLoopInInputVal] = useState("");
   const [loopOutEditing, setLoopOutEditing] = useState(false);
   const [loopOutInputVal, setLoopOutInputVal] = useState("");
+
+  const syntaxInsertHandlers = useMemo(
+    function buildSyntaxInsertHandlers() {
+      return SYNTAX_ITEMS.map((item) => {
+        return function handleSyntaxInsert() {
+          onToolbarInsert(item);
+        };
+      });
+    },
+    [onToolbarInsert],
+  );
+
+  function handleToggleSyntaxHighlight() {
+    toggleFeature("syntaxHighlight");
+  }
+
+  function handleTogglePlaybackTracking() {
+    toggleFeature("playbackTracking");
+  }
+
+  function handleToggleColorPanel() {
+    setColorPanelOpen((isOpen) => !isOpen);
+  }
+
+  function applyLoopInInputValue() {
+    const seconds = parseFloat(loopInInputVal);
+    if (isNaN(seconds)) {
+      return;
+    }
+    onLoopInChange(Math.max(0, Math.min(maxTrackDurationMs, Math.round(seconds * 1000))));
+  }
+
+  function handleLoopInInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setLoopInInputVal(e.target.value.replace(/[^0-9.]/g, ""));
+  }
+
+  function handleLoopInInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      applyLoopInInputValue();
+      setLoopInEditing(false);
+    } else if (e.key === "Escape") {
+      setLoopInEditing(false);
+    }
+    e.stopPropagation();
+  }
+
+  function handleLoopInInputBlur() {
+    applyLoopInInputValue();
+    setLoopInEditing(false);
+  }
+
+  function handleLoopInInputClick(e: React.MouseEvent<HTMLInputElement>) {
+    e.stopPropagation();
+  }
+
+  function handleLoopInValueClick(e: React.MouseEvent<HTMLSpanElement>) {
+    e.stopPropagation();
+    if (loopInMs === null) {
+      return;
+    }
+    setLoopInInputVal((loopInMs / 1000).toFixed(3));
+    setLoopInEditing(true);
+  }
+
+  function applyLoopOutInputValue() {
+    const seconds = parseFloat(loopOutInputVal);
+    if (isNaN(seconds)) {
+      return;
+    }
+    onLoopOutChange(Math.max(0, Math.min(maxTrackDurationMs, Math.round(seconds * 1000))));
+  }
+
+  function handleLoopOutInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setLoopOutInputVal(e.target.value.replace(/[^0-9.]/g, ""));
+  }
+
+  function handleLoopOutInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      applyLoopOutInputValue();
+      setLoopOutEditing(false);
+    } else if (e.key === "Escape") {
+      setLoopOutEditing(false);
+    }
+    e.stopPropagation();
+  }
+
+  function handleLoopOutInputBlur() {
+    applyLoopOutInputValue();
+    setLoopOutEditing(false);
+  }
+
+  function handleLoopOutInputClick(e: React.MouseEvent<HTMLInputElement>) {
+    e.stopPropagation();
+  }
+
+  function handleLoopOutValueClick(e: React.MouseEvent<HTMLSpanElement>) {
+    e.stopPropagation();
+    if (loopOutMs === null) {
+      return;
+    }
+    setLoopOutInputVal((loopOutMs / 1000).toFixed(3));
+    setLoopOutEditing(true);
+  }
+
+  function handleCloseColorPanel() {
+    setColorPanelOpen(false);
+  }
+
+  function handleCloseAboutDialog() {
+    setAboutDialogOpen(false);
+  }
+
+  function handleOpenAboutDialog() {
+    setAboutDialogOpen(true);
+  }
 
   const fileItems: MenuItemDef[] = [
     {
@@ -353,7 +468,7 @@ export function TransportToolbar({
       type: "action",
       icon: <FaInfoCircle size={13} />,
       label: t("create.menuAbout", { defaultValue: "About" }),
-      onClick: () => setAboutDialogOpen(true),
+      onClick: handleOpenAboutDialog,
     },
   ];
 
@@ -416,13 +531,13 @@ export function TransportToolbar({
         <div className="flex items-center gap-1 px-3 py-1">
           {/* Syntax insert chips */}
           <div className="flex items-center gap-0.5">
-            {SYNTAX_ITEMS.map((item) => (
+            {SYNTAX_ITEMS.map((item, index) => (
               <button
                 key={item}
                 type="button"
                 title={t("editor.insertToken", { defaultValue: `Insert "${item}"`, token: item })}
                 className="flex h-7 min-w-7 items-center justify-center rounded px-1 font-mono text-sm text-gray-600 hover:bg-indigo-100 hover:text-indigo-700 dark:text-gray-400 dark:hover:bg-indigo-900/40 dark:hover:text-indigo-300"
-                onClick={() => onToolbarInsert(item)}
+                onClick={syntaxInsertHandlers[index]}
               >
                 {item}
               </button>
@@ -434,7 +549,7 @@ export function TransportToolbar({
           {/* Feature toggles */}
           <button
             type="button"
-            onClick={() => toggleFeature("syntaxHighlight")}
+            onClick={handleToggleSyntaxHighlight}
             title={t("editor.feature.syntaxHighlight", { defaultValue: "Syntax Highlighting" })}
             className={clsx(
               "flex h-8 w-8 items-center justify-center rounded transition-colors",
@@ -447,7 +562,7 @@ export function TransportToolbar({
           </button>
           <button
             type="button"
-            onClick={() => toggleFeature("playbackTracking")}
+            onClick={handleTogglePlaybackTracking}
             title={t("editor.feature.playbackTracking", { defaultValue: "Follow Playback" })}
             className={clsx(
               "flex h-8 w-8 items-center justify-center rounded transition-colors",
@@ -461,7 +576,7 @@ export function TransportToolbar({
           <div className="relative">
             <button
               type="button"
-              onClick={() => setColorPanelOpen((v) => !v)}
+              onClick={handleToggleColorPanel}
               title={t("editor.syntaxColors", { defaultValue: "Syntax Colors" })}
               className={clsx(
                 "flex h-8 w-8 items-center justify-center rounded text-gray-600 hover:bg-gray-300 dark:text-gray-400 dark:hover:bg-gray-700",
@@ -617,41 +732,16 @@ export function TransportToolbar({
                   type="text"
                   inputMode="decimal"
                   value={loopInInputVal}
-                  onChange={(e) => setLoopInInputVal(e.target.value.replace(/[^0-9.]/g, ""))}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      const sec = parseFloat(loopInInputVal);
-                      if (!isNaN(sec)) {
-                        onLoopInChange(
-                          Math.max(0, Math.min(maxTrackDurationMs, Math.round(sec * 1000))),
-                        );
-                      }
-                      setLoopInEditing(false);
-                    } else if (e.key === "Escape") {
-                      setLoopInEditing(false);
-                    }
-                    e.stopPropagation();
-                  }}
-                  onBlur={() => {
-                    const sec = parseFloat(loopInInputVal);
-                    if (!isNaN(sec)) {
-                      onLoopInChange(
-                        Math.max(0, Math.min(maxTrackDurationMs, Math.round(sec * 1000))),
-                      );
-                    }
-                    setLoopInEditing(false);
-                  }}
-                  onClick={(e) => e.stopPropagation()}
+                  onChange={handleLoopInInputChange}
+                  onKeyDown={handleLoopInInputKeyDown}
+                  onBlur={handleLoopInInputBlur}
+                  onClick={handleLoopInInputClick}
                   className="w-14 border-b border-indigo-400 bg-transparent text-[10px] font-mono text-indigo-600 outline-none dark:text-indigo-400"
                 />
               ) : (
                 <span
                   className="cursor-text text-[10px] opacity-70 hover:opacity-100"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLoopInInputVal((loopInMs / 1000).toFixed(3));
-                    setLoopInEditing(true);
-                  }}
+                  onClick={handleLoopInValueClick}
                 >
                   {(loopInMs / 1000).toFixed(3)}s
                 </span>
@@ -680,41 +770,16 @@ export function TransportToolbar({
                   type="text"
                   inputMode="decimal"
                   value={loopOutInputVal}
-                  onChange={(e) => setLoopOutInputVal(e.target.value.replace(/[^0-9.]/g, ""))}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      const sec = parseFloat(loopOutInputVal);
-                      if (!isNaN(sec)) {
-                        onLoopOutChange(
-                          Math.max(0, Math.min(maxTrackDurationMs, Math.round(sec * 1000))),
-                        );
-                      }
-                      setLoopOutEditing(false);
-                    } else if (e.key === "Escape") {
-                      setLoopOutEditing(false);
-                    }
-                    e.stopPropagation();
-                  }}
-                  onBlur={() => {
-                    const sec = parseFloat(loopOutInputVal);
-                    if (!isNaN(sec)) {
-                      onLoopOutChange(
-                        Math.max(0, Math.min(maxTrackDurationMs, Math.round(sec * 1000))),
-                      );
-                    }
-                    setLoopOutEditing(false);
-                  }}
-                  onClick={(e) => e.stopPropagation()}
+                  onChange={handleLoopOutInputChange}
+                  onKeyDown={handleLoopOutInputKeyDown}
+                  onBlur={handleLoopOutInputBlur}
+                  onClick={handleLoopOutInputClick}
                   className="w-14 border-b border-purple-400 bg-transparent text-[10px] font-mono text-purple-600 outline-none dark:text-purple-400"
                 />
               ) : (
                 <span
                   className="cursor-text text-[10px] opacity-70 hover:opacity-100"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLoopOutInputVal((loopOutMs / 1000).toFixed(3));
-                    setLoopOutEditing(true);
-                  }}
+                  onClick={handleLoopOutValueClick}
                 >
                   {(loopOutMs / 1000).toFixed(3)}s
                 </span>
@@ -795,20 +860,16 @@ export function TransportToolbar({
       </div>
 
       {/* Syntax Color Panel Dialog */}
-      <Dialog
-        open={colorPanelOpen}
-        onClose={() => setColorPanelOpen(false)}
-        className="relative z-50"
-      >
+      <Dialog open={colorPanelOpen} onClose={handleCloseColorPanel} className="relative z-50">
         <div className="fixed inset-0 bg-black/20 dark:bg-black/40" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <DialogPanel>
-            <SyntaxColorPanel onClose={() => setColorPanelOpen(false)} />
+            <SyntaxColorPanel onClose={handleCloseColorPanel} />
           </DialogPanel>
         </div>
       </Dialog>
 
-      <AboutDialog open={aboutDialogOpen} onClose={() => setAboutDialogOpen(false)} />
+      <AboutDialog open={aboutDialogOpen} onClose={handleCloseAboutDialog} />
     </>
   );
 }

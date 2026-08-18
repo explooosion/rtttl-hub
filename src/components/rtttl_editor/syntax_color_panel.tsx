@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { HexColorPicker, HexColorInput } from "react-colorful";
 import { useTranslation } from "react-i18next";
 
@@ -169,6 +169,34 @@ export function SyntaxColorPanel({ onClose }: SyntaxColorPanelProps) {
     [setSyntaxColor],
   );
 
+  const applyThemeHandlers = useMemo(
+    function buildApplyThemeHandlers() {
+      const handlers: Record<string, () => void> = {};
+      for (const theme of SYNTAX_THEMES) {
+        handlers[theme.id] = function handleThemeApply() {
+          handleApplyTheme(theme);
+        };
+      }
+      return handlers;
+    },
+    [handleApplyTheme],
+  );
+
+  const selectKeyHandlers = useMemo(function buildSelectKeyHandlers() {
+    const handlers: Record<SyntaxColorKey, () => void> = {} as Record<SyntaxColorKey, () => void>;
+    for (const { key } of COLOR_LABELS) {
+      handlers[key] = function handleSelectKey() {
+        setSelectedKey(key);
+      };
+    }
+    return handlers;
+  }, []);
+
+  function handleSaveAndClose() {
+    saveColors();
+    onClose();
+  }
+
   return (
     <div className="animate-fade-in overflow-hidden rounded-lg border border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-800">
       {/* Header */}
@@ -202,7 +230,7 @@ export function SyntaxColorPanel({ onClose }: SyntaxColorPanelProps) {
             <button
               key={theme.id}
               type="button"
-              onClick={() => handleApplyTheme(theme)}
+              onClick={applyThemeHandlers[theme.id]}
               title={theme.label}
               className={`flex items-center gap-1.5 rounded-md px-2 py-1 text-xs transition-colors ${
                 activeThemeId === theme.id
@@ -227,7 +255,7 @@ export function SyntaxColorPanel({ onClose }: SyntaxColorPanelProps) {
             <button
               key={key}
               type="button"
-              onClick={() => setSelectedKey(key)}
+              onClick={selectKeyHandlers[key]}
               className={`flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs transition-colors ${
                 selectedKey === key
                   ? "bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300"
@@ -311,10 +339,7 @@ export function SyntaxColorPanel({ onClose }: SyntaxColorPanelProps) {
             </button>
             <button
               type="button"
-              onClick={() => {
-                saveColors();
-                onClose();
-              }}
+              onClick={handleSaveAndClose}
               className="flex-1 rounded-lg bg-indigo-600 px-3 py-2 text-xs font-medium text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600"
             >
               {t("editor.color.save", { defaultValue: "Save" })}

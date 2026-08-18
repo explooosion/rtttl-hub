@@ -122,6 +122,13 @@ export function LyricsPanel({ code, currentNoteIndex, isPlaying, onSeek }: Lyric
     [onSeek],
   );
 
+  const handleTokenClick = useCallback(
+    function handleTokenClick(noteIndex: number) {
+      handleClick(noteIndex);
+    },
+    [handleClick],
+  );
+
   if (tokens.length === 0) {
     return (
       <div className="flex h-full items-center justify-center text-sm text-gray-400 dark:text-gray-600">
@@ -140,17 +147,24 @@ export function LyricsPanel({ code, currentNoteIndex, isPlaying, onSeek }: Lyric
         {tokens.map((token, i) => {
           const note = parsed?.notes[i];
           const isRest = note?.isRest ?? false;
+
+          function handleTokenRef(el: HTMLSpanElement | null) {
+            spanRefs.current[i] = el;
+          }
+
+          function handleNoteClick() {
+            handleTokenClick(i);
+          }
+
           return (
             <span
               key={i}
-              ref={(el) => {
-                spanRefs.current[i] = el;
-              }}
+              ref={handleTokenRef}
               className={`lyrics-note inline-block rounded px-1.5 py-0.5 transition-colors ${
                 isRest ? "text-gray-400 dark:text-gray-500" : "text-gray-700 dark:text-gray-300"
               } ${onSeek ? "cursor-pointer hover:bg-indigo-100 dark:hover:bg-indigo-900/30" : ""}`}
               title={note ? (isRest ? "Rest" : noteFreqToName(note.frequency)) : ""}
-              onClick={() => handleClick(i)}
+              onClick={handleNoteClick}
             >
               {token.label}
             </span>

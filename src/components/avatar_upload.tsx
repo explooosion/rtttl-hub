@@ -74,6 +74,16 @@ export function AvatarUpload({ onUpload, onCancel }: AvatarUploadProps) {
     }
   }, [onUpload, t]);
 
+  const handleScaleChange = useCallback(function handleScaleChange(
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) {
+    setScale(parseFloat(e.target.value));
+  }, []);
+
+  const handleClearImage = useCallback(function handleClearImage() {
+    setImage(null);
+  }, []);
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="w-full max-w-md rounded-lg bg-white p-6 dark:bg-gray-800">
@@ -131,14 +141,14 @@ export function AvatarUpload({ onUpload, onCancel }: AvatarUploadProps) {
                 max="2"
                 step="0.01"
                 value={scale}
-                onChange={(e) => setScale(parseFloat(e.target.value))}
+                onChange={handleScaleChange}
                 className="w-full"
               />
             </div>
 
             <div className="flex gap-3">
               <button
-                onClick={() => setImage(null)}
+                onClick={handleClearImage}
                 className="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
               >
                 {t("actions.cancel")}

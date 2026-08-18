@@ -158,6 +158,57 @@ export function RtttlEditorMain() {
     codeEditorRef.current?.insertText(text);
   }
 
+  function handleToggleColorPanel() {
+    setColorPanelOpen((isOpen) => !isOpen);
+  }
+
+  function handleCloseColorPanel() {
+    setColorPanelOpen(false);
+  }
+
+  function handleToggleSyntaxHighlight() {
+    toggleFeature("syntaxHighlight");
+  }
+
+  function handleTogglePlaybackTracking() {
+    toggleFeature("playbackTracking");
+  }
+
+  function handleToggleLyricsMode() {
+    setLyricsMode((isLyricsMode) => !isLyricsMode);
+  }
+
+  function handlePlayPauseToggle() {
+    if (playerState === "playing") {
+      pause();
+      return;
+    }
+
+    if (playerState === "paused") {
+      resume();
+      return;
+    }
+
+    if (isMultiTrack) {
+      if (activeTrackIndex < 0) {
+        playTracks(editedTracks);
+      } else {
+        playSoloTrack(activeTrackIndex);
+      }
+      return;
+    }
+
+    playCode(editedCode);
+  }
+
+  function handleOpenResetConfirm() {
+    setResetConfirmOpen(true);
+  }
+
+  function handleCloseResetConfirm() {
+    setResetConfirmOpen(false);
+  }
+
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900">
       {/* Now Playing info — always visible to prevent layout shift */}
@@ -246,7 +297,7 @@ export function RtttlEditorMain() {
           <button
             ref={paletteButtonRef}
             type="button"
-            onClick={() => setColorPanelOpen((v) => !v)}
+            onClick={handleToggleColorPanel}
             title={t("editor.syntaxColors", { defaultValue: "Syntax Colors" })}
             className={clsx(
               "flex h-7 w-7 items-center justify-center rounded p-1 text-gray-400 hover:bg-gray-100 dark:text-gray-500 dark:hover:bg-gray-700",
@@ -257,7 +308,7 @@ export function RtttlEditorMain() {
           </button>
           {colorPanelOpen && (
             <div ref={colorPanelRef} className="absolute right-0 top-full z-50 mt-1">
-              <SyntaxColorPanel onClose={() => setColorPanelOpen(false)} />
+              <SyntaxColorPanel onClose={handleCloseColorPanel} />
             </div>
           )}
         </div>
@@ -269,7 +320,7 @@ export function RtttlEditorMain() {
           <input
             type="checkbox"
             checked={features.syntaxHighlight}
-            onChange={() => toggleFeature("syntaxHighlight")}
+            onChange={handleToggleSyntaxHighlight}
             className="h-3.5 w-3.5 rounded accent-indigo-600"
           />
           {t("editor.feature.syntaxHighlight", { defaultValue: "Syntax Highlighting" })}
@@ -278,7 +329,7 @@ export function RtttlEditorMain() {
           <input
             type="checkbox"
             checked={features.playbackTracking}
-            onChange={() => toggleFeature("playbackTracking")}
+            onChange={handleTogglePlaybackTracking}
             className="h-3.5 w-3.5 rounded accent-indigo-600"
           />
           {t("editor.feature.playbackTracking", { defaultValue: "Follow Playback" })}
@@ -303,7 +354,7 @@ export function RtttlEditorMain() {
         <RtttlToolbar onInsert={handleInsert} />
         <button
           type="button"
-          onClick={() => setLyricsMode((v) => !v)}
+          onClick={handleToggleLyricsMode}
           title="Toggle Lyrics Mode"
           className={clsx(
             "flex h-7 w-7 items-center justify-center rounded text-gray-400 hover:bg-gray-100 dark:text-gray-500 dark:hover:bg-gray-700",
@@ -338,22 +389,7 @@ export function RtttlEditorMain() {
       <div className="mt-3 grid grid-cols-3 gap-2">
         <button
           type="button"
-          onClick={() => {
-            if (playerState === "playing") {
-              pause();
-            } else if (playerState === "paused") {
-              resume();
-            } else if (isMultiTrack) {
-              // All tab selected (or single track): play all; specific tab: play solo
-              if (activeTrackIndex < 0) {
-                playTracks(editedTracks);
-              } else {
-                playSoloTrack(activeTrackIndex);
-              }
-            } else {
-              playCode(editedCode);
-            }
-          }}
+          onClick={handlePlayPauseToggle}
           disabled={!displayedCode.trim() && playerState === "idle"}
           className={clsx(
             "flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium text-white",
@@ -414,7 +450,7 @@ export function RtttlEditorMain() {
       {isEdited && (
         <button
           type="button"
-          onClick={() => setResetConfirmOpen(true)}
+          onClick={handleOpenResetConfirm}
           className="mt-1.5 flex w-full items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-xs text-amber-600 hover:bg-amber-50 dark:text-amber-400 dark:hover:bg-amber-950/30"
         >
           <FaUndo size={12} />
@@ -435,7 +471,7 @@ export function RtttlEditorMain() {
         message={t("editor.resetConfirmMessage")}
         variant="danger"
         onConfirm={handleResetConfirm}
-        onCancel={() => setResetConfirmOpen(false)}
+        onCancel={handleCloseResetConfirm}
       />
     </div>
   );

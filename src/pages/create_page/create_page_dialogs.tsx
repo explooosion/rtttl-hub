@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useAuthStore } from "../../stores/auth_store";
@@ -76,16 +77,40 @@ export function CreatePageDialogs({
   const { t } = useTranslation();
   const user = useAuthStore((s) => s.user);
 
-  const removeTrackMessage = (() => {
-    const idx = confirmRemoveIndex ?? 0;
-    const code = tracks[idx] ?? "";
-    const colonIdx = code.indexOf(":");
-    const trackName = (colonIdx > 0 ? code.slice(0, colonIdx).trim() : "") || `Track ${idx + 1}`;
-    return t("editor.removeTrackConfirm", {
-      defaultValue: 'Are you sure you want to remove track "{{name}}"?',
-      name: trackName,
-    });
-  })();
+  const removeTrackMessage = useMemo(
+    function buildRemoveTrackMessage() {
+      const idx = confirmRemoveIndex ?? 0;
+      const code = tracks[idx] ?? "";
+      const colonIdx = code.indexOf(":");
+      const trackName = (colonIdx > 0 ? code.slice(0, colonIdx).trim() : "") || `Track ${idx + 1}`;
+      return t("editor.removeTrackConfirm", {
+        defaultValue: 'Are you sure you want to remove track "{{name}}"?',
+        name: trackName,
+      });
+    },
+    [confirmRemoveIndex, tracks, t],
+  );
+
+  const handleConfirmRemove = useCallback(
+    function handleConfirmRemove() {
+      onConfirmRemove(confirmRemoveIndex);
+    },
+    [onConfirmRemove, confirmRemoveIndex],
+  );
+
+  const handlePendingActionConfirm = useCallback(
+    function handlePendingActionConfirm() {
+      onPendingActionConfirm(pendingAction);
+    },
+    [onPendingActionConfirm, pendingAction],
+  );
+
+  const handleCutConfirm = useCallback(
+    function handleCutConfirm(selectedIndices: number[]) {
+      onCutConfirm(selectedIndices, cutDialogMode);
+    },
+    [onCutConfirm, cutDialogMode],
+  );
 
   return (
     <>
@@ -105,7 +130,7 @@ export function CreatePageDialogs({
         message={removeTrackMessage}
         confirmLabel={t("editor.removeTrack", { defaultValue: "Remove" })}
         variant="danger"
-        onConfirm={() => onConfirmRemove(confirmRemoveIndex)}
+        onConfirm={handleConfirmRemove}
         onCancel={onCancelRemove}
       />
 
@@ -125,7 +150,7 @@ export function CreatePageDialogs({
             : t("create.discardConfirm", { defaultValue: "Discard current edits and exit?" })
         }
         confirmLabel={t("confirm.ok", { defaultValue: "Yes" })}
-        onConfirm={() => onPendingActionConfirm(pendingAction)}
+        onConfirm={handlePendingActionConfirm}
         onCancel={onPendingActionCancel}
       />
 
@@ -136,7 +161,7 @@ export function CreatePageDialogs({
         trackColors={trackColors}
         inMs={loopInMs}
         outMs={loopOutMs}
-        onConfirm={(selectedIndices) => onCutConfirm(selectedIndices, cutDialogMode)}
+        onConfirm={handleCutConfirm}
         onCancel={onCutCancel}
       />
 

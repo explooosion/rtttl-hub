@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
@@ -9,10 +10,27 @@ export function AlphabetSidebar() {
   const setActiveLetter = useCollectionStore((s) => s.setActiveLetter);
   const letters = useAvailableLetters();
 
+  function handleAllClick() {
+    setActiveLetter(null);
+  }
+
+  const letterClickHandlers = useMemo(
+    function buildLetterClickHandlers() {
+      const handlers: Record<string, () => void> = {};
+      for (const letter of letters) {
+        handlers[letter] = function handleLetterClick() {
+          setActiveLetter(activeLetter === letter ? null : letter);
+        };
+      }
+      return handlers;
+    },
+    [letters, activeLetter, setActiveLetter],
+  );
+
   return (
     <div className="flex flex-row flex-wrap gap-1">
       <button
-        onClick={() => setActiveLetter(null)}
+        onClick={handleAllClick}
         className={clsx(
           "rounded px-2 py-1 text-xs font-medium transition-colors",
           activeLetter === null
@@ -25,7 +43,7 @@ export function AlphabetSidebar() {
       {letters.map((letter) => (
         <button
           key={letter}
-          onClick={() => setActiveLetter(activeLetter === letter ? null : letter)}
+          onClick={letterClickHandlers[letter]}
           className={clsx(
             "rounded px-2 py-1 text-xs font-medium transition-colors",
             activeLetter === letter
