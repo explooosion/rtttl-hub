@@ -13,6 +13,8 @@ import {
   FaEyeSlash,
   FaGripVertical,
   FaEraser,
+  FaPlay,
+  FaStop,
 } from "react-icons/fa";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -49,6 +51,9 @@ interface TrackLaneProps {
   onRename: (newName: string) => void;
   onDuplicate: () => void;
   onDeactivate: () => void;
+  canSoloPlay: boolean;
+  isSoloPlaying: boolean;
+  onSoloPlayToggle: () => void;
   editorRef: (handle: RtttlEditorInputHandle | null) => void;
 }
 
@@ -73,6 +78,9 @@ export function TrackLane({
   onRename,
   onDuplicate,
   onDeactivate,
+  canSoloPlay,
+  isSoloPlaying,
+  onSoloPlayToggle,
   editorRef,
 }: TrackLaneProps) {
   const { t } = useTranslation();
@@ -332,8 +340,8 @@ export function TrackLane({
               className={clsx(
                 "flex h-7 w-7 items-center justify-center rounded border text-[10px] font-bold transition-colors",
                 isMuted
-                  ? "border-amber-400 bg-amber-400/20 text-amber-500 dark:border-amber-500 dark:text-amber-400"
-                  : "border-gray-400 text-gray-500 hover:border-gray-500 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:text-gray-300",
+                  ? "border-amber-400 bg-amber-400/20 text-amber-500 hover:border-indigo-400 hover:text-indigo-600 dark:border-amber-500 dark:text-amber-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
+                  : "border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400",
               )}
             >
               {isMuted ? <FaVolumeMute size={11} /> : <FaVolumeUp size={11} />}
@@ -369,8 +377,8 @@ export function TrackLane({
               className={clsx(
                 "flex h-7 w-7 items-center justify-center rounded border transition-colors",
                 isDeactivated
-                  ? "border-gray-500 bg-gray-300/40 text-gray-600 dark:border-gray-500 dark:text-gray-400"
-                  : "border-gray-400 text-gray-500 hover:border-gray-500 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:text-gray-300",
+                  ? "border-gray-500 bg-gray-300/40 text-gray-600 hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-500 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
+                  : "border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400",
               )}
             >
               {isDeactivated ? <FaEyeSlash size={11} /> : <FaEye size={11} />}
@@ -386,9 +394,40 @@ export function TrackLane({
                   }
                 }}
                 disabled={!canRemove}
-                className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-red-400 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-30 dark:border-gray-700 dark:text-gray-400 dark:hover:border-red-700 dark:hover:text-red-400"
+                className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-30 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
               >
                 <FaTrash size={11} />
+              </button>
+            </span>
+
+            {/* Solo Play / Stop */}
+            <span
+              title={
+                canSoloPlay
+                  ? isSoloPlaying
+                    ? t("player.stop", { defaultValue: "Stop" })
+                    : t("player.play", { defaultValue: "Play" })
+                  : t("editor.placeholder", { defaultValue: "Enter RTTTL code…" })
+              }
+              className="inline-flex"
+            >
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSoloPlayToggle();
+                }}
+                disabled={!canSoloPlay}
+                className={clsx(
+                  "flex h-7 w-7 items-center justify-center rounded border transition-colors",
+                  isSoloPlaying
+                    ? "border-red-400 text-red-600 hover:border-indigo-400 hover:text-indigo-600 dark:border-red-700 dark:text-red-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
+                    : "border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400",
+                  !canSoloPlay &&
+                    "cursor-not-allowed border-gray-300 text-gray-300 opacity-40 dark:border-gray-700 dark:text-gray-600",
+                )}
+              >
+                {isSoloPlaying ? <FaStop size={10} /> : <FaPlay size={10} />}
               </button>
             </span>
           </div>
@@ -468,7 +507,7 @@ export function TrackLane({
                 onChange(`${trackName}:`);
               }}
               title={t("create.clearTrackCode", { defaultValue: "Clear code" })}
-              className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-orange-400 hover:text-orange-600 dark:border-gray-700 dark:text-gray-400 dark:hover:border-orange-700 dark:hover:text-orange-400"
+              className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
             >
               <FaEraser size={11} />
             </button>

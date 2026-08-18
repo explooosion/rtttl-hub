@@ -12,6 +12,7 @@ import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { TimeRuler } from "./time_ruler";
 import { TrackLane } from "./track_lane";
 import { MAX_TRACKS } from "./constants";
+import { usePlayerStore } from "../../stores/player_store";
 import type { RtttlEditorInputHandle } from "../../components/rtttl_editor/rtttl_editor_input";
 
 interface CreatePageTrackAreaProps {
@@ -84,6 +85,27 @@ export function CreatePageTrackArea({
   onAddTrack,
 }: CreatePageTrackAreaProps) {
   const { t } = useTranslation();
+  const playCode = usePlayerStore((s) => s.playCode);
+  const stop = usePlayerStore((s) => s.stop);
+  const isMultiTrack = usePlayerStore((s) => s.isMultiTrack);
+  const activeTrackIndex = usePlayerStore((s) => s.activeTrackIndex);
+  const setActiveTrackIndex = usePlayerStore((s) => s.setActiveTrackIndex);
+
+  function handleTrackSoloPlayToggle(index: number, code: string) {
+    if (!isMultiTrack && activeTrackIndex === index && playerState !== "idle") {
+      stop();
+      return;
+    }
+
+    if (!code.trim()) {
+      return;
+    }
+
+    const startMs = seekPositionMs > 0 ? seekPositionMs : undefined;
+    playCode(code.trim(), startMs);
+    setActiveTrackIndex(index);
+  }
+
   const displayMs = playerState !== "idle" ? playheadMs : seekPositionMs;
 
   return (
@@ -169,6 +191,11 @@ export function CreatePageTrackArea({
                     onRename={(newName) => onRenameTrack(idx, newName)}
                     onDuplicate={() => onDuplicateTrack(idx)}
                     onDeactivate={() => onDeactivateTrack(idx)}
+                    canSoloPlay={trackCode.trim().length > 0}
+                    isSoloPlaying={
+                      !isMultiTrack && activeTrackIndex === idx && playerState !== "idle"
+                    }
+                    onSoloPlayToggle={() => handleTrackSoloPlayToggle(idx, trackCode)}
                     editorRef={(handle) => {
                       trackEditorRefs.current[idx] = handle;
                     }}
