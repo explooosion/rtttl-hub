@@ -6,10 +6,10 @@ interface CookieConsentState {
   necessary: boolean;
   preferences: boolean;
   statistics: boolean;
-  acceptAll: () => void;
-  rejectAll: () => void;
+  acceptAll: VoidFunction;
+  rejectAll: VoidFunction;
   savePreferences: (prefs: { preferences: boolean; statistics: boolean }) => void;
-  resetConsent: () => void;
+  resetConsent: VoidFunction;
 }
 
 export const useCookieConsentStore = create<CookieConsentState>()(

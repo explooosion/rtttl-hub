@@ -27,7 +27,7 @@ interface TrackHeaderPanelProps {
   draftName: string;
   nameError: string | null;
   onNameInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onNameInputBlur: () => void;
+  onNameInputBlur: VoidFunction;
   onNameInputKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onNameClick: (e: React.MouseEvent) => void;
   trackName: string;

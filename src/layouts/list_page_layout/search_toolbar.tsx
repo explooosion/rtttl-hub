@@ -12,7 +12,7 @@ interface SearchToolbarProps {
   onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSortModeChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onTrackCountChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  onToggleMobileFilters: () => void;
+  onToggleMobileFilters: VoidFunction;
 }
 
 export function SearchToolbar({

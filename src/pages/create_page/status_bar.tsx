@@ -8,7 +8,7 @@ interface StatusBarProps {
   hasDraft: boolean;
   focusedTrackIndex: number;
   focusedTrackName: string;
-  onHelpOpen: () => void;
+  onHelpOpen: VoidFunction;
 }
 
 export function StatusBar({

@@ -10,8 +10,8 @@ interface FilterPanelsProps {
   activeLetter: string | null;
   availableLetters: string[];
   categoryToggleHandlers: CategoryToggleHandlers;
-  onClearCategories: () => void;
-  onAllLetterClick: () => void;
+  onClearCategories: VoidFunction;
+  onAllLetterClick: VoidFunction;
   letterToggleHandlers: Record<string, () => void>;
 }
 

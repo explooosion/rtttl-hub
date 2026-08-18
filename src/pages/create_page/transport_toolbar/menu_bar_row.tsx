@@ -12,8 +12,8 @@ interface MenuBarRowProps {
   helpItems: MenuItemDef[];
   canCreate: boolean;
   isEditMode: boolean;
-  onCreate: () => void;
-  onDiscard: () => void;
+  onCreate: VoidFunction;
+  onDiscard: VoidFunction;
 }
 
 export function MenuBarRow({

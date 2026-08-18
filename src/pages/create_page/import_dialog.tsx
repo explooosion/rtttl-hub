@@ -27,7 +27,7 @@ function detectTracks(text: string): DetectedTrack[] {
 
 interface ImportDialogProps {
   open: boolean;
-  onClose: () => void;
+  onClose: VoidFunction;
   onConfirm: (rows: string[]) => void;
 }
 

@@ -10,7 +10,7 @@ import {
 
 interface HelpDialogProps {
   open: boolean;
-  onClose: () => void;
+  onClose: VoidFunction;
 }
 
 export function HelpDialog({ open, onClose }: HelpDialogProps) {

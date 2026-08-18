@@ -31,33 +31,33 @@ export interface UseCreatePageActionsParams {
   setConfirmRemoveIndex: (v: number | null) => void;
   commitTracks: (v: string[]) => void;
   resetTracks: (v?: string[]) => void;
-  resetMutedTracks: () => void;
+  resetMutedTracks: VoidFunction;
   toggleMuteTrack: (i: number) => void;
-  handleAddTrack: () => void;
+  handleAddTrack: VoidFunction;
   handleRemoveTrack: (i: number) => void;
   trackListRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export interface UseCreatePageActionsResult {
-  handleStop: () => void;
-  handleMuteAll: () => void;
-  handleUnmuteAll: () => void;
-  handleSetLoopIn: () => void;
-  handleSetLoopOut: () => void;
-  handleClearLoop: () => void;
-  handleTrimRegion: () => void;
-  handleDeleteRegion: () => void;
+  handleStop: VoidFunction;
+  handleMuteAll: VoidFunction;
+  handleUnmuteAll: VoidFunction;
+  handleSetLoopIn: VoidFunction;
+  handleSetLoopOut: VoidFunction;
+  handleClearLoop: VoidFunction;
+  handleTrimRegion: VoidFunction;
+  handleDeleteRegion: VoidFunction;
   handleCutConfirm: (selectedIndices: number[], mode: CutMode | null) => void;
-  handleCutCancel: () => void;
-  handlePlayToggle: () => void;
-  handleSubmit: () => void;
-  handleConfirmCreate: () => void;
-  handleNew: () => void;
-  handleDiscard: () => void;
-  handleImportClick: () => void;
+  handleCutCancel: VoidFunction;
+  handlePlayToggle: VoidFunction;
+  handleSubmit: VoidFunction;
+  handleConfirmCreate: VoidFunction;
+  handleNew: VoidFunction;
+  handleDiscard: VoidFunction;
+  handleImportClick: VoidFunction;
   handleImportConfirm: (parsed: string[]) => void;
   handleConfirmRemove: (index: number | null) => void;
   handlePendingActionConfirm: (action: "new" | "discard" | null) => void;
-  _doNew: () => void;
-  _doDiscard: () => void;
+  _doNew: VoidFunction;
+  _doDiscard: VoidFunction;
 }

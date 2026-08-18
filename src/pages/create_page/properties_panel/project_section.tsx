@@ -9,7 +9,7 @@ import { RTTTL_CATEGORIES } from "../../../constants/categories";
 interface ProjectSectionProps {
   t: TFunction;
   projectOpen: boolean;
-  onToggleProjectSection: () => void;
+  onToggleProjectSection: VoidFunction;
   errors: string[];
   name: string;
   nameInputRef?: React.RefObject<HTMLInputElement | null>;
@@ -19,11 +19,11 @@ interface ProjectSectionProps {
   catPortalRef: React.RefObject<HTMLDivElement | null>;
   catOpen: boolean;
   catPos: { bottom: number; left: number; width: number } | null;
-  onToggleCategories: () => void;
+  onToggleCategories: VoidFunction;
   categoryCheckboxHandlers: Record<RtttlCategory, () => void>;
   copied: boolean;
   tracks: string[];
-  onCopyAll: () => void;
+  onCopyAll: VoidFunction;
   sharedBtnClass: string;
 }
 

@@ -335,3 +335,39 @@ return <button onClick={() => onFocusTrack(trackIndex)}>Focus</button>;
 // WRONG
 <input onChange={(e) => setValue(e.target.value)} />
 ```
+
+---
+
+## Rule 7 — Use `VoidFunction` For Zero-Arg Callback Props
+
+When defining callbacks in `interface` or `type` props/state shapes, if the callback has no parameters and returns `void`, use `VoidFunction` instead of `() => void`.
+
+### Format
+
+```ts
+// ✅ Correct
+interface DialogProps {
+  onClose: VoidFunction;
+  onConfirm?: VoidFunction;
+}
+
+type ToolbarActions = {
+  onPlayToggle: VoidFunction;
+  onStop: VoidFunction;
+};
+
+// ❌ Forbidden
+interface DialogPropsBad {
+  onClose: () => void;
+  onConfirm?: () => void;
+}
+```
+
+### Rules
+
+| Rule            | Requirement                                                |
+| --------------- | ---------------------------------------------------------- |
+| Scope           | Applies to interface/type property signatures              |
+| Zero-arg only   | Only replace callbacks with no params and `void` return    |
+| Keep semantics  | Do not change callbacks that have parameters               |
+| Optional props  | Use `onClose?: VoidFunction` for optional zero-arg actions |

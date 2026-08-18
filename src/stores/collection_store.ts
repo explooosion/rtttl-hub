@@ -32,7 +32,7 @@ interface CollectionState {
   setActiveLetter: (letter: string | null) => void;
   setActiveCollection: (collection: CollectionSlug | null) => void;
   toggleCategory: (category: RtttlCategory) => void;
-  clearCategories: () => void;
+  clearCategories: VoidFunction;
   setIsLoading: (loading: boolean) => void;
 }
 

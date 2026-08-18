@@ -32,7 +32,7 @@ interface AuthState {
   signOut: () => Promise<void>;
   updateProfile: (data: { displayName?: string; customPhotoURL?: string }) => Promise<void>;
   deleteAccount: () => Promise<void>;
-  initAuth: () => void;
+  initAuth: VoidFunction;
   loadUserData: (uid: string) => Promise<void>;
 }
 

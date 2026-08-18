@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 interface AvatarUploadProps {
   currentAvatar?: string;
   onUpload: (blob: Blob) => Promise<void>;
-  onCancel: () => void;
+  onCancel: VoidFunction;
 }
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB

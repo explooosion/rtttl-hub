@@ -28,16 +28,16 @@ interface TrackLaneProps {
   canDuplicate: boolean;
   trackColor: string;
   onColorChange: (color: string) => void;
-  onFocus: () => void;
-  onToggleExpand: () => void;
+  onFocus: VoidFunction;
+  onToggleExpand: VoidFunction;
   onChange: (value: string) => void;
-  onRemove: () => void;
+  onRemove: VoidFunction;
   onRename: (newName: string) => void;
-  onDuplicate: () => void;
-  onDeactivate: () => void;
+  onDuplicate: VoidFunction;
+  onDeactivate: VoidFunction;
   canSoloPlay: boolean;
   isSoloPlaying: boolean;
-  onSoloPlayToggle: () => void;
+  onSoloPlayToggle: VoidFunction;
   editorRef: (handle: RtttlEditorInputHandle | null) => void;
 }
 

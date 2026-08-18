@@ -6,7 +6,7 @@ import { useEditorSettingsStore } from "../../stores/editor_settings_store";
 import type { SyntaxColorKey, SyntaxColors } from "../../stores/editor_settings_store";
 
 interface SyntaxColorPanelProps {
-  onClose: () => void;
+  onClose: VoidFunction;
 }
 
 const COLOR_LABELS: { key: SyntaxColorKey; labelKey: string; preview: string }[] = [

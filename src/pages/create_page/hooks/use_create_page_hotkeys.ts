@@ -3,16 +3,16 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { platformShortcut } from "../utils/keyboard_utils";
 
 interface UseCreatePageHotkeysParams {
-  undo: () => void;
-  redo: () => void;
-  handlePlayToggle: () => void;
-  handleSetLoopIn: () => void;
-  handleSetLoopOut: () => void;
-  handleNew: () => void;
-  handleImportClick: () => void;
-  handleSubmit: () => void;
-  handleAddTrack: () => void;
-  handleDeleteRegion: () => void;
+  undo: VoidFunction;
+  redo: VoidFunction;
+  handlePlayToggle: VoidFunction;
+  handleSetLoopIn: VoidFunction;
+  handleSetLoopOut: VoidFunction;
+  handleNew: VoidFunction;
+  handleImportClick: VoidFunction;
+  handleSubmit: VoidFunction;
+  handleAddTrack: VoidFunction;
+  handleDeleteRegion: VoidFunction;
   canCutRegion: boolean;
 }
 

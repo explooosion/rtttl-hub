@@ -7,7 +7,7 @@ import type { TrackDefaults, TrackStats } from "./shared";
 interface TrackSectionProps {
   t: TFunction;
   trackOpen: boolean;
-  onToggleTrackSection: () => void;
+  onToggleTrackSection: VoidFunction;
   focusedTrackName: string;
   onTrackNameInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   editableDefaults: TrackDefaults | null;
@@ -18,7 +18,7 @@ interface TrackSectionProps {
   onBpmDefaultInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   trackStats: TrackStats | null;
   copiedTrack: boolean;
-  onCopyTrack: () => void;
+  onCopyTrack: VoidFunction;
   sharedBtnClass: string;
 }
 

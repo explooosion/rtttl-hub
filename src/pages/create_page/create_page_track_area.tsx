@@ -37,7 +37,7 @@ interface CreatePageTrackAreaProps {
   playerState: "idle" | "playing" | "paused" | "stopped";
   dndSensors: SensorDescriptor<SensorOptions>[];
   onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => void;
-  onMouseLeave: () => void;
+  onMouseLeave: VoidFunction;
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
   onDragEnd: (event: DragEndEvent) => void;
   onFocusTrack: (idx: number) => void;
@@ -48,7 +48,7 @@ interface CreatePageTrackAreaProps {
   onDuplicateTrack: (idx: number) => void;
   onDeactivateTrack: (idx: number) => void;
   onColorChange: (idx: number, color: string) => void;
-  onAddTrack: () => void;
+  onAddTrack: VoidFunction;
 }
 
 export function CreatePageTrackArea({

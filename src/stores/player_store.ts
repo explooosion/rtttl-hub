@@ -28,23 +28,23 @@ interface PlayerStoreState {
   multiPlayer: ToneEngine;
   isMultiTrack: boolean;
   setCurrentItem: (item: RtttlEntry) => void;
-  clearCurrentItem: () => void;
+  clearCurrentItem: VoidFunction;
   playItem: (item: RtttlEntry) => void;
   playCode: (code: string, startMs?: number) => void;
   playTracks: (tracks: string[], startMs?: number) => void;
-  pause: () => void;
-  resume: () => void;
-  stop: () => void;
+  pause: VoidFunction;
+  resume: VoidFunction;
+  stop: VoidFunction;
   seekTo: (noteIndex: number) => void;
   seekToMs: (ms: number) => void;
   setEditedCode: (code: string) => void;
   setEditedTracks: (tracks: string[]) => void;
   setActiveTrackIndex: (index: number) => void;
   setEditedTrackAt: (index: number, code: string) => void;
-  addTrack: () => void;
+  addTrack: VoidFunction;
   removeTrack: (index: number) => void;
   toggleMuteTrack: (index: number) => void;
-  resetMutedTracks: () => void;
+  resetMutedTracks: VoidFunction;
   playSoloTrack: (trackIndex: number) => void;
 }
 

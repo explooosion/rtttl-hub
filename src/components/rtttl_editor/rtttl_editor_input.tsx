@@ -25,7 +25,7 @@ interface RtttlEditorInputProps {
   tracks?: string[];
   activeTrackIndex?: number;
   onSelectTrack?: (index: number) => void;
-  onAddTrack?: () => void;
+  onAddTrack?: VoidFunction;
   onRemoveTrack?: (index: number) => void;
   /** Override the note index used for playback highlight (e.g. per-track index in multi-track mode). */
   noteIndexOverride?: number;

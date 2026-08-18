@@ -127,7 +127,7 @@ interface TrackTabsProps {
   tracks: string[];
   activeIndex: number; // -1 = "All" (play all tracks)
   onSelect: (index: number) => void;
-  onAdd: () => void;
+  onAdd: VoidFunction;
   onRemove: (index: number) => void;
   mutedTracks?: Set<number>;
   onToggleMute?: (index: number) => void;

@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { FaCode } from "react-icons/fa";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
-export function AboutDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function AboutDialog({ open, onClose }: { open: boolean; onClose: VoidFunction }) {
   const { t } = useTranslation();
   return (
     <Dialog open={open} onClose={onClose} className="relative z-50">

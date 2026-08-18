@@ -67,7 +67,7 @@ interface TrackStatsStoreState {
   getStatsForTrack: (trackId: string) => TrackStats | null;
   recordPlayDebounced: (trackId: string, userId?: string) => void;
   syncPendingOperations: () => Promise<void>;
-  clearCache: () => void;
+  clearCache: VoidFunction;
   invalidateTrack: (trackId: string) => void;
 }
 

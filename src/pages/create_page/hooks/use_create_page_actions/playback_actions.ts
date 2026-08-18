@@ -10,9 +10,9 @@ interface UsePlaybackActionsParams {
   trackListRef: React.RefObject<HTMLDivElement | null>;
   setSeekPositionMs: (v: number) => void;
   setPlayheadMs: (v: number) => void;
-  stop: () => void;
-  pause: () => void;
-  resume: () => void;
+  stop: VoidFunction;
+  pause: VoidFunction;
+  resume: VoidFunction;
   playTracks: (codes: string[], startMs?: number) => void;
   playCode: (code: string, startMs?: number) => void;
 }

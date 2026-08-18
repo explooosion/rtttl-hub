@@ -6,7 +6,7 @@ import { LanguageSwitcher } from "../../components/language_switcher";
 import { COLLECTIONS } from "../../constants/collections";
 
 interface RootFooterProps {
-  resetConsent: () => void;
+  resetConsent: VoidFunction;
 }
 
 export function RootFooter({ resetConsent }: RootFooterProps) {

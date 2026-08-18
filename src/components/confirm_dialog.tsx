@@ -12,8 +12,8 @@ interface ConfirmDialogProps {
   isLoading?: boolean;
   confirmText?: string; // 需要用戶輸入的確認文字
   confirmPlaceholder?: string;
-  onConfirm: () => void;
-  onCancel: () => void;
+  onConfirm: VoidFunction;
+  onCancel: VoidFunction;
 }
 
 export function ConfirmDialog({

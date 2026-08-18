@@ -8,7 +8,7 @@ import { TRACK_DOT_CLASSES } from "./constants";
 
 interface Props {
   open: boolean;
-  onClose: () => void;
+  onClose: VoidFunction;
   onConfirm: (tracks: string[]) => void;
 }
 

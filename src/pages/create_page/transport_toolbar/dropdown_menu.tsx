@@ -38,7 +38,7 @@ export type MenuItemDef =
       active?: boolean;
       /** Keyboard shortcut descriptor (e.g. "ctrl+z", "space", "i") */
       shortcut?: string;
-      onClick: () => void;
+      onClick: VoidFunction;
     }
   | { type: "separator" };
 

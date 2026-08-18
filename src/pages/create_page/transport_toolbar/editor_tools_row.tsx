@@ -21,13 +21,13 @@ interface EditorToolsRowProps {
   colorPanelOpen: boolean;
   canUndo: boolean;
   canRedo: boolean;
-  onToggleSyntaxHighlight: () => void;
-  onTogglePlaybackTracking: () => void;
-  onToggleColorPanel: () => void;
-  onUndo: () => void;
-  onRedo: () => void;
-  onImport: () => void;
-  onHelpOpen: () => void;
+  onToggleSyntaxHighlight: VoidFunction;
+  onTogglePlaybackTracking: VoidFunction;
+  onToggleColorPanel: VoidFunction;
+  onUndo: VoidFunction;
+  onRedo: VoidFunction;
+  onImport: VoidFunction;
+  onHelpOpen: VoidFunction;
 }
 
 export function EditorToolsRow({

@@ -28,11 +28,11 @@ import { platformShortcut } from "../utils/keyboard_utils";
 
 interface BuildFileItemsParams {
   t: TFunction;
-  onNew: () => void;
-  onImport: () => void;
-  onImportFromFavorites: () => void;
-  onDiscard: () => void;
-  onNavigateHome: () => void;
+  onNew: VoidFunction;
+  onImport: VoidFunction;
+  onImportFromFavorites: VoidFunction;
+  onDiscard: VoidFunction;
+  onNavigateHome: VoidFunction;
 }
 
 export function buildFileItems({
@@ -85,21 +85,21 @@ export function buildFileItems({
 interface BuildEditItemsParams {
   t: TFunction;
   canUndo: boolean;
-  onUndo: () => void;
+  onUndo: VoidFunction;
   canRedo: boolean;
-  onRedo: () => void;
+  onRedo: VoidFunction;
   canAddTrack: boolean;
-  onAddTrack: () => void;
+  onAddTrack: VoidFunction;
   canRemoveTrack: boolean;
-  onRemoveFocusedTrack: () => void;
+  onRemoveFocusedTrack: VoidFunction;
   hasEmptyTracks: boolean;
-  onRemoveEmptyTracks: () => void;
+  onRemoveEmptyTracks: VoidFunction;
   focusedTrackIsMuted: boolean;
-  onToggleMuteFocusedTrack: () => void;
+  onToggleMuteFocusedTrack: VoidFunction;
   allTracksMuted: boolean;
-  onMuteAll: () => void;
+  onMuteAll: VoidFunction;
   anyTrackMuted: boolean;
-  onUnmuteAll: () => void;
+  onUnmuteAll: VoidFunction;
 }
 
 export function buildEditItems({
@@ -191,12 +191,12 @@ export function buildEditItems({
 
 interface BuildViewItemsParams {
   t: TFunction;
-  onCollapseAll: () => void;
-  onExpandAll: () => void;
+  onCollapseAll: VoidFunction;
+  onExpandAll: VoidFunction;
   syntaxHighlightActive: boolean;
   playbackTrackingActive: boolean;
-  onToggleSyntaxHighlight: () => void;
-  onTogglePlaybackTracking: () => void;
+  onToggleSyntaxHighlight: VoidFunction;
+  onTogglePlaybackTracking: VoidFunction;
 }
 
 export function buildViewItems({
@@ -245,12 +245,12 @@ interface BuildTransportItemsParams {
   t: TFunction;
   loopInMs: number | null;
   loopOutMs: number | null;
-  onSetLoopIn: () => void;
-  onSetLoopOut: () => void;
-  onClearLoop: () => void;
+  onSetLoopIn: VoidFunction;
+  onSetLoopOut: VoidFunction;
+  onClearLoop: VoidFunction;
   canCutRegion: boolean;
-  onTrimRegion: () => void;
-  onDeleteRegion: () => void;
+  onTrimRegion: VoidFunction;
+  onDeleteRegion: VoidFunction;
 }
 
 export function buildTransportItems({
@@ -322,8 +322,8 @@ export function buildTransportItems({
 
 interface BuildHelpItemsParams {
   t: TFunction;
-  onHelpOpen: () => void;
-  onOpenAboutDialog: () => void;
+  onHelpOpen: VoidFunction;
+  onOpenAboutDialog: VoidFunction;
 }
 
 export function buildHelpItems({ t, onHelpOpen, onOpenAboutDialog }: BuildHelpItemsParams) {

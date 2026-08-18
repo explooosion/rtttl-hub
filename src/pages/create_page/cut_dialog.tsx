@@ -13,7 +13,7 @@ interface CutDialogProps {
   inMs: number | null;
   outMs: number | null;
   onConfirm: (selectedIndices: number[]) => void;
-  onCancel: () => void;
+  onCancel: VoidFunction;
 }
 
 function getTrackName(code: string, fallback: string): string {

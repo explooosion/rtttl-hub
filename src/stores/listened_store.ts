@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware";
 interface ListenedState {
   listenedIds: string[];
   markListened: (id: string) => void;
-  clearListened: () => void;
+  clearListened: VoidFunction;
 }
 
 export const useListenedStore = create<ListenedState>()(

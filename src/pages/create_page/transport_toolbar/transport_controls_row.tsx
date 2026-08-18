@@ -18,9 +18,9 @@ import { formatMs } from "../utils/toolbar_utils";
 import { formatTooltipWithShortcut } from "../utils/keyboard_utils";
 
 interface TransportControlsRowProps {
-  onStop: () => void;
+  onStop: VoidFunction;
   isPreviewActive: boolean;
-  onPlayToggle: () => void;
+  onPlayToggle: VoidFunction;
   hasPlayableContent: boolean;
   playerState: "idle" | "playing" | "paused" | "stopped";
   maxTrackDurationMs: number;
@@ -29,31 +29,31 @@ interface TransportControlsRowProps {
   loopInEditing: boolean;
   loopInMs: number | null;
   loopInInputVal: string;
-  onSetLoopIn: () => void;
+  onSetLoopIn: VoidFunction;
   onLoopInInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onLoopInInputKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  onLoopInInputBlur: () => void;
+  onLoopInInputBlur: VoidFunction;
   onLoopInInputClick: (e: React.MouseEvent<HTMLInputElement>) => void;
   onLoopInValueClick: (e: React.MouseEvent<HTMLSpanElement>) => void;
   loopOutEditing: boolean;
   loopOutMs: number | null;
   loopOutInputVal: string;
-  onSetLoopOut: () => void;
+  onSetLoopOut: VoidFunction;
   onLoopOutInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onLoopOutInputKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  onLoopOutInputBlur: () => void;
+  onLoopOutInputBlur: VoidFunction;
   onLoopOutInputClick: (e: React.MouseEvent<HTMLInputElement>) => void;
   onLoopOutValueClick: (e: React.MouseEvent<HTMLSpanElement>) => void;
-  onClearLoop: () => void;
+  onClearLoop: VoidFunction;
   canCutRegion: boolean;
-  onTrimRegion: () => void;
-  onDeleteRegion: () => void;
+  onTrimRegion: VoidFunction;
+  onDeleteRegion: VoidFunction;
   allTracksMuted: boolean;
   anyTrackMuted: boolean;
-  onMuteAll: () => void;
-  onUnmuteAll: () => void;
+  onMuteAll: VoidFunction;
+  onUnmuteAll: VoidFunction;
   hasEmptyTracks: boolean;
-  onRemoveEmptyTracks: () => void;
+  onRemoveEmptyTracks: VoidFunction;
 }
 
 export function TransportControlsRow({

@@ -35,9 +35,9 @@ interface UseProjectActionsParams {
   setCreateSummaryOpen: (v: boolean) => void;
   setConfirmRemoveIndex: (v: number | null) => void;
   resetTracks: (v?: string[]) => void;
-  resetMutedTracks: () => void;
+  resetMutedTracks: VoidFunction;
   handleRemoveTrack: (i: number) => void;
-  stop: () => void;
+  stop: VoidFunction;
   navigate: NavigateFunction;
   t: TFunction;
 }

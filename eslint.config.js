@@ -24,6 +24,15 @@ export default defineConfig([
         "error",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector:
+            "TSPropertySignature[typeAnnotation.typeAnnotation.type='TSFunctionType'][typeAnnotation.typeAnnotation.params.length=0][typeAnnotation.typeAnnotation.returnType.typeAnnotation.type='TSVoidKeyword']",
+          message:
+            "Use VoidFunction instead of () => void for zero-argument callback properties.",
+        },
+      ],
       curly: ["error", "all"],
     },
   },

@@ -8,10 +8,10 @@ interface PaginationControlsProps {
   endPage: number;
   pageNumbers: number[];
   pageNumberClickHandlers: Record<number, () => void>;
-  onPrevPageClick: () => void;
-  onFirstPageClick: () => void;
-  onLastPageClick: () => void;
-  onNextPageClick: () => void;
+  onPrevPageClick: VoidFunction;
+  onFirstPageClick: VoidFunction;
+  onLastPageClick: VoidFunction;
+  onNextPageClick: VoidFunction;
 }
 
 export function PaginationControls({

@@ -33,9 +33,9 @@ interface EditorSettingsState {
   toggleFeature: (key: keyof EditorFeatures) => void;
   setFontSize: (size: number) => void;
   setSyntaxColor: (key: SyntaxColorKey, value: string) => void;
-  saveColors: () => void;
-  restoreColors: () => void;
-  resetColors: () => void;
+  saveColors: VoidFunction;
+  restoreColors: VoidFunction;
+  resetColors: VoidFunction;
 }
 
 export const useEditorSettingsStore = create<EditorSettingsState>()(

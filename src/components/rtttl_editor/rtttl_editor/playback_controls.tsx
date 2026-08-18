@@ -6,9 +6,9 @@ interface PlaybackControlsProps {
   displayedCode: string;
   playerState: "idle" | "playing" | "paused" | "stopped";
   copyState: "idle" | "copied" | "failed";
-  onPlayPauseToggle: () => void;
-  onStop: () => void;
-  onCopy: () => void;
+  onPlayPauseToggle: VoidFunction;
+  onStop: VoidFunction;
+  onCopy: VoidFunction;
 }
 
 export function PlaybackControls({

@@ -15,7 +15,7 @@ const preloadCreatePage = () => {
 
 interface RootMobileSidebarProps {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: VoidFunction;
 }
 
 export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {

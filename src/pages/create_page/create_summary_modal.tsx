@@ -15,8 +15,8 @@ interface CreateSummaryModalProps {
   tracks: string[];
   isPublic: boolean;
   isLoggedIn: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
+  onConfirm: VoidFunction;
+  onCancel: VoidFunction;
   onNameChange?: (value: string) => void;
   onRenameTrack?: (trackIndex: number, newName: string) => void;
   onIsPublicChange?: (value: boolean) => void;
