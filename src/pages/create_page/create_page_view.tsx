@@ -249,6 +249,9 @@ export function CreatePageView({
             focusedTrackIndex={track.focusedTrackIndex}
             onNameChange={ui.setName}
             onRenameTrack={(newName) => track.handleRenameTrack(track.focusedTrackIndex, newName)}
+            onTrackCodeChange={(nextCode) =>
+              track.handleTrackCodeChange(track.focusedTrackIndex, nextCode)
+            }
             categories={ui.categories}
             onCategoriesChange={ui.setCategories}
             errors={ui.errors}

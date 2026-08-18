@@ -23,6 +23,7 @@ import { useEditorSettingsStore } from "../../stores/editor_settings_store";
 import { parseRtttl, getTotalDuration } from "../../utils/rtttl_parser";
 import { copyToClipboard } from "../../utils/clipboard";
 import { validateTrackName, sanitizeTrackName } from "../../utils/track_name_validator";
+import { MAX_TRACKS } from "./constants";
 import { CanvasWaveform as Waveform } from "../../components/canvas_waveform";
 import { RtttlEditorInput } from "../../components/rtttl_editor/rtttl_editor_input";
 import type { RtttlEditorInputHandle } from "../../components/rtttl_editor/rtttl_editor_input";
@@ -106,6 +107,17 @@ export function TrackLane({
   }, [code]);
 
   const currentTrackNoteIndex = trackNoteIndices[index] ?? currentNoteIndex;
+  const duplicateTooltip = canDuplicate
+    ? t("create.duplicateTrack", { defaultValue: "Duplicate Track" })
+    : t("create.duplicateTrackLimit", {
+        defaultValue: "Track limit reached (max {{max}})",
+        max: MAX_TRACKS,
+      });
+  const removeTooltip = canRemove
+    ? t("editor.removeTrack", { defaultValue: "Remove track" })
+    : t("create.removeTrackKeepOne", {
+        defaultValue: "At least one track is required",
+      });
 
   /** Parse track name from RTTTL code before the first `:`, fallback to Track N if unable to parse. */
   const trackName = useMemo(() => {
@@ -327,20 +339,21 @@ export function TrackLane({
               {isMuted ? <FaVolumeMute size={11} /> : <FaVolumeUp size={11} />}
             </button>
             {/* Duplicate */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (canDuplicate) {
-                  onDuplicate();
-                }
-              }}
-              disabled={!canDuplicate}
-              title={t("create.duplicateTrack", { defaultValue: "Duplicate Track" })}
-              className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-30 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
-            >
-              <FaClone size={11} />
-            </button>
+            <span title={duplicateTooltip} className="inline-flex">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (canDuplicate) {
+                    onDuplicate();
+                  }
+                }}
+                disabled={!canDuplicate}
+                className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-30 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
+              >
+                <FaClone size={11} />
+              </button>
+            </span>
             {/* Deactivate */}
             <button
               type="button"
@@ -363,20 +376,21 @@ export function TrackLane({
               {isDeactivated ? <FaEyeSlash size={11} /> : <FaEye size={11} />}
             </button>
             {/* Remove */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (canRemove) {
-                  onRemove();
-                }
-              }}
-              disabled={!canRemove}
-              title={t("editor.removeTrack")}
-              className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-red-400 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-30 dark:border-gray-700 dark:text-gray-400 dark:hover:border-red-700 dark:hover:text-red-400"
-            >
-              <FaTrash size={11} />
-            </button>
+            <span title={removeTooltip} className="inline-flex">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (canRemove) {
+                    onRemove();
+                  }
+                }}
+                disabled={!canRemove}
+                className="flex h-7 w-7 items-center justify-center rounded border border-gray-400 text-gray-500 hover:border-red-400 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-30 dark:border-gray-700 dark:text-gray-400 dark:hover:border-red-700 dark:hover:text-red-400"
+              >
+                <FaTrash size={11} />
+              </button>
+            </span>
           </div>
         </div>
 

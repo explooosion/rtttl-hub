@@ -43,9 +43,52 @@ interface PropertiesPanelProps {
   focusedTrackIndex: number;
   onNameChange: (value: string) => void;
   onRenameTrack: (newName: string) => void;
+  onTrackCodeChange: (nextCode: string) => void;
   categories: RtttlCategory[];
   onCategoriesChange: (value: RtttlCategory[]) => void;
   errors: string[];
+}
+
+interface TrackDefaults {
+  duration: number;
+  octave: number;
+  bpm: number;
+}
+
+function parseTrackDefaults(defaultsPart: string): TrackDefaults {
+  const result: TrackDefaults = { duration: 4, octave: 5, bpm: 140 };
+  const parts = defaultsPart.split(",");
+  for (const part of parts) {
+    const [rawKey, rawVal] = part.trim().split("=");
+    const value = parseInt(rawVal ?? "", 10);
+    if (Number.isNaN(value)) {
+      continue;
+    }
+    if (rawKey === "d") {
+      result.duration = value;
+    } else if (rawKey === "o") {
+      result.octave = value;
+    } else if (rawKey === "b") {
+      result.bpm = value;
+    }
+  }
+  return result;
+}
+
+function splitTrackParts(code: string) {
+  const firstColonIdx = code.indexOf(":");
+  if (firstColonIdx <= 0) {
+    return null;
+  }
+  const secondColonIdx = code.indexOf(":", firstColonIdx + 1);
+  if (secondColonIdx === -1) {
+    return null;
+  }
+  return {
+    namePart: code.slice(0, firstColonIdx),
+    defaultsPart: code.slice(firstColonIdx + 1, secondColonIdx),
+    notesPart: code.slice(secondColonIdx + 1),
+  };
 }
 
 export function PropertiesPanel({
@@ -55,6 +98,7 @@ export function PropertiesPanel({
   focusedTrackIndex,
   onNameChange,
   onRenameTrack,
+  onTrackCodeChange,
   categories,
   onCategoriesChange,
   errors,
@@ -80,11 +124,20 @@ export function PropertiesPanel({
     }
     return {
       duration: getTotalDuration(parsed.notes),
-      bpm: parsed.defaults.bpm,
       notes: parsed.notes.length,
-      octave: parsed.defaults.octave,
       codeLength: focusedCode.length,
     };
+  }, [focusedCode]);
+
+  const editableDefaults = useMemo(() => {
+    if (!focusedCode.trim()) {
+      return null;
+    }
+    const parts = splitTrackParts(focusedCode);
+    if (!parts) {
+      return null;
+    }
+    return parseTrackDefaults(parts.defaultsPart);
   }, [focusedCode]);
 
   const focusedTrackName = useMemo(() => {
@@ -180,6 +233,33 @@ export function PropertiesPanel({
     if (ok) {
       setCopiedTrack(true);
       setTimeout(() => setCopiedTrack(false), 2000);
+    }
+  }
+
+  function commitTrackDefault(key: "d" | "o" | "b", rawValue: string, min: number, max: number) {
+    const parts = splitTrackParts(focusedCode);
+    if (!parts) {
+      return;
+    }
+    const parsed = parseInt(rawValue, 10);
+    if (Number.isNaN(parsed)) {
+      return;
+    }
+
+    const clampedValue = Math.max(min, Math.min(max, parsed));
+    const defaults = parseTrackDefaults(parts.defaultsPart);
+    if (key === "d") {
+      defaults.duration = clampedValue;
+    } else if (key === "o") {
+      defaults.octave = clampedValue;
+    } else {
+      defaults.bpm = clampedValue;
+    }
+
+    const nextDefaults = `d=${defaults.duration},o=${defaults.octave},b=${defaults.bpm}`;
+    const nextCode = `${parts.namePart}:${nextDefaults}:${parts.notesPart}`;
+    if (nextCode !== focusedCode) {
+      onTrackCodeChange(nextCode);
     }
   }
 
@@ -370,9 +450,71 @@ export function PropertiesPanel({
                 />
               </div>
 
+              {/* RTTTL defaults quick edit: d/o/b */}
+              {editableDefaults && (
+                <div className="space-y-2">
+                  <div>
+                    <label className="mb-0.5 block text-sm font-medium text-gray-500 dark:text-gray-400">
+                      {t("create.trackDefaultDuration", {
+                        defaultValue: "預設時值(d)",
+                      })}
+                    </label>
+                    <input
+                      key={`d-${focusedTrackIndex}-${focusedCode}`}
+                      type="number"
+                      min={1}
+                      max={64}
+                      value={editableDefaults.duration}
+                      onChange={(e) => {
+                        commitTrackDefault("d", e.currentTarget.value, 1, 64);
+                      }}
+                      className="w-full rounded border border-gray-400 bg-white px-2 py-1 text-sm font-mono text-gray-800 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-0.5 block text-sm font-medium text-gray-500 dark:text-gray-400">
+                      {t("create.trackDefaultOctave", {
+                        defaultValue: "預設八度(o)",
+                      })}
+                    </label>
+                    <input
+                      key={`o-${focusedTrackIndex}-${focusedCode}`}
+                      type="number"
+                      min={1}
+                      max={8}
+                      value={editableDefaults.octave}
+                      onChange={(e) => {
+                        commitTrackDefault("o", e.currentTarget.value, 1, 8);
+                      }}
+                      className="w-full rounded border border-gray-400 bg-white px-2 py-1 text-sm font-mono text-gray-800 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-0.5 block text-sm font-medium text-gray-500 dark:text-gray-400">
+                      {t("create.trackDefaultBpm", {
+                        defaultValue: "BPM速度(b)",
+                      })}
+                    </label>
+                    <input
+                      key={`b-${focusedTrackIndex}-${focusedCode}`}
+                      type="number"
+                      min={20}
+                      max={900}
+                      value={editableDefaults.bpm}
+                      onChange={(e) => {
+                        commitTrackDefault("b", e.currentTarget.value, 20, 900);
+                      }}
+                      className="w-full rounded border border-gray-400 bg-white px-2 py-1 text-sm font-mono text-gray-800 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
+                    />
+                  </div>
+                </div>
+              )}
+
               {/* Track stats */}
               {trackStats ? (
-                <dl className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                <dl className="mt-3 space-y-1 border-t border-gray-300 pt-3 text-sm text-gray-600 dark:border-gray-700 dark:text-gray-400">
                   <div className="flex justify-between">
                     <dt>{t("create.trackDuration", { defaultValue: "Duration" })}</dt>
                     <dd className="font-mono text-gray-800 dark:text-gray-200">
@@ -380,19 +522,9 @@ export function PropertiesPanel({
                     </dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt>{t("create.trackBpm", { defaultValue: "BPM" })}</dt>
-                    <dd className="font-mono text-gray-800 dark:text-gray-200">{trackStats.bpm}</dd>
-                  </div>
-                  <div className="flex justify-between">
                     <dt>{t("create.trackNotes", { defaultValue: "Notes" })}</dt>
                     <dd className="font-mono text-gray-800 dark:text-gray-200">
                       {trackStats.notes}
-                    </dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt>{t("create.trackOctave", { defaultValue: "Octave" })}</dt>
-                    <dd className="font-mono text-gray-800 dark:text-gray-200">
-                      {trackStats.octave}
                     </dd>
                   </div>
                   <div className="flex justify-between">
@@ -403,7 +535,9 @@ export function PropertiesPanel({
                   </div>
                 </dl>
               ) : (
-                <p className="text-sm text-gray-400">—</p>
+                <p className="mt-3 border-t border-gray-300 pt-3 text-sm text-gray-400 dark:border-gray-700">
+                  —
+                </p>
               )}
 
               {/* Copy current track */}
