@@ -2,15 +2,14 @@ import { useEffect } from "react";
 
 import { usePlayerStore } from "../../stores/player_store";
 import { saveDraft } from "./draft";
-import { useTrackManager } from "./hooks/use_track_manager";
-import { usePlaybackLoop } from "./hooks/use_playback_loop";
-import { useTimelineInteraction } from "./hooks/use_timeline_interaction";
-import { useHotkeys } from "react-hotkeys-hook";
-import { platformShortcut } from "./utils/keyboard_utils";
+import { CreatePageView } from "./create_page_view";
 import { useCreatePageActions } from "./hooks/use_create_page_actions";
 import { useCreatePageDerived } from "./hooks/use_create_page_derived";
+import { useCreatePageHotkeys } from "./hooks/use_create_page_hotkeys";
 import { useCreatePageUiState } from "./hooks/use_create_page_ui_state";
-import { CreatePageView } from "./create_page_view";
+import { usePlaybackLoop } from "./hooks/use_playback_loop";
+import { useTimelineInteraction } from "./hooks/use_timeline_interaction";
+import { useTrackManager } from "./hooks/use_track_manager";
 
 export function CreatePage() {
   const trackMuted = usePlayerStore((s) => s.trackMuted);
@@ -201,7 +200,20 @@ export function CreatePage() {
     trackListRef,
   });
 
-  /* ── Effects ── */
+  useCreatePageHotkeys({
+    undo,
+    redo,
+    handlePlayToggle,
+    handleSetLoopIn,
+    handleSetLoopOut,
+    handleNew,
+    handleImportClick,
+    handleSubmit,
+    handleAddTrack,
+    handleDeleteRegion,
+    canCutRegion,
+  });
+
   useEffect(
     function scrollIntoViewWhenFocusedTrackChange() {
       const el = trackRowsRef.current[focusedTrackIndex];
@@ -209,11 +221,11 @@ export function CreatePage() {
         el.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }
     },
-    [focusedTrackIndex],
+    [focusedTrackIndex, trackListRef, trackRowsRef],
   );
 
   useEffect(
-    function saveDraftOnChange() {
+    function saveDraftWhenCreatePageChange() {
       saveDraft({ name, code: tracks[0] ?? "", categories, tracks });
     },
     [name, categories, tracks],
@@ -235,115 +247,6 @@ export function CreatePage() {
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [pendingImport],
-  );
-
-  // Keyboard Shortcuts using react-hotkeys-hook
-  // Undo / Redo - standard shortcuts with preventDefault
-  useHotkeys(
-    platformShortcut("z"),
-    (e) => {
-      e.preventDefault();
-      undo();
-    },
-    { preventDefault: true },
-  );
-  useHotkeys(
-    platformShortcut("shift+z"),
-    (e) => {
-      e.preventDefault();
-      redo();
-    },
-    { preventDefault: true },
-  );
-  useHotkeys(
-    platformShortcut("y"),
-    (e) => {
-      e.preventDefault();
-      redo();
-    },
-    { preventDefault: true },
-  );
-
-  // Transport - only active when not in text input
-  useHotkeys(
-    "space",
-    (e) => {
-      e.preventDefault();
-      handlePlayToggle();
-    },
-    { enableOnFormTags: false, preventDefault: true },
-  );
-  useHotkeys(
-    "i",
-    (e) => {
-      e.preventDefault();
-      handleSetLoopIn();
-    },
-    { enableOnFormTags: false, preventDefault: true },
-  );
-  useHotkeys(
-    "o",
-    (e) => {
-      e.preventDefault();
-      handleSetLoopOut();
-    },
-    { enableOnFormTags: false, preventDefault: true },
-  );
-
-  // File - using Option/Alt to completely avoid Chrome conflicts
-  useHotkeys(
-    platformShortcut("alt+n"),
-    (e) => {
-      e.preventDefault();
-      handleNew();
-    },
-    { preventDefault: true },
-  );
-  useHotkeys(
-    platformShortcut("i"),
-    (e) => {
-      e.preventDefault();
-      handleImportClick();
-    },
-    { preventDefault: true },
-  );
-  useHotkeys(
-    platformShortcut("s"),
-    (e) => {
-      e.preventDefault();
-      handleSubmit();
-    },
-    { preventDefault: true },
-  );
-
-  // Edit - using = (plus key) instead of T to avoid Chrome "new tab" conflict
-  useHotkeys(
-    platformShortcut("="),
-    (e) => {
-      e.preventDefault();
-      handleAddTrack();
-    },
-    { preventDefault: true },
-  );
-  useHotkeys(
-    "delete",
-    (e) => {
-      if (canCutRegion) {
-        e.preventDefault();
-        handleDeleteRegion();
-      }
-    },
-    { enableOnFormTags: false },
-  );
-  useHotkeys(
-    "backspace",
-    (e) => {
-      if (canCutRegion) {
-        e.preventDefault();
-        handleDeleteRegion();
-      }
-    },
-    { enableOnFormTags: false },
   );
 
   const ui = {
