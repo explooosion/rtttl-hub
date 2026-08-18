@@ -162,6 +162,7 @@ export function CreatePageView({
 
         <CreatePageTransportToolbar
           hasPlayableContent={derived.hasPlayableContent}
+          isEditMode={!!ui.editId}
           tracks={track.tracks}
           trackMuted={trackMuted}
           focusedTrackIndex={track.focusedTrackIndex}
@@ -251,9 +252,6 @@ export function CreatePageView({
             categories={ui.categories}
             onCategoriesChange={ui.setCategories}
             errors={ui.errors}
-            onDiscard={actions.handleDiscard}
-            onSubmit={actions.handleSubmit}
-            isEditMode={!!ui.editId}
           />
         </div>
 

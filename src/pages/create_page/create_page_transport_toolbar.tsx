@@ -6,6 +6,7 @@ import { MAX_TRACKS } from "./constants";
 
 interface CreatePageTransportToolbarProps {
   hasPlayableContent: boolean;
+  isEditMode: boolean;
   tracks: string[];
   trackMuted: boolean[];
   focusedTrackIndex: number;
@@ -51,6 +52,7 @@ interface CreatePageTransportToolbarProps {
 
 export function CreatePageTransportToolbar({
   hasPlayableContent,
+  isEditMode,
   tracks,
   trackMuted,
   focusedTrackIndex,
@@ -99,6 +101,8 @@ export function CreatePageTransportToolbar({
   return (
     <TransportToolbar
       hasPlayableContent={hasPlayableContent}
+      isEditMode={isEditMode}
+      canCreate={tracks.some((track) => track.trim().length > 0)}
       onPlayToggle={onPlayToggle}
       onToolbarInsert={onToolbarInsert}
       onNew={onNew}

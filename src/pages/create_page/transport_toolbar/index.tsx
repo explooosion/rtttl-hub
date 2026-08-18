@@ -44,6 +44,8 @@ export type { MenuActions } from "./transport_constants";
 
 interface TransportToolbarProps {
   hasPlayableContent: boolean;
+  isEditMode: boolean;
+  canCreate: boolean;
   onPlayToggle: () => void;
   onToolbarInsert: (text: string) => void;
   onNew: () => void;
@@ -91,6 +93,8 @@ interface TransportToolbarProps {
 
 export function TransportToolbar({
   hasPlayableContent,
+  isEditMode,
+  canCreate,
   onPlayToggle,
   onToolbarInsert,
   onNew,
@@ -98,7 +102,7 @@ export function TransportToolbar({
   onImportFromFavorites,
   onNavigateHome,
   onFocusName: _onFocusName,
-  onCreate: _onCreate,
+  onCreate,
   onDiscard,
   onStop,
   onAddTrack,
@@ -380,6 +384,30 @@ export function TransportToolbar({
               items={helpItems}
             />
           </MenuBar>
+
+          <div className="ml-auto flex shrink-0 items-center gap-2 pl-2">
+            <button
+              type="button"
+              onClick={onCreate}
+              disabled={!canCreate}
+              title={formatTooltipWithShortcut(
+                isEditMode
+                  ? t("create.update", { defaultValue: "Update" })
+                  : t("create.create", { defaultValue: "Create" }),
+                platformShortcut("s"),
+              )}
+              className="flex h-9 min-w-[104px] items-center justify-center rounded-md bg-indigo-600 px-4 text-sm font-semibold whitespace-nowrap text-white shadow-sm transition-colors hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isEditMode ? t("create.update") : t("create.create")}
+            </button>
+            <button
+              type="button"
+              onClick={onDiscard}
+              className="flex h-9 min-w-[92px] items-center justify-center rounded-md border border-gray-400 px-4 text-sm font-medium whitespace-nowrap text-gray-600 transition-colors hover:bg-gray-300 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >
+              {t("create.cancel")}
+            </button>
+          </div>
         </div>
       </div>
 

@@ -25,7 +25,7 @@ function loadCollapsePrefs(): CollapsePrefs {
   } catch {
     // ignore
   }
-  return { track: true, project: false };
+  return { track: true, project: true };
 }
 
 function saveCollapsePrefs(prefs: CollapsePrefs) {
@@ -46,9 +46,6 @@ interface PropertiesPanelProps {
   categories: RtttlCategory[];
   onCategoriesChange: (value: RtttlCategory[]) => void;
   errors: string[];
-  onDiscard: () => void;
-  onSubmit: () => void;
-  isEditMode?: boolean;
 }
 
 export function PropertiesPanel({
@@ -61,9 +58,6 @@ export function PropertiesPanel({
   categories,
   onCategoriesChange,
   errors,
-  onDiscard,
-  onSubmit,
-  isEditMode = false,
 }: PropertiesPanelProps) {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
@@ -431,23 +425,6 @@ export function PropertiesPanel({
             </div>
           )}
         </div>
-      </div>
-
-      {/* Actions */}
-      <div className="space-y-2 border-t border-gray-400 px-3 py-3 dark:border-gray-700">
-        <button
-          onClick={onSubmit}
-          disabled={!tracks.some((tk) => tk.trim().length > 0)}
-          className="w-full rounded bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {isEditMode ? t("create.update") : t("create.create")}
-        </button>
-        <button
-          onClick={onDiscard}
-          className="w-full rounded border border-gray-400 px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-200 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
-        >
-          {t("create.cancel")}
-        </button>
       </div>
     </div>
   );
