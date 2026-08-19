@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FaDesktop } from "react-icons/fa";
@@ -12,6 +13,7 @@ import { CreatePageTrackArea } from "./create_page_track_area";
 import { PropertiesPanel } from "./properties_panel";
 import { StatusBar } from "./status_bar";
 import { CreatePageDialogs } from "./create_page_dialogs";
+import { LoadCreationDialog } from "./load_creation_dialog";
 
 interface UiModel {
   editId: string | null;
@@ -137,8 +139,18 @@ export function CreatePageView({
 }: CreatePageViewProps) {
   const { t } = useTranslation();
 
+  const [loadCreationOpen, setLoadCreationOpen] = useState(false);
+
   function handleOpenFavoriteImport() {
     ui.setFavImportOpen(true);
+  }
+
+  function handleOpenLoadCreation() {
+    setLoadCreationOpen(true);
+  }
+
+  function handleLoadCreationClose() {
+    setLoadCreationOpen(false);
   }
 
   function handleConfirmRemoveFocusedTrack() {
@@ -241,6 +253,7 @@ export function CreatePageView({
           onNew={actions.handleNew}
           onImport={actions.handleImportClick}
           onImportFromFavorites={handleOpenFavoriteImport}
+          onLoadCreation={handleOpenLoadCreation}
           onCreate={actions.handleSubmit}
           onDiscard={actions.handleDiscard}
           onStop={actions.handleStop}
@@ -350,6 +363,12 @@ export function CreatePageView({
           onNameChange={ui.setName}
           onRenameTrack={track.handleRenameTrack}
           onIsPublicChange={ui.setIsPublic}
+        />
+
+        <LoadCreationDialog
+          open={loadCreationOpen}
+          onClose={handleLoadCreationClose}
+          onConfirm={actions.handleImportConfirm}
         />
       </div>
     </>

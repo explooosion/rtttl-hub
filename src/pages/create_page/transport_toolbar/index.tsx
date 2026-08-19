@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 
 import { usePlayerStore } from "../../../stores/player_store";
 import { useEditorSettingsStore } from "../../../stores/editor_settings_store";
+import { useAuthStore } from "../../../stores/auth_store";
+import { useAuthRedirect } from "../../../hooks/use_auth_redirect";
 import { SyntaxColorPanel } from "../../../components/rtttl_editor/syntax_color_panel";
 import { AboutDialog } from "./about_dialog";
 import { EditorToolsRow } from "./editor_tools_row";
@@ -29,6 +31,7 @@ interface TransportToolbarProps {
   onNew: VoidFunction;
   onImport: VoidFunction;
   onImportFromFavorites: VoidFunction;
+  onLoadCreation: VoidFunction;
   onNavigateHome: VoidFunction;
   onFocusName: VoidFunction;
   onCreate: VoidFunction;
@@ -78,6 +81,7 @@ export function TransportToolbar({
   onNew,
   onImport,
   onImportFromFavorites,
+  onLoadCreation,
   onNavigateHome,
   onFocusName: _onFocusName,
   onCreate,
@@ -118,6 +122,9 @@ export function TransportToolbar({
   guideMs,
 }: TransportToolbarProps) {
   const { t } = useTranslation();
+
+  const user = useAuthStore((s) => s.user);
+  const { goToLogin } = useAuthRedirect();
 
   const playerState = usePlayerStore((s) => s.playerState);
 
@@ -250,11 +257,20 @@ export function TransportToolbar({
     setAboutDialogOpen(true);
   }
 
+  function handleLoadCreationClick() {
+    if (user) {
+      onLoadCreation();
+    } else {
+      goToLogin();
+    }
+  }
+
   const fileItems = buildFileItems({
     t,
     onNew,
     onImport,
     onImportFromFavorites,
+    onLoadCreation: handleLoadCreationClick,
     onDiscard,
     onNavigateHome,
   });

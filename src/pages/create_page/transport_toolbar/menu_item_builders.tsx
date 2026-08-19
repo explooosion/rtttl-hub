@@ -3,6 +3,7 @@ import {
   FaSignOutAlt,
   FaFileAlt,
   FaTimes,
+  FaFolderOpen,
   FaUndo,
   FaRedo,
   FaCompressArrowsAlt,
@@ -31,6 +32,7 @@ interface BuildFileItemsParams {
   onNew: VoidFunction;
   onImport: VoidFunction;
   onImportFromFavorites: VoidFunction;
+  onLoadCreation?: VoidFunction;
   onDiscard: VoidFunction;
   onNavigateHome: VoidFunction;
 }
@@ -40,6 +42,7 @@ export function buildFileItems({
   onNew,
   onImport,
   onImportFromFavorites,
+  onLoadCreation,
   onDiscard,
   onNavigateHome,
 }: BuildFileItemsParams) {
@@ -64,7 +67,17 @@ export function buildFileItems({
       label: t("create.menuImportFromFavorites", { defaultValue: "Import from Favorites…" }),
       onClick: onImportFromFavorites,
     },
-    { type: "separator" },
+    ...(onLoadCreation
+      ? [
+          {
+            type: "action" as const,
+            icon: <FaFolderOpen size={13} />,
+            label: t("create.menuLoadCreation", { defaultValue: "Load My Creation…" }),
+            onClick: onLoadCreation,
+          },
+        ]
+      : []),
+    { type: "separator" as const },
     {
       type: "action",
       icon: <FaTimes size={13} />,

@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { ThemeToggle } from "../../components/theme_toggle";
 import { SettingsMenu } from "../../components/settings_menu";
 import { MegaMenu } from "../../components/mega_menu";
+import { MyZoneMenu } from "../../components/my_zone_menu";
 import { UserMenu } from "../../components/user_menu";
 import { useCollectionStore } from "../../stores/collection_store";
 
@@ -28,9 +29,9 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
   const searchQuery = useCollectionStore((s) => s.searchQuery);
   const setSearchQuery = useCollectionStore((s) => s.setSearchQuery);
 
-  const isCollectionsActive = location.pathname.startsWith("/collections");
-  const isMyCreationsActive = location.pathname === "/collections/my-creations";
-  const isFavoritesActive = location.pathname === "/collections/favorites";
+  const isMyZoneActive = location.pathname.startsWith("/my-zone/");
+  const isCollectionsActive =
+    location.pathname.startsWith("/collections") && !location.pathname.startsWith("/my-zone/");
   const isCreateActive = location.pathname === "/create";
   const isContributeActive = location.pathname === "/contribute";
 
@@ -74,27 +75,17 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
           )}
         >
           <MegaMenu isActive={isCollectionsActive} />
+          <MyZoneMenu isActive={isMyZoneActive} />
           <Link
-            to="/collections/my-creations"
+            to="/contribute"
             className={clsx(
               "whitespace-nowrap text-sm font-medium transition-colors",
-              isMyCreationsActive
+              isContributeActive
                 ? "text-indigo-600 dark:text-indigo-400"
                 : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
             )}
           >
-            {t("nav.myCreations")}
-          </Link>
-          <Link
-            to="/collections/favorites"
-            className={clsx(
-              "whitespace-nowrap text-sm font-medium transition-colors",
-              isFavoritesActive
-                ? "text-indigo-600 dark:text-indigo-400"
-                : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
-            )}
-          >
-            {t("collections.favorites.name")}
+            {t("actions.contribute")}
           </Link>
           <Link
             to="/create"
@@ -108,17 +99,6 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
             )}
           >
             {t("actions.createNew")}
-          </Link>
-          <Link
-            to="/contribute"
-            className={clsx(
-              "whitespace-nowrap rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors",
-              isContributeActive
-                ? "border-indigo-400 bg-indigo-50 text-indigo-600 dark:border-indigo-700 dark:bg-indigo-950 dark:text-indigo-400"
-                : "border-gray-300 text-gray-600 hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-600 dark:hover:text-indigo-400",
-            )}
-          >
-            {t("actions.contribute")}
           </Link>
         </nav>
 

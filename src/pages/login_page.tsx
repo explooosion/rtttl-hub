@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import { useAuthStore } from "../stores/auth_store";
+import { useAuthRedirect } from "../hooks/use_auth_redirect";
 
 const logoSrc = `${import.meta.env.BASE_URL}icons/favicon-32x32.png`;
 
@@ -32,7 +32,7 @@ function GoogleIcon({ size = 18 }: { size?: number }) {
 
 export function LoginPage() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { resolveAfterLogin } = useAuthRedirect();
   const signInWithGoogle = useAuthStore((s) => s.signInWithGoogle);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,7 +41,7 @@ export function LoginPage() {
     try {
       await signInWithGoogle();
       toast.success(t("auth.signInSuccess"));
-      navigate("/account");
+      resolveAfterLogin("/account");
     } catch (error: unknown) {
       console.error("Login error:", error);
 

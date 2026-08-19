@@ -112,12 +112,21 @@ function App() {
             <Route element={<RootShell />}>
               <Route path="/" element={<LandingPage />} />
               <Route path="/collections" element={<CollectionsPage />} />
+              <Route path="/my-zone/:slug" element={<CollectionPage />} />
               <Route path="/collections/:slug" element={<CollectionPage />} />
               <Route
                 path="/my-creations"
-                element={<Navigate to="/collections/my-creations" replace />}
+                element={<Navigate to="/my-zone/my-creations" replace />}
               />
-              <Route path="/favorites" element={<Navigate to="/collections/favorites" replace />} />
+              <Route path="/favorites" element={<Navigate to="/my-zone/favorites" replace />} />
+              <Route
+                path="/collections/my-creations"
+                element={<Navigate to="/my-zone/my-creations" replace />}
+              />
+              <Route
+                path="/collections/favorites"
+                element={<Navigate to="/my-zone/favorites" replace />}
+              />
               <Route path="/creators/:creatorId" element={<CreatorPage />} />
               <Route path="/terms" element={<TermsPage />} />
               <Route path="/privacy" element={<PrivacyPolicyPage />} />

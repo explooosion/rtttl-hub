@@ -117,7 +117,12 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
   }, [open, close]);
 
   return (
-    <div ref={menuRef} className="relative">
+    <div
+      ref={menuRef}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <button
         onClick={handleMenuToggle}
         className={clsx(
@@ -132,48 +137,45 @@ export function MegaMenu({ isActive }: MegaMenuProps) {
       </button>
 
       {open && (
-        <div className="absolute left-0 z-50 mt-4 w-180 rounded-xl border border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-gray-900">
-          {/* Collections */}
-          <div className="mb-4">
-            <div className="mb-4 flex items-center justify-between">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
-                {t("nav.collections")}
-              </h3>
-              <Link
-                to="/collections"
-                onClick={handleCloseMenu}
-                className="text-xs font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400"
-              >
-                {t("collections.browseAll")} →
-              </Link>
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              {/* Left: Public Libraries */}
-              <div>
+        <div className="absolute left-0 z-50 pt-2">
+          <div className="w-180 rounded-xl border border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+            {/* Collections */}
+            <div className="mb-4">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                  {t("nav.collections")}
+                </h3>
                 <Link
-                  to="/collections/public"
+                  to="/collections"
                   onClick={handleCloseMenu}
-                  className="mb-2 block text-xs font-semibold text-indigo-600 transition-colors hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                  className="text-xs font-medium text-indigo-600 transition-colors hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
                 >
-                  {t("collections.group.publicLibraries")} →
+                  {t("collections.browseAll")} →
                 </Link>
-                {COLLECTIONS.filter((c) => c.group === "public-libraries").map(
-                  renderCollectionCard,
-                )}
               </div>
-              {/* Middle: External Resources */}
-              <div>
-                <h4 className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
-                  {t("collections.group.externalLinks")}
-                </h4>
-                {COLLECTIONS.filter((c) => c.group === "external-links").map(renderCollectionCard)}
-              </div>
-              {/* Right: My Creations */}
-              <div>
-                <h4 className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
-                  {t("collections.group.myCreations")}
-                </h4>
-                {COLLECTIONS.filter((c) => c.group === "my-creations").map(renderCollectionCard)}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Left: Public Libraries */}
+                <div>
+                  <Link
+                    to="/collections/public"
+                    onClick={handleCloseMenu}
+                    className="mb-2 block text-xs font-semibold text-indigo-600 transition-colors hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                  >
+                    {t("collections.group.publicLibraries")}
+                  </Link>
+                  {COLLECTIONS.filter((c) => c.group === "public-libraries").map(
+                    renderCollectionCard,
+                  )}
+                </div>
+                {/* Middle: External Resources */}
+                <div>
+                  <h4 className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
+                    {t("collections.group.externalLinks")}
+                  </h4>
+                  {COLLECTIONS.filter((c) => c.group === "external-links").map(
+                    renderCollectionCard,
+                  )}
+                </div>
               </div>
             </div>
           </div>

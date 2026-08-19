@@ -15,7 +15,7 @@ export function RootFooter({ resetConsent }: RootFooterProps) {
   return (
     <footer className="mt-12 border-t border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900/50">
       <div className="mx-auto max-w-7xl px-4 py-10">
-        <div className="grid gap-8 text-center sm:text-left sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="grid gap-8 text-center sm:text-left sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {/* Brand */}
           <div>
             <Link to="/" className="mb-3 inline-flex items-center gap-2">
@@ -52,61 +52,20 @@ export function RootFooter({ resetConsent }: RootFooterProps) {
             </ul>
           </div>
 
-          {/* Discover */}
-          <div>
-            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white">
-              {t("footer.discover")}
-            </h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  to="/collections"
-                  className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
-                >
-                  {t("footer.allCollections")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/collections/my-creations"
-                  className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
-                >
-                  {t("collections.myCreations.name")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/collections/favorites"
-                  className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
-                >
-                  {t("collections.favorites.name")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contribute"
-                  className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
-                >
-                  {t("breadcrumb.contribute")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/about"
-                  className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
-                >
-                  {t("footer.about")}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
           {/* Public Libraries */}
           <div>
             <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white">
               {t("collections.group.publicLibraries")}
             </h4>
             <ul className="space-y-2 text-sm">
+              <li>
+                <Link
+                  to="/collections"
+                  className="inline-flex items-center gap-1.5 text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+                >
+                  {t("footer.allCollections")}
+                </Link>
+              </li>
               {COLLECTIONS.filter((c) => c.group === "public-libraries").map((col) => (
                 <li key={col.slug}>
                   <Link
@@ -139,6 +98,56 @@ export function RootFooter({ resetConsent }: RootFooterProps) {
                   </a>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          {/* My Zone */}
+          <div>
+            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white">
+              {t("footer.myLibrary")}
+            </h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link
+                  to="/my-zone/my-creations"
+                  className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+                >
+                  {t("collections.myCreations.name")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/my-zone/favorites"
+                  className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+                >
+                  {t("collections.favorites.name")}
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* More */}
+          <div>
+            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white">
+              {t("footer.more")}
+            </h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link
+                  to="/contribute"
+                  className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+                >
+                  {t("breadcrumb.contribute")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/about"
+                  className="text-gray-500 transition-colors hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+                >
+                  {t("footer.about")}
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -28,6 +28,7 @@ interface CreatePageTransportToolbarProps {
   onNew: VoidFunction;
   onImport: VoidFunction;
   onImportFromFavorites: VoidFunction;
+  onLoadCreation: VoidFunction;
   onCreate: VoidFunction;
   onDiscard: VoidFunction;
   onStop: VoidFunction;
@@ -74,6 +75,7 @@ export function CreatePageTransportToolbar({
   onNew,
   onImport,
   onImportFromFavorites,
+  onLoadCreation,
   onDiscard,
   onStop,
   onAddTrack,
@@ -120,6 +122,7 @@ export function CreatePageTransportToolbar({
       onNew={onNew}
       onImport={onImport}
       onImportFromFavorites={onImportFromFavorites}
+      onLoadCreation={onLoadCreation}
       onNavigateHome={handleNavigateHome}
       onFocusName={handleFocusName}
       onCreate={onCreate}

@@ -38,7 +38,8 @@ export function StatusBar({
           defaultValue: "Auto-saved on every change. Restored automatically on next visit.",
         })}
         className={clsx(
-          "cursor-default text-xs text-gray-500 transition-opacity dark:text-gray-400",
+          "cursor-default text-xs transition-opacity",
+          "text-gray-500 dark:text-amber-400",
           hasDraft ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       >
