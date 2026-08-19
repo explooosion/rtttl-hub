@@ -4,7 +4,7 @@ import { FaTimes } from "react-icons/fa";
 
 import { useCollectionStore } from "../../stores/collection_store";
 import { useFavoritesStore } from "../../stores/favorites_store";
-import { TRACK_DOT_CLASSES } from "./constants";
+import { formatShortDate } from "../../utils/rtttl_format";
 
 interface Props {
   open: boolean;
@@ -15,6 +15,7 @@ interface Props {
 export function FavoriteImportDialog({ open, onClose, onConfirm }: Props) {
   const { t } = useTranslation();
   const favoriteIds = useFavoritesStore((s) => s.favoriteIds);
+  const favoritedAt = useFavoritesStore((s) => s.favoritedAt);
   const items = useCollectionStore((s) => s.items);
   const userItems = useCollectionStore((s) => s.userItems);
 
@@ -25,8 +26,9 @@ export function FavoriteImportDialog({ open, onClose, onConfirm }: Props) {
     onClose();
   }
 
-  function renderFavoriteItem(item: (typeof favorites)[number], index: number) {
+  function renderFavoriteItem(item: (typeof favorites)[number]) {
     const tracks = item.tracks ?? [item.code];
+    const savedAt = favoritedAt[item.id];
 
     function handleFavoriteSelect() {
       handleSelect(tracks);
@@ -35,13 +37,12 @@ export function FavoriteImportDialog({ open, onClose, onConfirm }: Props) {
     return (
       <button
         key={item.id}
+        type="button"
         onClick={handleFavoriteSelect}
-        className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+        className="grid w-full grid-cols-[1fr_auto] items-center gap-x-4 rounded-lg px-3 py-2.5 text-left hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
       >
-        <span
-          className={`h-2.5 w-2.5 shrink-0 rounded-full ${TRACK_DOT_CLASSES[index % TRACK_DOT_CLASSES.length]}`}
-        />
-        <div className="min-w-0 flex-1">
+        {/* Left: name + track count */}
+        <div className="min-w-0">
           <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
             {item.title}
           </p>
@@ -51,6 +52,13 @@ export function FavoriteImportDialog({ open, onClose, onConfirm }: Props) {
             </p>
           )}
         </div>
+
+        {/* Right: favorited date */}
+        {savedAt && (
+          <p className="shrink-0 text-right text-xs text-gray-400 dark:text-gray-500">
+            {formatShortDate(savedAt)}
+          </p>
+        )}
       </button>
     );
   }
@@ -71,6 +79,7 @@ export function FavoriteImportDialog({ open, onClose, onConfirm }: Props) {
               })}
             </DialogTitle>
             <button
+              type="button"
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
               aria-label="Close"
@@ -78,6 +87,18 @@ export function FavoriteImportDialog({ open, onClose, onConfirm }: Props) {
               <FaTimes size={16} />
             </button>
           </div>
+
+          {/* Column headers */}
+          {favorites.length > 0 && (
+            <div className="grid grid-cols-[1fr_auto] gap-x-4 border-b border-gray-100 px-3 py-1.5 dark:border-gray-800">
+              <span className="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                {t("create.colName", { defaultValue: "Name" })}
+              </span>
+              <span className="shrink-0 text-right text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                {t("create.colFavoritedAt", { defaultValue: "Saved" })}
+              </span>
+            </div>
+          )}
 
           {/* List */}
           <div className="flex-1 overflow-y-auto p-3">
@@ -93,6 +114,7 @@ export function FavoriteImportDialog({ open, onClose, onConfirm }: Props) {
           {/* Footer */}
           <div className="border-t border-gray-200 px-5 py-3 dark:border-gray-700">
             <button
+              type="button"
               onClick={onClose}
               className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
             >

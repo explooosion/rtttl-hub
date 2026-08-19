@@ -4,6 +4,8 @@ import { syncFavorites, getUserFavorites } from "../services/firestore_service";
 
 interface FavoritesState {
   favoriteIds: string[];
+  /** ISO timestamp of when each item was favorited, keyed by item id */
+  favoritedAt: Record<string, string>;
   isSyncing: boolean;
   syncTimeoutId: number | null;
   toggleFavorite: (id: string, userId?: string) => void;
@@ -18,16 +20,23 @@ export const useFavoritesStore = create<FavoritesState>()(
   persist(
     (set, get) => ({
       favoriteIds: [],
+      favoritedAt: {},
       isSyncing: false,
       syncTimeoutId: null,
 
       toggleFavorite: (id, userId) => {
         const current = get().favoriteIds;
-        const newFavorites = current.includes(id)
-          ? current.filter((fid) => fid !== id)
-          : [...current, id];
+        const isAdding = !current.includes(id);
+        const newFavorites = isAdding ? [...current, id] : current.filter((fid) => fid !== id);
 
-        set({ favoriteIds: newFavorites });
+        const newFavoritedAt = { ...get().favoritedAt };
+        if (isAdding) {
+          newFavoritedAt[id] = new Date().toISOString();
+        } else {
+          delete newFavoritedAt[id];
+        }
+
+        set({ favoriteIds: newFavorites, favoritedAt: newFavoritedAt });
 
         if (userId) {
           const existingTimeout = get().syncTimeoutId;
@@ -71,7 +80,10 @@ export const useFavoritesStore = create<FavoritesState>()(
     }),
     {
       name: "rtttl-favorites",
-      partialize: (state) => ({ favoriteIds: state.favoriteIds }),
+      partialize: (state) => ({
+        favoriteIds: state.favoriteIds,
+        favoritedAt: state.favoritedAt,
+      }),
     },
   ),
 );
