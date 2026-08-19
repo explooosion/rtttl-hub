@@ -68,6 +68,8 @@ Code Style: When writing or editing any TypeScript/TSX source file, apply the ru
 
 Track Categorization: When needing to automatically assign categories to large collections of RTTTL tracks, apply the rules and workflow defined in /.agents/skills/categorize-tracks/SKILL.md. This covers the auto-categorization tool usage, keyword patterns, best practices, and validation steps.
 
+Translations: When any UI element, page, or workflow introduces, modifies, or removes displayable text, apply the rules defined in /.agents/skills/i18n-translations/SKILL.md. All 13 supported locales must be updated in full, and unused keys must be removed from every locale file.
+
 # Corporate Development & AI Safety Standards
 
 ## Security & Credential Management
