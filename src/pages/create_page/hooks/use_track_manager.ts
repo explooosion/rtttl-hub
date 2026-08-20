@@ -48,17 +48,16 @@ export function useTrackManager({ initialTracks }: UseTrackManagerInit) {
   /* ── Undo / Redo history ── */
   const pastRef = useRef<string[][]>([]);
   const futureRef = useRef<string[][]>([]);
-  const [historyVersion, setHistoryVersion] = useState(0); // triggers re-render for canUndo/canRedo
+  const [canUndo, setCanUndo] = useState(false);
+  const [canRedo, setCanRedo] = useState(false);
 
   function commitTracks(next: string[]) {
     pastRef.current = [...pastRef.current, tracks];
     futureRef.current = [];
-    setHistoryVersion((v) => v + 1);
+    setCanUndo(true);
+    setCanRedo(false);
     setTracks(next);
   }
-
-  const canUndo = historyVersion >= 0 && pastRef.current.length > 0;
-  const canRedo = historyVersion >= 0 && futureRef.current.length > 0;
 
   function undo() {
     if (pastRef.current.length === 0) {
@@ -67,7 +66,8 @@ export function useTrackManager({ initialTracks }: UseTrackManagerInit) {
     const prev = pastRef.current[pastRef.current.length - 1]!;
     pastRef.current = pastRef.current.slice(0, -1);
     futureRef.current = [tracks, ...futureRef.current];
-    setHistoryVersion((v) => v + 1);
+    setCanUndo(pastRef.current.length > 0);
+    setCanRedo(true);
     setTracks(prev);
   }
 
@@ -78,7 +78,8 @@ export function useTrackManager({ initialTracks }: UseTrackManagerInit) {
     const next = futureRef.current[0]!;
     futureRef.current = futureRef.current.slice(1);
     pastRef.current = [...pastRef.current, tracks];
-    setHistoryVersion((v) => v + 1);
+    setCanUndo(true);
+    setCanRedo(futureRef.current.length > 0);
     setTracks(next);
   }
 
@@ -285,7 +286,8 @@ export function useTrackManager({ initialTracks }: UseTrackManagerInit) {
     const initial = newTracks ?? [`Track1:${NEW_TRACK_STUB_BODY}`];
     pastRef.current = [];
     futureRef.current = [];
-    setHistoryVersion((v) => v + 1);
+    setCanUndo(false);
+    setCanRedo(false);
     setTracks(initial);
     setFocusedTrackIndex(0);
     setExpandedTracks(new Set(initial.map((_, i) => i)));
