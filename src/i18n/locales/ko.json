@@ -443,6 +443,8 @@
   "footer": {
     "discover": "탐색",
     "allCollections": "전체 컬렉션",
+    "myLibrary": "내 공간",
+    "more": "더 보기",
     "about": "소개",
     "aboutDescription": "RTTTL Hub는 레트로 RTTTL 벨소리를 탐색하고 재생하는 플랫폼입니다.",
     "copyright": "© 2026 RTTTL Hub. 상표 및 브랜드는 각 소유자에게 귀속됩니다.",

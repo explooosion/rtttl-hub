@@ -443,6 +443,8 @@
   "footer": {
     "discover": "探索",
     "allCollections": "すべてのコレクション",
+    "myLibrary": "マイゾーン",
+    "more": "その他",
     "about": "概要",
     "aboutDescription": "RTTTL Hub はレトロ RTTTL 着信音を探索・再生するためのプラットフォームです。",
     "copyright": "© 2026 RTTTL Hub. 商標およびブランドはそれぞれの所有者に帰属します。",
