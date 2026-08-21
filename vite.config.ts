@@ -10,4 +10,13 @@ export default defineConfig({
   test: {
     environment: "node",
   },
+  server: {
+    proxy: {
+      "/api/replicate": {
+        target: "https://api.replicate.com/v1",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/replicate/, ""),
+      },
+    },
+  },
 });

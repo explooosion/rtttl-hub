@@ -647,5 +647,36 @@
   },
   "language": {
     "de": "Deutsch"
+  },
+  "audioExtract": {
+    "trigger": "AI-Melodie-Extraktor…",
+    "title": "AI-Melodie-Extraktor",
+    "filename": "Dateiname",
+    "fileSize": "Dateigröße",
+    "duration": "Dauer",
+    "timeRange": "Zeitbereich (Sekunden)",
+    "startTime": "Start",
+    "endTime": "Ende",
+    "timeRangeHint": "Audio vor dem Upload trimmen. Nur der ausgewählte Bereich wird zur Analyse gesendet.",
+    "stemLabel": "Zu extrahierende Stems (max. 4)",
+    "stem_vocals": "Gesang",
+    "stem_bass": "Bass",
+    "stem_drums": "Schlagzeug",
+    "stem_other": "Andere",
+    "stemHint": "AI trennt das Audio in ausgewählte Stems, erkennt die Melodie jedes Stems und konvertiert in RTTTL.",
+    "analyze": "Analysieren",
+    "processing": "AI analysiert Audio und extrahiert Melodie (kann 1-2 Minuten dauern)…",
+    "processingStatus": "Status: {{status}}",
+    "resultSummary": "{{count}} Track(s) gefunden. Wählen Sie Tracks zum Importieren in den Editor.",
+    "noteCount": "{{count}} Noten",
+    "discard": "Verwerfen",
+    "confirmImport": "{{count}} Track(s) importieren",
+    "noTracksSelected": "Keine Tracks mit Noten ausgewählt.",
+    "importSuccess": "{{count}} Track(s) importiert.",
+    "invalidRange": "Bitte geben Sie einen gültigen Zeitbereich ein.",
+    "invalidType": "Bitte wählen Sie eine gültige Audiodatei (MP3, WAV, OGG, FLAC, AAC).",
+    "fileTooLarge": "Dateigröße überschreitet das Limit von {{max}} MB.",
+    "readError": "Audiodatei-Metadaten konnten nicht gelesen werden.",
+    "analyzeError": "Analyse fehlgeschlagen. Bitte versuchen Sie es erneut."
   }
 }

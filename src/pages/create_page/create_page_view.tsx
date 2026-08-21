@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FaDesktop } from "react-icons/fa";
@@ -7,6 +7,7 @@ import type { SensorDescriptor, SensorOptions, DragEndEvent } from "@dnd-kit/cor
 import type { RtttlCategory } from "../../utils/rtttl_parser";
 import type { CutMode } from "./cut_dialog";
 import type { RtttlEditorInputHandle } from "../../components/rtttl_editor/rtttl_editor_input";
+import type { AudioStemExtractorHandle } from "./audio_stem_extractor";
 import { DawHeader } from "./daw_header";
 import { CreatePageTransportToolbar } from "./create_page_transport_toolbar";
 import { CreatePageTrackArea } from "./create_page_track_area";
@@ -14,6 +15,7 @@ import { PropertiesPanel } from "./properties_panel";
 import { StatusBar } from "./status_bar";
 import { CreatePageDialogs } from "./create_page_dialogs";
 import { LoadCreationDialog } from "./load_creation_dialog";
+import { AudioStemExtractor } from "./audio_stem_extractor";
 
 interface UiModel {
   editId: string | null;
@@ -140,6 +142,11 @@ export function CreatePageView({
   const { t } = useTranslation();
 
   const [loadCreationOpen, setLoadCreationOpen] = useState(false);
+  const audioExtractRef = useRef<AudioStemExtractorHandle>(null);
+
+  function handleAudioExtract() {
+    audioExtractRef.current?.trigger();
+  }
 
   function handleOpenFavoriteImport() {
     ui.setFavImportOpen(true);
@@ -253,6 +260,7 @@ export function CreatePageView({
           onNew={actions.handleNew}
           onImport={actions.handleImportClick}
           onImportFromFavorites={handleOpenFavoriteImport}
+          onAudioExtract={handleAudioExtract}
           onLoadCreation={handleOpenLoadCreation}
           onCreate={actions.handleSubmit}
           onDiscard={actions.handleDiscard}
@@ -370,6 +378,8 @@ export function CreatePageView({
           onClose={handleLoadCreationClose}
           onConfirm={actions.handleImportConfirm}
         />
+
+        <AudioStemExtractor ref={audioExtractRef} onImport={actions.handleImportConfirm} />
       </div>
     </>
   );

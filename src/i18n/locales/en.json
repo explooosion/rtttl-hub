@@ -647,5 +647,36 @@
   "betaBanner": {
     "message": "RTTTL Hub is currently under active development. Some features may be incomplete or temporarily unavailable.",
     "dismiss": "Dismiss"
+  },
+  "audioExtract": {
+    "trigger": "AI Melody Extractor…",
+    "title": "AI Melody Extractor",
+    "filename": "Filename",
+    "fileSize": "File Size",
+    "duration": "Duration",
+    "timeRange": "Time Range (seconds)",
+    "startTime": "Start",
+    "endTime": "End",
+    "timeRangeHint": "Trim audio before uploading. Only the selected range will be sent for analysis.",
+    "stemLabel": "Stems to extract (max 4)",
+    "stem_vocals": "Vocals",
+    "stem_bass": "Bass",
+    "stem_drums": "Drums",
+    "stem_other": "Other",
+    "stemHint": "AI will separate audio into selected stems, detect melody from each, and convert to RTTTL.",
+    "analyze": "Analyze",
+    "processing": "AI is analyzing audio and extracting melody (this may take 1-2 minutes)…",
+    "processingStatus": "Status: {{status}}",
+    "resultSummary": "Found {{count}} track(s). Select tracks to import into the editor.",
+    "noteCount": "{{count}} notes",
+    "discard": "Discard",
+    "confirmImport": "Import {{count}} Track(s)",
+    "noTracksSelected": "No tracks with notes selected.",
+    "importSuccess": "{{count}} track(s) imported.",
+    "invalidRange": "Please enter a valid time range.",
+    "invalidType": "Please select a valid audio file (MP3, WAV, OGG, FLAC, AAC).",
+    "fileTooLarge": "File size exceeds {{max}} MB limit.",
+    "readError": "Failed to read audio file metadata.",
+    "analyzeError": "Analysis failed. Please try again."
   }
 }

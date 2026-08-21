@@ -21,6 +21,7 @@ import {
   FaVolumeMute,
   FaVolumeUp,
   FaQuestionCircle,
+  FaMusic,
 } from "react-icons/fa";
 import type { TFunction } from "i18next";
 
@@ -32,6 +33,7 @@ interface BuildFileItemsParams {
   onNew: VoidFunction;
   onImport: VoidFunction;
   onImportFromFavorites: VoidFunction;
+  onAudioExtract: VoidFunction;
   onLoadCreation?: VoidFunction;
   onDiscard: VoidFunction;
   onNavigateHome: VoidFunction;
@@ -42,6 +44,7 @@ export function buildFileItems({
   onNew,
   onImport,
   onImportFromFavorites,
+  onAudioExtract,
   onLoadCreation,
   onDiscard,
   onNavigateHome,
@@ -66,6 +69,12 @@ export function buildFileItems({
       icon: <FaHeart size={13} />,
       label: t("create.menuImportFromFavorites", { defaultValue: "Import from Favorites…" }),
       onClick: onImportFromFavorites,
+    },
+    {
+      type: "action",
+      icon: <FaMusic size={13} />,
+      label: t("audioExtract.trigger", { defaultValue: "AI Melody Extractor…" }),
+      onClick: onAudioExtract,
     },
     ...(onLoadCreation
       ? [
