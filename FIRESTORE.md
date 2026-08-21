@@ -202,6 +202,74 @@ The following indexes will be automatically created on first query, or can be ma
 ### user_track_interactions
 - Composite index: `[userId, trackId]` (both ascending)
 
+### donations
+- Composite index: `[userId, createdAt desc]` — donor history per user
+- Single field index: `polarOrderId` (ascending) — webhook deduplication
+
+### audio_recognitions
+- Composite index: `[userId, createdAt desc]`
+
+---
+
+### donations
+
+Stores Polar.sh payment records. Written exclusively by the webhook handler (Cloud Function / secure backend) after a successful order. Never written by the frontend.
+
+- **Document ID**: auto-generated
+- **Write Access**: Cloud Functions / backend webhook only
+- **Indexes**: `[userId, createdAt desc]`, `polarOrderId`
+- **Fields**: See `FirestoreDonation` interface
+
+```typescript
+{
+  id: string;                   // Document ID
+  userId: string;               // Buyer's Firebase Auth UID
+  polarOrderId: string;         // Polar.sh order ID from webhook payload
+  polarProductId: string;       // Polar.sh product ID
+  amount: number;               // Donation amount in USD (2 | 5 | 10)
+  currency: string;             // "usd"
+  status: "pending" | "completed" | "refunded";
+  quotaUploadsGranted: number;  // Extra uploads granted (valid 30 days)
+  quotaSecondsPerUpload: number;// Max seconds per upload for this tier
+  expiresAt: Timestamp;         // createdAt + 30 days
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+```
+
+**Polar.sh Webhook Flow:**
+1. User clicks "Donate" → redirect to `https://polar.sh/robby570/products/{productId}`
+2. Polar processes payment and fires `order.paid` webhook to backend endpoint
+3. Backend verifies Polar webhook signature, extracts `userId` from order metadata
+4. Backend writes `donations/{id}` with `status: "completed"`
+5. Backend upserts `user_quota/{userId}` with new bonus limits
+
+### user_quota
+
+Aggregated AI-usage quota for each user. Combines the free daily allowance with any active paid donation bonus. Written by Cloud Functions after donation confirmation; read by the frontend when the AI Audio Recognition dialog opens.
+
+- **Document ID**: `{userId}` (Firebase Auth UID)
+- **Write Access**: Cloud Functions only
+- **Fields**: See `FirestoreUserQuota` interface
+
+```typescript
+{
+  userId: string;                   // Firebase Auth UID
+  bonusUploadsRemaining: number;    // Remaining uploads from donation (0 = free tier only)
+  bonusSecondsPerUpload: number;    // Max seconds/upload from donation (falls back to 30 s free limit)
+  lastDonationId: string | null;    // Most recent donation document ID
+  expiresAt: Timestamp | null;      // null = no active paid quota
+  updatedAt: Timestamp;
+}
+```
+
+**Quota resolution logic (frontend):**
+```
+effectiveSecondsPerUpload = (quota.bonusUploadsRemaining > 0 && !isExpired(quota.expiresAt))
+  ? quota.bonusSecondsPerUpload
+  : FREE_SECONDS_PER_UPLOAD  // 30 s constant in audio_stem_extractor.tsx
+```
+
 ## 5. Features
 
 ### User Creations

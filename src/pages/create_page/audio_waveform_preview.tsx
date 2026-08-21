@@ -28,6 +28,21 @@ export function AudioWaveformPreview({
   const [waveformData, setWaveformData] = useState<number[]>([]);
   const objectUrlRef = useRef<string | null>(null);
 
+  // Drag state
+  const [dragState, setDragState] = useState<{
+    isDragging: boolean;
+    mode: "start" | "end" | "pan" | null;
+    initialX: number;
+    initialStart: number;
+    initialEnd: number;
+  }>({
+    isDragging: false,
+    mode: null,
+    initialX: 0,
+    initialStart: 0,
+    initialEnd: 0,
+  });
+
   // Decode audio to get waveform data
   useEffect(
     function decodeAudioForWaveform() {
@@ -227,7 +242,7 @@ export function AudioWaveformPreview({
     [isPlaying, startTime, endTime],
   );
 
-  function handleCanvasClick(e: React.MouseEvent<HTMLCanvasElement>) {
+  function handleMouseDown(e: React.MouseEvent<HTMLCanvasElement>) {
     const canvas = canvasRef.current;
     if (!canvas) {
       return;
@@ -235,13 +250,100 @@ export function AudioWaveformPreview({
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const timeSec = (x / rect.width) * durationSec;
-    const rounded = Math.round(timeSec * 10) / 10;
 
-    // If closer to start boundary, move start; otherwise move end
-    if (Math.abs(rounded - startTime) < Math.abs(rounded - endTime)) {
-      onStartTimeChange(Math.max(0, Math.min(rounded, endTime - 0.1)));
+    const BOUNDARY_THRESHOLD = 10; // pixels
+    const startPx = (startTime / durationSec) * rect.width;
+    const endPx = (endTime / durationSec) * rect.width;
+
+    // Determine drag mode based on click position
+    let mode: "start" | "end" | "pan";
+    if (Math.abs(x - startPx) < BOUNDARY_THRESHOLD) {
+      mode = "start";
+    } else if (Math.abs(x - endPx) < BOUNDARY_THRESHOLD) {
+      mode = "end";
+    } else if (x >= startPx && x <= endPx) {
+      mode = "pan";
     } else {
-      onEndTimeChange(Math.max(startTime + 0.1, Math.min(rounded, durationSec)));
+      // Click outside selection - adjust nearest boundary
+      if (Math.abs(timeSec - startTime) < Math.abs(timeSec - endTime)) {
+        mode = "start";
+        const rounded = Math.round(timeSec * 10) / 10;
+        onStartTimeChange(Math.max(0, Math.min(rounded, endTime - 0.1)));
+      } else {
+        mode = "end";
+        const rounded = Math.round(timeSec * 10) / 10;
+        onEndTimeChange(Math.max(startTime + 0.1, Math.min(rounded, durationSec)));
+      }
+      return;
+    }
+
+    setDragState({
+      isDragging: true,
+      mode,
+      initialX: x,
+      initialStart: startTime,
+      initialEnd: endTime,
+    });
+  }
+
+  function handleMouseMove(e: React.MouseEvent<HTMLCanvasElement>) {
+    if (!dragState.isDragging || !dragState.mode) {
+      return;
+    }
+
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      return;
+    }
+
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const deltaX = x - dragState.initialX;
+    const deltaSec = (deltaX / rect.width) * durationSec;
+
+    if (dragState.mode === "start") {
+      const newStart = dragState.initialStart + deltaSec;
+      const rounded = Math.round(newStart * 10) / 10;
+      onStartTimeChange(Math.max(0, Math.min(rounded, dragState.initialEnd - 0.1)));
+    } else if (dragState.mode === "end") {
+      const newEnd = dragState.initialEnd + deltaSec;
+      const rounded = Math.round(newEnd * 10) / 10;
+      onEndTimeChange(Math.max(dragState.initialStart + 0.1, Math.min(rounded, durationSec)));
+    } else if (dragState.mode === "pan") {
+      // Pan: move both start and end by the same delta
+      const duration = dragState.initialEnd - dragState.initialStart;
+      let newStart = dragState.initialStart + deltaSec;
+      let newEnd = dragState.initialEnd + deltaSec;
+
+      // Clamp to valid range
+      if (newStart < 0) {
+        newStart = 0;
+        newEnd = duration;
+      } else if (newEnd > durationSec) {
+        newEnd = durationSec;
+        newStart = durationSec - duration;
+      }
+
+      const roundedStart = Math.round(newStart * 10) / 10;
+      const roundedEnd = Math.round(newEnd * 10) / 10;
+      onStartTimeChange(roundedStart);
+      onEndTimeChange(roundedEnd);
+    }
+  }
+
+  function handleMouseUp() {
+    setDragState({
+      isDragging: false,
+      mode: null,
+      initialX: 0,
+      initialStart: 0,
+      initialEnd: 0,
+    });
+  }
+
+  function handleMouseLeave() {
+    if (dragState.isDragging) {
+      handleMouseUp();
     }
   }
 
@@ -258,7 +360,10 @@ export function AudioWaveformPreview({
         <canvas
           ref={canvasRef}
           className="h-20 w-full cursor-crosshair"
-          onClick={handleCanvasClick}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
         />
         {/* Time labels */}
         <div className="mt-1 flex items-center justify-between text-[10px] text-gray-400 dark:text-gray-500">

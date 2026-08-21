@@ -1,10 +1,29 @@
 import { useTranslation } from "react-i18next";
-import { FaHeart, FaGithub, FaCheck } from "react-icons/fa";
+import { FaHeart, FaCheck, FaBolt } from "react-icons/fa";
+
+/**
+ * Polar.sh product checkout URLs.
+ * TODO: Replace placeholder IDs with actual Polar.sh product IDs from
+ *       https://polar.sh/dashboard/robby570 after creating products there.
+ *
+ * Expected URL format:  https://polar.sh/robby570/products/{productId}
+ * Or via Polar embed:   https://polar.sh/embed/buy.js
+ */
+const POLAR_CHECKOUT_URLS: Record<number, string> = {
+  2: "https://polar.sh/robby570/products/TODO_PRODUCT_ID_USD2",
+  5: "https://polar.sh/robby570/products/TODO_PRODUCT_ID_USD5",
+  10: "https://polar.sh/robby570/products/TODO_PRODUCT_ID_USD10",
+};
 
 interface DonationTier {
   amount: number;
+  /** Number of file uploads granted within the 30-day validity window. */
   uploads: number;
-  seconds: number;
+  /**
+   * Maximum audio duration (seconds) per upload for this tier.
+   * Free tier default is 30 s. Paid donors unlock longer limits.
+   */
+  secondsPerUpload: number;
   popular?: boolean;
 }
 
@@ -12,26 +31,33 @@ const TIERS: DonationTier[] = [
   {
     amount: 2,
     uploads: 50,
-    seconds: 90,
+    secondsPerUpload: 90,
   },
   {
     amount: 5,
     uploads: 150,
-    seconds: 180,
+    secondsPerUpload: 180,
     popular: true,
   },
   {
     amount: 10,
     uploads: 300,
-    seconds: 300,
+    secondsPerUpload: 300,
   },
 ];
 
-export function PricingPage() {
+export function DonatePage() {
   const { t } = useTranslation();
 
+  function handleDonate(amount: number) {
+    const url = POLAR_CHECKOUT_URLS[amount];
+    if (url && !url.includes("TODO_PRODUCT_ID")) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  }
+
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
+    <div className="mx-auto max-w-5xl px-4 py-12">
       {/* Header */}
       <div className="mb-10 text-center">
         <div className="mb-4 flex justify-center">
@@ -43,7 +69,7 @@ export function PricingPage() {
         <p className="mx-auto max-w-2xl text-gray-500 dark:text-gray-400">
           {t("donate.subtitle", {
             defaultValue:
-              "RTTTL Hub is free and open source. If you find it useful, consider supporting us to cover AI computing costs and get additional AI audio recognition credits.",
+              "RTTTL Hub is free and open source. This is a one-time donation — not a subscription. Your support helps cover AI computing costs, and in return you'll receive AI audio recognition credits valid for 30 days.",
           })}
         </p>
       </div>
@@ -86,8 +112,8 @@ export function PricingPage() {
                 <FaCheck size={14} className="mt-0.5 shrink-0 text-rose-500" />
                 <span className="text-sm text-gray-600 dark:text-gray-300">
                   {t("donate.seconds", {
-                    defaultValue: "{{count}} seconds of AI analysis",
-                    count: tier.seconds,
+                    defaultValue: "Up to {{count}} seconds per upload",
+                    count: tier.secondsPerUpload,
                   })}
                 </span>
               </div>
@@ -95,7 +121,7 @@ export function PricingPage() {
                 <FaCheck size={14} className="mt-0.5 shrink-0 text-rose-500" />
                 <span className="text-sm text-gray-600 dark:text-gray-300">
                   {t("donate.validity", {
-                    defaultValue: "Valid for 30 days from donation",
+                    defaultValue: "30-day benefit — no renewal, no recurring charge",
                   })}
                 </span>
               </div>
@@ -111,55 +137,36 @@ export function PricingPage() {
 
             <button
               type="button"
-              disabled
-              className={`w-full rounded-lg py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${
+              onClick={() => handleDonate(tier.amount)}
+              className={`flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold transition-colors ${
                 tier.popular
                   ? "bg-rose-500 text-white hover:bg-rose-600"
                   : "border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
               }`}
             >
-              {t("donate.cta", { defaultValue: "Donate ${amount}", amount: tier.amount })}
+              <FaHeart size={12} />
+              {t("donate.cta", { defaultValue: "Donate ${{amount}}", amount: tier.amount })}
             </button>
           </div>
         ))}
       </div>
 
       {/* Free tier reminder */}
-      <div className="mb-10 rounded-xl border border-indigo-200 bg-indigo-50 p-6 dark:border-indigo-800 dark:bg-indigo-950/30">
-        <h3 className="mb-2 text-lg font-semibold text-indigo-900 dark:text-indigo-100">
-          {t("donate.freeTitle", { defaultValue: "Free tier available" })}
-        </h3>
-        <p className="text-sm text-indigo-700 dark:text-indigo-200">
-          {t("donate.freeDesc", {
-            defaultValue:
-              "Everyone gets 10 free AI audio recognition uploads per day (30 seconds max each). Donations are optional and help us cover cloud computing costs.",
-          })}
-        </p>
-      </div>
-
-      {/* Open source notice */}
-      <div className="rounded-xl border border-gray-200 bg-gray-50 p-6 text-center dark:border-gray-700 dark:bg-gray-900/50">
-        <div className="mb-3 flex justify-center">
-          <FaGithub size={28} className="text-gray-600 dark:text-gray-400" />
+      <div className="mb-8 rounded-xl border border-indigo-200 bg-indigo-50 p-6 dark:border-indigo-800 dark:bg-indigo-950/30">
+        <div className="flex items-start gap-3">
+          <FaBolt className="mt-0.5 shrink-0 text-indigo-500" size={18} />
+          <div>
+            <h3 className="mb-1 text-base font-semibold text-indigo-900 dark:text-indigo-100">
+              {t("donate.freeTitle", { defaultValue: "Free tier available" })}
+            </h3>
+            <p className="text-sm text-indigo-700 dark:text-indigo-200">
+              {t("donate.freeDesc", {
+                defaultValue:
+                  "Everyone gets 10 free AI audio recognition uploads per day (up to 30 seconds each). Donations are completely optional — they just unlock longer audio and more daily uploads for 30 days.",
+              })}
+            </p>
+          </div>
         </div>
-        <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-          {t("donate.ossTitle", { defaultValue: "100% Open Source" })}
-        </h3>
-        <p className="mx-auto max-w-xl text-sm text-gray-500 dark:text-gray-400">
-          {t("donate.ossDesc", {
-            defaultValue:
-              "All our code and AI models are open source. You can run everything on your own hardware for free, or use our cloud service for convenience.",
-          })}
-        </p>
-        <a
-          href="https://github.com/explooosion/rtttl-hub"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
-        >
-          <FaGithub size={14} />
-          {t("donate.viewSource", { defaultValue: "View on GitHub" })}
-        </a>
       </div>
     </div>
   );

@@ -221,6 +221,108 @@ export interface FirestoreAudioRecognition {
 }
 
 /**
+ * Collection: donations
+ * Document ID: auto-generated
+ *
+ * Stores Polar.sh payment records, written by the webhook handler
+ * (Cloud Function or backend endpoint) after a successful order.
+ *
+ * Flow:
+ *   1. User clicks "Donate" → redirected to Polar.sh checkout
+ *   2. Polar fires a webhook (order.created / order.paid)
+ *   3. Backend verifies signature, writes this document
+ *   4. Backend also updates user_quota for the buyer
+ *
+ * Index: userId (ascending) + createdAt (descending) — donor history
+ */
+export interface FirestoreDonation {
+  /** Document ID (auto-generated) */
+  id: string;
+
+  /** Buyer's Firebase Auth UID (matched via Polar metadata or email lookup) */
+  userId: string;
+
+  /** Polar.sh order ID from the webhook payload */
+  polarOrderId: string;
+
+  /** Polar.sh product ID that was purchased */
+  polarProductId: string;
+
+  /** Donation amount in USD (2 | 5 | 10) */
+  amount: number;
+
+  /** ISO 4217 currency code, e.g. "usd" */
+  currency: string;
+
+  /** Payment lifecycle status */
+  status: "pending" | "completed" | "refunded";
+
+  /** Number of extra file uploads granted (valid for 30 days) */
+  quotaUploadsGranted: number;
+
+  /**
+   * Maximum audio seconds allowed per single upload for this tier.
+   * This extends the default free-tier limit (30 s) for the quota window.
+   */
+  quotaSecondsPerUpload: number;
+
+  /** Timestamp when the quota expires (createdAt + 30 days) */
+  expiresAt: Timestamp;
+
+  /** When the Polar webhook was received */
+  createdAt: Timestamp;
+
+  /** Last status update timestamp */
+  updatedAt: Timestamp;
+}
+
+/**
+ * Collection: user_quota
+ * Document ID: {userId} (Firebase Auth UID)
+ *
+ * Aggregated AI-usage quota for a user, combining the free daily
+ * allowance with any active paid donation bonus.
+ *
+ * Written/updated by Cloud Functions after a donation is confirmed.
+ * Read by the frontend to enforce per-upload limits.
+ *
+ * NOTE: The free-tier daily limit (10 uploads / 30 s each) is enforced
+ *       separately in audio_recognitions; this collection only tracks
+ *       the *bonus* quota from donations.
+ */
+export interface FirestoreUserQuota {
+  /** Firebase Auth UID */
+  userId: string;
+
+  /**
+   * Remaining bonus uploads from an active donation.
+   * 0 means the user is on the free tier only.
+   */
+  bonusUploadsRemaining: number;
+
+  /**
+   * Max seconds per upload unlocked by the active donation.
+   * Falls back to FREE_DAILY_LIMIT_SECONDS (30) when no active donation.
+   */
+  bonusSecondsPerUpload: number;
+
+  /**
+   * ID of the most recent donation that set this quota.
+   * null when no donation has been made or all have expired.
+   */
+  lastDonationId: string | null;
+
+  /**
+   * When the bonus quota expires.
+   * null when there is no active paid quota.
+   */
+  expiresAt: Timestamp | null;
+
+  /** Last update timestamp */
+  updatedAt: Timestamp;
+}
+
+/**
  * Collection Names
  * Centralized collection name constants to avoid typos
  */
@@ -232,6 +334,8 @@ export const FIRESTORE_COLLECTIONS = {
   USER_TRACK_INTERACTIONS: "user_track_interactions",
   PENDING_STATS_UPDATES: "pending_stats_updates",
   AUDIO_RECOGNITIONS: "audio_recognitions",
+  DONATIONS: "donations",
+  USER_QUOTA: "user_quota",
 } as const;
 
 /**

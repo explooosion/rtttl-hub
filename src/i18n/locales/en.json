@@ -12,7 +12,7 @@
     "myCreations": "My Creations",
     "favorites": "Favorites",
     "home": "Home",
-    "pricing": "Pricing"
+    "donate": "Support RTTTL Hub"
   },
   "landing": {
     "hero": {
@@ -702,51 +702,19 @@
     "colStems": "Stems",
     "colDate": "Date"
   },
-  "pricing": {
-    "title": "Pricing",
-    "subtitle": "Choose a plan that fits your needs. Our AI audio recognition service provides cloud-based computing power for melody extraction.",
-    "wip": "This page is under construction (WIP). Pricing and plans are subject to change.",
-    "monthly": "Monthly",
-    "yearly": "Yearly",
-    "savePercent": "Save 20%",
-    "perMonth": " /mo",
-    "billedYearly": "Billed {{price}} / year",
+  "donate": {
+    "title": "Support RTTTL Hub",
+    "subtitle": "RTTTL Hub is free and open source. This is a one-time donation — not a subscription. Your support helps cover AI computing costs, and in return you'll receive AI audio recognition credits valid for 30 days.",
     "popular": "Most Popular",
-    "free": {
-      "name": "Free",
-      "desc": "Get started with basic audio recognition.",
-      "f1": "10 recognitions per day",
-      "f2": "Up to 10 seconds per analysis",
-      "f3": "All 4 stems (vocals, bass, drums, other)",
-      "f4": "Export to RTTTL format",
-      "f5": "Recognition history saved",
-      "cta": "Get Started"
-    },
-    "pro": {
-      "name": "Pro",
-      "desc": "For creators who need more power and flexibility.",
-      "f1": "100 recognitions per day",
-      "f2": "Up to 60 seconds per analysis",
-      "f3": "Priority processing queue",
-      "f4": "Advanced stem separation",
-      "f5": "Batch processing support",
-      "f6": "All Free features included",
-      "cta": "Upgrade to Pro"
-    },
-    "team": {
-      "name": "Team",
-      "desc": "For teams and professional studios.",
-      "f1": "Unlimited recognitions",
-      "f2": "Up to 300 seconds per analysis",
-      "f3": "Fastest processing priority",
-      "f4": "API access",
-      "f5": "Team member management",
-      "f6": "Dedicated support",
-      "f7": "All Pro features included",
-      "cta": "Contact Sales"
-    },
-    "ossTitle": "Open Source Models",
-    "ossDesc": "Our audio recognition models are fully open source. Paid plans provide cloud computing power so you don't need to run models locally. You can also run them on your own hardware for free.",
+    "uploads": "{{count}} file uploads within 30 days",
+    "seconds": "Up to {{count}} seconds per upload",
+    "validity": "30-day benefit — no renewal, no recurring charge",
+    "support": "Support open source development",
+    "cta": "Donate ${{amount}}",
+    "freeTitle": "Free tier available",
+    "freeDesc": "Everyone gets 10 free AI audio recognition uploads per day (up to 30 seconds each). Donations are completely optional — they just unlock longer audio and more daily uploads for 30 days.",
+    "ossTitle": "100% Open Source",
+    "ossDesc": "All our platform code is open source. The AI models powering audio recognition are privately trained and hosted. You can run the RTTTL Hub platform itself on your own hardware for free.",
     "viewSource": "View on GitHub"
   }
 }

@@ -11,7 +11,8 @@
     "collections": "Collections",
     "myCreations": "My Creations",
     "favorites": "Favorites",
-    "home": "Home"
+    "home": "Home",
+    "donate": "Podpořit RTTTL Hub"
   },
   "landing": {
     "hero": {
@@ -690,5 +691,20 @@
     "readError": "Nepodařilo se přečíst metadata zvukového souboru.",
     "analyzeError": "Analýza selhala. Zkuste to prosím znovu.",
     "accessDenied": "Tato funkce je momentálně dostupná pouze pro autorizované uživatele."
+  },
+  "donate": {
+    "title": "Podpořte RTTTL Hub",
+    "subtitle": "RTTTL Hub je zdarma a open source. Jde o jednorázový příspěvek, nikoli o předplatné. Vaše podpora pomáhá pokrýt náklady na AI výpočty a na oplátku obdržíte AI kredity pro rozpoznávání zvuku platné 30 dní.",
+    "popular": "Nejoblíbenější",
+    "uploads": "{{count}} nahrání souborů během 30 dnů",
+    "seconds": "Až {{count}} sekund na nahrání",
+    "validity": "30denní výhoda — bez obnovení, bez opakovaných poplatků",
+    "support": "Podpořte open source vývoj",
+    "cta": "Přispět ${{amount}}",
+    "freeTitle": "Dostupný bezplatný tarif",
+    "freeDesc": "Každý získá denně 10 bezplatných AI rozpoznávání zvuku (max. 30 sekund každé). Příspěvky jsou zcela volitelné — pouze odemknou delší zvuk a více denních nahrání po dobu 30 dní.",
+    "ossTitle": "100% Open Source",
+    "ossDesc": "Veškerý kód naší platformy je open source. AI modely pro rozpoznávání zvuku jsou trenóvány a hostovány soukromě. Samotnou platformu RTTTL Hub můžete zdarma provozovat na vlastním hardwaru.",
+    "viewSource": "Zobrazit na GitHub"
   }
 }

@@ -11,7 +11,8 @@
     "collections": "Sammlungen",
     "myCreations": "Meine Kreationen",
     "favorites": "Favoriten",
-    "home": "Startseite"
+    "home": "Startseite",
+    "donate": "RTTTL Hub unterstützen"
   },
   "landing": {
     "hero": {
@@ -680,5 +681,20 @@
     "readError": "Audiodatei-Metadaten konnten nicht gelesen werden.",
     "analyzeError": "Analyse fehlgeschlagen. Bitte versuchen Sie es erneut.",
     "accessDenied": "Diese Funktion steht derzeit nur autorisierten Benutzern zur Verfügung."
+  },
+  "donate": {
+    "title": "RTTTL Hub unterstützen",
+    "subtitle": "RTTTL Hub ist kostenlos und Open Source. Dies ist eine einmalige Spende – kein Abonnement. Ihre Unterstützung hilft, die KI-Rechenkosten zu decken, und als Gegenleistung erhalten Sie 30 Tage gültige KI-Audioerkennungsguthaben.",
+    "popular": "Am beliebtesten",
+    "uploads": "{{count}} Datei-Uploads innerhalb von 30 Tagen",
+    "seconds": "Bis zu {{count}} Sekunden pro Upload",
+    "validity": "30-Tage-Vorteil — keine Verlängerung, keine Folgekosten",
+    "support": "Open-Source-Entwicklung unterstützen",
+    "cta": "${{amount}} spenden",
+    "freeTitle": "Kostenloses Kontingent verfügbar",
+    "freeDesc": "Jeder erhält täglich 10 kostenlose KI-Audioerkennungs-Uploads (jeweils max. 30 Sekunden). Spenden sind völlig optional – sie ermöglichen lediglich längere Audiodateien und mehr tägliche Uploads für 30 Tage.",
+    "ossTitle": "100% Open Source",
+    "ossDesc": "Unser gesamter Plattform-Code ist Open Source. Die KI-Modelle für die Audioerkennung werden privat trainiert und gehostet. Sie können die RTTTL Hub-Plattform selbst kostenlos auf Ihrer eigenen Hardware betreiben.",
+    "viewSource": "Auf GitHub ansehen"
   }
 }

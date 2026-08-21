@@ -11,7 +11,8 @@
     "collections": "Collections",
     "myCreations": "My Creations",
     "favorites": "Favorites",
-    "home": "Home"
+    "home": "Home",
+    "donate": "Wspomóż RTTTL Hub"
   },
   "landing": {
     "hero": {
@@ -690,5 +691,20 @@
     "readError": "Nie udało się odczytać metadanych pliku audio.",
     "analyzeError": "Analiza nie powiodła się. Spróbuj ponownie.",
     "accessDenied": "Ta funkcja jest obecnie dostępna tylko dla autoryzowanych użytkowników."
+  },
+  "donate": {
+    "title": "Wspomóż RTTTL Hub",
+    "subtitle": "RTTTL Hub jest darmowy i open source. To jednorazowa wpłata — nie subskrypcja. Twoje wsparcie pomaga pokryć koszty obliczeń AI, a w zamian otrzymasz kredyty rozpoznawania dźwięku AI ważne przez 30 dni.",
+    "popular": "Najpopularniejsze",
+    "uploads": "{{count}} przesłanych plików w ciągu 30 dni",
+    "seconds": "Do {{count}} sekund na przesłanie",
+    "validity": "Korzyść przez 30 dni — bez odnawiania, bez cyklicznych opłat",
+    "support": "Wspieraj rozwój open source",
+    "cta": "Wpłać ${{amount}}",
+    "freeTitle": "Dostępny darmowy plan",
+    "freeDesc": "Każdy otrzymuje 10 darmowych przesłań rozpoznawania dźwięku AI dziennie (maksymalnie 30 sekund każde). Wpłaty są całkowicie opcjonalne — odblokowują jedynie dłuższe audio i więcej dziennych przesłań przez 30 dni.",
+    "ossTitle": "100% Open Source",
+    "ossDesc": "Cały kod naszej platformy jest open source. Modele AI zasilające rozpoznawanie dźwięku są prywatnie trenowane i hostowane. Samą platformę RTTTL Hub możesz bezpłatnie uruchomić na własnym sprzęcie.",
+    "viewSource": "Zobacz na GitHub"
   }
 }

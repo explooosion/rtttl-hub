@@ -18,9 +18,9 @@ import { AudioWaveformPreview } from "./audio_waveform_preview";
 /**
  * Maximum analysis duration in seconds.
  * TODO: This will be configurable per subscription plan.
- * Free users: 10s. Paid plans TBD.
+ * Free users: 30s. Paid plans TBD.
  */
-export const MAX_ANALYSIS_DURATION_SEC = 10;
+export const MAX_ANALYSIS_DURATION_SEC = 30;
 
 /**
  * Maximum daily free usage count.
@@ -378,7 +378,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
         <Dialog open={open} onClose={handleClose} className="relative z-50">
           <div className="fixed inset-0 bg-black/25" aria-hidden="true" />
           <div className="fixed inset-0 flex items-center justify-center p-4">
-            <DialogPanel className="flex w-full max-w-lg flex-col rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+            <DialogPanel className="flex w-full max-w-3xl flex-col rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900">
               {/* Header */}
               <div className="flex items-center justify-between border-b border-gray-200 px-5 py-3.5 dark:border-gray-700">
                 <DialogTitle className="text-base font-semibold text-gray-900 dark:text-white">
@@ -386,7 +386,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                 </DialogTitle>
                 <div className="flex items-center gap-3">
                   {dailyUsed !== null && (
-                    <span className="text-[11px] text-gray-400 dark:text-gray-500">
+                    <span className="text-sm text-gray-400 dark:text-gray-500">
                       {t("audioExtract.usageCount", {
                         defaultValue: "{{used}}/{{limit}} uses today",
                         used: dailyUsed,
@@ -426,7 +426,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                     {t("audioExtract.selectAudio", { defaultValue: "Select Audio File" })}
                   </button>
 
-                  <p className="mt-3 text-center text-[11px] text-gray-400 dark:text-gray-500">
+                  <p className="mt-3 text-center text-sm text-gray-400 dark:text-gray-500">
                     MP3, WAV, OGG, FLAC, AAC ·{" "}
                     {t("audioExtract.maxDuration", {
                       defaultValue: "Max analysis duration: {{seconds}}s",
@@ -513,7 +513,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                       />
                     </div>
                     {endTime - startTime > MAX_ANALYSIS_DURATION_SEC && (
-                      <p className="mt-1.5 text-[11px] text-red-500">
+                      <p className="mt-1.5 text-sm text-red-500">
                         {t("audioExtract.durationExceeded", {
                           defaultValue: "The selected time range exceeds the {{max}} second limit.",
                           max: MAX_ANALYSIS_DURATION_SEC,
@@ -576,7 +576,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                         "AI is analyzing audio and extracting melody (this may take 1-2 minutes)…",
                     })}
                   </p>
-                  <p className="text-xs text-gray-400 dark:text-gray-500">
+                  <p className="text-sm text-gray-400 dark:text-gray-500">
                     {t("audioExtract.processingStatus", {
                       defaultValue: "Status: {{status}}",
                       status: processingStatus,
@@ -588,7 +588,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
               {/* Review State */}
               {state === "review" && result && (
                 <div className="max-h-[70vh] overflow-y-auto px-5 py-4">
-                  <p className="mb-3 text-xs text-gray-500 dark:text-gray-400">
+                  <p className="mb-3 text-sm text-gray-500 dark:text-gray-400">
                     {t("audioExtract.resultSummary", {
                       defaultValue:
                         "Found {{count}} track(s). Select tracks to import into the editor.",

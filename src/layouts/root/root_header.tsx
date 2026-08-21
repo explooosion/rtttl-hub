@@ -34,7 +34,7 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
     location.pathname.startsWith("/collections") && !location.pathname.startsWith("/my-zone/");
   const isCreateActive = location.pathname === "/create";
   const isContributeActive = location.pathname === "/contribute";
-  const isPricingActive = location.pathname === "/pricing";
+  const isDonateActive = location.pathname === "/donate";
 
   // Global searchbar should only appear on homepage and /collections page
   const shouldShowGlobalSearch = location.pathname === "/" || location.pathname === "/collections";
@@ -89,15 +89,15 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
             {t("actions.contribute")}
           </Link>
           <Link
-            to="/pricing"
+            to="/donate"
             className={clsx(
-              "whitespace-nowrap text-sm font-medium transition-colors",
-              isPricingActive
-                ? "text-indigo-600 dark:text-indigo-400"
-                : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
+              "whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
+              isDonateActive
+                ? "bg-amber-600 text-white"
+                : "bg-amber-500 text-white hover:bg-amber-600",
             )}
           >
-            {t("nav.pricing", { defaultValue: "Pricing" })}
+            {t("nav.donate", { defaultValue: "Support RTTTL Hub" })}
           </Link>
           <Link
             to="/create"
