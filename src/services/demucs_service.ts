@@ -1,3 +1,6 @@
+import { httpsCallable } from "firebase/functions";
+
+import { functions } from "../lib/firebase";
 import { fileToBase64 } from "../utils/file_to_base64";
 
 export type StemType = "vocals" | "bass" | "drums" | "other";
@@ -27,13 +30,6 @@ export interface ExtractionResult {
   logs?: string;
 }
 
-// Use local proxy in development to avoid CORS issues
-// In production, this should be replaced with a serverless function
-const REPLICATE_API_BASE =
-  import.meta.env.MODE === "development" ? "/api/replicate" : "https://api.replicate.com/v1";
-
-const DEPLOYMENT_OWNER = "explooosion";
-const DEPLOYMENT_NAME = "rtttl-hub-ai";
 const POLL_INTERVAL_MS = 2000;
 
 interface ReplicatePrediction {
@@ -56,58 +52,32 @@ interface ReplicatePrediction {
   logs: string;
 }
 
-function getApiToken(): string {
-  const token = import.meta.env.VITE_REPLICATE_API_TOKEN as string | undefined;
-  if (!token) {
-    throw new Error("VITE_REPLICATE_API_TOKEN is not set. Add it to your .env file.");
-  }
-  return token;
-}
+const createPredictionFn = httpsCallable<
+  { audioDataUri: string; startTime: number; endTime: number; stems: string },
+  ReplicatePrediction
+>(functions, "replicateCreatePrediction");
+
+const getPredictionFn = httpsCallable<{ id: string }, ReplicatePrediction>(
+  functions,
+  "replicateGetPrediction",
+);
 
 async function createPrediction(
   audioDataUri: string,
   options: ExtractionOptions,
 ): Promise<ReplicatePrediction> {
-  const token = getApiToken();
-  const endpoint = `${REPLICATE_API_BASE}/deployments/${DEPLOYMENT_OWNER}/${DEPLOYMENT_NAME}/predictions`;
-
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-      Prefer: "respond-async",
-    },
-    body: JSON.stringify({
-      input: {
-        audio: audioDataUri,
-        start_time: options.startTime,
-        end_time: options.endTime,
-        stems: options.stems.join(","),
-      },
-    }),
+  const result = await createPredictionFn({
+    audioDataUri,
+    startTime: options.startTime,
+    endTime: options.endTime,
+    stems: options.stems.join(","),
   });
-
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`Replicate API error (${response.status}): ${body}`);
-  }
-
-  return response.json() as Promise<ReplicatePrediction>;
+  return result.data;
 }
 
 async function getPrediction(id: string): Promise<ReplicatePrediction> {
-  const token = getApiToken();
-  const response = await fetch(`${REPLICATE_API_BASE}/predictions/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`Replicate API error (${response.status}): ${body}`);
-  }
-
-  return response.json() as Promise<ReplicatePrediction>;
+  const result = await getPredictionFn({ id });
+  return result.data;
 }
 
 /**
