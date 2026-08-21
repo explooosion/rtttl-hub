@@ -687,6 +687,7 @@
     "invalidType": "Vyberte prosím platný zvukový soubor (MP3, WAV, OGG, FLAC, AAC).",
     "fileTooLarge": "Velikost souboru překračuje limit {{max}} MB.",
     "readError": "Nepodařilo se přečíst metadata zvukového souboru.",
-    "analyzeError": "Analýza selhala. Zkuste to prosím znovu."
+    "analyzeError": "Analýza selhala. Zkuste to prosím znovu.",
+    "accessDenied": "Tato funkce je momentálně dostupná pouze pro autorizované uživatele."
   }
 }

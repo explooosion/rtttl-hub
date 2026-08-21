@@ -678,6 +678,7 @@
     "invalidType": "有効な音声ファイルを選択してください（MP3、WAV、OGG、FLAC、AAC）。",
     "fileTooLarge": "ファイルサイズが {{max}} MB の制限を超えています。",
     "readError": "音声ファイルのメタデータを読み取れませんでした。",
-    "analyzeError": "分析に失敗しました。もう一度お試しください。"
+    "analyzeError": "分析に失敗しました。もう一度お試しください。",
+    "accessDenied": "この機能は現在、認可されたユーザーのみご利用いただけます。"
   }
 }

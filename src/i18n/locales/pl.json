@@ -687,6 +687,7 @@
     "invalidType": "Wybierz prawidłowy plik audio (MP3, WAV, OGG, FLAC, AAC).",
     "fileTooLarge": "Rozmiar pliku przekracza limit {{max}} MB.",
     "readError": "Nie udało się odczytać metadanych pliku audio.",
-    "analyzeError": "Analiza nie powiodła się. Spróbuj ponownie."
+    "analyzeError": "Analiza nie powiodła się. Spróbuj ponownie.",
+    "accessDenied": "Ta funkcja jest obecnie dostępna tylko dla autoryzowanych użytkowników."
   }
 }

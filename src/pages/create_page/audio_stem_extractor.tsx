@@ -6,6 +6,10 @@ import toast from "react-hot-toast";
 
 import type { StemType, ExtractionResult, TrackResult } from "../../services/audio_extract_service";
 import { extractMelody, ALL_STEMS } from "../../services/audio_extract_service";
+import { useAuthStore } from "../../stores/auth_store";
+
+// Temporarily restrict feature to this UID only
+const ALLOWED_UID = "qWbxM5ugnXPaIxhtsXy5Jfk51uD2";
 
 type ExtractorState = "idle" | "configure" | "processing" | "review";
 
@@ -74,6 +78,7 @@ const STEM_LABELS: Record<StemType, string> = {
 export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStemExtractorProps>(
   function AudioStemExtractor({ onImport }, ref) {
     const { t } = useTranslation();
+    const user = useAuthStore((s) => s.user);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const [open, setOpen] = useState(false);
@@ -110,6 +115,14 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
 
     useImperativeHandle(ref, () => ({
       trigger() {
+        if (user?.uid !== ALLOWED_UID) {
+          toast.error(
+            t("audioExtract.accessDenied", {
+              defaultValue: "This feature is currently only available to authorized users.",
+            }),
+          );
+          return;
+        }
         fileInputRef.current?.click();
       },
     }));

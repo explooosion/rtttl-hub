@@ -685,6 +685,7 @@
     "invalidType": "請選擇有效的音訊檔案（MP3、WAV、OGG、FLAC、AAC）。",
     "fileTooLarge": "檔案大小超過 {{max}} MB 限制。",
     "readError": "無法讀取音訊檔案元資料。",
-    "analyzeError": "分析失敗，請重試。"
+    "analyzeError": "分析失敗，請重試。",
+    "accessDenied": "此功能目前僅開放給授權用戶使用。"
   }
 }

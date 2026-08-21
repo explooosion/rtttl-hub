@@ -685,6 +685,7 @@
     "invalidType": "请选择有效的音频文件（MP3、WAV、OGG、FLAC、AAC）。",
     "fileTooLarge": "文件大小超过 {{max}} MB 限制。",
     "readError": "无法读取音频文件元数据。",
-    "analyzeError": "分析失败，请重试。"
+    "analyzeError": "分析失败，请重试。",
+    "accessDenied": "此功能目前仅对授权用户开放。"
   }
 }
