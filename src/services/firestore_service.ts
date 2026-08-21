@@ -6,6 +6,7 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
+  onSnapshot,
   query,
   where,
   Timestamp,
@@ -18,6 +19,7 @@ import type {
   FirestoreUser,
   FirestoreUserCreation,
   FirestoreUserFavorites,
+  FirestoreTransaction,
 } from "../types/firestore_schema";
 
 // Re-export types for convenience
@@ -55,6 +57,31 @@ export async function getUser(uid: string): Promise<FirestoreUser | null> {
 export async function deleteUser(uid: string): Promise<void> {
   const userRef = doc(db, FIRESTORE_COLLECTIONS.USERS, uid);
   await deleteDoc(userRef);
+}
+
+/**
+ * Watches a Polar transaction document by checkout ID.
+ *
+ * The Cloud Function (polarWebhook) is the authoritative writer of this document.
+ * Call this on the /payment page to poll for webhook confirmation instead of
+ * performing client-side Firestore writes.
+ *
+ * @param checkoutId   The Polar checkout session ID from the redirect URL.
+ * @param onStatus     Called with "success", "pending", or null (not yet written).
+ * @returns Unsubscribe function — call on component unmount.
+ */
+export function watchTransaction(
+  checkoutId: string,
+  onStatus: (status: FirestoreTransaction["status"] | null) => void,
+): () => void {
+  const txRef = doc(db, FIRESTORE_COLLECTIONS.TRANSACTIONS, checkoutId);
+  return onSnapshot(txRef, (snap) => {
+    if (!snap.exists()) {
+      onStatus(null);
+      return;
+    }
+    onStatus((snap.data() as FirestoreTransaction).status);
+  });
 }
 
 // Creation operations

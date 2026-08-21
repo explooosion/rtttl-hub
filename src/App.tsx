@@ -46,6 +46,9 @@ const AboutPage = lazy(() => import("./pages/about_page").then((m) => ({ default
 const DonatePage = lazy(() =>
   import("./pages/donate_page").then((m) => ({ default: m.DonatePage })),
 );
+const PaymentPage = lazy(() =>
+  import("./pages/payment_page").then((m) => ({ default: m.PaymentPage })),
+);
 
 /**
  * Module-level cache for the create-page chunk.
@@ -141,6 +144,7 @@ function App() {
               <Route path="/account/password" element={<PasswordPage />} />
               <Route path="/contribute" element={<ContributePage />} />
               <Route path="/donate" element={<DonatePage />} />
+              <Route path="/payment" element={<PaymentPage />} />
               <Route path="/about" element={<AboutPage />} />
             </Route>
           </Routes>

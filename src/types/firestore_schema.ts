@@ -30,6 +30,16 @@ export interface FirestoreUser {
   /** Custom uploaded avatar URL (Firebase Storage) */
   customPhotoURL: string | null;
 
+  /**
+   * Premium access expiry timestamp.
+   * null = never donated or all benefits expired.
+   * Accumulates: if still active, new donation adds 30 days to this value.
+   */
+  premium_until: Timestamp | null;
+
+  /** Lifetime total donated in USD (optional, for display). */
+  total_donated: number;
+
   /** Account creation timestamp */
   createdAt: Timestamp;
 
@@ -326,6 +336,31 @@ export interface FirestoreUserQuota {
  * Collection Names
  * Centralized collection name constants to avoid typos
  */
+/**
+ * Collection: transactions
+ * Document ID: {checkoutId} (Polar checkout ID — idempotent key)
+ *
+ * Lightweight audit trail written client-side on the /payment success page.
+ * NOTE: For production hardening, a Polar webhook should be the authoritative
+ * writer; client-side writes serve as a best-effort fallback.
+ */
+export interface FirestoreTransaction {
+  /** Polar checkout ID (used as document ID for idempotency) */
+  checkout_id: string;
+
+  /** Buyer's Firebase Auth UID */
+  uid: string;
+
+  /** Donation amount in USD (2 | 5 | 10), null if not derivable from URL */
+  amount: number | null;
+
+  /** Payment status */
+  status: "success" | "pending";
+
+  /** Record creation timestamp */
+  created_at: Timestamp;
+}
+
 export const FIRESTORE_COLLECTIONS = {
   USERS: "users",
   USER_CREATIONS: "user_creations",
@@ -336,6 +371,7 @@ export const FIRESTORE_COLLECTIONS = {
   AUDIO_RECOGNITIONS: "audio_recognitions",
   DONATIONS: "donations",
   USER_QUOTA: "user_quota",
+  TRANSACTIONS: "transactions",
 } as const;
 
 /**

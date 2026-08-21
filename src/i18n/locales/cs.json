@@ -705,6 +705,22 @@
     "freeDesc": "Každý získá denně 10 bezplatných AI rozpoznávání zvuku (max. 30 sekund každé). Příspěvky jsou zcela volitelné — pouze odemknou delší zvuk a více denních nahrání po dobu 30 dní.",
     "ossTitle": "100% Open Source",
     "ossDesc": "Veškerý kód naší platformy je open source. AI modely pro rozpoznávání zvuku jsou trenóvány a hostovány soukromě. Samotnou platformu RTTTL Hub můžete zdarma provozovat na vlastním hardwaru.",
-    "viewSource": "Zobrazit na GitHub"
+    "viewSource": "Zobrazit na GitHub",
+    "loginRequired": "Pro přispění se prosím přihlaste.",
+    "loginBtn": "Přihlásit se"
+  },
+  "payment": {
+    "title": "Platba úspěšná!",
+    "premiumUnlocked": "Prémiové funkce na 30 dní odemčeny!",
+    "thankyou": "Děkujeme za podporu RTTTL Hub. Váš prémiový přístup je nyní aktivní.",
+    "startCreating": "Začít tvořit",
+    "processing": "Zpracovávám platbu...",
+    "error": "Něco se pokazilo",
+    "errorDesc": "Platbu se nepodařilo ověřit. Kontaktujte podporu nebo to zkuste znovu.",
+    "back": "Zpět na příspěvky",
+    "checkoutId": "ID objednávky: {{id}}",
+    "pending": "Platba se ověřuje...",
+    "pendingDesc": "Vaše platba byla přijata. Aktivace prémiového přístupu může trvat několik minut. Tuto stránku můžete bezpečně zavřít — vaše výhody budou použity automaticky. Vraťte se později nebo obnovte stránku.",
+    "refresh": "Obnovit"
   }
 }

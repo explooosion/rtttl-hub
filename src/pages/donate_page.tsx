@@ -1,19 +1,20 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FaHeart, FaCheck, FaBolt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { FaHeart, FaCheck, FaBolt, FaLock, FaSpinner } from "react-icons/fa";
+import { httpsCallable } from "firebase/functions";
+
+import { functions } from "../lib/firebase";
+import { useAuthStore } from "../stores/auth_store";
 
 /**
- * Polar.sh product checkout URLs.
- * TODO: Replace placeholder IDs with actual Polar.sh product IDs from
- *       https://polar.sh/dashboard/robby570 after creating products there.
- *
- * Expected URL format:  https://polar.sh/robby570/products/{productId}
- * Or via Polar embed:   https://polar.sh/embed/buy.js
+ * Cloud Function that creates a Polar Checkout Session server-side,
+ * embedding the uid in metadata (not visible to the user).
  */
-const POLAR_CHECKOUT_URLS: Record<number, string> = {
-  2: "https://polar.sh/robby570/products/TODO_PRODUCT_ID_USD2",
-  5: "https://polar.sh/robby570/products/TODO_PRODUCT_ID_USD5",
-  10: "https://polar.sh/robby570/products/TODO_PRODUCT_ID_USD10",
-};
+const createCheckout = httpsCallable<{ amount: number }, { url: string }>(
+  functions,
+  "polarCreateCheckout",
+);
 
 interface DonationTier {
   amount: number;
@@ -29,7 +30,7 @@ interface DonationTier {
 
 const TIERS: DonationTier[] = [
   {
-    amount: 2,
+    amount: 3,
     uploads: 50,
     secondsPerUpload: 90,
   },
@@ -48,11 +49,24 @@ const TIERS: DonationTier[] = [
 
 export function DonatePage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
+  const [loadingAmount, setLoadingAmount] = useState<number | null>(null);
 
-  function handleDonate(amount: number) {
-    const url = POLAR_CHECKOUT_URLS[amount];
-    if (url && !url.includes("TODO_PRODUCT_ID")) {
-      window.open(url, "_blank", "noopener,noreferrer");
+  async function handleDonate(amount: number) {
+    if (!user) {
+      navigate("/login?redirect=/donate");
+      return;
+    }
+
+    setLoadingAmount(amount);
+    try {
+      const result = await createCheckout({ amount });
+      window.open(result.data.url, "_self");
+    } catch (err) {
+      console.error("Failed to create checkout session:", err);
+    } finally {
+      setLoadingAmount(null);
     }
   }
 
@@ -73,6 +87,25 @@ export function DonatePage() {
           })}
         </p>
       </div>
+
+      {/* Login required notice for unauthenticated users */}
+      {!user && (
+        <div className="mb-8 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-700 dark:bg-amber-950/30">
+          <FaLock className="mt-0.5 shrink-0 text-amber-500" size={16} />
+          <div className="flex-1">
+            <p className="text-sm text-amber-800 dark:text-amber-200">
+              {t("donate.loginRequired")}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate("/login?redirect=/donate")}
+            className="shrink-0 rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-600"
+          >
+            {t("donate.loginBtn")}
+          </button>
+        </div>
+      )}
 
       {/* Donation Tiers */}
       <div className="mb-10 grid gap-6 md:grid-cols-3">
@@ -137,14 +170,19 @@ export function DonatePage() {
 
             <button
               type="button"
-              onClick={() => handleDonate(tier.amount)}
-              className={`flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold transition-colors ${
+              onClick={() => void handleDonate(tier.amount)}
+              disabled={loadingAmount !== null}
+              className={`flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-semibold transition-colors disabled:opacity-60 ${
                 tier.popular
                   ? "bg-rose-500 text-white hover:bg-rose-600"
                   : "border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
               }`}
             >
-              <FaHeart size={12} />
+              {loadingAmount === tier.amount ? (
+                <FaSpinner size={12} className="animate-spin" />
+              ) : (
+                <FaHeart size={12} />
+              )}
               {t("donate.cta", { defaultValue: "Donate ${{amount}}", amount: tier.amount })}
             </button>
           </div>

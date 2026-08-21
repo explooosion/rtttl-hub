@@ -715,6 +715,22 @@
     "freeDesc": "Everyone gets 10 free AI audio recognition uploads per day (up to 30 seconds each). Donations are completely optional — they just unlock longer audio and more daily uploads for 30 days.",
     "ossTitle": "100% Open Source",
     "ossDesc": "All our platform code is open source. The AI models powering audio recognition are privately trained and hosted. You can run the RTTTL Hub platform itself on your own hardware for free.",
-    "viewSource": "View on GitHub"
+    "viewSource": "View on GitHub",
+    "loginRequired": "Please log in to make a donation.",
+    "loginBtn": "Log In"
+  },
+  "payment": {
+    "title": "Payment Successful!",
+    "premiumUnlocked": "30-day premium features unlocked!",
+    "thankyou": "Thank you for supporting RTTTL Hub. Your premium access is now active.",
+    "startCreating": "Start Creating Now",
+    "processing": "Processing your payment...",
+    "error": "Something went wrong",
+    "errorDesc": "We could not verify your payment. Please contact support or try again.",
+    "back": "Back to Donate",
+    "checkoutId": "Checkout ID: {{id}}",
+    "pending": "Payment is being verified...",
+    "pendingDesc": "Your payment was received. Premium activation can take up to a few minutes. You can safely close this page — your benefits will be applied automatically. Check back later or refresh.",
+    "refresh": "Refresh"
   }
 }

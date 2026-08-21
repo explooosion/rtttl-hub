@@ -723,6 +723,22 @@
     "freeDesc": "每個人每天都有 10 次免費 AI 音訊辨識上傳（每次最多 30 秒）。贊助完全自願，贊助後可解鎖更長的音訊時長與更多每日上傳次數，福利有效期 30 天。",
     "ossTitle": "100% 開源",
     "ossDesc": "RTTTL Hub 平台程式碼完全開源，您可以免費在自己的硬體上自行架設。音訊辨識所使用的 AI 模型為私人訓練與託管，非開源項目。",
-    "viewSource": "在 GitHub 上查看"
+    "viewSource": "在 GitHub 上查看",
+    "loginRequired": "請先登入以進行贊助。",
+    "loginBtn": "登入"
+  },
+  "payment": {
+    "title": "付款成功！",
+    "premiumUnlocked": "30 天高級功能已解鎖！",
+    "thankyou": "感謝您支持 RTTTL Hub，您的高級存取權限現已啟用。",
+    "startCreating": "立即開始創作",
+    "processing": "正在處理您的付款...",
+    "error": "發生錯誤",
+    "errorDesc": "我們無法驗證您的付款，請聯絡支援或再試一次。",
+    "back": "返回贊助頁面",
+    "checkoutId": "結帳 ID：{{id}}",
+    "pending": "付款正在驗證中…",
+    "pendingDesc": "您的付款已收到，高級功能啟用最多需要幾分鐘。您可以安心關閉此頁面，福利將自動套用。稍後再回來確認或重新整理頁面。",
+    "refresh": "重新整理"
   }
 }

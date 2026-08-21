@@ -705,6 +705,22 @@
     "freeDesc": "Każdy otrzymuje 10 darmowych przesłań rozpoznawania dźwięku AI dziennie (maksymalnie 30 sekund każde). Wpłaty są całkowicie opcjonalne — odblokowują jedynie dłuższe audio i więcej dziennych przesłań przez 30 dni.",
     "ossTitle": "100% Open Source",
     "ossDesc": "Cały kod naszej platformy jest open source. Modele AI zasilające rozpoznawanie dźwięku są prywatnie trenowane i hostowane. Samą platformę RTTTL Hub możesz bezpłatnie uruchomić na własnym sprzęcie.",
-    "viewSource": "Zobacz na GitHub"
+    "viewSource": "Zobacz na GitHub",
+    "loginRequired": "Zaloguj się, aby wesprzeć projekt.",
+    "loginBtn": "Zaloguj się"
+  },
+  "payment": {
+    "title": "Płatność zakończona sukcesem!",
+    "premiumUnlocked": "30-dniowe funkcje premium odblokowane!",
+    "thankyou": "Dziękujemy za wsparcie RTTTL Hub. Twój dostęp premium jest teraz aktywny.",
+    "startCreating": "Zacznij tworzyć",
+    "processing": "Przetwarzanie płatności...",
+    "error": "Coś poszło nie tak",
+    "errorDesc": "Nie udało się zweryfikować płatności. Skontaktuj się z pomocą techniczną lub spróbuj ponownie.",
+    "back": "Wróć do wpłat",
+    "checkoutId": "ID zamówienia: {{id}}",
+    "pending": "Weryfikacja płatności...",
+    "pendingDesc": "Twoja płatność została przyjęta. Aktywacja premium może potrwać kilka minut. Możesz bezpiecznie zamknąć tę stronę — korzyści zostaną zastosowane automatycznie. Wróć później lub odśwież stronę.",
+    "refresh": "Odśwież"
   }
 }

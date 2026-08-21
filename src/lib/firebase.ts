@@ -3,6 +3,7 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAnalytics } from "firebase/analytics";
+import { getFunctions } from "firebase/functions";
 
 // Note: Import connectAuthEmulator and connectStorageEmulator when needed
 // import { connectAuthEmulator } from "firebase/auth";
@@ -52,6 +53,9 @@ if (useEmulator && import.meta.env.DEV && location.hostname === "localhost") {
 
 // Initialize Analytics only in production
 export const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
+
+// Cloud Functions
+export const functions = getFunctions(app, "us-central1");
 
 // Google Auth Provider
 export const googleProvider = new GoogleAuthProvider();

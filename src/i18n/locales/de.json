@@ -695,6 +695,22 @@
     "freeDesc": "Jeder erhält täglich 10 kostenlose KI-Audioerkennungs-Uploads (jeweils max. 30 Sekunden). Spenden sind völlig optional – sie ermöglichen lediglich längere Audiodateien und mehr tägliche Uploads für 30 Tage.",
     "ossTitle": "100% Open Source",
     "ossDesc": "Unser gesamter Plattform-Code ist Open Source. Die KI-Modelle für die Audioerkennung werden privat trainiert und gehostet. Sie können die RTTTL Hub-Plattform selbst kostenlos auf Ihrer eigenen Hardware betreiben.",
-    "viewSource": "Auf GitHub ansehen"
+    "viewSource": "Auf GitHub ansehen",
+    "loginRequired": "Bitte melden Sie sich an, um zu spenden.",
+    "loginBtn": "Anmelden"
+  },
+  "payment": {
+    "title": "Zahlung erfolgreich!",
+    "premiumUnlocked": "30-Tage-Premium-Funktionen freigeschaltet!",
+    "thankyou": "Vielen Dank für Ihre Unterstützung von RTTTL Hub. Ihr Premium-Zugang ist jetzt aktiv.",
+    "startCreating": "Jetzt erstellen",
+    "processing": "Ihre Zahlung wird verarbeitet...",
+    "error": "Etwas ist schiefgelaufen",
+    "errorDesc": "Ihre Zahlung konnte nicht verifiziert werden. Bitte wenden Sie sich an den Support oder versuchen Sie es erneut.",
+    "back": "Zurück zur Spendenseite",
+    "checkoutId": "Checkout-ID: {{id}}",
+    "pending": "Zahlung wird verifiziert...",
+    "pendingDesc": "Ihre Zahlung wurde empfangen. Die Aktivierung des Premiums kann bis zu einige Minuten dauern. Sie können diese Seite sicher schließen – Ihre Vorteile werden automatisch angewendet. Schauen Sie später vorbei oder aktualisieren Sie die Seite.",
+    "refresh": "Aktualisieren"
   }
 }

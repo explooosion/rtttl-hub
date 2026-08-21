@@ -705,6 +705,22 @@
     "freeDesc": "Tout le monde bénéficie de 10 téléchargements gratuits de reconnaissance audio IA par jour (30 secondes max chacun). Les dons sont totalement facultatifs — ils débloquent simplement des audios plus longs et plus de téléchargements quotidiens pendant 30 jours.",
     "ossTitle": "100% Open Source",
     "ossDesc": "Tout notre code de plateforme est open source. Les modèles IA utilisés pour la reconnaissance audio sont entraînés et hébergés en privé. Vous pouvez exécuter gratuitement la plateforme RTTTL Hub elle-même sur votre propre matériel.",
-    "viewSource": "Voir sur GitHub"
+    "viewSource": "Voir sur GitHub",
+    "loginRequired": "Veuillez vous connecter pour faire un don.",
+    "loginBtn": "Se connecter"
+  },
+  "payment": {
+    "title": "Paiement réussi !",
+    "premiumUnlocked": "Fonctionnalités premium 30 jours débloquées !",
+    "thankyou": "Merci de soutenir RTTTL Hub. Votre accès premium est maintenant actif.",
+    "startCreating": "Commencer à créer",
+    "processing": "Traitement de votre paiement...",
+    "error": "Une erreur est survenue",
+    "errorDesc": "Nous n'avons pas pu vérifier votre paiement. Veuillez contacter le support ou réessayer.",
+    "back": "Retour aux dons",
+    "checkoutId": "ID de commande : {{id}}",
+    "pending": "Vérification du paiement...",
+    "pendingDesc": "Votre paiement a été reçu. L'activation premium peut prendre quelques minutes. Vous pouvez fermer cette page en toute sécurité — vos avantages seront appliqués automatiquement. Revenez plus tard ou actualisez la page.",
+    "refresh": "Actualiser"
   }
 }

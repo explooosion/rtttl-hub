@@ -110,3 +110,22 @@
 .animate-fade-in {
   animation: fade-in 0.15s ease-out both;
 }
+
+/* ── Confetti fall (payment success page) ────────────────────── */
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(720deg) scale(0.6);
+  }
+}
+
+.animate-confetti-fall {
+  animation: confetti-fall linear forwards;
+}

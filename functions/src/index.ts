@@ -1,0 +1,71 @@
+import * as admin from "firebase-admin";
+import { onRequest, onCall, HttpsError } from "firebase-functions/v2/https";
+import { defineSecret } from "firebase-functions/params";
+
+// Initialize Firebase Admin SDK once (shared across all functions)
+admin.initializeApp();
+
+const polarWebhookSecret = defineSecret("POLAR_WEBHOOK_SECRET");
+const polarAccessToken = defineSecret("POLAR_ACCESS_TOKEN");
+const polarProductId3 = defineSecret("POLAR_PRODUCT_ID_3");
+const polarProductId5 = defineSecret("POLAR_PRODUCT_ID_5");
+const polarProductId10 = defineSecret("POLAR_PRODUCT_ID_10");
+
+/**
+ * polarWebhook
+ *
+ * Receives Polar order.paid events, verifies the HMAC signature,
+ * then writes premium_until to Firestore via Admin SDK.
+ *
+ * Register in Polar Dashboard → Settings → Webhooks:
+ *   URL:    https://us-central1-rtttl-hub.cloudfunctions.net/polarWebhook
+ *   Events: order.paid
+ *   Secret: value of POLAR_WEBHOOK_SECRET
+ */
+export const polarWebhook = onRequest(
+  {
+    secrets: [polarWebhookSecret],
+    cors: false,
+    invoker: "public",
+    region: "us-central1",
+  },
+  async (req, res) => {
+    const { handlePolarWebhook } = await import("./polar_webhook");
+    await handlePolarWebhook(req, res);
+  },
+);
+
+/**
+ * polarCreateCheckout
+ *
+ * Called by the frontend (Firebase SDK onCall) to create a Polar Checkout
+ * Session with the uid securely embedded in metadata — users cannot see or
+ * tamper with it.
+ *
+ * Request body: { amount: 3 | 5 | 10 }
+ * Response:     { url: string }
+ *
+ * Requires the caller to be authenticated via Firebase Auth.
+ */
+export const polarCreateCheckout = onCall(
+  {
+    secrets: [polarAccessToken, polarProductId3, polarProductId5, polarProductId10],
+    region: "us-central1",
+  },
+  async (request) => {
+    if (!request.auth) {
+      throw new HttpsError("unauthenticated", "Must be signed in to donate.");
+    }
+
+    const uid = request.auth.uid;
+    const amount = request.data.amount as number;
+
+    if (![3, 5, 10].includes(amount)) {
+      throw new HttpsError("invalid-argument", "Amount must be 3, 5, or 10.");
+    }
+
+    const { createCheckoutSession } = await import("./create_checkout_session");
+    const url = await createCheckoutSession(uid, amount);
+    return { url };
+  },
+);

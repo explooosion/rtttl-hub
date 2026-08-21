@@ -703,6 +703,22 @@
     "freeDesc": "每个人每天可免费使用 10 次 AI 音频识别上传（每次最多 30 秒）。赞助完全是可选的 — 赞助后可解锁更长的音频时限和更多每日上传次数，有效期 30 天。",
     "ossTitle": "100% 开源",
     "ossDesc": "我们所有的平台代码都是开源的。驱动音频识别的 AI 模型由私人训练并托管。您可以免费在自己的硬件上运行 RTTTL Hub 平台本身。",
-    "viewSource": "在 GitHub 上查看"
+    "viewSource": "在 GitHub 上查看",
+    "loginRequired": "请先登录以进行捐赠。",
+    "loginBtn": "登录"
+  },
+  "payment": {
+    "title": "付款成功！",
+    "premiumUnlocked": "30天高级功能已解锁！",
+    "thankyou": "感谢您支持 RTTTL Hub，您的高级访问权限现已激活。",
+    "startCreating": "立即开始创作",
+    "processing": "正在处理您的付款...",
+    "error": "发生错误",
+    "errorDesc": "我们无法验证您的付款，请联系支持或重试。",
+    "back": "返回捐赠页面",
+    "checkoutId": "结账 ID：{{id}}",
+    "pending": "付款正在验证中…",
+    "pendingDesc": "您的付款已收到，高级功能激活最多需要几分钟。您可以安全关闭此页面，福利将自动生效。稍后再回来确认或刷新页面。",
+    "refresh": "刷新"
   }
 }
