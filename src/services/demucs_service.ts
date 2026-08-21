@@ -32,7 +32,7 @@ const REPLICATE_API_BASE =
   import.meta.env.MODE === "development" ? "/api/replicate" : "https://api.replicate.com/v1";
 
 const DEPLOYMENT_OWNER = "explooosion";
-const DEPLOYMENT_NAME = "rtttl-hub";
+const DEPLOYMENT_NAME = "rtttl-hub-ai";
 const POLL_INTERVAL_MS = 2000;
 
 interface ReplicatePrediction {
