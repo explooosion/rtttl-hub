@@ -21,7 +21,7 @@ service cloud.firestore {
       // Clients may update their own profile, but must NOT touch premium fields.
       allow update: if isOwner(userId) &&
         !request.resource.data.diff(resource.data).affectedKeys()
-          .hasAny(['premium_until', 'total_donated']);
+          .hasAny(['premium_until', 'total_donated', 'premium_tier_3_until', 'premium_tier_5_until', 'premium_tier_10_until']);
       allow delete: if isOwner(userId);
     }
     

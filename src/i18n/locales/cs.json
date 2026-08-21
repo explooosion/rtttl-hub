@@ -643,7 +643,22 @@
     "deleteAccountConfirmMessage": "Jste si jisti, že chcete trvale smazat svůj účet? Tím se smažou všechny vaše kreace, oblíbené položky a data profilu. Tuto akci nelze vrátit zpět.",
     "deleteAccountInputPlaceholder": "Zadejte své zobrazované jméno {{name}} pro potvrzení smazání",
     "accountDeleted": "Účet úspěšně smazán.",
-    "deleteFailed": "Smazání účtu se nezdařilo. Zkuste to prosím znovu."
+    "deleteFailed": "Smazání účtu se nezdařilo. Zkuste to prosím znovu.",
+    "premiumStatus": "Stav Prémia",
+    "tierFree": "Zdarma",
+    "tier3Label": "$3 Základní",
+    "tier5Label": "$5 Standardní",
+    "tier10Label": "$10 Pro",
+    "expiresOn": "Vyprší {{date}}",
+    "daysRemaining": "Zbývá {{count}} dní",
+    "queuedNext": "Pak klesne na {{tier}} do {{date}}",
+    "upgradeCta": "Podpořit RTTTL Hub",
+    "tierActive": "Aktivní",
+    "tierExtend": "Prodloužit +30 dní",
+    "donationHistory": "Historie darů",
+    "noDonationsYet": "Zatím žádné dary.",
+    "colDate": "Datum",
+    "colAmount": "Částka"
   },
   "betaBanner": {
     "message": "RTTTL Hub is currently under active development. Some features may be incomplete or temporarily unavailable.",

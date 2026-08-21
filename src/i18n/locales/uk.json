@@ -643,7 +643,22 @@
     "deleteAccountConfirmMessage": "Ви впевнені, що хочете безповоротно видалити свій акаунт? Це видалить всі ваші творіння, вподобання та дані профілю. Цю дію неможливо скасувати.",
     "deleteAccountInputPlaceholder": "Введіть своє відображуване ім'я {{name}} для підтвердження видалення",
     "accountDeleted": "Акаунт успішно видалено.",
-    "deleteFailed": "Не вдалося видалити акаунт. Спробуйте ще раз."
+    "deleteFailed": "Не вдалося видалити акаунт. Спробуйте ще раз.",
+    "premiumStatus": "Статус Преміум",
+    "tierFree": "Безкоштовно",
+    "tier3Label": "$3 Базовий",
+    "tier5Label": "$5 Стандартний",
+    "tier10Label": "$10 Про",
+    "expiresOn": "Закінчується {{date}}",
+    "daysRemaining": "Залишилося {{count}} днів",
+    "queuedNext": "Потім знизиться до {{tier}} до {{date}}",
+    "upgradeCta": "Підтримати RTTTL Hub",
+    "tierActive": "Активний",
+    "tierExtend": "Продовжити +30 днів",
+    "donationHistory": "Історія пожертв",
+    "noDonationsYet": "Поки що немає пожертв.",
+    "colDate": "Дата",
+    "colAmount": "Сума"
   },
   "betaBanner": {
     "message": "RTTTL Hub is currently under active development. Some features may be incomplete or temporarily unavailable.",

@@ -643,7 +643,22 @@
     "deleteAccountConfirmMessage": "Sei sicuro di voler eliminare permanentemente il tuo account? Questo eliminerà tutte le tue creazioni, preferiti e dati del profilo. Questa azione non può essere annullata.",
     "deleteAccountInputPlaceholder": "Digita il tuo nome visualizzato {{name}} per confermare l'eliminazione",
     "accountDeleted": "Account eliminato con successo.",
-    "deleteFailed": "Eliminazione account non riuscita. Riprova."
+    "deleteFailed": "Eliminazione account non riuscita. Riprova.",
+    "premiumStatus": "Stato Premium",
+    "tierFree": "Gratuito",
+    "tier3Label": "$3 Base",
+    "tier5Label": "$5 Standard",
+    "tier10Label": "$10 Pro",
+    "expiresOn": "Scade il {{date}}",
+    "daysRemaining": "{{count}} giorni rimanenti",
+    "queuedNext": "Poi scende a {{tier}} fino al {{date}}",
+    "upgradeCta": "Supporta RTTTL Hub",
+    "tierActive": "Attivo",
+    "tierExtend": "Estendi +30 giorni",
+    "donationHistory": "Cronologia donazioni",
+    "noDonationsYet": "Nessuna donazione ancora.",
+    "colDate": "Data",
+    "colAmount": "Importo"
   },
   "betaBanner": {
     "message": "RTTTL Hub is currently under active development. Some features may be incomplete or temporarily unavailable.",

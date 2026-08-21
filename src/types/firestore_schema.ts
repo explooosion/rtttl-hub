@@ -32,10 +32,21 @@ export interface FirestoreUser {
 
   /**
    * Premium access expiry timestamp.
+   * Kept as the max expiry across all tiers for general "is premium" checks.
    * null = never donated or all benefits expired.
-   * Accumulates: if still active, new donation adds 30 days to this value.
    */
   premium_until: Timestamp | null;
+
+  /**
+   * Per-tier premium expiry timestamps.
+   * Each tier tracks its own independent 30-day window.
+   * Same-tier re-donations accumulate; different tiers are independent.
+   * Active tier = highest-amount tier whose expiry is still in the future.
+   * Cascade: if a lower tier's expiry outlasts a higher tier, user drops down when higher expires.
+   */
+  premium_tier_3_until?: Timestamp | null;
+  premium_tier_5_until?: Timestamp | null;
+  premium_tier_10_until?: Timestamp | null;
 
   /** Lifetime total donated in USD (optional, for display). */
   total_donated: number;
@@ -348,10 +359,13 @@ export interface FirestoreTransaction {
   /** Polar checkout ID (used as document ID for idempotency) */
   checkout_id: string;
 
+  /** Polar order ID */
+  order_id: string;
+
   /** Buyer's Firebase Auth UID */
   uid: string;
 
-  /** Donation amount in USD (2 | 5 | 10), null if not derivable from URL */
+  /** Donation amount in USD (3 | 5 | 10) */
   amount: number | null;
 
   /** Payment status */

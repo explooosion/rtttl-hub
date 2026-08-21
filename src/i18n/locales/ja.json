@@ -634,7 +634,22 @@
     "deleteAccountConfirmMessage": "本当にアカウントを完全に削除しますか？すべての作品、お気に入り、プロフィールデータが削除されます。この操作は元に戻せません。",
     "deleteAccountInputPlaceholder": "削除を確認するには、表示名 {{name}} を入力してください",
     "accountDeleted": "アカウントが正常に削除されました。",
-    "deleteFailed": "アカウントの削除に失敗しました。もう一度お試しください。"
+    "deleteFailed": "アカウントの削除に失敗しました。もう一度お試しください。",
+    "premiumStatus": "プレミアム状態",
+    "tierFree": "無料",
+    "tier3Label": "$3 ベーシック",
+    "tier5Label": "$5 スタンダード",
+    "tier10Label": "$10 プロ",
+    "expiresOn": "有効期限：{{date}}",
+    "daysRemaining": "残り {{count}} 日",
+    "queuedNext": "期限後は {{tier}} に降格（{{date}} まで）",
+    "upgradeCta": "RTTTL Hub を支援",
+    "tierActive": "有効",
+    "tierExtend": "+30日 延長",
+    "donationHistory": "寄付履歴",
+    "noDonationsYet": "まだ寄付がありません。",
+    "colDate": "日付",
+    "colAmount": "金額"
   },
   "betaBanner": {
     "message": "RTTTL Hub は現在開発中です。一部の機能が未完成またはご利用いただけない場合があります。",

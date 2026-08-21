@@ -84,6 +84,18 @@ export function watchTransaction(
   });
 }
 
+/**
+ * Fetches all successful transactions for a user, sorted newest-first.
+ * Used on the account page to display donation history.
+ */
+export async function getUserTransactions(uid: string): Promise<FirestoreTransaction[]> {
+  const q = query(collection(db, FIRESTORE_COLLECTIONS.TRANSACTIONS), where("uid", "==", uid));
+  const snap = await getDocs(q);
+  const docs = snap.docs.map((d) => d.data() as FirestoreTransaction);
+  docs.sort((a, b) => b.created_at.toMillis() - a.created_at.toMillis());
+  return docs;
+}
+
 // Creation operations
 export async function syncCreations(userId: string, creations: RtttlEntry[]): Promise<void> {
   const batch = creations.map((creation) => {
