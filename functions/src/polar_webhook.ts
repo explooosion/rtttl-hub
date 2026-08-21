@@ -74,6 +74,13 @@ export async function handlePolarWebhook(req: Request, res: Response): Promise<v
 
   let event;
   try {
+    // Debug: log headers and body info to diagnose signature mismatch
+    const msgId = (req.headers as Record<string, string>)["webhook-id"] ?? "(missing)";
+    const msgTs = (req.headers as Record<string, string>)["webhook-timestamp"] ?? "(missing)";
+    const msgSig = (req.headers as Record<string, string>)["webhook-signature"] ?? "(missing)";
+    const rawBodyLen = req.rawBody ? req.rawBody.length : -1;
+    console.info(`[webhook-debug] id="${msgId}" ts="${msgTs}" sig="${msgSig}" rawBodyLen=${rawBodyLen}`);
+
     event = verifyStandardWebhook(
       req.rawBody,
       req.headers as Record<string, string>,
