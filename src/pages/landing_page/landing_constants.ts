@@ -2,7 +2,7 @@ import {
   FaDatabase,
   FaUsers,
   FaMusic,
-  FaPlay,
+  FaMicrophone,
   FaPlusCircle,
   FaGithub,
   FaHeadphones,
@@ -39,9 +39,9 @@ export const FEATURES = [
     descKey: "landing.features.browse.description",
   },
   {
-    icon: FaPlay,
-    titleKey: "landing.features.play.title",
-    descKey: "landing.features.play.description",
+    icon: FaMicrophone,
+    titleKey: "landing.features.aiRecognition.title",
+    descKey: "landing.features.aiRecognition.description",
   },
   {
     icon: FaPlusCircle,

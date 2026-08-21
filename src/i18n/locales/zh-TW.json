@@ -11,12 +11,13 @@
     "collections": "收藏庫",
     "myCreations": "我的創作",
     "favorites": "我的收藏",
-    "home": "首頁"
+    "home": "首頁",
+    "pricing": "方案價格"
   },
   "landing": {
     "hero": {
       "title": "RTTTL Hub",
-      "subtitle": "探索復古 RTTTL 鈴聲合集。在瀏覽器中瀏覽、播放和創作 chiptune 音樂。",
+      "subtitle": "探索復古 RTTTL 鈴聲合集。瀏覽、播放，並透過 AI 音訊辨識將音樂轉換為 RTTTL。",
       "cta": "探索收藏庫"
     },
     "features": {
@@ -24,9 +25,9 @@
         "title": "海量曲庫",
         "description": "探索涵蓋各類風格的 PICAXE 經典 RTTTL 鈴聲資料庫。"
       },
-      "play": {
-        "title": "瀏覽器播放",
-        "description": "使用 Web Audio API 即時聆聽任何鈴聲，無需安裝外掛。"
+      "aiRecognition": {
+        "title": "AI 音訊辨識",
+        "description": "上傳任意音訊檔案，AI 自動提取旋律並轉換為 RTTTL 格式。"
       },
       "create": {
         "title": "自訂創作",
@@ -657,8 +658,19 @@
     "uk": "Українська"
   },
   "audioExtract": {
-    "trigger": "AI 旋律提取器…",
-    "title": "AI 旋律提取器",
+    "trigger": "從音訊辨識匯入…",
+    "title": "AI 音訊辨識",
+    "quickButton": "音訊辨識",
+    "description": "選擇音訊檔案進行分析。AI 會分離音軌、偵測旋律，並轉換為 RTTTL 格式。",
+    "selectAudio": "選擇音訊檔案",
+    "changeAudio": "更換音訊",
+    "maxDuration": "最大分析時長：{{seconds}} 秒",
+    "durationExceeded": "選定時間範圍超過 {{max}} 秒限制。",
+    "dailyLimitReached": "每日免費額度已用完（{{max}} 次/天）。",
+    "usageCount": "今日已使用 {{used}}/{{limit}} 次",
+    "loginRequired": "請先登入以使用此功能。",
+    "cloudWarning": "此服務使用 AI 雲端運算，請勿關閉視窗，耐心等待結果。",
+    "resultSaved": "辨識結果已儲存。",
     "filename": "檔案名稱",
     "fileSize": "檔案大小",
     "duration": "時長",
@@ -677,7 +689,7 @@
     "processingStatus": "狀態：{{status}}",
     "resultSummary": "找到 {{count}} 條音軌。選擇要匯入編輯器的音軌。",
     "noteCount": "{{count}} 個音符",
-    "discard": "捨棄",
+    "discard": "關閉",
     "confirmImport": "匯入 {{count}} 條音軌",
     "noTracksSelected": "未選擇含有音符的音軌。",
     "importSuccess": "已匯入 {{count}} 條音軌。",
@@ -686,6 +698,63 @@
     "fileTooLarge": "檔案大小超過 {{max}} MB 限制。",
     "readError": "無法讀取音訊檔案元資料。",
     "analyzeError": "分析失敗，請重試。",
-    "accessDenied": "此功能目前僅開放給授權用戶使用。"
+    "accessDenied": "此功能目前僅開放給授權用戶使用。",
+    "historyTrigger": "載入辨識紀錄…",
+    "historyTitle": "辨識紀錄",
+    "noHistory": "尚無辨識紀錄。",
+    "deleteRecord": "刪除紀錄",
+    "deleteConfirmTitle": "刪除辨識紀錄",
+    "deleteConfirmMessage": "確定要刪除這筆辨識紀錄嗎？此操作無法復原。",
+    "recordDeleted": "辨識紀錄已刪除。",
+    "colFileName": "檔案",
+    "colStems": "音軌",
+    "colDate": "日期"
+  },
+  "pricing": {
+    "title": "方案價格",
+    "subtitle": "選擇適合您需求的方案。我們的 AI 音訊辨識服務提供雲端運算能力進行旋律提取。",
+    "wip": "此頁面正在建設中（WIP）。價格與方案可能會有所調整。",
+    "monthly": "月付",
+    "yearly": "年付",
+    "savePercent": "省 20%",
+    "perMonth": " /月",
+    "billedYearly": "年付 {{price}}",
+    "popular": "最受歡迎",
+    "free": {
+      "name": "免費",
+      "desc": "免費開始使用基本音訊辨識。",
+      "f1": "每日 10 次辨識",
+      "f2": "每次分析最長 10 秒",
+      "f3": "全部 4 條音軌（人聲、貝斯、鼓、其他）",
+      "f4": "匯出為 RTTTL 格式",
+      "f5": "辨識紀錄自動保存",
+      "cta": "開始使用"
+    },
+    "pro": {
+      "name": "專業版",
+      "desc": "適合需要更多彈性與效能的創作者。",
+      "f1": "每日 100 次辨識",
+      "f2": "每次分析最長 60 秒",
+      "f3": "優先處理佇列",
+      "f4": "進階音軌分離",
+      "f5": "批次處理支援",
+      "f6": "包含所有免費功能",
+      "cta": "升級至專業版"
+    },
+    "team": {
+      "name": "團隊版",
+      "desc": "適合團隊與專業工作室。",
+      "f1": "無限次辨識",
+      "f2": "每次分析最長 300 秒",
+      "f3": "最高處理優先級",
+      "f4": "API 存取",
+      "f5": "團隊成員管理",
+      "f6": "專屬支援",
+      "f7": "包含所有專業版功能",
+      "cta": "聯繫銷售"
+    },
+    "ossTitle": "開源模型",
+    "ossDesc": "我們的音訊辨識模型完全開源。付費方案提供雲端運算能力，讓您無需在本地執行模型。您也可以在自己的硬體上免費執行。",
+    "viewSource": "在 GitHub 上查看"
   }
 }

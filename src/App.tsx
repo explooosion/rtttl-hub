@@ -43,6 +43,9 @@ const ContributePage = lazy(() =>
   import("./pages/contribute_page").then((m) => ({ default: m.ContributePage })),
 );
 const AboutPage = lazy(() => import("./pages/about_page").then((m) => ({ default: m.AboutPage })));
+const PricingPage = lazy(() =>
+  import("./pages/pricing_page").then((m) => ({ default: m.PricingPage })),
+);
 
 /**
  * Module-level cache for the create-page chunk.
@@ -137,6 +140,7 @@ function App() {
               <Route path="/account/profile" element={<ProfilePage />} />
               <Route path="/account/password" element={<PasswordPage />} />
               <Route path="/contribute" element={<ContributePage />} />
+              <Route path="/pricing" element={<PricingPage />} />
               <Route path="/about" element={<AboutPage />} />
             </Route>
           </Routes>

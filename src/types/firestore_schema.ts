@@ -172,6 +172,55 @@ export interface FirestorePendingStatsUpdate {
 }
 
 /**
+ * Collection: audio_recognitions
+ * Document ID: auto-generated
+ *
+ * Stores AI audio recognition results linked to user accounts.
+ * Index: userId (ascending) + createdAt (descending) for user history
+ */
+export interface FirestoreAudioRecognition {
+  /** Unique record ID */
+  id: string;
+
+  /** User's Firebase Auth UID */
+  userId: string;
+
+  /** Original audio filename (file is NOT stored) */
+  fileName: string;
+
+  /** Original file size in bytes */
+  fileSizeBytes: number;
+
+  /** Audio duration in seconds */
+  durationSec: number;
+
+  /** Analysis start time (seconds) */
+  startTime: number;
+
+  /** Analysis end time (seconds) */
+  endTime: number;
+
+  /** Stems selected for extraction */
+  stems: string[];
+
+  /** Extracted RTTTL tracks */
+  tracks: {
+    stem: string;
+    rtttl: string;
+    noteCount: number;
+    bpm: number;
+    durationSec: number;
+    error?: string;
+  }[];
+
+  /** Replicate processing logs (internal, not shown to user) */
+  replicateLogs: string;
+
+  /** Recognition timestamp */
+  createdAt: Timestamp;
+}
+
+/**
  * Collection Names
  * Centralized collection name constants to avoid typos
  */
@@ -182,6 +231,7 @@ export const FIRESTORE_COLLECTIONS = {
   TRACK_STATS: "track_stats",
   USER_TRACK_INTERACTIONS: "user_track_interactions",
   PENDING_STATS_UPDATES: "pending_stats_updates",
+  AUDIO_RECOGNITIONS: "audio_recognitions",
 } as const;
 
 /**

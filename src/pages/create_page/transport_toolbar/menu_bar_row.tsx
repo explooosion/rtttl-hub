@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaMusic } from "react-icons/fa";
 
 import { useAuthStore } from "../../../stores/auth_store";
 import { DropdownMenu, MenuBar } from "./dropdown_menu";
@@ -17,6 +17,7 @@ interface MenuBarRowProps {
   isEditMode: boolean;
   onCreate: VoidFunction;
   onDiscard: VoidFunction;
+  onAudioExtract: VoidFunction;
 }
 
 export function MenuBarRow({
@@ -29,6 +30,7 @@ export function MenuBarRow({
   isEditMode,
   onCreate,
   onDiscard,
+  onAudioExtract,
 }: MenuBarRowProps) {
   const { t } = useTranslation();
   const user = useAuthStore((s) => s.user);
@@ -48,6 +50,14 @@ export function MenuBarRow({
         </MenuBar>
 
         <div className="ml-auto flex shrink-0 items-center gap-2 pl-2">
+          <button
+            type="button"
+            onClick={onAudioExtract}
+            className="flex h-9 items-center gap-1.5 rounded-md border border-indigo-400 px-3 text-sm font-medium whitespace-nowrap text-indigo-600 transition-colors hover:bg-indigo-50 dark:border-indigo-600 dark:text-indigo-400 dark:hover:bg-indigo-950/40"
+          >
+            <FaMusic size={11} />
+            {t("audioExtract.quickButton", { defaultValue: "Audio Recognition" })}
+          </button>
           <button
             type="button"
             onClick={onCreate}

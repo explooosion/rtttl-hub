@@ -32,6 +32,7 @@ interface TransportToolbarProps {
   onImport: VoidFunction;
   onImportFromFavorites: VoidFunction;
   onAudioExtract: VoidFunction;
+  onLoadRecognitionHistory: VoidFunction;
   onLoadCreation: VoidFunction;
   onNavigateHome: VoidFunction;
   onFocusName: VoidFunction;
@@ -83,6 +84,7 @@ export function TransportToolbar({
   onImport,
   onImportFromFavorites,
   onAudioExtract,
+  onLoadRecognitionHistory,
   onLoadCreation,
   onNavigateHome,
   onFocusName: _onFocusName,
@@ -273,6 +275,7 @@ export function TransportToolbar({
     onImport,
     onImportFromFavorites,
     onAudioExtract,
+    onLoadRecognitionHistory,
     onLoadCreation: handleLoadCreationClick,
     onDiscard,
     onNavigateHome,
@@ -334,6 +337,7 @@ export function TransportToolbar({
         isEditMode={isEditMode}
         onCreate={onCreate}
         onDiscard={onDiscard}
+        onAudioExtract={onAudioExtract}
       />
 
       <EditorToolsRow

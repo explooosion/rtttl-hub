@@ -16,6 +16,7 @@ import { StatusBar } from "./status_bar";
 import { CreatePageDialogs } from "./create_page_dialogs";
 import { LoadCreationDialog } from "./load_creation_dialog";
 import { AudioStemExtractor } from "./audio_stem_extractor";
+import { RecognitionHistoryDialog } from "./recognition_history_dialog";
 
 interface UiModel {
   editId: string | null;
@@ -142,6 +143,7 @@ export function CreatePageView({
   const { t } = useTranslation();
 
   const [loadCreationOpen, setLoadCreationOpen] = useState(false);
+  const [recognitionHistoryOpen, setRecognitionHistoryOpen] = useState(false);
   const audioExtractRef = useRef<AudioStemExtractorHandle>(null);
 
   function handleAudioExtract() {
@@ -158,6 +160,14 @@ export function CreatePageView({
 
   function handleLoadCreationClose() {
     setLoadCreationOpen(false);
+  }
+
+  function handleOpenRecognitionHistory() {
+    setRecognitionHistoryOpen(true);
+  }
+
+  function handleRecognitionHistoryClose() {
+    setRecognitionHistoryOpen(false);
   }
 
   function handleConfirmRemoveFocusedTrack() {
@@ -261,6 +271,7 @@ export function CreatePageView({
           onImport={actions.handleImportClick}
           onImportFromFavorites={handleOpenFavoriteImport}
           onAudioExtract={handleAudioExtract}
+          onLoadRecognitionHistory={handleOpenRecognitionHistory}
           onLoadCreation={handleOpenLoadCreation}
           onCreate={actions.handleSubmit}
           onDiscard={actions.handleDiscard}
@@ -380,6 +391,12 @@ export function CreatePageView({
         />
 
         <AudioStemExtractor ref={audioExtractRef} onImport={actions.handleImportConfirm} />
+
+        <RecognitionHistoryDialog
+          open={recognitionHistoryOpen}
+          onClose={handleRecognitionHistoryClose}
+          onImport={actions.handleImportConfirm}
+        />
       </div>
     </>
   );

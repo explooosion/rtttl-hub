@@ -29,6 +29,7 @@ interface CreatePageTransportToolbarProps {
   onImport: VoidFunction;
   onImportFromFavorites: VoidFunction;
   onAudioExtract: VoidFunction;
+  onLoadRecognitionHistory: VoidFunction;
   onLoadCreation: VoidFunction;
   onCreate: VoidFunction;
   onDiscard: VoidFunction;
@@ -77,6 +78,7 @@ export function CreatePageTransportToolbar({
   onImport,
   onImportFromFavorites,
   onAudioExtract,
+  onLoadRecognitionHistory,
   onLoadCreation,
   onDiscard,
   onStop,
@@ -125,6 +127,7 @@ export function CreatePageTransportToolbar({
       onImport={onImport}
       onImportFromFavorites={onImportFromFavorites}
       onAudioExtract={onAudioExtract}
+      onLoadRecognitionHistory={onLoadRecognitionHistory}
       onLoadCreation={onLoadCreation}
       onNavigateHome={handleNavigateHome}
       onFocusName={handleFocusName}

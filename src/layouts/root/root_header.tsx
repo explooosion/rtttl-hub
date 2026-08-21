@@ -34,6 +34,7 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
     location.pathname.startsWith("/collections") && !location.pathname.startsWith("/my-zone/");
   const isCreateActive = location.pathname === "/create";
   const isContributeActive = location.pathname === "/contribute";
+  const isPricingActive = location.pathname === "/pricing";
 
   // Global searchbar should only appear on homepage and /collections page
   const shouldShowGlobalSearch = location.pathname === "/" || location.pathname === "/collections";
@@ -86,6 +87,17 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
             )}
           >
             {t("actions.contribute")}
+          </Link>
+          <Link
+            to="/pricing"
+            className={clsx(
+              "whitespace-nowrap text-sm font-medium transition-colors",
+              isPricingActive
+                ? "text-indigo-600 dark:text-indigo-400"
+                : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
+            )}
+          >
+            {t("nav.pricing", { defaultValue: "Pricing" })}
           </Link>
           <Link
             to="/create"

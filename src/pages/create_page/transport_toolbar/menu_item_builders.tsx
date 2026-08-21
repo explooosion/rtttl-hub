@@ -34,6 +34,7 @@ interface BuildFileItemsParams {
   onImport: VoidFunction;
   onImportFromFavorites: VoidFunction;
   onAudioExtract: VoidFunction;
+  onLoadRecognitionHistory: VoidFunction;
   onLoadCreation?: VoidFunction;
   onDiscard: VoidFunction;
   onNavigateHome: VoidFunction;
@@ -45,6 +46,7 @@ export function buildFileItems({
   onImport,
   onImportFromFavorites,
   onAudioExtract,
+  onLoadRecognitionHistory,
   onLoadCreation,
   onDiscard,
   onNavigateHome,
@@ -73,8 +75,14 @@ export function buildFileItems({
     {
       type: "action",
       icon: <FaMusic size={13} />,
-      label: t("audioExtract.trigger", { defaultValue: "AI Melody Extractor…" }),
+      label: t("audioExtract.trigger", { defaultValue: "Import from Audio Recognition…" }),
       onClick: onAudioExtract,
+    },
+    {
+      type: "action",
+      icon: <FaFolderOpen size={13} />,
+      label: t("audioExtract.historyTrigger", { defaultValue: "Load Recognition History…" }),
+      onClick: onLoadRecognitionHistory,
     },
     ...(onLoadCreation
       ? [

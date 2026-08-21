@@ -1,20 +1,33 @@
-import { useState, useRef, useCallback, useImperativeHandle, forwardRef } from "react";
+import { useState, useRef, useCallback, useImperativeHandle, forwardRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { FaTimes, FaSpinner, FaCheck } from "react-icons/fa";
+import { FaTimes, FaSpinner, FaCheck, FaFileAudio } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 import type { StemType, ExtractionResult, TrackResult } from "../../services/audio_extract_service";
 import { extractMelody, ALL_STEMS } from "../../services/audio_extract_service";
 import { useAuthStore } from "../../stores/auth_store";
+import {
+  saveAudioRecognition,
+  getUserDailyRecognitionCount,
+} from "../../services/audio_recognition_service";
+import { AudioWaveformPreview } from "./audio_waveform_preview";
 
-// Temporarily restrict feature to this UID only
-const ALLOWED_UID = "qWbxM5ugnXPaIxhtsXy5Jfk51uD2";
+/**
+ * Maximum analysis duration in seconds.
+ * TODO: This will be configurable per subscription plan.
+ * Free users: 10s. Paid plans TBD.
+ */
+export const MAX_ANALYSIS_DURATION_SEC = 10;
+
+/**
+ * Maximum daily free usage count.
+ * TODO: This will be configurable per subscription plan.
+ */
+export const FREE_DAILY_LIMIT = 10;
 
 type ExtractorState = "idle" | "configure" | "processing" | "review";
 
-const MAX_FILE_SIZE_MB = 10;
-const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 const ACCEPTED_AUDIO_TYPES = ["audio/mpeg", "audio/wav", "audio/ogg", "audio/flac", "audio/aac"];
 
 interface AudioMeta {
@@ -87,8 +100,8 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     // Configure options
-    const [startTime, setStartTime] = useState("0");
-    const [endTime, setEndTime] = useState("");
+    const [startTime, setStartTime] = useState(0);
+    const [endTime, setEndTime] = useState(0);
     const [selectedStems, setSelectedStems] = useState<StemType[]>(["vocals", "other"]);
 
     // Processing
@@ -98,12 +111,26 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
     const [result, setResult] = useState<ExtractionResult | null>(null);
     const [selectedTracks, setSelectedTracks] = useState<Set<number>>(new Set());
 
+    // Daily usage
+    const [dailyUsed, setDailyUsed] = useState<number | null>(null);
+
+    // Load daily usage count when dialog opens
+    useEffect(
+      function loadDailyUsageOnOpen() {
+        if (!open || !user) {
+          return;
+        }
+        void getUserDailyRecognitionCount(user.uid).then(setDailyUsed);
+      },
+      [open, user],
+    );
+
     const resetState = useCallback(function resetExtractorState() {
       setState("idle");
       setAudioMeta(null);
       setSelectedFile(null);
-      setStartTime("0");
-      setEndTime("");
+      setStartTime(0);
+      setEndTime(0);
       setSelectedStems(["vocals", "other"]);
       setProcessingStatus("");
       setResult(null);
@@ -115,17 +142,22 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
 
     useImperativeHandle(ref, () => ({
       trigger() {
-        if (user?.uid !== ALLOWED_UID) {
+        if (!user) {
           toast.error(
-            t("audioExtract.accessDenied", {
-              defaultValue: "This feature is currently only available to authorized users.",
+            t("audioExtract.loginRequired", {
+              defaultValue: "Please sign in to use this feature.",
             }),
           );
           return;
         }
-        fileInputRef.current?.click();
+        resetState();
+        setOpen(true);
       },
     }));
+
+    function handleSelectFileClick() {
+      fileInputRef.current?.click();
+    }
 
     async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
       const file = e.target.files?.[0];
@@ -145,27 +177,14 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
         return;
       }
 
-      if (file.size > MAX_FILE_SIZE_BYTES) {
-        toast.error(
-          t("audioExtract.fileTooLarge", {
-            defaultValue: "File size exceeds {{max}} MB limit.",
-            max: MAX_FILE_SIZE_MB,
-          }),
-        );
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
-        return;
-      }
-
       try {
         const duration = await readAudioDuration(file);
         const rounded = Math.round(duration * 100) / 100;
         setAudioMeta({ name: file.name, sizeBytes: file.size, durationSec: rounded });
         setSelectedFile(file);
-        setEndTime(String(rounded));
+        setStartTime(0);
+        setEndTime(Math.min(rounded, MAX_ANALYSIS_DURATION_SEC));
         setState("configure");
-        setOpen(true);
       } catch {
         toast.error(
           t("audioExtract.readError", { defaultValue: "Failed to read audio file metadata." }),
@@ -192,14 +211,33 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
     }
 
     async function handleAnalyze() {
-      if (!selectedFile || !audioMeta) {
+      if (!selectedFile || !audioMeta || !user) {
         return;
       }
 
-      const start = parseFloat(startTime) || 0;
-      const end = parseFloat(endTime) || audioMeta.durationSec;
+      // Check daily limit
+      if (dailyUsed !== null && dailyUsed >= FREE_DAILY_LIMIT) {
+        toast.error(
+          t("audioExtract.dailyLimitReached", {
+            defaultValue: "Daily free usage limit reached ({{max}} times/day).",
+            max: FREE_DAILY_LIMIT,
+          }),
+        );
+        return;
+      }
 
-      if (start >= end || start < 0 || end > audioMeta.durationSec) {
+      const duration = endTime - startTime;
+      if (duration > MAX_ANALYSIS_DURATION_SEC) {
+        toast.error(
+          t("audioExtract.durationExceeded", {
+            defaultValue: "The selected time range exceeds the {{max}} second limit.",
+            max: MAX_ANALYSIS_DURATION_SEC,
+          }),
+        );
+        return;
+      }
+
+      if (startTime >= endTime || startTime < 0 || endTime > audioMeta.durationSec) {
         toast.error(
           t("audioExtract.invalidRange", {
             defaultValue: "Please enter a valid time range.",
@@ -213,7 +251,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
       try {
         const extractionResult = await extractMelody(
           selectedFile,
-          { startTime: start, endTime: end, stems: selectedStems },
+          { startTime, endTime, stems: selectedStems },
           (status) => setProcessingStatus(status),
         );
         setResult(extractionResult);
@@ -226,6 +264,34 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
         });
         setSelectedTracks(withNotes);
         setState("review");
+
+        // Save to Firestore (regardless of import decision)
+        try {
+          await saveAudioRecognition({
+            userId: user.uid,
+            fileName: audioMeta.name,
+            fileSizeBytes: audioMeta.sizeBytes,
+            durationSec: audioMeta.durationSec,
+            startTime,
+            endTime,
+            stems: selectedStems,
+            tracks: extractionResult.tracks.map((tr) => ({
+              stem: tr.stem,
+              rtttl: tr.rtttl,
+              noteCount: tr.noteCount,
+              bpm: tr.bpm,
+              durationSec: tr.durationSec,
+              error: tr.error,
+            })),
+            replicateLogs: extractionResult.logs ?? "",
+          });
+          setDailyUsed((prev) => (prev !== null ? prev + 1 : 1));
+          toast.success(
+            t("audioExtract.resultSaved", { defaultValue: "Recognition result saved." }),
+          );
+        } catch {
+          // Silent fail for save — result is still shown
+        }
       } catch (err) {
         toast.error(
           t("audioExtract.analyzeError", {
@@ -277,17 +343,26 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
       );
     }
 
-    function handleDiscard() {
-      setOpen(false);
-      resetState();
-    }
-
-    function handleDialogClose() {
+    function handleClose() {
       if (state === "processing") {
         return;
       }
       setOpen(false);
       resetState();
+    }
+
+    function handleStartTimeInputChange(val: string) {
+      const num = parseFloat(val);
+      if (!isNaN(num)) {
+        setStartTime(num);
+      }
+    }
+
+    function handleEndTimeInputChange(val: string) {
+      const num = parseFloat(val);
+      if (!isNaN(num)) {
+        setEndTime(num);
+      }
     }
 
     return (
@@ -300,28 +375,69 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
           onChange={handleFileChange}
         />
 
-        <Dialog open={open} onClose={handleDialogClose} className="relative z-50">
+        <Dialog open={open} onClose={handleClose} className="relative z-50">
           <div className="fixed inset-0 bg-black/25" aria-hidden="true" />
           <div className="fixed inset-0 flex items-center justify-center p-4">
             <DialogPanel className="flex w-full max-w-lg flex-col rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900">
               {/* Header */}
               <div className="flex items-center justify-between border-b border-gray-200 px-5 py-3.5 dark:border-gray-700">
                 <DialogTitle className="text-base font-semibold text-gray-900 dark:text-white">
-                  {t("audioExtract.title", { defaultValue: "AI Melody Extractor" })}
+                  {t("audioExtract.title", { defaultValue: "AI Audio Recognition" })}
                 </DialogTitle>
-                {state !== "processing" && (
-                  <button
-                    type="button"
-                    onClick={handleDialogClose}
-                    className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                  >
-                    <FaTimes size={16} />
-                  </button>
-                )}
+                <div className="flex items-center gap-3">
+                  {dailyUsed !== null && (
+                    <span className="text-[11px] text-gray-400 dark:text-gray-500">
+                      {t("audioExtract.usageCount", {
+                        defaultValue: "{{used}}/{{limit}} uses today",
+                        used: dailyUsed,
+                        limit: FREE_DAILY_LIMIT,
+                      })}
+                    </span>
+                  )}
+                  {state !== "processing" && (
+                    <button
+                      type="button"
+                      onClick={handleClose}
+                      className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                    >
+                      <FaTimes size={16} />
+                    </button>
+                  )}
+                </div>
               </div>
 
+              {/* Idle State — no file selected */}
+              {state === "idle" && (
+                <div className="px-5 py-6">
+                  <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+                    {t("audioExtract.description", {
+                      defaultValue:
+                        "Select an audio file to analyze. AI will separate stems, detect melodies, and convert to RTTTL format.",
+                    })}
+                  </p>
+
+                  {/* File selector */}
+                  <button
+                    type="button"
+                    onClick={handleSelectFileClick}
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-8 text-sm font-medium text-gray-500 transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-600 dark:text-gray-400 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
+                  >
+                    <FaFileAudio size={20} />
+                    {t("audioExtract.selectAudio", { defaultValue: "Select Audio File" })}
+                  </button>
+
+                  <p className="mt-3 text-center text-[11px] text-gray-400 dark:text-gray-500">
+                    MP3, WAV, OGG, FLAC, AAC ·{" "}
+                    {t("audioExtract.maxDuration", {
+                      defaultValue: "Max analysis duration: {{seconds}}s",
+                      seconds: MAX_ANALYSIS_DURATION_SEC,
+                    })}
+                  </p>
+                </div>
+              )}
+
               {/* Configure State */}
-              {state === "configure" && audioMeta && (
+              {state === "configure" && audioMeta && selectedFile && (
                 <div className="max-h-[70vh] overflow-y-auto px-5 py-4">
                   {/* Metadata */}
                   <div className="mb-4 rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-800/50">
@@ -347,7 +463,28 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                     </dl>
                   </div>
 
-                  {/* Time Range */}
+                  {/* Change file button */}
+                  <div className="mb-4 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={handleSelectFileClick}
+                      className="text-xs font-medium text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
+                    >
+                      {t("audioExtract.changeAudio", { defaultValue: "Change Audio" })}
+                    </button>
+                  </div>
+
+                  {/* Waveform Preview */}
+                  <AudioWaveformPreview
+                    file={selectedFile}
+                    startTime={startTime}
+                    endTime={endTime}
+                    onStartTimeChange={setStartTime}
+                    onEndTimeChange={setEndTime}
+                    durationSec={audioMeta.durationSec}
+                  />
+
+                  {/* Time Range Inputs */}
                   <div className="mb-4">
                     <label className="mb-1.5 block text-xs font-medium text-gray-500 dark:text-gray-400">
                       {t("audioExtract.timeRange", { defaultValue: "Time Range (seconds)" })}
@@ -359,7 +496,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                         max={audioMeta.durationSec}
                         step="0.1"
                         value={startTime}
-                        onChange={(e) => setStartTime(e.target.value)}
+                        onChange={(e) => handleStartTimeInputChange(e.target.value)}
                         className="w-24 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
                         placeholder={t("audioExtract.startTime", { defaultValue: "Start" })}
                       />
@@ -370,17 +507,19 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                         max={audioMeta.durationSec}
                         step="0.1"
                         value={endTime}
-                        onChange={(e) => setEndTime(e.target.value)}
+                        onChange={(e) => handleEndTimeInputChange(e.target.value)}
                         className="w-24 rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
                         placeholder={t("audioExtract.endTime", { defaultValue: "End" })}
                       />
                     </div>
-                    <p className="mt-1.5 text-[11px] text-gray-400 dark:text-gray-500">
-                      {t("audioExtract.timeRangeHint", {
-                        defaultValue:
-                          "Trim audio before uploading. Only the selected range will be sent for analysis.",
-                      })}
-                    </p>
+                    {endTime - startTime > MAX_ANALYSIS_DURATION_SEC && (
+                      <p className="mt-1.5 text-[11px] text-red-500">
+                        {t("audioExtract.durationExceeded", {
+                          defaultValue: "The selected time range exceeds the {{max}} second limit.",
+                          max: MAX_ANALYSIS_DURATION_SEC,
+                        })}
+                      </p>
+                    )}
                   </div>
 
                   {/* Stem selector (multi-select) */}
@@ -404,19 +543,13 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                         </button>
                       ))}
                     </div>
-                    <p className="mt-1.5 text-[11px] text-gray-400 dark:text-gray-500">
-                      {t("audioExtract.stemHint", {
-                        defaultValue:
-                          "AI will separate audio into selected stems, detect melody from each, and convert to RTTTL.",
-                      })}
-                    </p>
                   </div>
 
                   {/* Actions */}
                   <div className="flex justify-end gap-2">
                     <button
                       type="button"
-                      onClick={handleDiscard}
+                      onClick={handleClose}
                       className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
                     >
                       {t("confirm.cancel")}
@@ -424,7 +557,8 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                     <button
                       type="button"
                       onClick={handleAnalyze}
-                      className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                      disabled={endTime - startTime > MAX_ANALYSIS_DURATION_SEC}
+                      className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {t("audioExtract.analyze", { defaultValue: "Analyze" })}
                     </button>
@@ -478,16 +612,16 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                   <div className="flex justify-end gap-2">
                     <button
                       type="button"
-                      onClick={handleDiscard}
+                      onClick={handleClose}
                       className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
                     >
-                      {t("audioExtract.discard", { defaultValue: "Discard" })}
+                      {t("audioExtract.discard", { defaultValue: "Close" })}
                     </button>
                     <button
                       type="button"
                       onClick={handleImportSelected}
                       disabled={selectedTracks.size === 0}
-                      className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {t("audioExtract.confirmImport", {
                         defaultValue: "Import {{count}} Track(s)",
@@ -497,6 +631,16 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                   </div>
                 </div>
               )}
+
+              {/* Cloud warning footer */}
+              <div className="border-t border-gray-200 px-5 py-2.5 dark:border-gray-700">
+                <p className="text-center text-[10px] text-gray-400 dark:text-gray-500">
+                  {t("audioExtract.cloudWarning", {
+                    defaultValue:
+                      "This service uses AI cloud computing. Please do not close the window and wait patiently for the result.",
+                  })}
+                </p>
+              </div>
             </DialogPanel>
           </div>
         </Dialog>

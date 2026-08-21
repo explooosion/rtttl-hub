@@ -24,6 +24,7 @@ export interface ExtractionResult {
   trimmedDurationSec: number;
   startTime: number;
   endTime: number;
+  logs?: string;
 }
 
 // Use local proxy in development to avoid CORS issues
@@ -52,6 +53,7 @@ interface ReplicatePrediction {
     end_time: number;
   } | null;
   error: string | null;
+  logs: string;
 }
 
 function getApiToken(): string {
@@ -158,5 +160,6 @@ export async function extractMelody(
     trimmedDurationSec: current.output.trimmed_duration_sec,
     startTime: current.output.start_time,
     endTime: current.output.end_time,
+    logs: current.logs ?? "",
   };
 }
