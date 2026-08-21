@@ -10,8 +10,10 @@ Pipeline:
 
 from __future__ import annotations
 
+import base64
 import io
 import math
+import mimetypes
 import tempfile
 from pathlib import Path
 from typing import Any
@@ -21,6 +23,32 @@ import torch
 import torchaudio
 from cog import BasePredictor, Input
 from pydub import AudioSegment
+
+# ---------------------------------------------------------------------------
+# Audio input helpers
+# ---------------------------------------------------------------------------
+
+def _resolve_audio_input(audio: Path) -> Path:
+    """
+    Handle both file paths and base64 data URIs.
+    Replicate may pass data URIs directly; decode them to a temp file.
+    """
+    audio_str = str(audio)
+    if audio_str.startswith("data:"):
+        # data:[mediatype][;base64],<data>
+        header, _, data = audio_str.partition(",")
+        if ";base64" in header:
+            audio_bytes = base64.b64decode(data)
+            mime_type = header.split(":")[1].split(";")[0]
+            ext = mimetypes.guess_extension(mime_type)
+            # guess_extension can return None or odd values; normalise
+            if ext in (None, ".jpe", ".jpeg"):
+                ext = ".mp3"
+            tmp = tempfile.NamedTemporaryFile(suffix=ext, delete=False)
+            tmp.write(audio_bytes)
+            tmp.close()
+            return Path(tmp.name)
+    return audio
 
 # ---------------------------------------------------------------------------
 # RTTTL conversion helpers
@@ -190,7 +218,8 @@ class Predictor(BasePredictor):
         from basic_pitch.inference import predict as bp_predict
         from basic_pitch import ICASSP_2022_MODEL_PATH
 
-        # 1. Load audio
+        # 1. Load audio (resolve data URIs if passed directly by Replicate)
+        audio = _resolve_audio_input(audio)
         waveform, sr = torchaudio.load(str(audio))
 
         # 2. Trim
