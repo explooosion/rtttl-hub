@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useImperativeHandle, forwardRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { FaTimes, FaSpinner, FaCheck, FaFileAudio } from "react-icons/fa";
 import toast from "react-hot-toast";
@@ -11,6 +12,7 @@ import {
   saveAudioRecognition,
   getUserDailyRecognitionCount,
 } from "../../services/audio_recognition_service";
+import { navigateToLogin } from "../../utils/auth_redirect";
 import { AudioWaveformPreview } from "./audio_waveform_preview";
 
 /**
@@ -91,6 +93,8 @@ const STEM_LABELS: Record<StemType, string> = {
 export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStemExtractorProps>(
   function AudioStemExtractor({ onImport }, ref) {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const location = useLocation();
     const user = useAuthStore((s) => s.user);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -143,11 +147,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
     useImperativeHandle(ref, () => ({
       trigger() {
         if (!user) {
-          toast.error(
-            t("audioExtract.loginRequired", {
-              defaultValue: "Please sign in to use this feature.",
-            }),
-          );
+          navigateToLogin(navigate, location.pathname + location.search);
           return;
         }
         resetState();
