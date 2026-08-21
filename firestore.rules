@@ -70,8 +70,10 @@ service cloud.firestore {
 
     // Payment transactions - written exclusively by the Cloud Function (Admin SDK).
     // Users may only read their own transaction to poll webhook confirmation.
+    // resource == null means the document doesn't exist yet (webhook not yet fired) — allow
+    // authenticated users to listen so onSnapshot can detect when it appears.
     match /transactions/{checkoutId} {
-      allow read: if isAuthenticated() && resource.data.uid == request.auth.uid;
+      allow read: if isAuthenticated() && (resource == null || resource.data.uid == request.auth.uid);
       allow write: if false; // Server only
     }
   }
