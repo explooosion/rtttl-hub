@@ -35,8 +35,8 @@ function verifyStandardWebhook(
     throw new Error(`Webhook timestamp out of tolerance: ${Math.abs(nowSec - ts)}s`);
   }
 
-  // Decode the secret — strip "whsec_" prefix then base64-decode
-  const rawSecret = Buffer.from(secret.replace(/^whsec_/, ""), "base64");
+  // Polar signs with the full whsec_... string as the HMAC key (not base64-decoded)
+  const rawSecret = Buffer.from(secret, "utf8");
   const bodyStr = Buffer.isBuffer(body) ? body.toString("utf8") : body;
   const toSign = `${msgId}.${msgTs}.${bodyStr}`;
   const expected = createHmac("sha256", rawSecret).update(toSign).digest("base64");
@@ -74,12 +74,17 @@ export async function handlePolarWebhook(req: Request, res: Response): Promise<v
 
   let event;
   try {
-    // Debug: log headers and body info to diagnose signature mismatch
+    // Debug: log full raw body to diagnose signature mismatch
     const msgId = (req.headers as Record<string, string>)["webhook-id"] ?? "(missing)";
     const msgTs = (req.headers as Record<string, string>)["webhook-timestamp"] ?? "(missing)";
     const msgSig = (req.headers as Record<string, string>)["webhook-signature"] ?? "(missing)";
-    const rawBodyLen = req.rawBody ? req.rawBody.length : -1;
-    console.info(`[webhook-debug] id="${msgId}" ts="${msgTs}" sig="${msgSig}" rawBodyLen=${rawBodyLen}`);
+    const rawBodyStr = req.rawBody ? req.rawBody.toString("utf8") : "(none)";
+    const contentType = (req.headers as Record<string, string>)["content-type"] ?? "(missing)";
+    console.info(`[webhook-debug] id="${msgId}" ts="${msgTs}" sig="${msgSig}" contentType="${contentType}" rawBodyLen=${rawBodyStr.length}`);
+    // Log body in chunks (chunk at 4000 chars to stay within Cloud Logging limits)
+    for (let i = 0; i < rawBodyStr.length; i += 4000) {
+      console.info(`[webhook-body-${i}] ${rawBodyStr.slice(i, i + 4000)}`);
+    }
 
     event = verifyStandardWebhook(
       req.rawBody,
