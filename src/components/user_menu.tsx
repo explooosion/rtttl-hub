@@ -21,10 +21,11 @@ export function UserMenu() {
     return (
       <Link
         to="/login"
-        className="rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
+        className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
         aria-label={t("auth.signIn")}
       >
-        <FaSignInAlt size={18} />
+        <FaSignInAlt size={16} />
+        <span className="hidden sm:inline">{t("auth.signIn")}</span>
       </Link>
     );
   }

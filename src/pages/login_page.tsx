@@ -41,7 +41,7 @@ export function LoginPage() {
   async function handleGoogleLogin() {
     // Capture redirect target synchronously before the async popup starts.
     // This prevents losing the param if the component re-renders after auth state changes.
-    const redirectTo = resolveRedirectTarget(searchParams, "/account");
+    const redirectTo = resolveRedirectTarget(searchParams, "/");
     setIsLoading(true);
     try {
       await signInWithGoogle();
