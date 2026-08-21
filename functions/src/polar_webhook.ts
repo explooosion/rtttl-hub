@@ -15,7 +15,7 @@ function verifyStandardWebhook(
   body: Buffer | string,
   headers: Record<string, string>,
   secret: string,
-  toleranceSec = 300,
+  toleranceSec = 604800, // 7 days — Polar retries use the original timestamp; idempotency is handled by Firestore
 ): { type: string; data: Record<string, unknown> } {
   const msgId = headers["webhook-id"];
   const msgTs = headers["webhook-timestamp"];
@@ -97,7 +97,7 @@ export async function handlePolarWebhook(req: Request, res: Response): Promise<v
   // Primary: uid injected server-side via metadata when creating the checkout session.
   // Fallback: uid from the Custom Field (for direct checkout link payments).
   const metadata = (order.metadata ?? {}) as Record<string, unknown>;
-  const customFields = (order.customFieldData ?? {}) as Record<string, unknown>;
+  const customFields = (order.custom_field_data ?? order.customFieldData ?? {}) as Record<string, unknown>;
 
   const uid =
     typeof metadata["user_id"] === "string"
@@ -112,7 +112,7 @@ export async function handlePolarWebhook(req: Request, res: Response): Promise<v
     return;
   }
 
-  const checkoutId = String(order["checkoutId"] ?? order["id"] ?? "");
+  const checkoutId = String(order["checkout_id"] ?? order["checkoutId"] ?? order["id"] ?? "");
 
   // Amount: prefer metadata (set by us), fall back to netAmount (in cents)
   const metaAmount =
