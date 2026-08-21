@@ -661,6 +661,7 @@
   "audioExtract": {
     "trigger": "Estrattore di melodia IA…",
     "title": "Estrattore di melodia IA",
+    "quickButton": "Riconoscimento audio IA",
     "filename": "Nome file",
     "fileSize": "Dimensione file",
     "duration": "Durata",

@@ -661,6 +661,7 @@
   "audioExtract": {
     "trigger": "AI extraktor melodie…",
     "title": "AI extraktor melodie",
+    "quickButton": "AI rozpoznávání zvuku",
     "filename": "Název souboru",
     "fileSize": "Velikost souboru",
     "duration": "Délka",

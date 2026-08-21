@@ -651,6 +651,7 @@
   "audioExtract": {
     "trigger": "AI-Melodie-Extraktor…",
     "title": "AI-Melodie-Extraktor",
+    "quickButton": "KI-Audio-Erkennung",
     "filename": "Dateiname",
     "fileSize": "Dateigröße",
     "duration": "Dauer",

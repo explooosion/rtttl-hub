@@ -652,6 +652,7 @@
   "audioExtract": {
     "trigger": "AI メロディ抽出…",
     "title": "AI メロディ抽出",
+    "quickButton": "AI 音声認識",
     "filename": "ファイル名",
     "fileSize": "ファイルサイズ",
     "duration": "再生時間",

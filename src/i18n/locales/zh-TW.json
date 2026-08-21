@@ -658,9 +658,9 @@
     "uk": "Українська"
   },
   "audioExtract": {
-    "trigger": "從音訊辨識匯入…",
+    "trigger": "從 AI 音訊辨識匯入…",
     "title": "AI 音訊辨識",
-    "quickButton": "音訊辨識",
+    "quickButton": "AI 音訊辨識",
     "description": "選擇音訊檔案進行分析。AI 會分離音軌、偵測旋律，並轉換為 RTTTL 格式。",
     "selectAudio": "選擇音訊檔案",
     "changeAudio": "更換音訊",
@@ -670,7 +670,7 @@
     "usageCount": "今日已使用 {{used}}/{{limit}} 次",
     "loginRequired": "請先登入以使用此功能。",
     "cloudWarning": "此服務使用 AI 雲端運算，請勿關閉視窗，耐心等待結果。",
-    "resultSaved": "辨識結果已儲存。",
+    "resultSaved": "AI 音訊辨識結果已儲存。",
     "filename": "檔案名稱",
     "fileSize": "檔案大小",
     "duration": "時長",
@@ -699,13 +699,13 @@
     "readError": "無法讀取音訊檔案元資料。",
     "analyzeError": "分析失敗，請重試。",
     "accessDenied": "此功能目前僅開放給授權用戶使用。",
-    "historyTrigger": "載入辨識紀錄…",
-    "historyTitle": "辨識紀錄",
-    "noHistory": "尚無辨識紀錄。",
+    "historyTrigger": "載入 AI 音訊辨識紀錄…",
+    "historyTitle": "AI 音訊辨識紀錄",
+    "noHistory": "尚無 AI 音訊辨識紀錄。",
     "deleteRecord": "刪除紀錄",
-    "deleteConfirmTitle": "刪除辨識紀錄",
-    "deleteConfirmMessage": "確定要刪除這筆辨識紀錄嗎？此操作無法復原。",
-    "recordDeleted": "辨識紀錄已刪除。",
+    "deleteConfirmTitle": "刪除 AI 音訊辨識紀錄",
+    "deleteConfirmMessage": "確定要刪除這筆 AI 音訊辨識紀錄嗎？此操作無法復原。",
+    "recordDeleted": "AI 音訊辨識紀錄已刪除。",
     "colFileName": "檔案",
     "colStems": "音軌",
     "colDate": "日期"
@@ -754,7 +754,7 @@
       "cta": "聯繫銷售"
     },
     "ossTitle": "開源模型",
-    "ossDesc": "我們的音訊辨識模型完全開源。付費方案提供雲端運算能力，讓您無需在本地執行模型。您也可以在自己的硬體上免費執行。",
+    "ossDesc": "我們的 AI 音訊辨識模型完全開源。付費方案提供雲端運算能力，讓您無需在本地執行模型。您也可以在自己的硬體上免費執行。",
     "viewSource": "在 GitHub 上查看"
   }
 }

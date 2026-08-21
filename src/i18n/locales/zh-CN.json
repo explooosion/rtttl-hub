@@ -659,6 +659,7 @@
   "audioExtract": {
     "trigger": "AI 旋律提取器…",
     "title": "AI 旋律提取器",
+    "quickButton": "AI 音频识别",
     "filename": "文件名",
     "fileSize": "文件大小",
     "duration": "时长",
