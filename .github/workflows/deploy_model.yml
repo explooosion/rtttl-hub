@@ -35,17 +35,22 @@ jobs:
         working-directory: replicate
         env:
           REPLICATE_API_TOKEN: ${{ secrets.VITE_REPLICATE_API_TOKEN }}
+        run: cog push r8.im/explooosion/rtttl-hub
+
+      - name: Get latest model version from Replicate API
+        env:
+          REPLICATE_API_TOKEN: ${{ secrets.VITE_REPLICATE_API_TOKEN }}
         run: |
-          cog push r8.im/explooosion/rtttl-hub 2>&1 | tee /tmp/cog_push.log
-          # Extract the new version ID from the push output
-          VERSION=$(grep -oP '(?<=replicate.com/explooosion/rtttl-hub:)\w+' /tmp/cog_push.log | tail -1)
+          VERSION=$(curl -s \
+            -H "Authorization: Bearer $REPLICATE_API_TOKEN" \
+            "https://api.replicate.com/v1/models/explooosion/rtttl-hub/versions" \
+            | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['results'][0]['id'])")
           if [ -z "$VERSION" ]; then
-            echo "::error::Could not extract version ID from cog push output"
-            cat /tmp/cog_push.log
+            echo "::error::Could not fetch latest version from Replicate API"
             exit 1
           fi
           echo "NEW_MODEL_VERSION=$VERSION" >> "$GITHUB_ENV"
-          echo "Pushed version: $VERSION"
+          echo "Latest version: $VERSION"
 
       - name: Update deployment to new version
         env:
