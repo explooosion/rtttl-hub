@@ -55,7 +55,7 @@ export interface UseCreatePageActionsResult {
   handleNew: VoidFunction;
   handleDiscard: VoidFunction;
   handleImportClick: VoidFunction;
-  handleImportConfirm: (parsed: string[]) => void;
+  handleImportConfirm: (parsed: string[], fileName?: string) => void;
   handleConfirmRemove: (index: number | null) => void;
   handlePendingActionConfirm: (action: "new" | "discard" | null) => void;
   _doNew: VoidFunction;

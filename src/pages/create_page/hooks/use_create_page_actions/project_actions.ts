@@ -197,10 +197,14 @@ export function useProjectActions({
   }, [setImportOpen]);
 
   const handleImportConfirm = useCallback(
-    (parsed: string[]) => {
-      const firstName = parsed[0]?.split(":")[0]?.trim();
-      if (firstName) {
-        setName(firstName);
+    (parsed: string[], fileName?: string) => {
+      // Prefer the audio file name (strip extension) as the project name.
+      // Fall back to the RTTTL track name embedded in the first string.
+      const fileBaseName = fileName ? fileName.replace(/\.[^.]+$/, "").trim() : "";
+      const rtttlName = parsed[0]?.split(":")[0]?.trim() ?? "";
+      const resolvedName = fileBaseName || rtttlName;
+      if (resolvedName) {
+        setName(resolvedName);
       }
       setPendingImport(parsed.slice(0, MAX_TRACKS));
       setImportOpen(false);

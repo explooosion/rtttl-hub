@@ -43,7 +43,7 @@ export interface AudioStemExtractorHandle {
 }
 
 interface AudioStemExtractorProps {
-  onImport: (rtttlList: string[]) => void;
+  onImport: (rtttlList: string[], fileName: string) => void;
 }
 
 function formatFileSize(bytes: number): string {
@@ -332,7 +332,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
         return;
       }
 
-      onImport(rtttlList);
+      onImport(rtttlList, selectedFile?.name ?? "");
       setOpen(false);
       resetState();
       toast.success(
