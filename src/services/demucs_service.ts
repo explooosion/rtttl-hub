@@ -87,14 +87,14 @@ async function getPrediction(id: string): Promise<ReplicatePrediction> {
 export async function extractMelody(
   file: File,
   options: ExtractionOptions,
-  onStatusChange?: (status: ReplicatePrediction["status"]) => void,
+  onStatusChange?: (status: ReplicatePrediction["status"], logs: string) => void,
 ): Promise<ExtractionResult> {
   const dataUri = await fileToBase64(file);
 
   const prediction = await createPrediction(dataUri, options);
   let current = prediction;
 
-  onStatusChange?.(current.status);
+  onStatusChange?.(current.status, current.logs ?? "");
 
   while (
     current.status !== "succeeded" &&
@@ -103,7 +103,7 @@ export async function extractMelody(
   ) {
     await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL_MS));
     current = await getPrediction(current.id);
-    onStatusChange?.(current.status);
+    onStatusChange?.(current.status, current.logs ?? "");
   }
 
   if (current.status === "failed") {

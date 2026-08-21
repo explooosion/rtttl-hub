@@ -110,6 +110,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
 
     // Processing
     const [processingStatus, setProcessingStatus] = useState("");
+    const [processingLogs, setProcessingLogs] = useState("");
 
     // Results
     const [result, setResult] = useState<ExtractionResult | null>(null);
@@ -137,6 +138,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
       setEndTime(0);
       setSelectedStems(["vocals", "other"]);
       setProcessingStatus("");
+      setProcessingLogs("");
       setResult(null);
       setSelectedTracks(new Set());
       if (fileInputRef.current) {
@@ -252,7 +254,12 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
         const extractionResult = await extractMelody(
           selectedFile,
           { startTime, endTime, stems: selectedStems },
-          (status) => setProcessingStatus(status),
+          (status, logs) => {
+            setProcessingStatus(status);
+            if (logs) {
+              setProcessingLogs(logs);
+            }
+          },
         );
         setResult(extractionResult);
         // Pre-select all tracks that have notes
@@ -441,7 +448,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                 <div className="max-h-[70vh] overflow-y-auto px-5 py-4">
                   {/* Metadata */}
                   <div className="mb-4 rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-800/50">
-                    <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                    <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
                       <dt className="text-gray-500 dark:text-gray-400">
                         {t("audioExtract.filename", { defaultValue: "Filename" })}
                       </dt>
@@ -568,20 +575,60 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
 
               {/* Processing State */}
               {state === "processing" && (
-                <div className="flex flex-col items-center gap-4 px-5 py-10">
-                  <FaSpinner size={32} className="animate-spin text-indigo-500" />
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
-                    {t("audioExtract.processing", {
-                      defaultValue:
-                        "AI is analyzing audio and extracting melody (this may take 1-2 minutes)…",
-                    })}
-                  </p>
-                  <p className="text-sm text-gray-400 dark:text-gray-500">
-                    {t("audioExtract.processingStatus", {
-                      defaultValue: "Status: {{status}}",
-                      status: processingStatus,
-                    })}
-                  </p>
+                <div className="flex flex-col gap-3 px-5 py-4">
+                  {/* Status header */}
+                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                    <FaSpinner size={14} className="shrink-0 animate-spin text-indigo-500" />
+                    <span>
+                      {t("audioExtract.processing", {
+                        defaultValue: "AI is analyzing audio and extracting melody…",
+                      })}
+                    </span>
+                    <span className="ml-auto shrink-0 rounded bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">
+                      {processingStatus}
+                    </span>
+                  </div>
+
+                  {/* Log panel */}
+                  <div
+                    className="h-64 overflow-y-auto rounded-lg border border-gray-200 bg-gray-950 p-3 font-mono text-xs leading-relaxed dark:border-gray-700"
+                    ref={(el) => {
+                      if (el) {
+                        el.scrollTop = el.scrollHeight;
+                      }
+                    }}
+                  >
+                    {processingLogs ? (
+                      processingLogs.split("\n").map((line, i) => (
+                        <div
+                          key={i}
+                          className={
+                            line.startsWith("✓") || line.startsWith("✅")
+                              ? "text-green-400"
+                              : line.startsWith("⚠") || line.startsWith("✗")
+                                ? "text-yellow-400"
+                                : line.startsWith("❌") || line.includes("Error")
+                                  ? "text-red-400"
+                                  : line.startsWith("=") ||
+                                      line.startsWith("🎵") ||
+                                      line.startsWith("🎼") ||
+                                      line.startsWith("🎹")
+                                    ? "text-indigo-300 font-semibold"
+                                    : "text-gray-300"
+                          }
+                        >
+                          {line || "\u00a0"}
+                        </div>
+                      ))
+                    ) : (
+                      <span className="text-gray-500">
+                        {t("audioExtract.waitingForLogs", {
+                          defaultValue: "Waiting for model output…",
+                        })}
+                      </span>
+                    )}
+                    <div />
+                  </div>
                 </div>
               )}
 
