@@ -25,6 +25,12 @@ jobs:
           sudo chmod +x /usr/local/bin/cog
           cog --version
 
+      - name: Log in to Replicate container registry
+        run: |
+          echo "${{ secrets.VITE_REPLICATE_API_TOKEN }}" | docker login r8.im \
+            --username explooosion \
+            --password-stdin
+
       - name: Push model to Replicate
         working-directory: replicate
         env:
