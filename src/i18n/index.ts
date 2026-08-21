@@ -16,6 +16,52 @@ import pl from "./locales/pl.json";
 import ru from "./locales/ru.json";
 import uk from "./locales/uk.json";
 
+const SUPPORTED_LANGUAGES: string[] = [
+  "en",
+  "zh-TW",
+  "zh-CN",
+  "ja",
+  "ko",
+  "de",
+  "fr",
+  "es",
+  "it",
+  "cs",
+  "pl",
+  "ru",
+  "uk",
+];
+
+function normalizeDetectedLanguage(language: string) {
+  const normalized = language.replace("_", "-");
+  const lower = normalized.toLowerCase();
+
+  if (lower.startsWith("zh")) {
+    if (
+      lower.includes("hant") ||
+      lower.endsWith("-tw") ||
+      lower.endsWith("-hk") ||
+      lower.endsWith("-mo")
+    ) {
+      return "zh-TW";
+    }
+    return "zh-CN";
+  }
+
+  const matchedLang = SUPPORTED_LANGUAGES.find((lang) => lang.toLowerCase() === lower);
+  if (matchedLang) {
+    return matchedLang;
+  }
+
+  const baseLanguage = lower.split("-")[0];
+  const matchedBase = SUPPORTED_LANGUAGES.find((lang) => lang.toLowerCase() === baseLanguage);
+  if (matchedBase) {
+    return matchedBase;
+  }
+
+  return "en";
+}
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -35,6 +81,7 @@ i18n
       ru: { translation: ru },
       uk: { translation: uk },
     },
+    supportedLngs: SUPPORTED_LANGUAGES,
     fallbackLng: "en",
     interpolation: {
       escapeValue: false,
@@ -42,6 +89,7 @@ i18n
     detection: {
       order: ["localStorage", "navigator"],
       caches: ["localStorage"],
+      convertDetectedLanguage: normalizeDetectedLanguage,
     },
   });
 

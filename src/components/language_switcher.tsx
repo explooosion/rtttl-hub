@@ -22,7 +22,8 @@ const languages = [
 export function LanguageSwitcher() {
   const { i18n } = useTranslation();
 
-  const current = languages.find((l) => l.code === i18n.language) ?? languages[0];
+  const activeLanguage = i18n.resolvedLanguage ?? i18n.language;
+  const current = languages.find((l) => l.code === activeLanguage) ?? languages[0];
   const currentLabel = current.label;
 
   return (
@@ -50,7 +51,7 @@ export function LanguageSwitcher() {
                   onClick={handleLanguageClick}
                   className={clsx(
                     "flex w-full items-center gap-3 px-4 py-2 text-sm transition-colors",
-                    i18n.language === lang.code
+                    activeLanguage === lang.code
                       ? "bg-indigo-50 font-medium text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400"
                       : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700",
                   )}
