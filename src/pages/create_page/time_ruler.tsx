@@ -113,7 +113,7 @@ export function TimeRuler({ totalMs, timelineWidthPx, pxPerSec }: TimeRulerProps
             style={{ left: `${(sec / totalSec) * 100}%` }}
           >
             <div className="h-2.5 w-px bg-gray-500 dark:bg-gray-500" />
-            <span className="mt-0.5 text-[9px] leading-none text-gray-600 dark:text-gray-400">
+            <span className="mt-0.5 text-xs leading-none text-gray-600 dark:text-gray-400">
               {formatSec(sec)}
             </span>
           </div>

@@ -366,7 +366,7 @@ export function AudioWaveformPreview({
           onMouseLeave={handleMouseLeave}
         />
         {/* Time labels */}
-        <div className="mt-1 flex items-center justify-between text-[10px] text-gray-400 dark:text-gray-500">
+        <div className="mt-1 flex items-center justify-between text-xs text-gray-400 dark:text-gray-500">
           <span>0:00.0</span>
           <span>{formatTime(durationSec)}</span>
         </div>

@@ -180,7 +180,7 @@ export function RootShell() {
                   barCount={80}
                 />
               )}
-              <div className="mt-0.5 flex items-center justify-between text-[10px] text-gray-400 dark:text-gray-500">
+              <div className="mt-0.5 flex items-center justify-between text-xs text-gray-400 dark:text-gray-500">
                 <span>{totalNotes > 0 ? currentNoteIndex + 1 : 0}</span>
                 <span>{totalNotes}</span>
               </div>

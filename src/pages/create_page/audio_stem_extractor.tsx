@@ -748,11 +748,11 @@ function TrackCard({ track, selected, onToggle }: TrackCardProps) {
         </div>
       </div>
       {hasNotes && (
-        <div className="mt-2 truncate font-mono text-[10px] text-gray-400 dark:text-gray-500">
+        <div className="mt-2 truncate font-mono text-xs text-gray-400 dark:text-gray-500">
           {track.rtttl.length > 120 ? track.rtttl.slice(0, 120) + "…" : track.rtttl}
         </div>
       )}
-      {track.error && <p className="mt-1 text-[10px] text-red-500">{track.error}</p>}
+      {track.error && <p className="mt-1 text-xs text-red-500">{track.error}</p>}
     </button>
   );
 }

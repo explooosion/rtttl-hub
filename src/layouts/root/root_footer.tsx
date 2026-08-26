@@ -194,7 +194,7 @@ export function RootFooter({ resetConsent }: RootFooterProps) {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-gray-200 pt-6 text-xs text-gray-400 sm:flex-row dark:border-gray-800 dark:text-gray-500">
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-gray-200 pt-6 text-sm text-gray-400 sm:flex-row dark:border-gray-800 dark:text-gray-500">
           <span>{t("footer.copyright")}</span>
           <div className="hidden sm:block">
             <LanguageSwitcher />

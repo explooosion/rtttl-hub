@@ -131,7 +131,7 @@ export function TrackHeaderPanel({
               maxLength={30}
             />
             {nameError && (
-              <span className="mt-0.5 text-[10px] text-red-600 dark:text-red-400">
+              <span className="mt-0.5 text-xs text-red-600 dark:text-red-400">
                 {t(`editor.${nameError}`)}
               </span>
             )}
@@ -162,7 +162,7 @@ export function TrackHeaderPanel({
           onClick={onMuteButtonClick}
           title={isMuted ? "Unmute" : "Mute"}
           className={clsx(
-            "flex h-7 w-7 items-center justify-center rounded border text-[10px] font-bold transition-colors",
+            "flex h-7 w-7 items-center justify-center rounded border text-xs font-bold transition-colors",
             isMuted
               ? "border-amber-400 bg-amber-400/20 text-amber-500 hover:border-indigo-400 hover:text-indigo-600 dark:border-amber-500 dark:text-amber-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400"
               : "border-gray-400 text-gray-500 hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-700 dark:hover:text-indigo-400",

@@ -132,7 +132,7 @@ export function TransportControlsRow({
 
         <div className="ml-1 flex items-stretch gap-0 overflow-hidden rounded border border-gray-300 bg-white/90 font-mono shadow-sm dark:border-gray-700 dark:bg-gray-900">
           <div className="flex flex-col items-center justify-center px-2.5 py-0.5">
-            <span className="text-[8px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+            <span className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               pos
             </span>
             <span
@@ -148,7 +148,7 @@ export function TransportControlsRow({
           </div>
           <div className="w-px bg-gray-300 dark:bg-gray-700" />
           <div className="flex flex-col items-center justify-center px-2.5 py-0.5">
-            <span className="text-[8px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+            <span className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
               cur
             </span>
             <span className="text-sm font-bold tabular-nums leading-none text-indigo-600 dark:text-indigo-400">
@@ -186,11 +186,11 @@ export function TransportControlsRow({
                 onKeyDown={onLoopInInputKeyDown}
                 onBlur={onLoopInInputBlur}
                 onClick={onLoopInInputClick}
-                className="w-14 border-b border-indigo-400 bg-transparent text-[10px] font-mono text-indigo-600 outline-none dark:text-indigo-400"
+                className="w-14 border-b border-indigo-400 bg-transparent text-xs font-mono text-indigo-600 outline-none dark:text-indigo-400"
               />
             ) : (
               <span
-                className="cursor-text text-[10px] opacity-70 hover:opacity-100"
+                className="cursor-text text-xs opacity-70 hover:opacity-100"
                 onClick={onLoopInValueClick}
               >
                 {(loopInMs / 1000).toFixed(3)}s
@@ -224,11 +224,11 @@ export function TransportControlsRow({
                 onKeyDown={onLoopOutInputKeyDown}
                 onBlur={onLoopOutInputBlur}
                 onClick={onLoopOutInputClick}
-                className="w-14 border-b border-purple-400 bg-transparent text-[10px] font-mono text-purple-600 outline-none dark:text-purple-400"
+                className="w-14 border-b border-purple-400 bg-transparent text-xs font-mono text-purple-600 outline-none dark:text-purple-400"
               />
             ) : (
               <span
-                className="cursor-text text-[10px] opacity-70 hover:opacity-100"
+                className="cursor-text text-xs opacity-70 hover:opacity-100"
                 onClick={onLoopOutValueClick}
               >
                 {(loopOutMs / 1000).toFixed(3)}s

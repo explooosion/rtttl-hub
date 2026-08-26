@@ -101,7 +101,7 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
 
                 {/* My Creations Group */}
                 <div className="py-2">
-                  <p className="px-6 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                  <p className="px-6 pb-1.5 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
                     {t("collections.group.myCreations")}
                   </p>
                   {myCreationsCollections.map((col) => {
@@ -130,7 +130,7 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
                 <div className="py-2">
                   <button
                     onClick={handleTogglePublicLibrariesOpen}
-                    className="flex w-full items-center justify-between px-6 pb-1.5 text-left text-[10px] font-semibold uppercase tracking-wider text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="flex w-full items-center justify-between px-6 pb-1.5 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                   >
                     <span>{t("collections.group.publicLibraries")}</span>
                     <FaChevronDown
@@ -170,7 +170,7 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
 
                 {/* External Links Group */}
                 <div className="py-2">
-                  <p className="px-6 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                  <p className="px-6 pb-1.5 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
                     {t("collections.group.externalLinks")}
                   </p>
                   {externalLinksCollections.map((col) => {

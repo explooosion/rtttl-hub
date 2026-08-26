@@ -196,7 +196,7 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
               <span
                 key={cat}
                 className={clsx(
-                  "inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium leading-none",
+                  "inline-flex items-center rounded-full px-1.5 py-0.5 text-xs font-medium leading-none",
                   CATEGORY_STYLES[cat],
                 )}
               >
