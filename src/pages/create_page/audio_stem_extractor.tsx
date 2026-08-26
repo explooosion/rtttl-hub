@@ -681,7 +681,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
 
               {/* Cloud warning footer */}
               <div className="border-t border-gray-200 px-5 py-2.5 dark:border-gray-700">
-                <p className="text-center text-[10px] text-gray-400 dark:text-gray-500">
+                <p className="text-center text-sm text-gray-600 dark:text-gray-400">
                   {t("audioExtract.cloudWarning", {
                     defaultValue:
                       "This service uses AI cloud computing. Please do not close the window and wait patiently for the result.",

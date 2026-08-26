@@ -34,6 +34,7 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
     location.pathname.startsWith("/collections") && !location.pathname.startsWith("/my-zone/");
   const isCreateActive = location.pathname === "/create";
   const isContributeActive = location.pathname === "/contribute";
+  const isAboutActive = location.pathname === "/about";
   const isDonateActive = location.pathname === "/donate";
 
   // Global searchbar should only appear on homepage and /collections page
@@ -86,7 +87,18 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
                 : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
             )}
           >
-            {t("actions.contribute")}
+            {t("breadcrumb.contribute")}
+          </Link>
+          <Link
+            to="/about"
+            className={clsx(
+              "whitespace-nowrap text-sm font-medium transition-colors",
+              isAboutActive
+                ? "text-indigo-600 dark:text-indigo-400"
+                : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
+            )}
+          >
+            {t("footer.about")}
           </Link>
           <Link
             to="/donate"
