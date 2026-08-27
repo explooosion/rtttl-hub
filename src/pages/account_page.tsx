@@ -281,19 +281,19 @@ export function AccountPage() {
                       <div className="mb-5 flex-1 space-y-2">
                         <div className="flex items-start gap-2">
                           <FaCheck size={11} className="mt-0.5 shrink-0 text-rose-500" />
-                          <span className="text-xs text-gray-600 dark:text-gray-300">
+                          <span className="text-sm text-gray-600 dark:text-gray-300">
                             {t("donate.uploads", { count: tier.uploads })}
                           </span>
                         </div>
                         <div className="flex items-start gap-2">
                           <FaCheck size={11} className="mt-0.5 shrink-0 text-rose-500" />
-                          <span className="text-xs text-gray-600 dark:text-gray-300">
+                          <span className="text-sm text-gray-600 dark:text-gray-300">
                             {t("donate.seconds", { count: tier.secondsPerUpload })}
                           </span>
                         </div>
                         <div className="flex items-start gap-2">
                           <FaCheck size={11} className="mt-0.5 shrink-0 text-rose-500" />
-                          <span className="text-xs text-gray-600 dark:text-gray-300">
+                          <span className="text-sm text-gray-600 dark:text-gray-300">
                             {t("donate.validity")}
                           </span>
                         </div>
@@ -379,7 +379,7 @@ export function AccountPage() {
               <FaTrash size={14} />
               {t("account.deleteAccount")}
             </button>
-            <p className="mt-2 text-xs text-red-600 dark:text-red-400">
+            <p className="mt-3 text-sm leading-relaxed text-red-600 dark:text-red-400">
               {t("account.deleteAccountWarning")}
             </p>
           </div>

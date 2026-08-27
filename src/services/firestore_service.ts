@@ -10,6 +10,7 @@ import {
   query,
   where,
   Timestamp,
+  writeBatch,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { db, storage } from "../lib/firebase";
@@ -226,20 +227,58 @@ export async function deleteAvatar(_userId: string, photoURL: string): Promise<v
 
 // Delete all user data
 export async function deleteAllUserData(userIdToDelete: string): Promise<void> {
-  // Delete user document
-  await deleteUser(userIdToDelete);
+  try {
+    // Use batched writes for atomicity (Firestore batch limit is 500 operations)
+    const batch = writeBatch(db);
+    let operationCount = 0;
 
-  // Delete all creations
-  const creationsQuery = query(
-    collection(db, FIRESTORE_COLLECTIONS.USER_CREATIONS),
-    where("userId", "==", userIdToDelete),
-  );
-  const creationsSnapshot = await getDocs(creationsQuery);
-  await Promise.all(creationsSnapshot.docs.map((doc) => deleteDoc(doc.ref)));
+    // Delete user document
+    const userRef = doc(db, FIRESTORE_COLLECTIONS.USERS, userIdToDelete);
+    batch.delete(userRef);
+    operationCount++;
 
-  // Delete favorites
-  const favRef = doc(db, FIRESTORE_COLLECTIONS.USER_FAVORITES, userIdToDelete);
-  await deleteDoc(favRef);
+    // Delete all creations
+    const creationsQuery = query(
+      collection(db, FIRESTORE_COLLECTIONS.USER_CREATIONS),
+      where("userId", "==", userIdToDelete),
+    );
+    const creationsSnapshot = await getDocs(creationsQuery);
+    creationsSnapshot.docs.forEach((docSnapshot) => {
+      batch.delete(docSnapshot.ref);
+      operationCount++;
+    });
 
-  // Note: Avatar deletion should be handled separately in the auth flow
+    // Delete favorites
+    const favRef = doc(db, FIRESTORE_COLLECTIONS.USER_FAVORITES, userIdToDelete);
+    batch.delete(favRef);
+    operationCount++;
+
+    // Delete transaction records
+    const txQuery = query(
+      collection(db, FIRESTORE_COLLECTIONS.TRANSACTIONS),
+      where("uid", "==", userIdToDelete),
+    );
+    const txSnapshot = await getDocs(txQuery);
+    txSnapshot.docs.forEach((docSnapshot) => {
+      batch.delete(docSnapshot.ref);
+      operationCount++;
+    });
+
+    // Commit the batch if within limits
+    if (operationCount <= 500) {
+      await batch.commit();
+    } else {
+      // If exceeds batch limit, fall back to individual deletes
+      console.warn("User data exceeds batch limit, using individual deletes");
+      await deleteUser(userIdToDelete);
+      await Promise.all(creationsSnapshot.docs.map((d) => deleteDoc(d.ref)));
+      await deleteDoc(favRef);
+      await Promise.all(txSnapshot.docs.map((d) => deleteDoc(d.ref)));
+    }
+
+    // Note: Avatar deletion should be handled separately in the auth flow
+  } catch (error) {
+    console.error("Error deleting user data:", error);
+    throw error;
+  }
 }
