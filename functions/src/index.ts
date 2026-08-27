@@ -1,5 +1,6 @@
 import * as admin from "firebase-admin";
 import { onRequest, onCall, HttpsError } from "firebase-functions/v2/https";
+import { onSchedule } from "firebase-functions/v2/scheduler";
 import { defineSecret } from "firebase-functions/params";
 
 // Initialize Firebase Admin SDK once (shared across all functions)
@@ -139,5 +140,27 @@ export const replicateGetPrediction = onCall(
 
     const { getReplicatePrediction } = await import("./replicate_proxy");
     return getReplicatePrediction(id);
+  },
+);
+
+/**
+ * scheduledAccountCleanup
+ *
+ * Runs daily at 2 AM UTC to delete accounts that are marked as pendingDeletion
+ * and whose deletionExecuteAt timestamp has passed (3 days after user requested deletion).
+ *
+ * Schedule: 0 2 * * * (2 AM UTC daily)
+ */
+export const scheduledAccountCleanup = onSchedule(
+  {
+    schedule: "0 2 * * *",
+    timeZone: "UTC",
+    region: "us-central1",
+    retryCount: 3,
+    timeoutSeconds: 540,
+  },
+  async () => {
+    const { scheduledAccountCleanup: cleanup } = await import("./scheduled_account_cleanup");
+    await cleanup();
   },
 );

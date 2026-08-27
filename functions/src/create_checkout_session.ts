@@ -17,8 +17,7 @@ function getProductId(amountUsd: number): string {
   return map[amountUsd] ?? "";
 }
 
-const SUCCESS_URL =
-  "https://rtttl-hub.io/payment?result=success&checkout_id={CHECKOUT_ID}";
+const SUCCESS_URL = "https://rtttl-hub.io/payment?result=success&checkout_id={CHECKOUT_ID}";
 
 /**
  * Creates a Polar Checkout Session with the user's UID embedded server-side in
@@ -28,10 +27,7 @@ const SUCCESS_URL =
  * @param amountUsd Donation amount (3 | 5 | 10)
  * @returns         One-time Polar checkout URL to redirect the user to
  */
-export async function createCheckoutSession(
-  uid: string,
-  amountUsd: number,
-): Promise<string> {
+export async function createCheckoutSession(uid: string, amountUsd: number): Promise<string> {
   const accessToken = process.env["POLAR_ACCESS_TOKEN"] ?? "";
   const productId = getProductId(amountUsd);
 

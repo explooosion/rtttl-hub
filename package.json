@@ -11,7 +11,7 @@
     "sitemap:check": "npm run sitemap && tsx scripts/check-sitemap.ts",
     "build": "npm run sitemap && tsc -b && vite build",
     "lint": "eslint .",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"functions/src/**/*.ts\"",
     "preview": "vite preview",
     "test": "vitest run",
     "generate-picaxe": "tsx scripts/generate-picaxe.ts",

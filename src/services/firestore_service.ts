@@ -225,6 +225,42 @@ export async function deleteAvatar(_userId: string, photoURL: string): Promise<v
   }
 }
 
+// Schedule account deletion (soft delete)
+export async function scheduleAccountDeletion(uid: string): Promise<void> {
+  try {
+    const userRef = doc(db, FIRESTORE_COLLECTIONS.USERS, uid);
+    const now = Timestamp.now();
+    const threeDaysLater = Timestamp.fromMillis(now.toMillis() + 3 * 24 * 60 * 60 * 1000);
+
+    await updateDoc(userRef, {
+      pendingDeletion: true,
+      deletionScheduledAt: now,
+      deletionExecuteAt: threeDaysLater,
+      updatedAt: now,
+    });
+  } catch (error) {
+    console.error("Error scheduling account deletion:", error);
+    throw error;
+  }
+}
+
+// Cancel scheduled account deletion
+export async function cancelAccountDeletion(uid: string): Promise<void> {
+  try {
+    const userRef = doc(db, FIRESTORE_COLLECTIONS.USERS, uid);
+
+    await updateDoc(userRef, {
+      pendingDeletion: false,
+      deletionScheduledAt: null,
+      deletionExecuteAt: null,
+      updatedAt: Timestamp.now(),
+    });
+  } catch (error) {
+    console.error("Error canceling account deletion:", error);
+    throw error;
+  }
+}
+
 // Delete all user data
 export async function deleteAllUserData(userIdToDelete: string): Promise<void> {
   try {

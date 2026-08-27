@@ -1,3 +1,5 @@
 dist
 node_modules
 public/rtttl-index.json
+functions/lib
+functions/node_modules

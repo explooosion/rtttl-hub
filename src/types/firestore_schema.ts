@@ -51,6 +51,15 @@ export interface FirestoreUser {
   /** Lifetime total donated in USD (optional, for display). */
   total_donated: number;
 
+  /** Whether account is pending deletion */
+  pendingDeletion?: boolean;
+
+  /** When the deletion was scheduled */
+  deletionScheduledAt?: Timestamp | null;
+
+  /** When the deletion will be executed (3 days after request) */
+  deletionExecuteAt?: Timestamp | null;
+
   /** Account creation timestamp */
   createdAt: Timestamp;
 

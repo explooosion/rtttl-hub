@@ -641,6 +641,8 @@
     "deleteAccountWarning": "Usunięcie konta trwale usunie wszystkie dane, w tym kreacje, ulubione, historię darowizn i dane profilu. Tej akcji nie można cofnąć. Proszę rozważyć ostrożnie.",
     "deleteAccountConfirmTitle": "Potwierdź usunięcie konta",
     "deleteAccountConfirmMessage": "Czy na pewno chcesz trwale usunąć swoje konto? Spowoduje to usunięcie wszystkich Twoich kreacji, ulubionych i danych profilu. Tej akcji nie można cofnąć.",
+    "scheduleDeleteConfirmMessage": "Twoje konto zostanie zaplanowane do usunięcia za 3 dni. W tym okresie możesz anulować usunięcie w dowolnym momencie. Po 3 dniach wszystkie Twoje dane zostaną trwale usunięte.",
+    "scheduleDelete": "Zaplanuj usunięcie",
     "deleteAccountInputPlaceholder": "Wpisz swoją nazwę wyświetlaną {{name}}, aby potwierdzić usunięcie",
     "accountDeleted": "Konto usunięte pomyślnie.",
     "deleteFailed": "Nie udało się usunąć konta. Spróbuj ponownie.",

@@ -80,17 +80,15 @@ export async function handlePolarWebhook(req: Request, res: Response): Promise<v
     const msgSig = (req.headers as Record<string, string>)["webhook-signature"] ?? "(missing)";
     const rawBodyStr = req.rawBody ? req.rawBody.toString("utf8") : "(none)";
     const contentType = (req.headers as Record<string, string>)["content-type"] ?? "(missing)";
-    console.info(`[webhook-debug] id="${msgId}" ts="${msgTs}" sig="${msgSig}" contentType="${contentType}" rawBodyLen=${rawBodyStr.length}`);
+    console.info(
+      `[webhook-debug] id="${msgId}" ts="${msgTs}" sig="${msgSig}" contentType="${contentType}" rawBodyLen=${rawBodyStr.length}`,
+    );
     // Log body in chunks (chunk at 4000 chars to stay within Cloud Logging limits)
     for (let i = 0; i < rawBodyStr.length; i += 4000) {
       console.info(`[webhook-body-${i}] ${rawBodyStr.slice(i, i + 4000)}`);
     }
 
-    event = verifyStandardWebhook(
-      req.rawBody,
-      req.headers as Record<string, string>,
-      secret,
-    );
+    event = verifyStandardWebhook(req.rawBody, req.headers as Record<string, string>, secret);
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     console.warn("Polar webhook: verification failed —", msg);
@@ -109,7 +107,10 @@ export async function handlePolarWebhook(req: Request, res: Response): Promise<v
   // Primary: uid injected server-side via metadata when creating the checkout session.
   // Fallback: uid from the Custom Field (for direct checkout link payments).
   const metadata = (order.metadata ?? {}) as Record<string, unknown>;
-  const customFields = (order.custom_field_data ?? order.customFieldData ?? {}) as Record<string, unknown>;
+  const customFields = (order.custom_field_data ?? order.customFieldData ?? {}) as Record<
+    string,
+    unknown
+  >;
 
   const uid =
     typeof metadata["user_id"] === "string"

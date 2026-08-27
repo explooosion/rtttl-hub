@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   deleteUser as firebaseDeleteUser,
 } from "firebase/auth";
+import { Timestamp } from "firebase/firestore";
 import { auth, googleProvider } from "../lib/firebase";
 import {
   createOrUpdateUser,
@@ -14,6 +15,8 @@ import {
   deleteAvatar,
   getUserCreations,
   getUserFavorites,
+  scheduleAccountDeletion,
+  cancelAccountDeletion,
 } from "../services/firestore_service";
 
 interface AuthUser {
@@ -22,6 +25,9 @@ interface AuthUser {
   email: string;
   photoURL?: string;
   customPhotoURL?: string;
+  pendingDeletion?: boolean;
+  deletionScheduledAt?: Timestamp | null;
+  deletionExecuteAt?: Timestamp | null;
 }
 
 interface AuthState {
@@ -31,6 +37,8 @@ interface AuthState {
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
   updateProfile: (data: { displayName?: string; customPhotoURL?: string }) => Promise<void>;
+  scheduleAccountDeletion: () => Promise<void>;
+  cancelAccountDeletion: () => Promise<void>;
   deleteAccount: () => Promise<void>;
   initAuth: VoidFunction;
   loadUserData: (uid: string) => Promise<void>;
@@ -78,6 +86,9 @@ export const useAuthStore = create<AuthState>()(
                 email: firebaseUser.email || "",
                 photoURL: firebaseUser.photoURL || undefined,
                 customPhotoURL: firestoreUser?.customPhotoURL || undefined,
+                pendingDeletion: firestoreUser?.pendingDeletion,
+                deletionScheduledAt: firestoreUser?.deletionScheduledAt,
+                deletionExecuteAt: firestoreUser?.deletionExecuteAt,
               },
               isAuthenticated: true,
               isLoading: false,
@@ -111,6 +122,9 @@ export const useAuthStore = create<AuthState>()(
               email: user.email || "",
               photoURL: user.photoURL || undefined,
               customPhotoURL: firestoreUser?.customPhotoURL || undefined,
+              pendingDeletion: firestoreUser?.pendingDeletion,
+              deletionScheduledAt: firestoreUser?.deletionScheduledAt,
+              deletionExecuteAt: firestoreUser?.deletionExecuteAt,
             },
             isAuthenticated: true,
           });
@@ -149,6 +163,61 @@ export const useAuthStore = create<AuthState>()(
         set((state) => ({
           user: state.user ? { ...state.user, ...data } : null,
         }));
+      },
+
+      scheduleAccountDeletion: async () => {
+        const currentUser = get().user;
+        if (!currentUser) {
+          return;
+        }
+
+        try {
+          await scheduleAccountDeletion(currentUser.uid);
+
+          // Update local state
+          const updatedUser = await getUser(currentUser.uid);
+          if (updatedUser) {
+            set((state) => ({
+              user: state.user
+                ? {
+                    ...state.user,
+                    pendingDeletion: updatedUser.pendingDeletion,
+                    deletionScheduledAt: updatedUser.deletionScheduledAt,
+                    deletionExecuteAt: updatedUser.deletionExecuteAt,
+                  }
+                : null,
+            }));
+          }
+        } catch (error) {
+          console.error("Schedule account deletion error:", error);
+          throw error;
+        }
+      },
+
+      cancelAccountDeletion: async () => {
+        const currentUser = get().user;
+        if (!currentUser) {
+          return;
+        }
+
+        try {
+          await cancelAccountDeletion(currentUser.uid);
+
+          // Update local state
+          set((state) => ({
+            user: state.user
+              ? {
+                  ...state.user,
+                  pendingDeletion: false,
+                  deletionScheduledAt: null,
+                  deletionExecuteAt: null,
+                }
+              : null,
+          }));
+        } catch (error) {
+          console.error("Cancel account deletion error:", error);
+          throw error;
+        }
       },
 
       deleteAccount: async () => {

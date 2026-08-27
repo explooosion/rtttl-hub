@@ -50,11 +50,13 @@ export function AccountPage() {
   const user = useAuthStore((s) => s.user);
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const isLoading = useAuthStore((s) => s.isLoading);
-  const deleteAccount = useAuthStore((s) => s.deleteAccount);
+  const scheduleAccountDeletion = useAuthStore((s) => s.scheduleAccountDeletion);
+  const cancelAccountDeletion = useAuthStore((s) => s.cancelAccountDeletion);
   const userItems = useCollectionStore((s) => s.userItems);
   const favoriteIds = useFavoritesStore((s) => s.favoriteIds);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isCancelling, setIsCancelling] = useState(false);
   const [transactions, setTransactions] = useState<FirestoreTransaction[]>([]);
   const [premiumStatus, setPremiumStatus] = useState<PremiumStatus>(INACTIVE_PREMIUM);
   const [premiumLoaded, setPremiumLoaded] = useState(false);
@@ -110,15 +112,27 @@ export function AccountPage() {
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
     try {
-      await deleteAccount();
-      toast.success(t("account.accountDeleted"));
-      navigate("/");
+      await scheduleAccountDeletion();
+      toast.success(t("account.deletionScheduled"));
     } catch (error) {
-      console.error("Delete account error:", error);
-      toast.error(t("account.deleteFailed"));
+      console.error("Schedule deletion error:", error);
+      toast.error(t("account.deletionScheduleFailed"));
     } finally {
       setIsDeleting(false);
       setDeleteConfirmOpen(false);
+    }
+  };
+
+  const handleCancelDeletion = async () => {
+    setIsCancelling(true);
+    try {
+      await cancelAccountDeletion();
+      toast.success(t("account.deletionCancelled"));
+    } catch (error) {
+      console.error("Cancel deletion error:", error);
+      toast.error(t("account.deletionCancelFailed"));
+    } finally {
+      setIsCancelling(false);
     }
   };
 
@@ -372,16 +386,53 @@ export function AccountPage() {
             <h2 className="mb-4 text-lg font-semibold text-red-900 dark:text-red-400">
               {t("account.dangerZone")}
             </h2>
-            <button
-              onClick={handleOpenDeleteConfirm}
-              className="flex items-center gap-2 rounded-lg border border-red-300 bg-white px-4 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 dark:border-red-800 dark:bg-gray-900 dark:text-red-400 dark:hover:bg-red-950/30"
-            >
-              <FaTrash size={14} />
-              {t("account.deleteAccount")}
-            </button>
-            <p className="mt-3 text-sm leading-relaxed text-red-600 dark:text-red-400">
-              {t("account.deleteAccountWarning")}
-            </p>
+
+            {user.pendingDeletion ? (
+              <>
+                <div className="mb-4 rounded-lg border border-red-300 bg-white p-4 dark:border-red-800 dark:bg-gray-900">
+                  <p className="mb-2 text-sm font-medium text-red-700 dark:text-red-400">
+                    {t("account.deletionScheduledNotice")}
+                  </p>
+                  <p className="text-sm text-red-600 dark:text-red-500">
+                    {t("account.deletionDate", {
+                      date: user.deletionExecuteAt?.toDate
+                        ? new Date(user.deletionExecuteAt.toDate()).toLocaleDateString(undefined, {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })
+                        : "N/A",
+                    })}
+                  </p>
+                </div>
+                <button
+                  onClick={handleCancelDeletion}
+                  disabled={isCancelling}
+                  className="flex items-center gap-2 rounded-lg border border-green-300 bg-white px-4 py-2 text-sm font-medium text-green-600 transition-colors hover:bg-green-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-green-800 dark:bg-gray-900 dark:text-green-400 dark:hover:bg-green-950/30"
+                >
+                  <FaCheck size={14} />
+                  {isCancelling ? t("common.loading") : t("account.cancelDeletion")}
+                </button>
+                <p className="mt-3 text-sm leading-relaxed text-red-600 dark:text-red-400">
+                  {t("account.cancelDeletionInfo")}
+                </p>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={handleOpenDeleteConfirm}
+                  className="flex items-center gap-2 rounded-lg border border-red-300 bg-white px-4 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 dark:border-red-800 dark:bg-gray-900 dark:text-red-400 dark:hover:bg-red-950/30"
+                >
+                  <FaTrash size={14} />
+                  {t("account.deleteAccount")}
+                </button>
+                <p className="mt-3 text-sm leading-relaxed text-red-600 dark:text-red-400">
+                  {t("account.deleteAccountWarning")}
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -389,10 +440,10 @@ export function AccountPage() {
       <ConfirmDialog
         isOpen={deleteConfirmOpen}
         title={t("account.deleteAccountConfirmTitle")}
-        message={t("account.deleteAccountConfirmMessage")}
+        message={t("account.scheduleDeleteConfirmMessage")}
         confirmText={user.displayName}
         confirmPlaceholder={t("account.deleteAccountInputPlaceholder", { name: user.displayName })}
-        confirmLabel={t("account.deleteAccount")}
+        confirmLabel={t("account.scheduleDelete")}
         cancelLabel={t("actions.cancel")}
         onConfirm={handleDeleteAccount}
         onCancel={handleCloseDeleteConfirm}

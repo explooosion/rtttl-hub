@@ -10,14 +10,7 @@ export type CollectionSlug =
   | "public";
 
 export type RtttlCategory =
-  | "pop"
-  | "classical"
-  | "movie-tv"
-  | "game"
-  | "holiday"
-  | "folk"
-  | "alert"
-  | "original";
+  "pop" | "classical" | "movie-tv" | "game" | "holiday" | "folk" | "alert" | "original";
 
 export interface RtttlEntry {
   id: string;
