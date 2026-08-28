@@ -14,7 +14,7 @@ export const TRACK_DOT_CLASSES = [
   "bg-rose-500",
 ] as const;
 
-export const MAX_TRACKS = 4;
+export const MAX_TRACKS = 100;
 
 /** Default pixels per second for the time-aligned timeline. */
 export const PX_PER_SEC_DEFAULT = 100;
