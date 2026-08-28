@@ -700,7 +700,7 @@
     "maxDuration": "最大分析時長：{{seconds}} 秒",
     "durationExceeded": "選定時間範圍超過 {{max}} 秒限制。",
     "dailyLimitReached": "每日免費額度已用完（{{max}} 次/天）。",
-    "usageCount": "今日已使用 {{used}}/{{limit}} 次",
+    "usageSummary": "今日已使用 {{used}} 次．剩餘 {{remaining}} 次．總額度 {{total}} 次",
     "loginRequired": "請先登入以使用此功能。",
     "cloudWarning": "此服務使用 AI 雲端運算，請勿關閉視窗，耐心等待結果。",
     "resultSaved": "AI 辨識結果已儲存。",

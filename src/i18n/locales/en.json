@@ -692,7 +692,7 @@
     "maxDuration": "Max analysis duration: {{seconds}}s",
     "durationExceeded": "The selected time range exceeds the {{max}} second limit.",
     "dailyLimitReached": "Daily free usage limit reached ({{max}} times/day).",
-    "usageCount": "{{used}}/{{limit}} uses today",
+    "usageSummary": "Today: {{used}} used · {{remaining}} remaining · {{total}} total",
     "loginRequired": "Please sign in to use this feature.",
     "cloudWarning": "This service uses AI cloud computing. Please do not close the window and wait patiently for the result.",
     "resultSaved": "AI Recognition result saved.",

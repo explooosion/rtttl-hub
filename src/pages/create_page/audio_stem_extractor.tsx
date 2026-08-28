@@ -434,15 +434,6 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                   {t("audioExtract.title", { defaultValue: "AI Recognition" })}
                 </DialogTitle>
                 <div className="flex items-center gap-3">
-                  {dailyUsed !== null && (
-                    <span className="text-sm text-gray-400 dark:text-gray-500">
-                      {t("audioExtract.usageCount", {
-                        defaultValue: "{{used}}/{{limit}} uses today",
-                        used: dailyUsed,
-                        limit: limits.dailyLimit,
-                      })}
-                    </span>
-                  )}
                   {state !== "processing" && (
                     <button
                       type="button"
@@ -454,6 +445,21 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                   )}
                 </div>
               </div>
+
+              {/* Daily usage summary */}
+              {dailyUsed !== null && (
+                <div className="border-b border-gray-200 bg-indigo-50 px-5 py-2.5 dark:border-gray-700 dark:bg-indigo-950/40">
+                  <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">
+                    {t("audioExtract.usageSummary", {
+                      defaultValue:
+                        "Today: {{used}} used · {{remaining}} remaining · {{total}} total",
+                      used: dailyUsed,
+                      remaining: Math.max(limits.dailyLimit - dailyUsed, 0),
+                      total: limits.dailyLimit,
+                    })}
+                  </p>
+                </div>
+              )}
 
               {/* Idle State — no file selected */}
               {state === "idle" && (
