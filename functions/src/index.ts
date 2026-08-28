@@ -107,6 +107,15 @@ export const replicateCreatePrediction = onCall(
       throw new HttpsError("invalid-argument", "Missing required fields.");
     }
 
+    if (startTime < 0 || endTime <= startTime) {
+      throw new HttpsError("invalid-argument", "Invalid time range.");
+    }
+
+    // Server-side enforcement of donate-tier limits (never trust the client —
+    // this gates paid Replicate API usage). See quota_service.ts.
+    const { checkAndConsumeQuota } = await import("./quota_service");
+    await checkAndConsumeQuota(request.auth.uid, endTime - startTime);
+
     const { createReplicatePrediction } = await import("./replicate_proxy");
     return createReplicatePrediction({ audioDataUri, startTime, endTime, stems });
   },

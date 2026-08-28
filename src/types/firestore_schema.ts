@@ -353,6 +353,26 @@ export interface FirestoreUserQuota {
 }
 
 /**
+ * Collection: usage_counters
+ * Document ID: {userId} (Firebase Auth UID)
+ *
+ * The authoritative daily AI-recognition usage counter, written exclusively
+ * by Cloud Functions (Admin SDK) inside quota_service.ts's checkAndConsumeQuota().
+ * Kept separate from the user-manageable audio_recognitions history collection
+ * so that deleting recognition history can never reset a user's daily quota.
+ */
+export interface FirestoreUsageCounter {
+  /** UTC date string (YYYY-MM-DD) this counter applies to */
+  date: string;
+
+  /** Number of AI recognitions consumed on `date` */
+  count: number;
+
+  /** Last update timestamp */
+  updatedAt: Timestamp;
+}
+
+/**
  * Collection Names
  * Centralized collection name constants to avoid typos
  */
@@ -392,6 +412,7 @@ export const FIRESTORE_COLLECTIONS = {
   USER_TRACK_INTERACTIONS: "user_track_interactions",
   PENDING_STATS_UPDATES: "pending_stats_updates",
   AUDIO_RECOGNITIONS: "audio_recognitions",
+  USAGE_COUNTERS: "usage_counters",
   DONATIONS: "donations",
   USER_QUOTA: "user_quota",
   TRANSACTIONS: "transactions",

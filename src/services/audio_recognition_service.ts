@@ -1,6 +1,7 @@
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   setDoc,
   deleteDoc,
@@ -12,7 +13,7 @@ import {
 
 import { db } from "../libs/firebase";
 import { FIRESTORE_COLLECTIONS } from "../types/firestore_schema";
-import type { FirestoreAudioRecognition } from "../types/firestore_schema";
+import type { FirestoreAudioRecognition, FirestoreUsageCounter } from "../types/firestore_schema";
 
 export type { FirestoreAudioRecognition };
 
@@ -45,15 +46,20 @@ export async function deleteAudioRecognition(id: string): Promise<void> {
   await deleteDoc(docRef);
 }
 
+/**
+ * Reads the real daily AI recognition usage count from the server-authoritative
+ * `usage_counters/{userId}` doc (written by the Cloud Function that gates
+ * Replicate API calls — see functions/src/quota_service.ts). This is NOT
+ * derived from the audio_recognitions history collection, so deleting past
+ * recognition results never resets the quota.
+ */
 export async function getUserDailyRecognitionCount(userId: string): Promise<number> {
-  const now = new Date();
-  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const snap = await getDoc(doc(db, FIRESTORE_COLLECTIONS.USAGE_COUNTERS, userId));
+  if (!snap.exists()) {
+    return 0;
+  }
 
-  const q = query(
-    collection(db, FIRESTORE_COLLECTIONS.AUDIO_RECOGNITIONS),
-    where("userId", "==", userId),
-    where("createdAt", ">=", Timestamp.fromDate(startOfDay)),
-  );
-  const snap = await getDocs(q);
-  return snap.size;
+  const data = snap.data() as FirestoreUsageCounter;
+  const today = new Date().toISOString().slice(0, 10);
+  return data.date === today ? data.count : 0;
 }

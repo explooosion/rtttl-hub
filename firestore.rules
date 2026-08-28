@@ -68,6 +68,14 @@ service cloud.firestore {
       allow update: if false; // Records are immutable after creation
     }
 
+    // Daily AI recognition usage counters - the real quota enforcement source.
+    // Written exclusively by Cloud Functions (Admin SDK) so that deleting
+    // audio_recognitions history can never reset a user's daily quota.
+    match /usage_counters/{userId} {
+      allow read: if isOwner(userId);
+      allow write: if false; // Server only
+    }
+
     // Payment transactions - written exclusively by the Cloud Function (Admin SDK).
     // Users may only read their own transaction to poll webhook confirmation.
     // resource == null means the document doesn't exist yet (webhook not yet fired) — allow
