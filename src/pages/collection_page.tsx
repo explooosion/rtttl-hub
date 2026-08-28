@@ -191,6 +191,23 @@ export function CollectionPage() {
     [user, updateUserItem, t],
   );
 
+  const pinnedRowAction: TrackRowAction | undefined = useMemo(() => {
+    if (slug !== "my-creations") {
+      return undefined;
+    }
+    return {
+      icon: (item: RtttlEntry) =>
+        item.isPublic ? (
+          <FaGlobe size={18} className="text-green-500" />
+        ) : (
+          <FaLock size={18} className="text-gray-400" />
+        ),
+      title: (item: RtttlEntry) =>
+        item.isPublic ? t("actions.makePrivate") : t("actions.makePublic"),
+      onClick: handleTogglePublic,
+    };
+  }, [slug, t, handleTogglePublic]);
+
   const extraActions: TrackRowAction[] | undefined = useMemo(() => {
     if (slug === "my-creations") {
       return [
@@ -198,17 +215,6 @@ export function CollectionPage() {
           icon: <FaEdit size={18} />,
           title: t("actions.edit"),
           onClick: handleEditItem,
-        },
-        {
-          icon: (item: RtttlEntry) =>
-            item.isPublic ? (
-              <FaGlobe size={18} className="text-green-500" />
-            ) : (
-              <FaLock size={18} className="text-gray-400" />
-            ),
-          title: (item: RtttlEntry) =>
-            item.isPublic ? t("actions.makePrivate") : t("actions.makePublic"),
-          onClick: handleTogglePublic,
         },
         {
           icon: <FaTrash size={18} />,
@@ -226,7 +232,7 @@ export function CollectionPage() {
         onClick: handleImportToCreate,
       },
     ];
-  }, [slug, t, handleEditItem, handleTogglePublic, handleDeleteItem, handleImportToCreate]);
+  }, [slug, t, handleEditItem, handleDeleteItem, handleImportToCreate]);
 
   const breadcrumbs: BreadcrumbItem[] = [
     { label: t("breadcrumb.home"), to: "/" },
@@ -270,6 +276,7 @@ export function CollectionPage() {
         headerActions={headerActions}
         extraRowActions={extraActions}
         showActionsAsMenu={slug === "my-creations"}
+        pinnedRowAction={pinnedRowAction}
         emptyNode={emptyNode}
       />
       <ConfirmDialog

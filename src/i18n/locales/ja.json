@@ -146,7 +146,8 @@
     "syntaxColors": "構文カラー",
     "feature": {
       "syntaxHighlight": "構文ハイライト",
-      "playbackTracking": "再生追従"
+      "playbackTracking": "再生追従",
+      "multiLineCode": "複数行コード"
     },
     "mode": {
       "raw": "ロー",
@@ -718,7 +719,7 @@
   "midiImport": {
     "title": "MIDI をインポート",
     "description": "MIDI ファイルを選択して RTTTL トラックとしてインポートします。",
-    "algorithmCredit": "変換アルゴリズムの参考:",
+    "algorithmCredit": "変換アルゴリズムの採用元:",
     "selectFile": "MIDI ファイルを選択",
     "changeFile": "ファイルを変更",
     "invalidType": "有効な MIDI ファイル（.mid、.midi）を選択してください。",
@@ -757,16 +758,14 @@
     "title": "RTTTL Hub を支援",
     "subtitle": "RTTTL Hub は無料でオープンソースです。これは一回限りのサポートであり、サブスクリプションではありません。ご支援は AI コンピューティングコストに充てられ、その対価として 30 日間有効の AI 音声認識クレジットを受け取ることができます。",
     "popular": "人気",
-    "uploads": "30日以内に{{count}}ファイルアップロード",
-    "seconds": "アップロードごとに最大{{count}}秒",
+    "uploads": "1日{{count}}回のAI認識アップロード",
+    "seconds": "AI認識1回あたり最大{{count}}秒",
     "validity": "30日間の特典 — 更新不要、継続請求なし",
     "support": "オープンソース開発を支援",
     "cta": "${{amount}}を寄付",
-    "freeTitle": "無料プラン利用可能",
-    "freeDesc": "誰でも1日に10回の無料AI音声認識アップロード（各最大30秒）を利用できます。寄付は任意であり、クラウドコンピューティングコストの負担に役立ちます。",
-    "ossTitle": "100% オープンソース",
-    "ossDesc": "すべてのプラットフォームコードはオープンソースです。音声認識を支える AI モデルはプライベートに訓練・ホスティングされています。RTTTL Hub プラットフォーム自体は自分のハードウェアで無料で実行できます。",
-    "viewSource": "GitHubで表示",
+    "freeTitle": "無料",
+    "freeNote": "寄付不要、誰でも利用可能",
+    "freeCta": "常に無料",
     "loginRequired": "寄付を行うにはログインしてください。",
     "loginBtn": "ログイン"
   },

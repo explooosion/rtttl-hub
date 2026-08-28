@@ -94,7 +94,8 @@ export function TimeRuler({ totalMs, timelineWidthPx, pxPerSec }: TimeRulerProps
   return (
     <div className="sticky top-0 z-20 flex h-7 shrink-0 select-none border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
       {/* Header spacer — sticky left so it stays visible during horizontal scroll */}
-      <div className="sticky left-0 z-30 w-44 shrink-0 border-r border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900" />
+      {/* Width must match the track header panel's w-48 so the 0s tick aligns with the waveform/code left edge */}
+      <div className="sticky left-0 z-30 w-48 shrink-0 border-r border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900" />
       {/* Ruler at fixed pixel width matching the timeline canvas */}
       <div className="relative shrink-0" style={{ width: timelineWidthPx }}>
         {/* Minor ticks */}

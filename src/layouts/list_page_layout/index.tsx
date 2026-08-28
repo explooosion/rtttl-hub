@@ -33,6 +33,7 @@ export function ListPageLayout({
   headerActions,
   extraRowActions,
   showActionsAsMenu = false,
+  pinnedRowAction,
   emptyNode,
 }: ListPageLayoutProps) {
   const { t } = useTranslation();
@@ -353,6 +354,7 @@ export function ListPageLayout({
                 rowData={rowData}
                 extraRowActions={extraRowActions}
                 showActionsAsMenu={showActionsAsMenu}
+                pinnedRowAction={pinnedRowAction}
                 emptyNode={emptyNode}
                 totalPages={totalPages}
                 safePage={safePage}

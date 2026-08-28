@@ -81,6 +81,12 @@ const darkTheme = EditorView.theme(
   { dark: true },
 );
 
+function buildLineWrapExtension(singleLine: boolean) {
+  return singleLine
+    ? [EditorView.theme({ ".cm-scroller": { overflowX: "auto", overflowY: "hidden" } })]
+    : [EditorView.lineWrapping];
+}
+
 export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function CodeEditor(
   {
     value,
@@ -115,6 +121,7 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
   const langCompartment = useMemo(() => new Compartment(), []);
   const highlightCompartment = useMemo(() => new Compartment(), []);
   const themeCompartment = useMemo(() => new Compartment(), []);
+  const lineWrapCompartment = useMemo(() => new Compartment(), []);
   const mode = useThemeStore((s) => s.mode);
 
   useImperativeHandle(ref, () => ({
@@ -154,7 +161,7 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
       extensions: [
         history(),
         keymap.of([...defaultKeymap, ...historyKeymap]),
-        ...(singleLine ? [] : [EditorView.lineWrapping]),
+        lineWrapCompartment.of(buildLineWrapExtension(singleLine)),
         ...(readOnly ? [EditorState.readOnly.of(true)] : []),
         langCompartment.of(syntaxHighlight ? langExtension : []),
         highlightCompartment.of(syntaxHighlight ? buildHighlightExtension(syntaxColors) : []),
@@ -163,9 +170,6 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
         updateListener,
         baseTheme,
         ...(minHeight ? [EditorView.theme({ ".cm-content": { minHeight } })] : []),
-        ...(singleLine
-          ? [EditorView.theme({ ".cm-scroller": { overflowX: "auto", overflowY: "hidden" } })]
-          : []),
         ...(maxHeight
           ? [EditorView.theme({ "&": { maxHeight }, ".cm-scroller": { overflowY: "auto" } })]
           : []),
@@ -218,6 +222,19 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
       });
     },
     [syntaxHighlight, syntaxColors, notesOnly, langCompartment, highlightCompartment],
+  );
+
+  useEffect(
+    function reconfigureLineWrapOnSingleLineChange() {
+      const view = viewRef.current;
+      if (!view) {
+        return;
+      }
+      view.dispatch({
+        effects: lineWrapCompartment.reconfigure(buildLineWrapExtension(singleLine)),
+      });
+    },
+    [singleLine, lineWrapCompartment],
   );
 
   useEffect(

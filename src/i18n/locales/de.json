@@ -146,7 +146,8 @@
     "syntaxColors": "Syntax-Farben",
     "feature": {
       "syntaxHighlight": "Syntax-Hervorhebung",
-      "playbackTracking": "Wiedergabe folgen"
+      "playbackTracking": "Wiedergabe folgen",
+      "multiLineCode": "Mehrzeiliger Code"
     },
     "mode": {
       "raw": "Roh",
@@ -717,7 +718,7 @@
   "midiImport": {
     "title": "MIDI importieren",
     "description": "Wähle eine MIDI-Datei aus, um sie als RTTTL-Spuren zu importieren.",
-    "algorithmCredit": "Referenz des Konvertierungsalgorithmus:",
+    "algorithmCredit": "Konvertierungsalgorithmus übernommen von:",
     "selectFile": "MIDI-Datei auswählen",
     "changeFile": "Datei ändern",
     "invalidType": "Bitte wähle eine gültige MIDI-Datei (.mid, .midi) aus.",
@@ -756,16 +757,14 @@
     "title": "RTTTL Hub unterstützen",
     "subtitle": "RTTTL Hub ist kostenlos und Open Source. Dies ist eine einmalige Spende – kein Abonnement. Ihre Unterstützung hilft, die KI-Rechenkosten zu decken, und als Gegenleistung erhalten Sie 30 Tage gültige KI-Audioerkennungsguthaben.",
     "popular": "Am beliebtesten",
-    "uploads": "{{count}} Datei-Uploads innerhalb von 30 Tagen",
-    "seconds": "Bis zu {{count}} Sekunden pro Upload",
+    "uploads": "{{count}} KI-Erkennungs-Uploads pro Tag",
+    "seconds": "Bis zu {{count}} Sekunden pro KI-Erkennung",
     "validity": "30-Tage-Vorteil — keine Verlängerung, keine Folgekosten",
     "support": "Open-Source-Entwicklung unterstützen",
     "cta": "${{amount}} spenden",
-    "freeTitle": "Kostenloses Kontingent verfügbar",
-    "freeDesc": "Jeder erhält täglich 10 kostenlose KI-Audioerkennungs-Uploads (jeweils max. 30 Sekunden). Spenden sind völlig optional – sie ermöglichen lediglich längere Audiodateien und mehr tägliche Uploads für 30 Tage.",
-    "ossTitle": "100% Open Source",
-    "ossDesc": "Unser gesamter Plattform-Code ist Open Source. Die KI-Modelle für die Audioerkennung werden privat trainiert und gehostet. Sie können die RTTTL Hub-Plattform selbst kostenlos auf Ihrer eigenen Hardware betreiben.",
-    "viewSource": "Auf GitHub ansehen",
+    "freeTitle": "Kostenlos",
+    "freeNote": "Keine Spende erforderlich — für alle verfügbar",
+    "freeCta": "Immer kostenlos",
     "loginRequired": "Bitte melden Sie sich an, um zu spenden.",
     "loginBtn": "Anmelden"
   },

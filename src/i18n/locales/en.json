@@ -146,7 +146,8 @@
     "syntaxColors": "Syntax Colors",
     "feature": {
       "syntaxHighlight": "Syntax Highlighting",
-      "playbackTracking": "Follow Playback"
+      "playbackTracking": "Follow Playback",
+      "multiLineCode": "Multi-line Code"
     },
     "mode": {
       "raw": "Raw",
@@ -737,7 +738,7 @@
   "midiImport": {
     "title": "Import MIDI",
     "description": "Select a MIDI file to import as RTTTL tracks.",
-    "algorithmCredit": "Conversion algorithm reference:",
+    "algorithmCredit": "Conversion algorithm adopted from:",
     "selectFile": "Select MIDI File",
     "changeFile": "Change File",
     "invalidType": "Please select a valid MIDI file (.mid, .midi).",
@@ -776,16 +777,14 @@
     "title": "Support RTTTL Hub",
     "subtitle": "RTTTL Hub is free and open source. This is a one-time donation — not a subscription. Your support helps cover AI computing costs, and in return you'll receive AI audio recognition credits valid for 30 days.",
     "popular": "Most Popular",
-    "uploads": "{{count}} file uploads within 30 days",
-    "seconds": "Up to {{count}} seconds per upload",
+    "uploads": "{{count}} AI recognition uploads per day",
+    "seconds": "Up to {{count}} seconds per AI recognition",
     "validity": "30-day benefit — no renewal, no recurring charge",
     "support": "Support open source development",
     "cta": "Donate ${{amount}}",
-    "freeTitle": "Free tier available",
-    "freeDesc": "Everyone gets 10 free AI audio recognition uploads per day (up to 30 seconds each). Donations are completely optional — they just unlock longer audio and more daily uploads for 30 days.",
-    "ossTitle": "100% Open Source",
-    "ossDesc": "All our platform code is open source. The AI models powering audio recognition are privately trained and hosted. You can run the RTTTL Hub platform itself on your own hardware for free.",
-    "viewSource": "View on GitHub",
+    "freeTitle": "Free",
+    "freeNote": "No donation required — available to everyone",
+    "freeCta": "Always Free",
     "loginRequired": "Please log in to make a donation.",
     "loginBtn": "Log In"
   },

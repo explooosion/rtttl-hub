@@ -4,6 +4,8 @@ import { persist } from "zustand/middleware";
 export interface EditorFeatures {
   syntaxHighlight: boolean;
   playbackTracking: boolean;
+  /** When false, each track's code editor is forced to a single line with horizontal scroll. */
+  multiLineCode: boolean;
 }
 
 // VSCode Dark+ inspired palette
@@ -44,6 +46,7 @@ export const useEditorSettingsStore = create<EditorSettingsState>()(
       features: {
         syntaxHighlight: true,
         playbackTracking: true,
+        multiLineCode: true,
       },
       fontSize: 13,
       syntaxColors: { ...DEFAULT_SYNTAX_COLORS },
@@ -65,6 +68,16 @@ export const useEditorSettingsStore = create<EditorSettingsState>()(
           savedColors: { ...DEFAULT_SYNTAX_COLORS },
         }),
     }),
-    { name: "rtttl-editor-settings" },
+    {
+      name: "rtttl-editor-settings",
+      merge: (persistedState, currentState) => {
+        const persisted = persistedState as Partial<EditorSettingsState> | undefined;
+        return {
+          ...currentState,
+          ...persisted,
+          features: { ...currentState.features, ...persisted?.features },
+        };
+      },
+    },
   ),
 );

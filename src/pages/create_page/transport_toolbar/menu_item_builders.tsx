@@ -17,6 +17,7 @@ import {
   FaEraser,
   FaCode,
   FaCrosshairs,
+  FaAlignLeft,
   FaPlus,
   FaTrash,
   FaVolumeMute,
@@ -242,8 +243,10 @@ interface BuildViewItemsParams {
   onExpandAll: VoidFunction;
   syntaxHighlightActive: boolean;
   playbackTrackingActive: boolean;
+  multiLineCodeActive: boolean;
   onToggleSyntaxHighlight: VoidFunction;
   onTogglePlaybackTracking: VoidFunction;
+  onToggleMultiLineCode: VoidFunction;
 }
 
 export function buildViewItems({
@@ -252,8 +255,10 @@ export function buildViewItems({
   onExpandAll,
   syntaxHighlightActive,
   playbackTrackingActive,
+  multiLineCodeActive,
   onToggleSyntaxHighlight,
   onTogglePlaybackTracking,
+  onToggleMultiLineCode,
 }: BuildViewItemsParams) {
   const viewItems: MenuItemDef[] = [
     {
@@ -282,6 +287,13 @@ export function buildViewItems({
       label: t("editor.feature.playbackTracking", { defaultValue: "Follow Playback" }),
       active: playbackTrackingActive,
       onClick: onTogglePlaybackTracking,
+    },
+    {
+      type: "action",
+      icon: <FaAlignLeft size={13} />,
+      label: t("editor.feature.multiLineCode", { defaultValue: "Multi-line Code" }),
+      active: multiLineCodeActive,
+      onClick: onToggleMultiLineCode,
     },
   ];
 

@@ -146,7 +146,8 @@
     "syntaxColors": "语法颜色",
     "feature": {
       "syntaxHighlight": "语法高亮",
-      "playbackTracking": "跟随播放"
+      "playbackTracking": "跟随播放",
+      "multiLineCode": "多行代码"
     },
     "mode": {
       "raw": "原始",
@@ -725,7 +726,7 @@
   "midiImport": {
     "title": "导入 MIDI",
     "description": "选择 MIDI 文件以导入为 RTTTL 音轨。",
-    "algorithmCredit": "转换算法参考：",
+    "algorithmCredit": "转换算法采用自：",
     "selectFile": "选择 MIDI 文件",
     "changeFile": "更换文件",
     "invalidType": "请选择有效的 MIDI 文件（.mid、.midi）。",
@@ -764,16 +765,14 @@
     "title": "支持 RTTTL Hub",
     "subtitle": "RTTTL Hub 是免费且开源的。这是一次性赞助，不是订阅。您的支持有助于支付 AI 计算成本，作为回报，您将获得 30 天有效的 AI 音频识别额度。",
     "popular": "最受欢迎",
-    "uploads": "30 天内 {{count}} 个文件上传",
-    "seconds": "每次上传最多 {{count}} 秒",
+    "uploads": "每天 {{count}} 次 AI 识别上传",
+    "seconds": "每次 AI 识别最长 {{count}} 秒",
     "validity": "30 天福利 — 无需续期，无循环扣款",
     "support": "支持开源开发",
     "cta": "赞助 ${{amount}}",
-    "freeTitle": "免费方案可用",
-    "freeDesc": "每个人每天可免费使用 10 次 AI 音频识别上传（每次最多 30 秒）。赞助完全是可选的 — 赞助后可解锁更长的音频时限和更多每日上传次数，有效期 30 天。",
-    "ossTitle": "100% 开源",
-    "ossDesc": "我们所有的平台代码都是开源的。驱动音频识别的 AI 模型由私人训练并托管。您可以免费在自己的硬件上运行 RTTTL Hub 平台本身。",
-    "viewSource": "在 GitHub 上查看",
+    "freeTitle": "免费",
+    "freeNote": "无需赞助，人人可用",
+    "freeCta": "永久免费",
     "loginRequired": "请先登录以进行捐赠。",
     "loginBtn": "登录"
   },

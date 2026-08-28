@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { FaHeart, FaCheck, FaBolt, FaLock, FaSpinner } from "react-icons/fa";
+import { FaHeart, FaCheck, FaLock, FaSpinner } from "react-icons/fa";
 import { httpsCallable } from "firebase/functions";
 
 import { functions } from "../libs/firebase";
 import { useAuthStore } from "../stores/auth_store";
+import {
+  DONATION_TIERS,
+  FREE_DAILY_UPLOAD_LIMIT,
+  FREE_MAX_ANALYSIS_SECONDS,
+} from "../constants/donation_tiers";
 
 /**
  * Cloud Function that creates a Polar Checkout Session server-side,
@@ -15,37 +20,6 @@ const createCheckout = httpsCallable<{ amount: number }, { url: string }>(
   functions,
   "polarCreateCheckout",
 );
-
-interface DonationTier {
-  amount: number;
-  /** Number of file uploads granted within the 30-day validity window. */
-  uploads: number;
-  /**
-   * Maximum audio duration (seconds) per upload for this tier.
-   * Free tier default is 30 s. Paid donors unlock longer limits.
-   */
-  secondsPerUpload: number;
-  popular?: boolean;
-}
-
-const TIERS: DonationTier[] = [
-  {
-    amount: 3,
-    uploads: 50,
-    secondsPerUpload: 90,
-  },
-  {
-    amount: 5,
-    uploads: 150,
-    secondsPerUpload: 180,
-    popular: true,
-  },
-  {
-    amount: 10,
-    uploads: 300,
-    secondsPerUpload: 300,
-  },
-];
 
 export function DonatePage() {
   const { t } = useTranslation();
@@ -71,7 +45,7 @@ export function DonatePage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12">
+    <div className="mx-auto max-w-6xl px-4 py-12">
       {/* Header */}
       <div className="mb-10 text-center">
         <div className="mb-4 flex justify-center">
@@ -83,7 +57,7 @@ export function DonatePage() {
         <p className="mx-auto max-w-2xl text-gray-500 dark:text-gray-400">
           {t("donate.subtitle", {
             defaultValue:
-              "RTTTL Hub is free and open source. This is a one-time donation — not a subscription. Your support helps cover AI computing costs, and in return you'll receive AI audio recognition credits valid for 30 days.",
+              "RTTTL Hub is free and open source. This is a one-time donation — not a subscription. Your support helps cover AI computing costs, and in return you'll receive AI recognition credits valid for 30 days.",
           })}
         </p>
       </div>
@@ -107,9 +81,52 @@ export function DonatePage() {
         </div>
       )}
 
-      {/* Donation Tiers */}
-      <div className="mb-10 grid gap-6 md:grid-cols-3">
-        {TIERS.map((tier) => (
+      {/* Tiers: Free + 3 donation tiers */}
+      <div className="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Free tier */}
+        <div className="relative flex flex-col rounded-2xl border border-gray-200 p-6 dark:border-gray-700">
+          <div className="mb-6">
+            <span className="text-4xl font-extrabold text-gray-900 dark:text-white">
+              {t("donate.freeTitle", { defaultValue: "Free" })}
+            </span>
+          </div>
+
+          <div className="mb-6 flex-1 space-y-3">
+            <div className="flex items-start gap-2">
+              <FaCheck size={14} className="mt-0.5 shrink-0 text-indigo-500" />
+              <span className="text-sm text-gray-600 dark:text-gray-300">
+                {t("donate.uploads", {
+                  defaultValue: "{{count}} AI recognition uploads per day",
+                  count: FREE_DAILY_UPLOAD_LIMIT,
+                })}
+              </span>
+            </div>
+            <div className="flex items-start gap-2">
+              <FaCheck size={14} className="mt-0.5 shrink-0 text-indigo-500" />
+              <span className="text-sm text-gray-600 dark:text-gray-300">
+                {t("donate.seconds", {
+                  defaultValue: "Up to {{count}} seconds per AI recognition",
+                  count: FREE_MAX_ANALYSIS_SECONDS,
+                })}
+              </span>
+            </div>
+            <div className="flex items-start gap-2">
+              <FaCheck size={14} className="mt-0.5 shrink-0 text-indigo-500" />
+              <span className="text-sm text-gray-600 dark:text-gray-300">
+                {t("donate.freeNote", {
+                  defaultValue: "No donation required — available to everyone",
+                })}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 py-2.5 text-sm font-semibold text-gray-500 dark:border-gray-600 dark:text-gray-400">
+            {t("donate.freeCta", { defaultValue: "Always Free" })}
+          </div>
+        </div>
+
+        {/* Donation tiers */}
+        {DONATION_TIERS.map((tier) => (
           <div
             key={tier.amount}
             className={`relative flex flex-col rounded-2xl border p-6 transition-shadow ${
@@ -136,8 +153,8 @@ export function DonatePage() {
                 <FaCheck size={14} className="mt-0.5 shrink-0 text-rose-500" />
                 <span className="text-sm text-gray-600 dark:text-gray-300">
                   {t("donate.uploads", {
-                    defaultValue: "{{count}} file uploads within 30 days",
-                    count: tier.uploads,
+                    defaultValue: "{{count}} AI recognition uploads per day",
+                    count: tier.dailyUploads,
                   })}
                 </span>
               </div>
@@ -145,8 +162,8 @@ export function DonatePage() {
                 <FaCheck size={14} className="mt-0.5 shrink-0 text-rose-500" />
                 <span className="text-sm text-gray-600 dark:text-gray-300">
                   {t("donate.seconds", {
-                    defaultValue: "Up to {{count}} seconds per upload",
-                    count: tier.secondsPerUpload,
+                    defaultValue: "Up to {{count}} seconds per AI recognition",
+                    count: tier.maxAnalysisSeconds,
                   })}
                 </span>
               </div>
@@ -187,24 +204,6 @@ export function DonatePage() {
             </button>
           </div>
         ))}
-      </div>
-
-      {/* Free tier reminder */}
-      <div className="mb-8 rounded-xl border border-indigo-200 bg-indigo-50 p-6 dark:border-indigo-800 dark:bg-indigo-950/30">
-        <div className="flex items-start gap-3">
-          <FaBolt className="mt-0.5 shrink-0 text-indigo-500" size={18} />
-          <div>
-            <h3 className="mb-1 text-base font-semibold text-indigo-900 dark:text-indigo-100">
-              {t("donate.freeTitle", { defaultValue: "Free tier available" })}
-            </h3>
-            <p className="text-sm text-indigo-700 dark:text-indigo-200">
-              {t("donate.freeDesc", {
-                defaultValue:
-                  "Everyone gets 10 free AI audio recognition uploads per day (up to 30 seconds each). Donations are completely optional — they just unlock longer audio and more daily uploads for 30 days.",
-              })}
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   );

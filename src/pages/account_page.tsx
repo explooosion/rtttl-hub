@@ -12,8 +12,7 @@ import { ConfirmDialog } from "../components/confirm_dialog";
 import { PageLoader } from "../components/page_loader";
 import { getUser, getUserTransactions } from "../services/firestore_service";
 import type { FirestoreTransaction } from "../types/firestore_schema";
-
-type TierAmount = 3 | 5 | 10;
+import { DONATION_TIERS, type DonationTierAmount } from "../constants/donation_tiers";
 
 interface TierStatus {
   active: boolean;
@@ -21,20 +20,7 @@ interface TierStatus {
   expiresAt: Date | null;
 }
 
-type PremiumStatus = Record<TierAmount, TierStatus>;
-
-interface TierDef {
-  amount: TierAmount;
-  uploads: number;
-  secondsPerUpload: number;
-  popular?: boolean;
-}
-
-const TIER_DEFS: TierDef[] = [
-  { amount: 3, uploads: 50, secondsPerUpload: 90 },
-  { amount: 5, uploads: 150, secondsPerUpload: 180, popular: true },
-  { amount: 10, uploads: 300, secondsPerUpload: 300 },
-];
+type PremiumStatus = Record<DonationTierAmount, TierStatus>;
 
 const INACTIVE_TIER: TierStatus = { active: false, daysRemaining: 0, expiresAt: null };
 
@@ -242,7 +228,7 @@ export function AccountPage() {
               <p className="text-sm text-gray-400">{t("common.loading")}</p>
             ) : (
               <div className="grid gap-4 sm:grid-cols-3">
-                {TIER_DEFS.map((tier) => {
+                {DONATION_TIERS.map((tier) => {
                   const status = premiumStatus[tier.amount];
                   const tierBorderClass = status.active
                     ? tier.amount === 10
@@ -296,13 +282,13 @@ export function AccountPage() {
                         <div className="flex items-start gap-2">
                           <FaCheck size={11} className="mt-0.5 shrink-0 text-rose-500" />
                           <span className="text-sm text-gray-600 dark:text-gray-300">
-                            {t("donate.uploads", { count: tier.uploads })}
+                            {t("donate.uploads", { count: tier.dailyUploads })}
                           </span>
                         </div>
                         <div className="flex items-start gap-2">
                           <FaCheck size={11} className="mt-0.5 shrink-0 text-rose-500" />
                           <span className="text-sm text-gray-600 dark:text-gray-300">
-                            {t("donate.seconds", { count: tier.secondsPerUpload })}
+                            {t("donate.seconds", { count: tier.maxAnalysisSeconds })}
                           </span>
                         </div>
                         <div className="flex items-start gap-2">

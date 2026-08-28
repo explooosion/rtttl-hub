@@ -12,6 +12,7 @@ interface TrackListContentProps {
   rowData: RowData[];
   extraRowActions?: TrackRowAction[];
   showActionsAsMenu: boolean;
+  pinnedRowAction?: TrackRowAction;
   emptyNode?: React.ReactNode;
   totalPages: number;
   safePage: number;
@@ -31,6 +32,7 @@ export function TrackListContent({
   rowData,
   extraRowActions,
   showActionsAsMenu,
+  pinnedRowAction,
   emptyNode,
   totalPages,
   safePage,
@@ -76,6 +78,7 @@ export function TrackListContent({
               item={row.item}
               extraActions={extraRowActions}
               showActionsAsMenu={showActionsAsMenu}
+              pinnedAction={pinnedRowAction}
             />
           );
         })}

@@ -12,21 +12,61 @@ import {
   saveAudioRecognition,
   getUserDailyRecognitionCount,
 } from "../../services/audio_recognition_service";
+import { getUser } from "../../services/firestore_service";
 import { navigateToLogin } from "../../utils/auth_redirect";
 import { AudioWaveformPreview } from "./audio_waveform_preview";
+import {
+  DONATION_TIERS,
+  FREE_DAILY_UPLOAD_LIMIT,
+  FREE_MAX_ANALYSIS_SECONDS,
+} from "../../constants/donation_tiers";
+
+interface EffectiveLimits {
+  dailyLimit: number;
+  maxAnalysisSeconds: number;
+}
+
+const FREE_LIMITS: EffectiveLimits = {
+  dailyLimit: FREE_DAILY_UPLOAD_LIMIT,
+  maxAnalysisSeconds: FREE_MAX_ANALYSIS_SECONDS,
+};
 
 /**
- * Maximum analysis duration in seconds.
- * TODO: This will be configurable per subscription plan.
- * Free users: 30s. Paid plans TBD.
+ * Resolves the effective daily upload limit and max analysis duration for a
+ * user based on their highest active donation tier, falling back to the
+ * free-tier defaults when no donation is currently active.
  */
-export const MAX_ANALYSIS_DURATION_SEC = 30;
+async function resolveEffectiveLimits(uid: string): Promise<EffectiveLimits> {
+  const fsUser = await getUser(uid);
+  if (!fsUser) {
+    return FREE_LIMITS;
+  }
 
-/**
- * Maximum daily free usage count.
- * TODO: This will be configurable per subscription plan.
- */
-export const FREE_DAILY_LIMIT = 10;
+  const nowMs = Date.now();
+  const activeTierAmounts = new Set<number>();
+  if ((fsUser.premium_tier_3_until?.toDate().getTime() ?? 0) > nowMs) {
+    activeTierAmounts.add(3);
+  }
+  if ((fsUser.premium_tier_5_until?.toDate().getTime() ?? 0) > nowMs) {
+    activeTierAmounts.add(5);
+  }
+  if ((fsUser.premium_tier_10_until?.toDate().getTime() ?? 0) > nowMs) {
+    activeTierAmounts.add(10);
+  }
+
+  if (activeTierAmounts.size === 0) {
+    return FREE_LIMITS;
+  }
+
+  const bestTier = [...DONATION_TIERS]
+    .filter((tier) => activeTierAmounts.has(tier.amount))
+    .sort((a, b) => b.maxAnalysisSeconds - a.maxAnalysisSeconds)[0];
+
+  return {
+    dailyLimit: bestTier.dailyUploads,
+    maxAnalysisSeconds: bestTier.maxAnalysisSeconds,
+  };
+}
 
 type ExtractorState = "idle" | "configure" | "processing" | "review";
 
@@ -118,14 +158,16 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
 
     // Daily usage
     const [dailyUsed, setDailyUsed] = useState<number | null>(null);
+    const [limits, setLimits] = useState<EffectiveLimits>(FREE_LIMITS);
 
-    // Load daily usage count when dialog opens
+    // Load daily usage count and effective tier limits when dialog opens
     useEffect(
-      function loadDailyUsageOnOpen() {
+      function loadUsageAndLimitsOnOpen() {
         if (!open || !user) {
           return;
         }
         void getUserDailyRecognitionCount(user.uid).then(setDailyUsed);
+        void resolveEffectiveLimits(user.uid).then(setLimits);
       },
       [open, user],
     );
@@ -185,7 +227,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
         setAudioMeta({ name: file.name, sizeBytes: file.size, durationSec: rounded });
         setSelectedFile(file);
         setStartTime(0);
-        setEndTime(Math.min(rounded, MAX_ANALYSIS_DURATION_SEC));
+        setEndTime(Math.min(rounded, limits.maxAnalysisSeconds));
         setState("configure");
       } catch {
         toast.error(
@@ -218,22 +260,22 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
       }
 
       // Check daily limit
-      if (dailyUsed !== null && dailyUsed >= FREE_DAILY_LIMIT) {
+      if (dailyUsed !== null && dailyUsed >= limits.dailyLimit) {
         toast.error(
           t("audioExtract.dailyLimitReached", {
             defaultValue: "Daily free usage limit reached ({{max}} times/day).",
-            max: FREE_DAILY_LIMIT,
+            max: limits.dailyLimit,
           }),
         );
         return;
       }
 
       const duration = endTime - startTime;
-      if (duration > MAX_ANALYSIS_DURATION_SEC) {
+      if (duration > limits.maxAnalysisSeconds) {
         toast.error(
           t("audioExtract.durationExceeded", {
             defaultValue: "The selected time range exceeds the {{max}} second limit.",
-            max: MAX_ANALYSIS_DURATION_SEC,
+            max: limits.maxAnalysisSeconds,
           }),
         );
         return;
@@ -397,7 +439,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                       {t("audioExtract.usageCount", {
                         defaultValue: "{{used}}/{{limit}} uses today",
                         used: dailyUsed,
-                        limit: FREE_DAILY_LIMIT,
+                        limit: limits.dailyLimit,
                       })}
                     </span>
                   )}
@@ -427,7 +469,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                   <button
                     type="button"
                     onClick={handleSelectFileClick}
-                    className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-8 text-sm font-medium text-gray-500 transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-600 dark:text-gray-400 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-12 text-sm font-medium text-gray-500 transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-600 dark:text-gray-400 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
                   >
                     <FaFileAudio size={20} />
                     {t("audioExtract.selectAudio", { defaultValue: "Select Audio File" })} (MP3,
@@ -492,7 +534,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                     <p className="mb-1.5 text-sm text-gray-400 dark:text-gray-500">
                       {t("audioExtract.maxDuration", {
                         defaultValue: "Max analysis duration: {{seconds}}s",
-                        seconds: MAX_ANALYSIS_DURATION_SEC,
+                        seconds: limits.maxAnalysisSeconds,
                       })}
                     </p>
                     <div className="flex items-center gap-2">
@@ -518,11 +560,11 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                         placeholder={t("audioExtract.endTime", { defaultValue: "End" })}
                       />
                     </div>
-                    {endTime - startTime > MAX_ANALYSIS_DURATION_SEC && (
+                    {endTime - startTime > limits.maxAnalysisSeconds && (
                       <p className="mt-1.5 text-sm text-red-500">
                         {t("audioExtract.durationExceeded", {
                           defaultValue: "The selected time range exceeds the {{max}} second limit.",
-                          max: MAX_ANALYSIS_DURATION_SEC,
+                          max: limits.maxAnalysisSeconds,
                         })}
                       </p>
                     )}
@@ -563,7 +605,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                     <button
                       type="button"
                       onClick={handleAnalyze}
-                      disabled={endTime - startTime > MAX_ANALYSIS_DURATION_SEC}
+                      disabled={endTime - startTime > limits.maxAnalysisSeconds}
                       className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {t("audioExtract.analyze", { defaultValue: "Analyze" })}

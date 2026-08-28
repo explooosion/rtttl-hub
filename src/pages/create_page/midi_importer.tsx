@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import type { MidiTrackInfo } from "../../utils/midi_parser";
 import type { EmitResult, NoteEvent } from "../../libs/voice_allocation";
 import { isMidiFile } from "../../utils/is_midi_file";
+import { deriveNameFromFilename } from "../../utils/derive_name_from_filename";
 import { loadMidiFile, convertParsedMidi } from "../../services/midi_import_service";
 
 type ImporterState = "idle" | "configure" | "review";
@@ -138,6 +139,7 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
       setStartTime(0);
       setEndTime(Math.round(parsed.durationSec * 100) / 100);
       setBpm(parsed.initialBpm);
+      setNamePrefix(deriveNameFromFilename(parsed.fileName, "midi"));
       setState("configure");
     } catch {
       toast.error(t("midiImport.readError", { defaultValue: "Failed to read MIDI file." }));
@@ -323,7 +325,7 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
                 </p>
                 <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
                   {t("midiImport.algorithmCredit", {
-                    defaultValue: "Conversion algorithm reference:",
+                    defaultValue: "Conversion algorithm adopted from:",
                   })}{" "}
                   <a
                     href="https://beepmyquad.com/"
@@ -338,7 +340,7 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
                 <button
                   type="button"
                   onClick={handleSelectFileClick}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-8 text-sm font-medium text-gray-500 transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-600 dark:text-gray-400 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-12 text-sm font-medium text-gray-500 transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-600 dark:text-gray-400 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
                 >
                   <FaFileAudio size={20} />
                   {t("midiImport.selectFile", { defaultValue: "Select MIDI File" })} (.mid, .midi)

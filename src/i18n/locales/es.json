@@ -146,7 +146,8 @@
     "syntaxColors": "Syntax Colors",
     "feature": {
       "syntaxHighlight": "Syntax Highlighting",
-      "playbackTracking": "Follow Playback"
+      "playbackTracking": "Follow Playback",
+      "multiLineCode": "Código multilínea"
     },
     "mode": {
       "raw": "Raw",
@@ -727,7 +728,7 @@
   "midiImport": {
     "title": "Importar MIDI",
     "description": "Selecciona un archivo MIDI para importarlo como pistas RTTTL.",
-    "algorithmCredit": "Referencia del algoritmo de conversión:",
+    "algorithmCredit": "Algoritmo de conversión adoptado de:",
     "selectFile": "Seleccionar archivo MIDI",
     "changeFile": "Cambiar archivo",
     "invalidType": "Selecciona un archivo MIDI válido (.mid, .midi).",
@@ -766,16 +767,14 @@
     "title": "Apoyar RTTTL Hub",
     "subtitle": "RTTTL Hub es gratuito y de código abierto. Esta es una donación única, no una suscripción. Tu apoyo ayuda a cubrir los costos de computación de IA y, a cambio, recibirás créditos de reconocimiento de audio de IA válidos por 30 días.",
     "popular": "Más popular",
-    "uploads": "{{count}} cargas de archivos en 30 días",
-    "seconds": "Hasta {{count}} segundos por carga",
+    "uploads": "{{count}} subidas de reconocimiento de IA por día",
+    "seconds": "Hasta {{count}} segundos por reconocimiento de IA",
     "validity": "Beneficio de 30 días — sin renovación, sin cargo recurrente",
     "support": "Apoyar el desarrollo de código abierto",
     "cta": "Donar ${{amount}}",
-    "freeTitle": "Plan gratuito disponible",
-    "freeDesc": "Todos reciben 10 cargas gratuitas de reconocimiento de audio de IA por día (máximo 30 segundos cada una). Las donaciones son completamente opcionales — solo desbloquean audio más largo y más cargas diarias durante 30 días.",
-    "ossTitle": "100% código abierto",
-    "ossDesc": "Todo nuestro código de plataforma es de código abierto. Los modelos de IA que impulsan el reconocimiento de audio son entrenados y alojados de forma privada. Puedes ejecutar la plataforma RTTTL Hub en tu propio hardware de forma gratuita.",
-    "viewSource": "Ver en GitHub",
+    "freeTitle": "Gratis",
+    "freeNote": "No se requiere donación — disponible para todos",
+    "freeCta": "Siempre gratis",
     "loginRequired": "Por favor inicia sesión para hacer una donación.",
     "loginBtn": "Iniciar sesión"
   },

@@ -61,6 +61,7 @@ export const RtttlEditorInput = forwardRef<RtttlEditorInputHandle, RtttlEditorIn
     // Coerce "stopped" → "idle" for CodeEditor's narrower prop type
     const playerState = rawPlayerState === "stopped" ? "idle" : rawPlayerState;
     const currentNoteIndex = noteIndexOverride ?? storeNoteIndex;
+    const effectiveSingleLine = singleLine || !features.multiLineCode;
 
     const codeEditorRef = useRef<CodeEditorHandle>(null);
 
@@ -115,7 +116,7 @@ export const RtttlEditorInput = forwardRef<RtttlEditorInputHandle, RtttlEditorIn
           minHeight={minHeight}
           maxHeight={maxHeight}
           fontSize={fontSize}
-          singleLine={singleLine}
+          singleLine={effectiveSingleLine}
           containerClassName={containerClassName}
           onChange={onChange}
         />

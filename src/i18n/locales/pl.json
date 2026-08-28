@@ -146,7 +146,8 @@
     "syntaxColors": "Syntax Colors",
     "feature": {
       "syntaxHighlight": "Syntax Highlighting",
-      "playbackTracking": "Follow Playback"
+      "playbackTracking": "Follow Playback",
+      "multiLineCode": "Kod wielowierszowy"
     },
     "mode": {
       "raw": "Raw",
@@ -719,7 +720,7 @@
   "midiImport": {
     "title": "Importuj MIDI",
     "description": "Wybierz plik MIDI, aby zaimportować go jako ścieżki RTTTL.",
-    "algorithmCredit": "Odniesienie algorytmu konwersji:",
+    "algorithmCredit": "Algorytm konwersji przejęty z:",
     "selectFile": "Wybierz plik MIDI",
     "changeFile": "Zmień plik",
     "invalidType": "Wybierz prawidłowy plik MIDI (.mid, .midi).",
@@ -758,16 +759,14 @@
     "title": "Wspomóż RTTTL Hub",
     "subtitle": "RTTTL Hub jest darmowy i open source. To jednorazowa wpłata — nie subskrypcja. Twoje wsparcie pomaga pokryć koszty obliczeń AI, a w zamian otrzymasz kredyty rozpoznawania dźwięku AI ważne przez 30 dni.",
     "popular": "Najpopularniejsze",
-    "uploads": "{{count}} przesłanych plików w ciągu 30 dni",
-    "seconds": "Do {{count}} sekund na przesłanie",
+    "uploads": "{{count}} przesłań rozpoznawania AI dziennie",
+    "seconds": "Do {{count}} sekund na rozpoznawanie AI",
     "validity": "Korzyść przez 30 dni — bez odnawiania, bez cyklicznych opłat",
     "support": "Wspieraj rozwój open source",
     "cta": "Wpłać ${{amount}}",
-    "freeTitle": "Dostępny darmowy plan",
-    "freeDesc": "Każdy otrzymuje 10 darmowych przesłań rozpoznawania dźwięku AI dziennie (maksymalnie 30 sekund każde). Wpłaty są całkowicie opcjonalne — odblokowują jedynie dłuższe audio i więcej dziennych przesłań przez 30 dni.",
-    "ossTitle": "100% Open Source",
-    "ossDesc": "Cały kod naszej platformy jest open source. Modele AI zasilające rozpoznawanie dźwięku są prywatnie trenowane i hostowane. Samą platformę RTTTL Hub możesz bezpłatnie uruchomić na własnym sprzęcie.",
-    "viewSource": "Zobacz na GitHub",
+    "freeTitle": "Darmowy",
+    "freeNote": "Bez konieczności wsparcia — dostępne dla wszystkich",
+    "freeCta": "Zawsze darmowy",
     "loginRequired": "Zaloguj się, aby wesprzeć projekt.",
     "loginBtn": "Zaloguj się"
   },

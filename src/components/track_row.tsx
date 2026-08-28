@@ -37,9 +37,16 @@ interface TrackRowProps {
   item: RtttlEntry;
   extraActions?: TrackRowAction[];
   showActionsAsMenu?: boolean;
+  /** Action always rendered inline, never collapsed into the "..." menu. */
+  pinnedAction?: TrackRowAction;
 }
 
-export function TrackRow({ item, extraActions, showActionsAsMenu = false }: TrackRowProps) {
+export function TrackRow({
+  item,
+  extraActions,
+  showActionsAsMenu = false,
+  pinnedAction,
+}: TrackRowProps) {
   const { t } = useTranslation();
   const playItem = usePlayerStore((s) => s.playItem);
   const currentItem = usePlayerStore((s) => s.currentItem);
@@ -129,6 +136,14 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
     setMenuOpen(!menuOpen);
   }
 
+  const handlePinnedActionClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      pinnedAction?.onClick(item);
+    },
+    [pinnedAction, item],
+  );
+
   const menuActionHandlers = useMemo(
     function buildMenuActionHandlers() {
       return (extraActions ?? []).map((action) => {
@@ -182,7 +197,7 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
         {displayCreatorName && (
           <p className="truncate text-xs">
             <Link
-              to={`/creators/${encodeURIComponent(displayCreatorName)}`}
+              to={`/creators/${encodeURIComponent(item.userId || displayCreatorName)}`}
               onClick={handleStopPropagation}
               className="text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
             >
@@ -268,6 +283,19 @@ export function TrackRow({ item, extraActions, showActionsAsMenu = false }: Trac
         >
           {copied ? <FaCheck size={18} className="text-green-500" /> : <FaRegCopy size={18} />}
         </button>
+        {pinnedAction && (
+          <button
+            onClick={handlePinnedActionClick}
+            className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+            title={
+              typeof pinnedAction.title === "function"
+                ? pinnedAction.title(item)
+                : pinnedAction.title
+            }
+          >
+            {typeof pinnedAction.icon === "function" ? pinnedAction.icon(item) : pinnedAction.icon}
+          </button>
+        )}
         {showActionsAsMenu && extraActions && extraActions.length > 0 ? (
           <div className="relative" ref={menuRef}>
             <button

@@ -168,6 +168,10 @@ export function TransportToolbar({
     toggleFeature("playbackTracking");
   }
 
+  function handleToggleMultiLineCode() {
+    toggleFeature("multiLineCode");
+  }
+
   function handleToggleColorPanel() {
     setColorPanelOpen((isOpen) => !isOpen);
   }
@@ -312,8 +316,10 @@ export function TransportToolbar({
     onExpandAll,
     syntaxHighlightActive: editorFeatures.syntaxHighlight,
     playbackTrackingActive: editorFeatures.playbackTracking,
+    multiLineCodeActive: editorFeatures.multiLineCode,
     onToggleSyntaxHighlight: handleToggleSyntaxHighlight,
     onTogglePlaybackTracking: handleTogglePlaybackTracking,
+    onToggleMultiLineCode: handleToggleMultiLineCode,
   });
   const transportItems = buildTransportItems({
     t,

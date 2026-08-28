@@ -146,7 +146,8 @@
     "syntaxColors": "Syntax Colors",
     "feature": {
       "syntaxHighlight": "Syntax Highlighting",
-      "playbackTracking": "Follow Playback"
+      "playbackTracking": "Follow Playback",
+      "multiLineCode": "Víceřádkový kód"
     },
     "mode": {
       "raw": "Raw",
@@ -727,7 +728,7 @@
   "midiImport": {
     "title": "Importovat MIDI",
     "description": "Vyberte soubor MIDI a importujte jej jako stopy RTTTL.",
-    "algorithmCredit": "Reference konverzního algoritmu:",
+    "algorithmCredit": "Konverzní algoritmus převzat z:",
     "selectFile": "Vybrat soubor MIDI",
     "changeFile": "Změnit soubor",
     "invalidType": "Vyberte platný soubor MIDI (.mid, .midi).",
@@ -766,16 +767,14 @@
     "title": "Podpořte RTTTL Hub",
     "subtitle": "RTTTL Hub je zdarma a open source. Jde o jednorázový příspěvek, nikoli o předplatné. Vaše podpora pomáhá pokrýt náklady na AI výpočty a na oplátku obdržíte AI kredity pro rozpoznávání zvuku platné 30 dní.",
     "popular": "Nejoblíbenější",
-    "uploads": "{{count}} nahrání souborů během 30 dnů",
-    "seconds": "Až {{count}} sekund na nahrání",
+    "uploads": "{{count}} nahrání AI rozpoznávání denně",
+    "seconds": "Až {{count}} sekund na AI rozpoznávání",
     "validity": "30denní výhoda — bez obnovení, bez opakovaných poplatků",
     "support": "Podpořte open source vývoj",
     "cta": "Přispět ${{amount}}",
-    "freeTitle": "Dostupný bezplatný tarif",
-    "freeDesc": "Každý získá denně 10 bezplatných AI rozpoznávání zvuku (max. 30 sekund každé). Příspěvky jsou zcela volitelné — pouze odemknou delší zvuk a více denních nahrání po dobu 30 dní.",
-    "ossTitle": "100% Open Source",
-    "ossDesc": "Veškerý kód naší platformy je open source. AI modely pro rozpoznávání zvuku jsou trenóvány a hostovány soukromě. Samotnou platformu RTTTL Hub můžete zdarma provozovat na vlastním hardwaru.",
-    "viewSource": "Zobrazit na GitHub",
+    "freeTitle": "Zdarma",
+    "freeNote": "Bez nutnosti daru — dostupné pro všechny",
+    "freeCta": "Vždy zdarma",
     "loginRequired": "Pro přispění se prosím přihlaste.",
     "loginBtn": "Přihlásit se"
   },

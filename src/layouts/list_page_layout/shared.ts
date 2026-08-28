@@ -16,6 +16,8 @@ export interface ListPageLayoutProps {
   headerActions?: React.ReactNode;
   extraRowActions?: TrackRowAction[];
   showActionsAsMenu?: boolean;
+  /** Row action always rendered inline, never collapsed into the "..." menu. */
+  pinnedRowAction?: TrackRowAction;
   emptyNode?: React.ReactNode;
 }
 
