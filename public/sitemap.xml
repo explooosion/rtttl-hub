@@ -46,17 +46,22 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://rtttl-hub.io/collections/beepmyquad</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rtttl-hub.io/collections/esphome</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rtttl-hub.io/collections/picaxe</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://rtttl-hub.io/collections/skully-rtttl</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://rtttl-hub.io/collections/esphome</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

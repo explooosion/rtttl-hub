@@ -86,6 +86,10 @@
       "name": "EscTunes.com",
       "description": "完整的 FPV ESC 啟動音庫，收錄數百首 RTTTL 音樂。瀏覽並探索適用於 BLHeli_S ESC 的自訂馬達啟動音效。"
     },
+    "beepmyquad": {
+      "name": "BeepMyQuad",
+      "description": "為 FPV 四軸飛行器 ESC 手工改編的多馬達 RTTTL 音樂，涵蓋古典、電影、流行與電玩旋律，並分配至最多四個馬達聲部。"
+    },
     "officialSource": "來源"
   },
   "categories": {

@@ -5,6 +5,7 @@ export type CollectionSlug =
   | "skully-rtttl"
   | "esphome"
   | "esctunes"
+  | "beepmyquad"
   | "my-creations"
   | "favorites"
   | "public";

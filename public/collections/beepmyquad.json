@@ -1,0 +1,145 @@
+[
+  {
+    "name": "Nokia Ringtone (Gran Vals)",
+    "artist": "Tárrega",
+    "categories": ["classical", "alert"],
+    "tracks": [
+      "nokia:d=4,o=5,b=180:8e6,8d6,f#,g#,8c#6,8b,d,e,8b,8a,c#,e,2a",
+      "nokia-b:d=4,o=4,b=180:a,e,a,e,a,e,2a"
+    ]
+  },
+  {
+    "name": "Ode to Joy",
+    "artist": "Beethoven",
+    "categories": ["classical"],
+    "tracks": [
+      "joy:d=4,o=5,b=140:e,e,f,g,g,f,e,d,c,c,d,e,e,d,2d,e,e,f,g,g,f,e,d,c,c,d,e,d,c,2c"
+    ]
+  },
+  {
+    "name": "Ride of the Valkyries",
+    "artist": "Wagner",
+    "categories": ["classical"],
+    "tracks": [
+      "valkyrie:d=8,o=5,b=160:16f#,16b,f#,16b,4d6,16b,16d6,b,16d6,4f#6,16d6,16f#6,d6,16f#6,4a6,16f#6,16a6,f#6,16f#6,2d6",
+      "valkyrie-b:d=4,o=4,b=160:2b,2f#,2b,2f#,2b,2f#,2b,2b"
+    ]
+  },
+  {
+    "name": "In the Hall of the Mountain King",
+    "artist": "Grieg",
+    "categories": ["classical"],
+    "tracks": [
+      "mountain:d=4,o=5,b=140:8e,8f#,8g,8a,8b,8g,4b,8a#,8f#,4a#,8a,8f,4a,8e,8f#,8g,8a,8b,8g,8b,8e6,8d6,8b,8g,8b,4d6",
+      "mountain-b:d=2,o=4,b=140:e,e,b,b,e,e,b,e"
+    ]
+  },
+  {
+    "name": "Also Sprach Zarathustra (2001 Theme)",
+    "artist": "Strauss",
+    "categories": ["classical", "movie-tv"],
+    "tracks": [
+      "zarathustra:d=4,o=5,b=100:2c,2g,1c6,2p,2e6,1p,2c,2g,1c6,2p,2d#6,1p",
+      "zarathustra-b:d=8,o=4,b=100:1p,1p,c,g,c,g,c,g,c,g,1p,1p,c,g,c,g,c,g,c,g"
+    ]
+  },
+  {
+    "name": "Für Elise",
+    "artist": "Beethoven",
+    "categories": ["classical"],
+    "tracks": [
+      "furelise:d=8,o=5,b=125:e6,d#6,e6,d#6,e6,b,d6,c6,4a,p,c,e,a,4b,p,e,g#,b,4c6,p,e,e6,d#6,e6,d#6,e6,b,d6,c6,4a,p,c,e,a,4b,p,e,c6,b,2a"
+    ]
+  },
+  {
+    "name": "Canon in D",
+    "artist": "Pachelbel",
+    "categories": ["classical"],
+    "tracks": [
+      "canon1:d=2,o=5,b=100:f#6,e6,d6,c#6,b,a,b,c#6",
+      "canon2:d=2,o=5,b=100:d6,c#6,b,a,g,f#,g,e",
+      "canon3:d=2,o=5,b=100:a,a,f#,f#,d,d,d,e",
+      "canon4:d=2,o=4,b=100:d5,a,b,f#,g,d,g,a"
+    ]
+  },
+  {
+    "name": "The Entertainer",
+    "artist": "Joplin",
+    "categories": ["classical"],
+    "tracks": [
+      "entertainer:d=8,o=5,b=140:d,d#,e,4c6,e,4c6,e,2c6,c6,d6,d#6,e6,c6,d6,e6,4b,d6,2c6"
+    ]
+  },
+  {
+    "name": "The Imperial March (Star Wars)",
+    "artist": "John Williams",
+    "categories": ["movie-tv"],
+    "tracks": [
+      "imperial:d=4,o=5,b=104:e,e,e,8c,16p,16g,e,8c,16p,16g,e,2p,b,b,b,8c6,16p,16g,d#,8c,16p,16g,e,2p",
+      "imp-m:d=4,o=5,b=104:c,c,c,8g#4,16p,16d#,c,8g#4,16p,16d#,c,2p,g,g,g,8g#,16p,16d#,b4,8g#4,16p,16d#,c,2p",
+      "imp-b:d=4,o=4,b=104:e,e,e,8e,16p,16e,e,8e,16p,16e,e,2p,e,e,e,8e,16p,16e,e,8e,16p,16e,e,2p"
+    ]
+  },
+  {
+    "name": "He's a Pirate (Pirates of the Caribbean)",
+    "artist": "Klaus Badelt",
+    "categories": ["movie-tv"],
+    "tracks": [
+      "pirates:d=8,o=5,b=200:a,c6,d6,d6,d6,e6,f6,f6,f6,g6,e6,e6,d6,c6,d6,a,c6,d6,d6,d6,f6,e6,d6,c6,a,a,d6",
+      "pirates-b:d=4,o=4,b=200:d,a,d,a,d,a,d5,a,d,a,d5,a"
+    ]
+  },
+  {
+    "name": "James Bond Theme",
+    "artist": "Monty Norman",
+    "categories": ["movie-tv"],
+    "tracks": [
+      "bond:d=8,o=5,b=125:e,f#,f#,f#,f#,e,e,e,e,g,g,g,g,f#,f#,f#,e,f#,f#,f#,f#,e,e,e,e,g,g,g,g,f#,f#,e",
+      "bond-b:d=2,o=4,b=125:e,e,f,f,e,e,d#,d#"
+    ]
+  },
+  {
+    "name": "Take On Me",
+    "artist": "a-ha",
+    "categories": ["pop"],
+    "tracks": [
+      "takeon:d=8,o=5,b=160:f#,f#,d,b4,b4,e,e,e,g#,g#,a,b,a,a,a,e,d,f#,f#,f#,e,e,f#,e",
+      "takeon-b:d=4,o=4,b=160:f#,d,e,b4,f#,d,e,b4"
+    ]
+  },
+  {
+    "name": "Happy Birthday",
+    "artist": "Traditional",
+    "categories": ["holiday"],
+    "tracks": [
+      "happybday:d=4,o=5,b=125:8c.,16c,d,c,f,2e,8c.,16c,d,c,g,2f,8c.,16c,c6,a,f,e,d,8a#.,16a#,a,f,g,2f"
+    ]
+  },
+  {
+    "name": "Tetris (Korobeiniki)",
+    "artist": "Traditional",
+    "categories": ["game", "folk"],
+    "tracks": [
+      "tetris:d=4,o=5,b=160:e6,8b,8c6,d6,8c6,8b,a,8a,8c6,e6,8d6,8c6,b,8c6,d6,e6,c6,a,2a",
+      "tetris-b:d=4,o=4,b=160:2e,2c,2d,2b,2c,2a,2g#,2b"
+    ]
+  },
+  {
+    "name": "Super Mario Bros. Theme",
+    "artist": "Koji Kondo",
+    "categories": ["game"],
+    "tracks": [
+      "mario:d=4,o=5,b=200:8e6,8e6,8p,8e6,8p,8c6,8e6,8g6,8p,8g,8p,8c6,p,8g,p,8e,p,8a,8b,8a#,8a,8g",
+      "mario-b:d=4,o=4,b=200:8d,8d,8p,8d,8p,8d,8d,8g,8p,8g,8p,8c5,p,8g,p,8e,p,8f,8f,8f,8f,8g"
+    ]
+  },
+  {
+    "name": "F-Zero – Mute City",
+    "artist": "Nintendo",
+    "categories": ["game"],
+    "tracks": [
+      "mutecity:d=8,o=6,b=200:d,p,d,p,d,p,c,p,a#5,p,c,p,d,p,a#5,p,a5,p,a#5,p,d,c,p,d,p,a#5,p,a5,p,f5",
+      "mutecity-b:d=4,o=4,b=200:d,a,d,a,c5,g,c5,g,a#,f,a#,f,d,a,d,a"
+    ]
+  }
+]

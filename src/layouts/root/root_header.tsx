@@ -19,10 +19,9 @@ const preloadCreatePage = () => {
 interface RootHeaderProps {
   sidebarOpen: boolean;
   setSidebarOpen: (v: boolean) => void;
-  scrolled: boolean;
 }
 
-export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeaderProps) {
+export function RootHeader({ sidebarOpen, setSidebarOpen }: RootHeaderProps) {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
@@ -68,14 +67,8 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
           </h1>
         </Link>
 
-        {/* Desktop nav — hidden when scrolled */}
-        <nav
-          className={clsx(
-            "hidden shrink-0 items-center gap-4 pl-4 sm:flex",
-            "transition-all duration-300",
-            scrolled ? "w-0 overflow-hidden opacity-0 pl-0" : "opacity-100",
-          )}
-        >
+        {/* Desktop nav */}
+        <nav className="hidden shrink-0 items-center gap-4 pl-4 sm:flex">
           <MegaMenu isActive={isCollectionsActive} />
           <MyZoneMenu isActive={isMyZoneActive} />
           <Link
@@ -126,26 +119,7 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
           </Link>
         </nav>
 
-        {/* Searchbar — only visible when scrolled, desktop only, and on homepage/collections */}
-        <div
-          className={clsx(
-            "relative transition-all duration-300",
-            scrolled && shouldShowGlobalSearch
-              ? "hidden flex-1 opacity-100 sm:flex"
-              : "w-0 overflow-hidden opacity-0",
-          )}
-        >
-          <FaSearch size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-          <input
-            type="text"
-            placeholder={t("search.placeholder")}
-            value={searchQuery}
-            onChange={handleGlobalSearchChange}
-            className="w-full rounded-full border border-gray-300 bg-white py-3 pl-9 pr-4 text-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-indigo-400"
-          />
-        </div>
-
-        {!scrolled && <div className="flex-1" />}
+        <div className="flex-1" />
 
         {/* Right side controls */}
         <div className="flex shrink-0 items-center gap-2">
@@ -172,14 +146,12 @@ export function RootHeader({ sidebarOpen, setSidebarOpen, scrolled }: RootHeader
         </div>
       </div>
 
-      {/* Search row — only visible when NOT scrolled, sidebar closed, desktop only, and on homepage/collections */}
+      {/* Search row — only visible when sidebar closed, desktop only, and on homepage/collections */}
       <div
         className={clsx(
           "hidden sm:grid",
           "grid transition-[grid-template-rows] duration-300 ease-in-out",
-          scrolled || sidebarOpen || !shouldShowGlobalSearch
-            ? "grid-rows-[0fr]"
-            : "grid-rows-[1fr]",
+          sidebarOpen || !shouldShowGlobalSearch ? "grid-rows-[0fr]" : "grid-rows-[1fr]",
         )}
       >
         <div className="overflow-hidden">

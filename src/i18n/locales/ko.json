@@ -86,6 +86,10 @@
       "name": "EscTunes.com",
       "description": "포괄적인 FPV ESC 시작 멜로디 라이브러리. 수백 개의 RTTTL 멜로디 수록. BLHeli_S ESC용 사용자 지정 모터 시작 사운드를 탐색하세요."
     },
+    "beepmyquad": {
+      "name": "BeepMyQuad",
+      "description": "FPV 쿼드콥터 ESC를 위해 손으로 편곡한 멀티 모터 RTTTL 멜로디 모음. 클래식, 영화, 팝, 게임 음악을 최대 4개의 모터 파트로 나누어 수록했습니다."
+    },
     "officialSource": "소스"
   },
   "categories": {

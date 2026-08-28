@@ -86,6 +86,10 @@
       "name": "EscTunes.com",
       "description": "A comprehensive FPV ESC startup tune library with hundreds of RTTTL melodies. Browse and discover custom motor startup sounds for your BLHeli_S ESCs."
     },
+    "beepmyquad": {
+      "name": "BeepMyQuad",
+      "description": "Hand-arranged multi-motor RTTTL tunes for FPV quadcopter ESCs, covering classical, movie, pop, and video game melodies split across up to four motor voices."
+    },
     "officialSource": "Source"
   },
   "categories": {

@@ -86,6 +86,10 @@
       "name": "EscTunes.com",
       "description": "Komplexní knihovna startovních melodií FPV ESC se stovkami melodií RTTTL. Procházejte a objevujte vlastní zvuky spouštění motoru pro vaše ESC BLHeli_S."
     },
+    "beepmyquad": {
+      "name": "BeepMyQuad",
+      "description": "Ručně aranžované vícemotorové melodie RTTTL pro ESC FPV dronů, zahrnující klasickou, filmovou, popovou a videoherní hudbu rozloženou až do čtyř motorových hlasů."
+    },
     "officialSource": "Source"
   },
   "categories": {

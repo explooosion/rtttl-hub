@@ -31,7 +31,6 @@ export function RootShell() {
   const playItem = usePlayerStore((s) => s.playItem);
   const resetConsent = useCookieConsentStore((s) => s.resetConsent);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
 
@@ -51,30 +50,6 @@ export function RootShell() {
     [currentItem, playerState, pause, resume, playItem],
   );
 
-  useEffect(() => {
-    let lastScrolled = false;
-    let ticking = false;
-    const handleScroll = () => {
-      if (ticking) {
-        return;
-      }
-      ticking = true;
-      requestAnimationFrame(() => {
-        const y = window.scrollY;
-        if (!lastScrolled && y > 80) {
-          lastScrolled = true;
-          setScrolled(true);
-        } else if (lastScrolled && y < 10) {
-          lastScrolled = false;
-          setScrolled(false);
-        }
-        ticking = false;
-      });
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   useEffect(
     function loadCollectionWhenMount() {
       const base = import.meta.env.BASE_URL;
@@ -89,13 +64,23 @@ export function RootShell() {
         fetch(`${base}collections/esphome.json`).then(
           (r) => r.json() as Promise<CollectionEntry[]>,
         ),
+        fetch(`${base}collections/beepmyquad.json`).then(
+          (r) => r.json() as Promise<CollectionEntry[]>,
+        ),
       ])
-        .then(([picaxeData, skullyData, communityData, esphomeData]) => {
+        .then(([picaxeData, skullyData, communityData, esphomeData, beepmyquadData]) => {
           const picaxeEntries = toRtttlEntries(picaxeData, "picaxe", "picaxe");
           const skullyEntries = toRtttlEntries(skullyData, "skully-rtttl", "skully");
           const communityEntries = toRtttlEntries(communityData, "community", "community");
           const esphomeEntries = toRtttlEntries(esphomeData, "esphome", "esphome");
-          setItems([...picaxeEntries, ...skullyEntries, ...communityEntries, ...esphomeEntries]);
+          const beepmyquadEntries = toRtttlEntries(beepmyquadData, "beepmyquad", "beepmyquad");
+          setItems([
+            ...picaxeEntries,
+            ...skullyEntries,
+            ...communityEntries,
+            ...esphomeEntries,
+            ...beepmyquadEntries,
+          ]);
         })
         .catch((err) => console.error("Failed to load collection:", err));
     },
@@ -116,7 +101,7 @@ export function RootShell() {
   return (
     <div className="min-h-screen">
       <BetaNoticeBanner />
-      <RootHeader sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} scrolled={scrolled} />
+      <RootHeader sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <RootMobileSidebar isOpen={sidebarOpen} onClose={closeSidebar} />
 
       <Outlet />

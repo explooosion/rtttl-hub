@@ -86,6 +86,10 @@
       "name": "EscTunes.com",
       "description": "Una libreria completa di melodie di avvio ESC FPV con centinaia di melodie RTTTL. Esplora e scopri suoni di avvio motore personalizzati per i tuoi ESC BLHeli_S."
     },
+    "beepmyquad": {
+      "name": "BeepMyQuad",
+      "description": "Melodie RTTTL multi-motore arrangiate a mano per ESC di quadricotteri FPV, che coprono musica classica, di film, pop e di videogiochi distribuita su un massimo di quattro voci motore."
+    },
     "officialSource": "Source"
   },
   "categories": {

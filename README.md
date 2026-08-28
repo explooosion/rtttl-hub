@@ -27,6 +27,7 @@ All collections integrated into the platform are listed here. This section is up
 - **ESC Configurator** — Sourced from the [ESC Configurator](https://esc-configurator.com/) open-source project.
 - **Skully RTTTL** — Sourced from [rtttl-web-composer](https://github.com/ImSkully/rtttl-web-composer) by ImSkully.
 - **ESPHome** — Sourced from the [ESPHome RTTTL component documentation](https://esphome.io/components/rtttl.html).
+- **BeepMyQuad** — Sourced from [BeepMyQuad](https://beepmyquad.com/), a collection of hand-arranged multi-motor RTTTL tunes for FPV quadcopter ESCs.
 
 ## Development
 

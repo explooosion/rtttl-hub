@@ -7,6 +7,7 @@ import {
   FaPencilAlt,
   FaHeart,
   FaMusic,
+  FaHelicopter,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
 
@@ -39,6 +40,7 @@ export const COLLECTIONS: CollectionDef[] = [
     icon: FaHeart,
     group: "my-creations",
   },
+  // public-libraries — "community" always first, remaining entries alphabetically sorted by display name
   {
     slug: "community",
     nameKey: "collections.community.name",
@@ -47,13 +49,20 @@ export const COLLECTIONS: CollectionDef[] = [
     group: "public-libraries",
   },
   {
-    slug: "esc-configurator",
-    nameKey: "collections.escConfigurator.name",
-    descriptionKey: "collections.escConfigurator.description",
-    icon: FaMicrochip,
-    source: "https://esc-configurator.com/",
-    externalOnly: true,
-    group: "external-links",
+    slug: "beepmyquad",
+    nameKey: "collections.beepmyquad.name",
+    descriptionKey: "collections.beepmyquad.description",
+    icon: FaHelicopter,
+    source: "https://beepmyquad.com/",
+    group: "public-libraries",
+  },
+  {
+    slug: "esphome",
+    nameKey: "collections.esphome.name",
+    descriptionKey: "collections.esphome.description",
+    icon: FaHome,
+    source: "https://esphome.io/components/rtttl.html",
+    group: "public-libraries",
   },
   {
     slug: "picaxe",
@@ -71,13 +80,15 @@ export const COLLECTIONS: CollectionDef[] = [
     source: "https://github.com/ImSkully/rtttl-web-composer",
     group: "public-libraries",
   },
+  // external-links — kept alphabetically sorted by display name
   {
-    slug: "esphome",
-    nameKey: "collections.esphome.name",
-    descriptionKey: "collections.esphome.description",
-    icon: FaHome,
-    source: "https://esphome.io/components/rtttl.html",
-    group: "public-libraries",
+    slug: "esc-configurator",
+    nameKey: "collections.escConfigurator.name",
+    descriptionKey: "collections.escConfigurator.description",
+    icon: FaMicrochip,
+    source: "https://esc-configurator.com/",
+    externalOnly: true,
+    group: "external-links",
   },
   {
     slug: "esctunes",
