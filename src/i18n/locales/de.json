@@ -352,6 +352,7 @@
     "importInvalidSkipped": "Ungültige Zeilen werden übersprungen.",
     "changeTrackColor": "Spurfarbe ändern",
     "draftSavedTooltip": "Automatisch bei jeder Änderung gespeichert. Beim nächsten Besuch automatisch wiederhergestellt.",
+    "fpsTooltip": "Bildwiederholrate beim Rendern während der Wiedergabe",
     "aboutDesc": "Ein Mehrspur-RTTTL-Editor zum Komponieren, Vorschau und Export von Klingelton-Melodien. Unterstützt bis zu 4 gleichzeitige Spuren mit Echtzeit-Wellenform-Vorschau und A-B-Schleifen-Markierungen.",
     "aboutFormat": "Format",
     "aboutMaxTracks": "Max. Spuren",

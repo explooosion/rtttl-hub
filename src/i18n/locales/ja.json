@@ -352,6 +352,7 @@
     "importInvalidSkipped": "無効な行はスキップされます。",
     "changeTrackColor": "トラックの色を変更",
     "draftSavedTooltip": "変更のたびに自動保存されます。次回の訪問時に自動復元されます。",
+    "fpsTooltip": "再生中のレンダリングフレームレート",
     "aboutDesc": "作曲・プレビュー・エクスポートに対応したマルチトラック RTTTL エディター。最大 4 トラック同時再生、リアルタイム波形プレビュー、A-B ループマーカーをサポート。",
     "aboutFormat": "フォーマット",
     "aboutMaxTracks": "最大トラック数",

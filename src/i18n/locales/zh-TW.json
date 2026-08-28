@@ -352,6 +352,7 @@
     "importInvalidSkipped": "無效的行將被略過。",
     "changeTrackColor": "更改音軌顏色",
     "draftSavedTooltip": "每次修改後自動儲存，下次開啟時自動還原。",
+    "fpsTooltip": "播放時的渲染畫面更新率（FPS）",
     "aboutDesc": "多軌 RTTTL 編輯器，支援作曲、預覽及匯出鈴聲。最多支援 4 個同步音軌，具備即時波形預覽與 A-B 循環標記功能。",
     "aboutFormat": "格式",
     "aboutMaxTracks": "最多音軌",

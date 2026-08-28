@@ -352,6 +352,7 @@
     "importInvalidSkipped": "Invalid lines will be skipped.",
     "changeTrackColor": "Change track color",
     "draftSavedTooltip": "Auto-saved on every change. Restored automatically on next visit.",
+    "fpsTooltip": "Частота кадрів рендерингу під час відтворення",
     "aboutDesc": "A multi-track RTTTL editor for composing, previewing, and exporting ringtone tunes. Supports up to 4 simultaneous tracks with real-time waveform preview and A-B loop markers.",
     "aboutFormat": "Format",
     "aboutMaxTracks": "Max Tracks",

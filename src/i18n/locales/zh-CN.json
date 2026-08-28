@@ -352,6 +352,7 @@
     "importInvalidSkipped": "无效的行将被跳过。",
     "changeTrackColor": "更改音轨颜色",
     "draftSavedTooltip": "每次修改后自动保存，下次打开时自动恢复。",
+    "fpsTooltip": "播放时的渲染帧率",
     "aboutDesc": "多轨 RTTTL 编辑器，支持作曲、预览及导出铃声。最多支持 4 个同步音轨，具备实时波形预览与 A-B 循环标记功能。",
     "aboutFormat": "格式",
     "aboutMaxTracks": "最多音轨",

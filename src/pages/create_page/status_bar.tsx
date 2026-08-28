@@ -3,6 +3,7 @@ import { FaQuestionCircle, FaPlay, FaPause, FaStop } from "react-icons/fa";
 import clsx from "clsx";
 
 import { usePlayerStore } from "../../stores/player_store";
+import { useFpsMonitor } from "./hooks/use_fps_monitor";
 
 interface StatusBarProps {
   hasDraft: boolean;
@@ -19,6 +20,7 @@ export function StatusBar({
 }: StatusBarProps) {
   const { t } = useTranslation();
   const playerState = usePlayerStore((s) => s.playerState);
+  const fps = useFpsMonitor(playerState === "playing");
 
   return (
     <div className="flex h-9 shrink-0 items-center gap-3 border-t border-gray-400 bg-gray-300/80 px-3 dark:border-gray-800 dark:bg-gray-900/80">
@@ -38,7 +40,7 @@ export function StatusBar({
           defaultValue: "Auto-saved on every change. Restored automatically on next visit.",
         })}
         className={clsx(
-          "cursor-default text-xs transition-opacity",
+          "cursor-default text-sm transition-opacity",
           "text-gray-500 dark:text-amber-400",
           hasDraft ? "opacity-100" : "pointer-events-none opacity-0",
         )}
@@ -49,7 +51,7 @@ export function StatusBar({
       <span className="h-3 w-px bg-gray-400 dark:bg-gray-700" />
 
       {/* Focused track */}
-      <span className="text-xs text-gray-500 dark:text-gray-400">
+      <span className="text-sm text-gray-500 dark:text-gray-400">
         Track {focusedTrackIndex + 1} — {focusedTrackName}
       </span>
 
@@ -57,7 +59,7 @@ export function StatusBar({
       <span className="h-3 w-px bg-gray-400 dark:bg-gray-700" />
       <span
         className={clsx(
-          "flex items-center gap-1 text-xs font-medium",
+          "flex items-center gap-1 text-sm font-medium",
           playerState === "playing"
             ? "text-green-500 dark:text-green-400"
             : playerState === "paused"
@@ -74,6 +76,28 @@ export function StatusBar({
         )}
         {playerState === "playing" ? "PLAYING" : playerState === "paused" ? "PAUSED" : "STOPPED"}
       </span>
+
+      {/* FPS — rendering status while playing */}
+      {fps !== null && (
+        <>
+          <span className="h-3 w-px bg-gray-400 dark:bg-gray-700" />
+          <span
+            title={t("create.fpsTooltip", {
+              defaultValue: "Rendering frame rate during playback",
+            })}
+            className={clsx(
+              "cursor-default text-sm font-medium tabular-nums",
+              fps >= 50
+                ? "text-green-500 dark:text-green-400"
+                : fps >= 30
+                  ? "text-amber-500 dark:text-amber-400"
+                  : "text-red-500 dark:text-red-400",
+            )}
+          >
+            FPS: {fps}
+          </span>
+        </>
+      )}
     </div>
   );
 }
