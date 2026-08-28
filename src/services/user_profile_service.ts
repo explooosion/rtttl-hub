@@ -6,7 +6,7 @@
  */
 
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../lib/firebase";
+import { db } from "../libs/firebase";
 import type { FirestoreUser } from "../types/firestore_schema";
 
 // In-memory cache for user display names

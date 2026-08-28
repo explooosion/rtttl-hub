@@ -13,7 +13,7 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
-import { db, storage } from "../lib/firebase";
+import { db, storage } from "../libs/firebase";
 import type { RtttlEntry } from "../utils/rtttl_parser";
 import { FIRESTORE_COLLECTIONS } from "../types/firestore_schema";
 import type {

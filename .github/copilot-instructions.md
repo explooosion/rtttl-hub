@@ -70,6 +70,8 @@ Track Categorization: When needing to automatically assign categories to large c
 
 Translations: When any UI element, page, or workflow introduces, modifies, or removes displayable text, apply the rules defined in /.agents/skills/i18n-translations/SKILL.md. All 13 supported locales must be updated in full, and unused keys must be removed from every locale file.
 
+Theme Design: When writing or editing any TSX/JSX markup that sets a font-size utility class, apply the rules defined in /.agents/skills/theme-design/SKILL.md. `text-xs` is forbidden for readable text (labels, descriptions, buttons, messages) — use `text-sm` at minimum, unless the class is applied to an icon-only container or a decorative special marker.
+
 # Corporate Development & AI Safety Standards
 
 ## Security & Credential Management

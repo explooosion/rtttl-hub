@@ -10,7 +10,7 @@ import {
   Timestamp,
 } from "firebase/firestore";
 
-import { db } from "../lib/firebase";
+import { db } from "../libs/firebase";
 import { FIRESTORE_COLLECTIONS } from "../types/firestore_schema";
 import type { FirestoreAudioRecognition } from "../types/firestore_schema";
 

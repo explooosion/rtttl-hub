@@ -31,6 +31,7 @@ interface CreatePageTransportToolbarProps {
   onAudioExtract: VoidFunction;
   onLoadRecognitionHistory: VoidFunction;
   onLoadCreation: VoidFunction;
+  onOpenMidiImport: VoidFunction;
   onCreate: VoidFunction;
   onDiscard: VoidFunction;
   onStop: VoidFunction;
@@ -80,6 +81,7 @@ export function CreatePageTransportToolbar({
   onAudioExtract,
   onLoadRecognitionHistory,
   onLoadCreation,
+  onOpenMidiImport,
   onDiscard,
   onStop,
   onAddTrack,
@@ -129,6 +131,7 @@ export function CreatePageTransportToolbar({
       onAudioExtract={onAudioExtract}
       onLoadRecognitionHistory={onLoadRecognitionHistory}
       onLoadCreation={onLoadCreation}
+      onOpenMidiImport={onOpenMidiImport}
       onNavigateHome={handleNavigateHome}
       onFocusName={handleFocusName}
       onCreate={onCreate}

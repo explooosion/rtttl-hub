@@ -8,6 +8,7 @@ import type { RtttlCategory } from "../../utils/rtttl_parser";
 import type { CutMode } from "./cut_dialog";
 import type { RtttlEditorInputHandle } from "../../components/rtttl_editor/rtttl_editor_input";
 import type { AudioStemExtractorHandle } from "./audio_stem_extractor";
+import type { MidiImporterHandle } from "./midi_importer";
 import { DawHeader } from "./daw_header";
 import { CreatePageTransportToolbar } from "./create_page_transport_toolbar";
 import { CreatePageTrackArea } from "./create_page_track_area";
@@ -16,6 +17,7 @@ import { StatusBar } from "./status_bar";
 import { CreatePageDialogs } from "./create_page_dialogs";
 import { LoadCreationDialog } from "./load_creation_dialog";
 import { AudioStemExtractor } from "./audio_stem_extractor";
+import { MidiImporter } from "./midi_importer";
 import { RecognitionHistoryDialog } from "./recognition_history_dialog";
 
 interface UiModel {
@@ -145,9 +147,14 @@ export function CreatePageView({
   const [loadCreationOpen, setLoadCreationOpen] = useState(false);
   const [recognitionHistoryOpen, setRecognitionHistoryOpen] = useState(false);
   const audioExtractRef = useRef<AudioStemExtractorHandle>(null);
+  const midiImportRef = useRef<MidiImporterHandle>(null);
 
   function handleAudioExtract() {
     audioExtractRef.current?.trigger();
+  }
+
+  function handleOpenMidiImport() {
+    midiImportRef.current?.trigger();
   }
 
   function handleOpenFavoriteImport() {
@@ -273,6 +280,7 @@ export function CreatePageView({
           onAudioExtract={handleAudioExtract}
           onLoadRecognitionHistory={handleOpenRecognitionHistory}
           onLoadCreation={handleOpenLoadCreation}
+          onOpenMidiImport={handleOpenMidiImport}
           onCreate={actions.handleSubmit}
           onDiscard={actions.handleDiscard}
           onStop={actions.handleStop}
@@ -391,6 +399,8 @@ export function CreatePageView({
         />
 
         <AudioStemExtractor ref={audioExtractRef} onImport={actions.handleImportConfirm} />
+
+        <MidiImporter ref={midiImportRef} onImport={actions.handleImportConfirm} />
 
         <RecognitionHistoryDialog
           open={recognitionHistoryOpen}

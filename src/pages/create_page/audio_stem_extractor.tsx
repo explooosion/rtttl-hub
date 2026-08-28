@@ -389,7 +389,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
               {/* Header */}
               <div className="flex items-center justify-between border-b border-gray-200 px-5 py-3.5 dark:border-gray-700">
                 <DialogTitle className="text-base font-semibold text-gray-900 dark:text-white">
-                  {t("audioExtract.title", { defaultValue: "AI Audio Recognition" })}
+                  {t("audioExtract.title", { defaultValue: "AI Recognition" })}
                 </DialogTitle>
                 <div className="flex items-center gap-3">
                   {dailyUsed !== null && (
@@ -430,16 +430,9 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                     className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-8 text-sm font-medium text-gray-500 transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-600 dark:text-gray-400 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
                   >
                     <FaFileAudio size={20} />
-                    {t("audioExtract.selectAudio", { defaultValue: "Select Audio File" })}
+                    {t("audioExtract.selectAudio", { defaultValue: "Select Audio File" })} (MP3,
+                    WAV, OGG, FLAC, AAC)
                   </button>
-
-                  <p className="mt-3 text-center text-sm text-gray-400 dark:text-gray-500">
-                    MP3, WAV, OGG, FLAC, AAC ·{" "}
-                    {t("audioExtract.maxDuration", {
-                      defaultValue: "Max analysis duration: {{seconds}}s",
-                      seconds: MAX_ANALYSIS_DURATION_SEC,
-                    })}
-                  </p>
                 </div>
               )}
 
@@ -496,6 +489,12 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                     <label className="mb-1.5 block text-xs font-medium text-gray-500 dark:text-gray-400">
                       {t("audioExtract.timeRange", { defaultValue: "Time Range (seconds)" })}
                     </label>
+                    <p className="mb-1.5 text-sm text-gray-400 dark:text-gray-500">
+                      {t("audioExtract.maxDuration", {
+                        defaultValue: "Max analysis duration: {{seconds}}s",
+                        seconds: MAX_ANALYSIS_DURATION_SEC,
+                      })}
+                    </p>
                     <div className="flex items-center gap-2">
                       <input
                         type="number"

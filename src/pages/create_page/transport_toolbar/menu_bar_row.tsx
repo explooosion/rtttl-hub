@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { FaUser, FaMusic } from "react-icons/fa";
+import { FaUser, FaMusic, FaFileAudio, FaFileImport } from "react-icons/fa";
 
 import { useAuthStore } from "../../../stores/auth_store";
 import { DropdownMenu, MenuBar } from "./dropdown_menu";
@@ -12,12 +12,15 @@ interface MenuBarRowProps {
   editItems: MenuItemDef[];
   viewItems: MenuItemDef[];
   transportItems: MenuItemDef[];
+  importItems: MenuItemDef[];
   helpItems: MenuItemDef[];
   canCreate: boolean;
   isEditMode: boolean;
   onCreate: VoidFunction;
   onDiscard: VoidFunction;
+  onImport: VoidFunction;
   onAudioExtract: VoidFunction;
+  onOpenMidiImport: VoidFunction;
 }
 
 export function MenuBarRow({
@@ -25,12 +28,15 @@ export function MenuBarRow({
   editItems,
   viewItems,
   transportItems,
+  importItems,
   helpItems,
   canCreate,
   isEditMode,
   onCreate,
   onDiscard,
+  onImport,
   onAudioExtract,
+  onOpenMidiImport,
 }: MenuBarRowProps) {
   const { t } = useTranslation();
   const user = useAuthStore((s) => s.user);
@@ -46,17 +52,37 @@ export function MenuBarRow({
             label={t("create.menuTransport", { defaultValue: "Transport" })}
             items={transportItems}
           />
+          <DropdownMenu
+            label={t("create.menuImport", { defaultValue: "Import" })}
+            items={importItems}
+          />
           <DropdownMenu label={t("create.menuHelp", { defaultValue: "Help" })} items={helpItems} />
         </MenuBar>
 
         <div className="ml-auto flex shrink-0 items-center gap-2 pl-2">
           <button
             type="button"
+            onClick={onImport}
+            className="flex h-9 items-center gap-1.5 rounded-md bg-emerald-500 px-3 text-sm font-medium whitespace-nowrap text-white shadow-sm transition-colors hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700"
+          >
+            <FaFileImport size={11} />
+            {t("create.import", { defaultValue: "Import RTTTL" })}
+          </button>
+          <button
+            type="button"
+            onClick={onOpenMidiImport}
+            className="flex h-9 items-center gap-1.5 rounded-md bg-sky-500 px-3 text-sm font-medium whitespace-nowrap text-white shadow-sm transition-colors hover:bg-sky-600 dark:bg-sky-600 dark:hover:bg-sky-700"
+          >
+            <FaFileAudio size={11} />
+            {t("create.menuImportMidi", { defaultValue: "Import MIDI" })}
+          </button>
+          <button
+            type="button"
             onClick={onAudioExtract}
             className="flex h-9 items-center gap-1.5 rounded-md bg-amber-500 px-3 text-sm font-medium whitespace-nowrap text-white shadow-sm transition-colors hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-700"
           >
             <FaMusic size={11} />
-            {t("audioExtract.quickButton", { defaultValue: "AI Audio Recognition" })}
+            {t("audioExtract.quickButton", { defaultValue: "AI Recognition" })}
           </button>
           <button
             type="button"

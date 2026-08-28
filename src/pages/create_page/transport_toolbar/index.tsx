@@ -14,6 +14,7 @@ import {
   buildEditItems,
   buildFileItems,
   buildHelpItems,
+  buildImportItems,
   buildTransportItems,
   buildViewItems,
 } from "./menu_item_builders";
@@ -34,6 +35,7 @@ interface TransportToolbarProps {
   onAudioExtract: VoidFunction;
   onLoadRecognitionHistory: VoidFunction;
   onLoadCreation: VoidFunction;
+  onOpenMidiImport: VoidFunction;
   onNavigateHome: VoidFunction;
   onFocusName: VoidFunction;
   onCreate: VoidFunction;
@@ -86,6 +88,7 @@ export function TransportToolbar({
   onAudioExtract,
   onLoadRecognitionHistory,
   onLoadCreation,
+  onOpenMidiImport,
   onNavigateHome,
   onFocusName: _onFocusName,
   onCreate,
@@ -272,13 +275,17 @@ export function TransportToolbar({
   const fileItems = buildFileItems({
     t,
     onNew,
+    onDiscard,
+    onNavigateHome,
+  });
+  const importItems = buildImportItems({
+    t,
     onImport,
     onImportFromFavorites,
     onAudioExtract,
     onLoadRecognitionHistory,
     onLoadCreation: handleLoadCreationClick,
-    onDiscard,
-    onNavigateHome,
+    onOpenMidiImport,
   });
   const editItems = buildEditItems({
     t,
@@ -332,12 +339,15 @@ export function TransportToolbar({
         editItems={editItems}
         viewItems={viewItems}
         transportItems={transportItems}
+        importItems={importItems}
         helpItems={helpItems}
         canCreate={canCreate}
         isEditMode={isEditMode}
         onCreate={onCreate}
         onDiscard={onDiscard}
+        onImport={onImport}
         onAudioExtract={onAudioExtract}
+        onOpenMidiImport={onOpenMidiImport}
       />
 
       <EditorToolsRow

@@ -1,6 +1,6 @@
 import { httpsCallable } from "firebase/functions";
 
-import { functions } from "../lib/firebase";
+import { functions } from "../libs/firebase";
 import { fileToBase64 } from "../utils/file_to_base64";
 
 export type StemType = "vocals" | "bass" | "drums" | "other";

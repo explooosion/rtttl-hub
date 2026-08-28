@@ -7,7 +7,7 @@ import {
   deleteUser as firebaseDeleteUser,
 } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
-import { auth, googleProvider } from "../lib/firebase";
+import { auth, googleProvider } from "../libs/firebase";
 import {
   createOrUpdateUser,
   getUser,

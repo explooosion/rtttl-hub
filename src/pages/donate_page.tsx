@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaHeart, FaCheck, FaBolt, FaLock, FaSpinner } from "react-icons/fa";
 import { httpsCallable } from "firebase/functions";
 
-import { functions } from "../lib/firebase";
+import { functions } from "../libs/firebase";
 import { useAuthStore } from "../stores/auth_store";
 
 /**

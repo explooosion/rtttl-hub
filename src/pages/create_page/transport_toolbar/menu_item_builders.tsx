@@ -1,5 +1,6 @@
 import {
   FaFileImport,
+  FaFileAudio,
   FaSignOutAlt,
   FaFileAlt,
   FaTimes,
@@ -31,26 +32,11 @@ import { platformShortcut } from "../utils/keyboard_utils";
 interface BuildFileItemsParams {
   t: TFunction;
   onNew: VoidFunction;
-  onImport: VoidFunction;
-  onImportFromFavorites: VoidFunction;
-  onAudioExtract: VoidFunction;
-  onLoadRecognitionHistory: VoidFunction;
-  onLoadCreation?: VoidFunction;
   onDiscard: VoidFunction;
   onNavigateHome: VoidFunction;
 }
 
-export function buildFileItems({
-  t,
-  onNew,
-  onImport,
-  onImportFromFavorites,
-  onAudioExtract,
-  onLoadRecognitionHistory,
-  onLoadCreation,
-  onDiscard,
-  onNavigateHome,
-}: BuildFileItemsParams) {
+export function buildFileItems({ t, onNew, onDiscard, onNavigateHome }: BuildFileItemsParams) {
   const fileItems: MenuItemDef[] = [
     {
       type: "action",
@@ -59,29 +45,73 @@ export function buildFileItems({
       shortcut: platformShortcut("alt+n"),
       onClick: onNew,
     },
+    { type: "separator" as const },
+    {
+      type: "action",
+      icon: <FaTimes size={13} />,
+      label: t("create.cancel", { defaultValue: "Discard" }),
+      onClick: onDiscard,
+    },
+    {
+      type: "action",
+      icon: <FaSignOutAlt size={13} />,
+      label: t("create.menuExit", { defaultValue: "Exit" }),
+      onClick: onNavigateHome,
+    },
+  ];
+
+  return fileItems;
+}
+
+interface BuildImportItemsParams {
+  t: TFunction;
+  onImport: VoidFunction;
+  onImportFromFavorites: VoidFunction;
+  onAudioExtract: VoidFunction;
+  onLoadRecognitionHistory: VoidFunction;
+  onLoadCreation?: VoidFunction;
+  onOpenMidiImport: VoidFunction;
+}
+
+export function buildImportItems({
+  t,
+  onImport,
+  onImportFromFavorites,
+  onAudioExtract,
+  onLoadRecognitionHistory,
+  onLoadCreation,
+  onOpenMidiImport,
+}: BuildImportItemsParams) {
+  const importItems: MenuItemDef[] = [
     {
       type: "action",
       icon: <FaFileImport size={13} />,
-      label: t("create.import", { defaultValue: "Import…" }),
+      label: t("create.import", { defaultValue: "Import RTTTL" }),
       shortcut: platformShortcut("i"),
       onClick: onImport,
     },
     {
       type: "action",
+      icon: <FaFileAudio size={13} />,
+      label: t("create.menuImportMidi", { defaultValue: "Import MIDI" }),
+      onClick: onOpenMidiImport,
+    },
+    {
+      type: "action",
       icon: <FaHeart size={13} />,
-      label: t("create.menuImportFromFavorites", { defaultValue: "Import from Favorites…" }),
+      label: t("create.menuImportFromFavorites", { defaultValue: "Import from Favorites" }),
       onClick: onImportFromFavorites,
     },
     {
       type: "action",
       icon: <FaMusic size={13} />,
-      label: t("audioExtract.trigger", { defaultValue: "Import from Audio Recognition…" }),
+      label: t("audioExtract.trigger", { defaultValue: "Use AI Recognition" }),
       onClick: onAudioExtract,
     },
     {
       type: "action",
       icon: <FaFolderOpen size={13} />,
-      label: t("audioExtract.historyTrigger", { defaultValue: "Load Recognition History…" }),
+      label: t("audioExtract.historyTrigger", { defaultValue: "Load Recognition History" }),
       onClick: onLoadRecognitionHistory,
     },
     ...(onLoadCreation
@@ -89,27 +119,14 @@ export function buildFileItems({
           {
             type: "action" as const,
             icon: <FaFolderOpen size={13} />,
-            label: t("create.menuLoadCreation", { defaultValue: "Load My Creation…" }),
+            label: t("create.menuLoadCreation", { defaultValue: "Load My Creation" }),
             onClick: onLoadCreation,
           },
         ]
       : []),
-    { type: "separator" as const },
-    {
-      type: "action",
-      icon: <FaTimes size={13} />,
-      label: t("create.cancel", { defaultValue: "Discard & Exit" }),
-      onClick: onDiscard,
-    },
-    {
-      type: "action",
-      icon: <FaSignOutAlt size={13} />,
-      label: t("create.menuExit", { defaultValue: "Exit to Home" }),
-      onClick: onNavigateHome,
-    },
   ];
 
-  return fileItems;
+  return importItems;
 }
 
 interface BuildEditItemsParams {
