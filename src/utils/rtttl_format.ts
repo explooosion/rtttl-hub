@@ -32,6 +32,16 @@ export function formatDurationMs(ms: number): string {
 }
 
 /**
+ * Format milliseconds into a playback clock string: MM:SS.
+ */
+export function formatPlaybackClock(ms: number): string {
+  const totalSeconds = Math.max(0, Math.round(ms / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
+/**
  * Format an ISO date string as a short locale date (e.g. "Aug 19").
  */
 export function formatShortDate(isoDate: string): string {

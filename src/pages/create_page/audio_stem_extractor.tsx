@@ -766,7 +766,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                       <div className="mb-2 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
                         {t("audioExtract.modelLog", { defaultValue: "Model log" })}
                       </div>
-                      <pre className="max-h-48 overflow-y-auto whitespace-pre-wrap break-words font-mono text-xs leading-relaxed text-gray-700 dark:text-gray-300">
+                      <pre className="max-h-48 overflow-y-auto whitespace-pre-wrap wrap-break-word font-mono text-xs leading-relaxed text-gray-700 dark:text-gray-300">
                         {result.logs ?? processingLogs}
                       </pre>
                     </div>

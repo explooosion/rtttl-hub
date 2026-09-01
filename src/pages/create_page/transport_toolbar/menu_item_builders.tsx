@@ -103,6 +103,18 @@ export function buildImportItems({
       label: t("create.menuImportFromFavorites", { defaultValue: "Import from Favorites" }),
       onClick: onImportFromFavorites,
     },
+    ...(onLoadCreation
+      ? [
+          {
+            type: "action" as const,
+            icon: <FaFolderOpen size={13} />,
+            label: t("create.menuLoadCreation", {
+              defaultValue: "Create a Copy from My Creations",
+            }),
+            onClick: onLoadCreation,
+          },
+        ]
+      : []),
     {
       type: "action",
       icon: <FaMusic size={13} />,
@@ -115,16 +127,6 @@ export function buildImportItems({
       label: t("audioExtract.historyTrigger", { defaultValue: "Load Recognition History" }),
       onClick: onLoadRecognitionHistory,
     },
-    ...(onLoadCreation
-      ? [
-          {
-            type: "action" as const,
-            icon: <FaFolderOpen size={13} />,
-            label: t("create.menuLoadCreation", { defaultValue: "Load My Creation" }),
-            onClick: onLoadCreation,
-          },
-        ]
-      : []),
   ];
 
   return importItems;

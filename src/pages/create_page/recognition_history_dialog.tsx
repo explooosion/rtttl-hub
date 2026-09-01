@@ -172,7 +172,7 @@ export function RecognitionHistoryDialog({
                             className="cursor-pointer border-b border-gray-100 transition-colors hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800/50"
                             onClick={() => handleImportRecord(record)}
                           >
-                            <td className="max-w-[140px] truncate py-2.5 pr-2 font-medium text-gray-900 dark:text-white">
+                            <td className="max-w-35 truncate py-2.5 pr-2 font-medium text-gray-900 dark:text-white">
                               {record.fileName}
                             </td>
                             <td className="py-2.5 pr-2 text-gray-500 dark:text-gray-400">

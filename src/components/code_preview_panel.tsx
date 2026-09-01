@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { usePlayerStore } from "../stores/player_store";
 import { useEditorSettingsStore } from "../stores/editor_settings_store";
 import { copyToClipboard } from "../utils/clipboard";
+import { formatPlaybackClock, getRtttlDurationMs } from "../utils/rtttl_format";
 import { CodeEditor } from "../components/rtttl_editor/code_editor";
 
 const TRACK_DOT_CLASSES = [
@@ -76,11 +77,23 @@ export function CodePreviewPanel() {
   const currentNoteIndex = usePlayerStore((s) => s.currentNoteIndex);
   const playerState = usePlayerStore((s) => s.playerState);
   const trackNoteIndices = usePlayerStore((s) => s.trackNoteIndices);
+  const elapsedMs = usePlayerStore((s) => s.engine.getElapsedMs());
   const syntaxHighlight = useEditorSettingsStore((s) => s.features.syntaxHighlight);
   const syntaxColors = useEditorSettingsStore((s) => s.syntaxColors);
 
   // Coerce "stopped" → "idle" for CodeEditor's narrower prop type
   const editorPlayerState = playerState === "stopped" ? "idle" : playerState;
+
+  const totalDurationMs = (() => {
+    if (!currentItem) {
+      return 0;
+    }
+    const tracks = currentItem.tracks ?? [currentItem.code];
+    return tracks.reduce((max, code) => {
+      const duration = getRtttlDurationMs(code);
+      return Math.max(max, duration ?? 0);
+    }, 0);
+  })();
 
   if (!currentItem) {
     return (
@@ -106,6 +119,14 @@ export function CodePreviewPanel() {
         {currentItem.artist && (
           <p className="truncate text-xs text-gray-500 dark:text-gray-400">{currentItem.artist}</p>
         )}
+        {(playerState === "playing" || playerState === "paused" || playerState === "stopped") &&
+          totalDurationMs > 0 && (
+            <div className="mt-2 flex items-center justify-between rounded-md bg-gray-50 px-2 py-1 text-[11px] font-medium tracking-wide text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+              <span>{formatPlaybackClock(elapsedMs)}</span>
+              <span className="px-1">/</span>
+              <span>{formatPlaybackClock(totalDurationMs)}</span>
+            </div>
+          )}
       </div>
 
       {isMulti ? (
