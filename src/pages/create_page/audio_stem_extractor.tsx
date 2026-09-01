@@ -431,6 +431,33 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
       }
     }
 
+    async function handleCopyLogs() {
+      const text = result?.logs ?? processingLogs;
+      if (!text) {
+        toast.error(
+          t("audioExtract.copyLogEmpty", {
+            defaultValue: "No model log available to copy.",
+          }),
+        );
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(text);
+        toast.success(
+          t("audioExtract.copyLogSuccess", {
+            defaultValue: "Model log copied to clipboard.",
+          }),
+        );
+      } catch {
+        toast.error(
+          t("audioExtract.copyLogError", {
+            defaultValue: "Failed to copy log.",
+          }),
+        );
+      }
+    }
+
     return (
       <>
         <input
@@ -660,6 +687,18 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                   </div>
 
                   {/* Log panel */}
+                  <div className="mb-3 flex items-center justify-between gap-2">
+                    <span className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                      {t("audioExtract.modelLog", { defaultValue: "Model log" })}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handleCopyLogs}
+                      className="rounded border border-gray-300 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+                    >
+                      {t("audioExtract.copyLog", { defaultValue: "Copy log" })}
+                    </button>
+                  </div>
                   <div
                     className="h-64 overflow-y-auto rounded-lg border border-gray-200 bg-gray-950 p-3 font-mono text-xs leading-relaxed dark:border-gray-700"
                     ref={(el) => {
@@ -705,13 +744,33 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
               {/* Review State */}
               {state === "review" && result && (
                 <div className="max-h-[70vh] overflow-y-auto px-5 py-4">
-                  <p className="mb-3 text-sm text-gray-500 dark:text-gray-400">
-                    {t("audioExtract.resultSummary", {
-                      defaultValue:
-                        "Found {{count}} track(s). Select tracks to import into the editor.",
-                      count: result.tracks.length,
-                    })}
-                  </p>
+                  <div className="mb-4 flex items-center justify-between gap-2">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {t("audioExtract.resultSummary", {
+                        defaultValue:
+                          "Found {{count}} track(s). Select tracks to import into the editor.",
+                        count: result.tracks.length,
+                      })}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={handleCopyLogs}
+                      className="rounded border border-gray-300 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+                    >
+                      {t("audioExtract.copyLog", { defaultValue: "Copy log" })}
+                    </button>
+                  </div>
+
+                  {(result.logs || processingLogs) && (
+                    <div className="mb-4 rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-900/60">
+                      <div className="mb-2 text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        {t("audioExtract.modelLog", { defaultValue: "Model log" })}
+                      </div>
+                      <pre className="max-h-48 overflow-y-auto whitespace-pre-wrap break-words font-mono text-xs leading-relaxed text-gray-700 dark:text-gray-300">
+                        {result.logs ?? processingLogs}
+                      </pre>
+                    </div>
+                  )}
 
                   {/* Track list */}
                   <div className="mb-4 space-y-2">
