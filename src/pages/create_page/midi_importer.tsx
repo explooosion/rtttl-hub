@@ -61,7 +61,7 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
   const [octaveShift, setOctaveShift] = useState(0);
   const [maxNotes, setMaxNotes] = useState(DEFAULT_MAX_NOTES);
   const [maxNotesLocked, setMaxNotesLocked] = useState(false);
-  const [namePrefix, setNamePrefix] = useState("midi");
+  const [namePrefix, setNamePrefix] = useState("Track");
   const [allowDotted, setAllowDotted] = useState(true);
   const [mergeRests, setMergeRests] = useState(true);
   const [trackAffinity, setTrackAffinity] = useState(true);
@@ -85,7 +85,7 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
     setOctaveShift(0);
     setMaxNotes(DEFAULT_MAX_NOTES);
     setMaxNotesLocked(false);
-    setNamePrefix("midi");
+    setNamePrefix("Track");
     setAllowDotted(true);
     setMergeRests(true);
     setTrackAffinity(true);
@@ -139,7 +139,7 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
       setStartTime(0);
       setEndTime(Math.round(parsed.durationSec * 100) / 100);
       setBpm(parsed.initialBpm);
-      setNamePrefix(deriveNameFromFilename(parsed.fileName, "midi"));
+      setNamePrefix(deriveNameFromFilename(parsed.fileName, "Track"));
       setState("configure");
     } catch {
       toast.error(t("midiImport.readError", { defaultValue: "Failed to read MIDI file." }));
