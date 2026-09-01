@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 import type { MidiTrackInfo } from "../../utils/midi_parser";
 import type { EmitResult, NoteEvent } from "../../libs/voice-allocation.bundle.js";
-import { isMidiFile } from "../../utils/is_midi_file";
+import { isAcceptedMidiFile } from "../../utils/file_acceptance";
 import { deriveNameFromFilename } from "../../utils/derive_name_from_filename";
 import { loadMidiFile, convertParsedMidi } from "../../services/midi_import_service";
 
@@ -107,46 +107,62 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
     fileInputRef.current?.click();
   }
 
+  const handleAcceptedMidiFile = useCallback(
+    async (file: File) => {
+      if (!isAcceptedMidiFile(file)) {
+        toast.error(
+          t("midiImport.invalidType", {
+            defaultValue: "Please select a valid MIDI file (.mid, .midi).",
+          }),
+        );
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
+        return;
+      }
+
+      try {
+        const parsed = await loadMidiFile(file);
+        const withNotes = parsed.tracks.filter((tr) => tr.noteCount > 0);
+        setMeta({
+          fileName: parsed.fileName,
+          ticksPerBeat: parsed.ticksPerBeat,
+          durationSec: parsed.durationSec,
+          tracks: parsed.tracks,
+        });
+        setNotes(parsed.notes);
+        setSelectedTracks(new Set(withNotes.map((tr) => tr.index)));
+        setStartTime(0);
+        setEndTime(Math.round(parsed.durationSec * 100) / 100);
+        setBpm(parsed.initialBpm);
+        setNamePrefix(deriveNameFromFilename(parsed.fileName, "Track"));
+        setState("configure");
+      } catch {
+        toast.error(t("midiImport.readError", { defaultValue: "Failed to read MIDI file." }));
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
+      }
+    },
+    [t],
+  );
+
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) {
       return;
     }
 
-    if (!isMidiFile(file)) {
-      toast.error(
-        t("midiImport.invalidType", {
-          defaultValue: "Please select a valid MIDI file (.mid, .midi).",
-        }),
-      );
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
+    await handleAcceptedMidiFile(file);
+  }
+
+  function handleDropFile(event: React.DragEvent<HTMLElement>) {
+    event.preventDefault();
+    const file = event.dataTransfer.files?.[0];
+    if (!file) {
       return;
     }
-
-    try {
-      const parsed = await loadMidiFile(file);
-      const withNotes = parsed.tracks.filter((tr) => tr.noteCount > 0);
-      setMeta({
-        fileName: parsed.fileName,
-        ticksPerBeat: parsed.ticksPerBeat,
-        durationSec: parsed.durationSec,
-        tracks: parsed.tracks,
-      });
-      setNotes(parsed.notes);
-      setSelectedTracks(new Set(withNotes.map((tr) => tr.index)));
-      setStartTime(0);
-      setEndTime(Math.round(parsed.durationSec * 100) / 100);
-      setBpm(parsed.initialBpm);
-      setNamePrefix(deriveNameFromFilename(parsed.fileName, "Track"));
-      setState("configure");
-    } catch {
-      toast.error(t("midiImport.readError", { defaultValue: "Failed to read MIDI file." }));
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-    }
+    void handleAcceptedMidiFile(file);
   }
 
   function toggleTrack(index: number) {
@@ -300,7 +316,11 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
       <Dialog open={open} onClose={handleClose} className="relative z-50">
         <div className="fixed inset-0 bg-black/25" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <DialogPanel className="flex w-full max-w-3xl flex-col rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+          <DialogPanel
+            onDragOver={(event) => event.preventDefault()}
+            onDrop={handleDropFile}
+            className="flex w-full max-w-3xl flex-col rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
+          >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-gray-200 px-5 py-3.5 dark:border-gray-700">
               <DialogTitle className="text-base font-semibold text-gray-900 dark:text-white">
@@ -340,6 +360,8 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
                 <button
                   type="button"
                   onClick={handleSelectFileClick}
+                  onDragOver={(event) => event.preventDefault()}
+                  onDrop={handleDropFile}
                   className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-12 text-sm font-medium text-gray-500 transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-600 dark:text-gray-400 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
                 >
                   <FaFileAudio size={20} />

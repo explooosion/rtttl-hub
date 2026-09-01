@@ -5,6 +5,7 @@ import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { FaTimes, FaSpinner, FaCheck, FaFileAudio } from "react-icons/fa";
 import toast from "react-hot-toast";
 
+import { isAcceptedAudioFile } from "../../utils/file_acceptance";
 import type { StemType, ExtractionResult, TrackResult } from "../../services/audio_extract_service";
 import { extractMelody, ALL_STEMS } from "../../services/audio_extract_service";
 import { useAuthStore } from "../../stores/auth_store";
@@ -70,8 +71,6 @@ async function resolveEffectiveLimits(uid: string): Promise<EffectiveLimits> {
 
 type ExtractorState = "idle" | "configure" | "processing" | "review";
 
-const ACCEPTED_AUDIO_TYPES = ["audio/mpeg", "audio/wav", "audio/ogg", "audio/flac", "audio/aac"];
-
 interface AudioMeta {
   name: string;
   sizeBytes: number;
@@ -130,6 +129,8 @@ const STEM_LABELS: Record<StemType, string> = {
   other: "Other",
 };
 
+const DEFAULT_SELECTED_STEMS: StemType[] = ["vocals", "bass", "drums", "other"];
+
 export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStemExtractorProps>(
   function AudioStemExtractor({ onImport }, ref) {
     const { t } = useTranslation();
@@ -146,7 +147,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
     // Configure options
     const [startTime, setStartTime] = useState(0);
     const [endTime, setEndTime] = useState(0);
-    const [selectedStems, setSelectedStems] = useState<StemType[]>(["vocals", "other"]);
+    const [selectedStems, setSelectedStems] = useState<StemType[]>(DEFAULT_SELECTED_STEMS);
 
     // Processing
     const [processingStatus, setProcessingStatus] = useState("");
@@ -178,7 +179,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
       setSelectedFile(null);
       setStartTime(0);
       setEndTime(0);
-      setSelectedStems(["vocals", "other"]);
+      setSelectedStems(DEFAULT_SELECTED_STEMS);
       setProcessingStatus("");
       setProcessingLogs("");
       setResult(null);
@@ -203,40 +204,56 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
       fileInputRef.current?.click();
     }
 
+    const handleAcceptedAudioFile = useCallback(
+      async (file: File) => {
+        if (!isAcceptedAudioFile(file)) {
+          toast.error(
+            t("audioExtract.invalidType", {
+              defaultValue: "Please select a valid audio file (MP3, WAV, OGG, FLAC, AAC).",
+            }),
+          );
+          if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+          }
+          return;
+        }
+
+        try {
+          const duration = await readAudioDuration(file);
+          const rounded = Math.round(duration * 100) / 100;
+          setAudioMeta({ name: file.name, sizeBytes: file.size, durationSec: rounded });
+          setSelectedFile(file);
+          setStartTime(0);
+          setEndTime(Math.min(rounded, limits.maxAnalysisSeconds));
+          setState("configure");
+        } catch {
+          toast.error(
+            t("audioExtract.readError", { defaultValue: "Failed to read audio file metadata." }),
+          );
+          if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+          }
+        }
+      },
+      [limits.maxAnalysisSeconds, t],
+    );
+
     async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
       const file = e.target.files?.[0];
       if (!file) {
         return;
       }
 
-      if (!ACCEPTED_AUDIO_TYPES.includes(file.type)) {
-        toast.error(
-          t("audioExtract.invalidType", {
-            defaultValue: "Please select a valid audio file (MP3, WAV, OGG, FLAC, AAC).",
-          }),
-        );
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
+      await handleAcceptedAudioFile(file);
+    }
+
+    function handleDropFile(event: React.DragEvent<HTMLElement>) {
+      event.preventDefault();
+      const file = event.dataTransfer.files?.[0];
+      if (!file) {
         return;
       }
-
-      try {
-        const duration = await readAudioDuration(file);
-        const rounded = Math.round(duration * 100) / 100;
-        setAudioMeta({ name: file.name, sizeBytes: file.size, durationSec: rounded });
-        setSelectedFile(file);
-        setStartTime(0);
-        setEndTime(Math.min(rounded, limits.maxAnalysisSeconds));
-        setState("configure");
-      } catch {
-        toast.error(
-          t("audioExtract.readError", { defaultValue: "Failed to read audio file metadata." }),
-        );
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
-      }
+      void handleAcceptedAudioFile(file);
     }
 
     function toggleStem(stem: StemType) {
@@ -427,7 +444,11 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
         <Dialog open={open} onClose={handleClose} className="relative z-50">
           <div className="fixed inset-0 bg-black/25" aria-hidden="true" />
           <div className="fixed inset-0 flex items-center justify-center p-4">
-            <DialogPanel className="flex w-full max-w-3xl flex-col rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+            <DialogPanel
+              onDragOver={(event) => event.preventDefault()}
+              onDrop={handleDropFile}
+              className="flex w-full max-w-3xl flex-col rounded-xl border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900"
+            >
               {/* Header */}
               <div className="flex items-center justify-between border-b border-gray-200 px-5 py-3.5 dark:border-gray-700">
                 <DialogTitle className="text-base font-semibold text-gray-900 dark:text-white">
@@ -475,6 +496,8 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                   <button
                     type="button"
                     onClick={handleSelectFileClick}
+                    onDragOver={(event) => event.preventDefault()}
+                    onDrop={handleDropFile}
                     className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-12 text-sm font-medium text-gray-500 transition-colors hover:border-indigo-400 hover:text-indigo-600 dark:border-gray-600 dark:text-gray-400 dark:hover:border-indigo-500 dark:hover:text-indigo-400"
                   >
                     <FaFileAudio size={20} />
