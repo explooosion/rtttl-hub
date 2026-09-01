@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "deploy": "firebase deploy --only functions",
+    "deploy": "npx firebase --config ../firebase.json --project rtttl-hub deploy --only functions",
     "lint": "eslint src --ext .ts"
   },
   "dependencies": {

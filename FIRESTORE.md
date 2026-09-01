@@ -6,9 +6,9 @@ This document explains how to initialize and configure Cloud Firestore for this 
 
 The project includes the following Firebase configuration files:
 
-- `firebase.json` - Firebase project configuration and Emulator settings
-- `.firebaserc` - Firebase project ID (defaults to `rtttl-hub`)
-- `firestore.rules` - Firestore security rules
+- `firebase/firebase.json` - Firebase project configuration and Emulator settings
+- `firebase/.firebaserc` - Firebase project ID (defaults to `rtttl-hub`)
+- `firebase/firestore.rules` - Firestore security rules
 - `src/types/firestore_schema.ts` - TypeScript type definitions for all collections
 
 ## 1. Enable Firestore
@@ -22,7 +22,7 @@ The project includes the following Firebase configuration files:
 
 ## 2. Deploy Security Rules
 
-Security rules are defined in `firestore.rules`. To deploy:
+Security rules are defined in `firebase/firestore.rules`. To deploy:
 
 ### Quick Start
 
@@ -32,8 +32,8 @@ The project is pre-configured with Firebase. Simply:
 # 1. Login to Firebase (first time only)
 npm run firebase:login
 
-# 2. Verify project ID in .firebaserc
-# Default is "rtttl-hub", edit .firebaserc if needed
+# 2. Verify project ID in firebase/.firebaserc
+# Default is "rtttl-hub", edit firebase/.firebaserc if needed
 
 # 3. Deploy rules
 npm run firebase:deploy:rules
@@ -65,13 +65,13 @@ firebase login
 firebase init firestore
 
 # Deploy rules
-firebase deploy --only firestore:rules
+npx firebase --config firebase/firebase.json --project rtttl-hub deploy --only firestore:rules
 ```
 
 ### Using Firebase Console
 
 1. Go to Firebase Console > Firestore Database > Rules
-2. Copy the contents of `firestore.rules`
+2. Copy the contents of `firebase/firestore.rules`
 3. Paste and publish
 
 ## 3. Collection Structure

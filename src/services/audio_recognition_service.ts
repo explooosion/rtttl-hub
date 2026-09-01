@@ -49,7 +49,7 @@ export async function deleteAudioRecognition(id: string): Promise<void> {
 /**
  * Reads the real daily AI recognition usage count from the server-authoritative
  * `usage_counters/{userId}` doc (written by the Cloud Function that gates
- * Replicate API calls — see functions/src/quota_service.ts). This is NOT
+ * Replicate API calls — see firebase/functions/src/quota_service.ts). This is NOT
  * derived from the audio_recognitions history collection, so deleting past
  * recognition results never resets the quota.
  */

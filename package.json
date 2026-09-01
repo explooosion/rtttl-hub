@@ -11,16 +11,18 @@
     "sitemap:check": "npm run sitemap && tsx scripts/check-sitemap.ts",
     "build": "npm run sitemap && tsc -b && vite build",
     "lint": "eslint .",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"functions/src/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"firebase/functions/src/**/*.ts\"",
     "preview": "vite preview",
     "test": "vitest run",
     "generate-picaxe": "tsx scripts/generate-picaxe.ts",
     "generate-logos": "tsx scripts/generate-logos.ts",
     "generate-placeholder": "tsx scripts/generate-placeholder.ts",
     "prepare": "husky",
-    "firebase:emulator": "firebase emulators:start",
-    "firebase:deploy:rules": "firebase deploy --only firestore:rules",
-    "firebase:login": "firebase login"
+    "firebase:emulator": "npx firebase --config firebase/firebase.json --project rtttl-hub emulators:start",
+    "firebase:deploy": "npx firebase --config firebase/firebase.json --project rtttl-hub deploy",
+    "firebase:deploy:rules": "npx firebase --config firebase/firebase.json --project rtttl-hub deploy --only firestore:rules",
+    "firebase:deploy:functions": "npx firebase --config firebase/firebase.json --project rtttl-hub deploy --only functions",
+    "firebase:login": "npx firebase login"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
