@@ -98,6 +98,26 @@ export function renameTrack(tracks: string[], index: number, newName: string): s
 }
 
 /**
+ * Normalizes imported track names to a sequential TrackN pattern while keeping
+ * the RTTTL body unchanged. This ensures every imported project, MIDI conversion,
+ * and AI recognition result follows the same track naming convention.
+ */
+export function normalizeTrackNamesToSequential(tracks: string[]): string[] {
+  return tracks.map((track, index) => {
+    const name = `Track${index + 1}`;
+    const code = track.trim();
+    if (!code) {
+      return `${name}:`;
+    }
+    const colonIdx = code.indexOf(":");
+    if (colonIdx >= 0) {
+      return `${name}${code.slice(colonIdx)}`;
+    }
+    return `${name}:${code}`;
+  });
+}
+
+/**
  * Returns the adjusted focused-track index after a removal at `removedIndex`.
  * `newLength` is the length of the tracks array after removal.
  */

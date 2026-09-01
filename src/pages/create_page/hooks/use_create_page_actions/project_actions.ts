@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { clearDraft } from "../../draft";
 import { MAX_TRACKS } from "../../constants";
 import { nextProjectName } from "../../utils/toolbar_utils";
+import { normalizeTrackNamesToSequential } from "../../utils/track_operations";
 import { parseRtttl } from "../../../../utils/rtttl_parser";
 import { useCollectionStore } from "../../../../stores/collection_store";
 import type { NavigateFunction } from "react-router-dom";
@@ -206,7 +207,8 @@ export function useProjectActions({
       if (resolvedName) {
         setName(resolvedName);
       }
-      setPendingImport(parsed.slice(0, MAX_TRACKS));
+      const normalizedTracks = normalizeTrackNamesToSequential(parsed.slice(0, MAX_TRACKS));
+      setPendingImport(normalizedTracks);
       setImportOpen(false);
     },
     [setName, setPendingImport, setImportOpen],

@@ -7,6 +7,7 @@ import {
   removeEmptyTracks,
   reorderTracks,
   renameTrack,
+  normalizeTrackNamesToSequential,
   adjustFocusedIndexAfterRemove,
   adjustFocusedIndexAfterReorder,
 } from "./track_operations";
@@ -207,6 +208,32 @@ describe("renameTrack", () => {
     const original = [T1, T2];
     renameTrack(original, 0, "X");
     expect(original[0]).toBe(T1);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// normalizeTrackNamesToSequential
+// ---------------------------------------------------------------------------
+describe("normalizeTrackNamesToSequential", () => {
+  it("rewrites each imported track to TrackN numbering while preserving the RTTTL body", () => {
+    const result = normalizeTrackNamesToSequential([
+      "Lead:d=4,o=5,b=140:c,d,e",
+      "Bass:d=4,o=5,b=110:g,a",
+      "Drums:d=4,o=5,b=120:c,c,c",
+    ]);
+
+    expect(result).toEqual([
+      "Track1:d=4,o=5,b=140:c,d,e",
+      "Track2:d=4,o=5,b=110:g,a",
+      "Track3:d=4,o=5,b=120:c,c,c",
+    ]);
+  });
+
+  it("handles tracks without a colon by prefixing TrackN before the body", () => {
+    expect(normalizeTrackNamesToSequential(["c,d,e", "g,a,b"])).toEqual([
+      "Track1:c,d,e",
+      "Track2:g,a,b",
+    ]);
   });
 });
 
