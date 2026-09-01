@@ -5,7 +5,7 @@ import { FaTimes, FaCheck, FaFileAudio, FaChevronDown, FaChevronUp } from "react
 import toast from "react-hot-toast";
 
 import type { MidiTrackInfo } from "../../utils/midi_parser";
-import type { EmitResult, NoteEvent } from "../../libs/voice_allocation";
+import type { EmitResult, NoteEvent } from "../../libs/voice-allocation.bundle.js";
 import { isMidiFile } from "../../utils/is_midi_file";
 import { deriveNameFromFilename } from "../../utils/derive_name_from_filename";
 import { loadMidiFile, convertParsedMidi } from "../../services/midi_import_service";

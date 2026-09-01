@@ -2,15 +2,16 @@
  * Minimal Standard MIDI File (SMF) reader.
  *
  * Parses the raw bytes of a `.mid`/`.midi` file into a flat list of note
- * events (in seconds) plus per-track metadata, ready to be fed into
- * {@link import("../libs/voice_allocation").convertMidiNotesToRtttl}.
+ * events (in seconds) plus per-track metadata, ready to be fed into the
+ * bundled RTTTL allocator via
+ * {@link import("../libs/voice-allocation.bundle.js").convertMidiNotesToRtttl}.
  *
  * Supports SMF format 0 and 1 (format 2 tracks are parsed independently,
  * which is usually fine since they don't share a timeline). Only the
  * tick-based division format is supported; SMPTE-based files throw.
  */
 
-import type { NoteEvent } from "../libs/voice_allocation";
+import type { NoteEvent } from "../libs/voice-allocation.bundle.js";
 
 /** Per-track metadata surfaced for track-selection UI. */
 export interface MidiTrackInfo {

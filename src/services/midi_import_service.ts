@@ -9,8 +9,8 @@
 
 import type { MidiTrackInfo } from "../utils/midi_parser";
 import { parseMidiFile } from "../utils/midi_parser";
-import type { ConvertOptions, EmitResult, NoteEvent } from "../libs/voice_allocation";
-import { convertMidiNotesToRtttl } from "../libs/voice_allocation";
+import type { ConvertOptions, EmitResult, NoteEvent } from "../libs/voice-allocation.bundle.js";
+import { convertMidiNotesToRtttl } from "../libs/voice-allocation.bundle.js";
 
 /** Metadata surfaced right after a MIDI file is parsed, before conversion. */
 export interface MidiFileInfo {
