@@ -7,7 +7,6 @@ import {
   deleteDoc,
   query,
   where,
-  orderBy,
   Timestamp,
 } from "firebase/firestore";
 
@@ -31,14 +30,53 @@ export async function saveAudioRecognition(
   return docRef.id;
 }
 
+export function sortRecognitionRecordsByNewest<T extends { createdAt?: unknown }>(
+  records: T[],
+): T[] {
+  return [...records].sort((left, right) => {
+    const leftTime = toTimestampMs(left.createdAt);
+    const rightTime = toTimestampMs(right.createdAt);
+    return rightTime - leftTime;
+  });
+}
+
+function toTimestampMs(value: unknown): number {
+  if (!value) {
+    return 0;
+  }
+
+  if (typeof value === "object") {
+    if ("toDate" in value && typeof value.toDate === "function") {
+      return value.toDate().getTime();
+    }
+
+    if ("seconds" in value && typeof value.seconds === "number") {
+      return value.seconds * 1000;
+    }
+
+    if (value instanceof Date) {
+      return value.getTime();
+    }
+  }
+
+  if (typeof value === "string" || typeof value === "number") {
+    const parsed = new Date(value).getTime();
+    if (!Number.isNaN(parsed)) {
+      return parsed;
+    }
+  }
+
+  return 0;
+}
+
 export async function getUserRecognitions(userId: string): Promise<FirestoreAudioRecognition[]> {
   const q = query(
     collection(db, FIRESTORE_COLLECTIONS.AUDIO_RECOGNITIONS),
     where("userId", "==", userId),
-    orderBy("createdAt", "desc"),
   );
   const snap = await getDocs(q);
-  return snap.docs.map((d) => d.data() as FirestoreAudioRecognition);
+  const records = snap.docs.map((d) => d.data() as FirestoreAudioRecognition);
+  return sortRecognitionRecordsByNewest(records);
 }
 
 export async function deleteAudioRecognition(id: string): Promise<void> {
