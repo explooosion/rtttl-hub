@@ -726,7 +726,20 @@
     "fileTooLarge": "Dateigröße überschreitet das Limit von {{max}} MB.",
     "readError": "Audiodatei-Metadaten konnten nicht gelesen werden.",
     "analyzeError": "Analyse fehlgeschlagen. Bitte versuchen Sie es erneut.",
-    "accessDenied": "Diese Funktion steht derzeit nur autorisierten Benutzern zur Verfügung."
+    "accessDenied": "Diese Funktion steht derzeit nur autorisierten Benutzern zur Verfügung.",
+    "historyTrigger": "KI-Erkennungsverlauf laden",
+    "historyTitle": "KI-Erkennungsverlauf",
+    "noHistory": "Noch kein Erkennungsverlauf vorhanden.",
+    "deleteRecord": "Eintrag löschen",
+    "deleteConfirmTitle": "KI-Erkennungseintrag löschen",
+    "deleteConfirmMessage": "Möchten Sie diesen Eintrag wirklich löschen? Dies kann nicht rückgängig gemacht werden.",
+    "recordDeleted": "KI-Erkennungseintrag gelöscht.",
+    "colFileName": "Datei",
+    "colStems": "Stems",
+    "colDate": "Datum",
+    "historyViewLog": "Protokoll anzeigen",
+    "historyHideLog": "Protokoll ausblenden",
+    "historyNoLogs": "Für diese Analyse wurde kein Protokoll gespeichert."
   },
   "midiImport": {
     "title": "MIDI importieren",

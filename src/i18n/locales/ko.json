@@ -731,7 +731,20 @@
     "fileTooLarge": "파일 크기가 {{max}} MB 제한을 초과합니다.",
     "readError": "오디오 파일 메타데이터를 읽지 못했습니다.",
     "analyzeError": "분석에 실패했습니다. 다시 시도해 주세요.",
-    "accessDenied": "이 기능은 현재 승인된 사용자만 사용할 수 있습니다."
+    "accessDenied": "이 기능은 현재 승인된 사용자만 사용할 수 있습니다.",
+    "historyTrigger": "AI 인식 기록 불러오기",
+    "historyTitle": "AI 인식 기록",
+    "noHistory": "아직 인식 기록이 없습니다.",
+    "deleteRecord": "기록 삭제",
+    "deleteConfirmTitle": "AI 인식 기록 삭제",
+    "deleteConfirmMessage": "이 기록을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+    "recordDeleted": "AI 인식 기록이 삭제되었습니다.",
+    "colFileName": "파일",
+    "colStems": "스템",
+    "colDate": "날짜",
+    "historyViewLog": "로그 보기",
+    "historyHideLog": "로그 숨기기",
+    "historyNoLogs": "이 분석에 저장된 로그가 없습니다."
   },
   "midiImport": {
     "title": "MIDI 가져오기",

@@ -736,7 +736,20 @@
     "fileTooLarge": "Velikost souboru překračuje limit {{max}} MB.",
     "readError": "Nepodařilo se přečíst metadata zvukového souboru.",
     "analyzeError": "Analýza selhala. Zkuste to prosím znovu.",
-    "accessDenied": "Tato funkce je momentálně dostupná pouze pro autorizované uživatele."
+    "accessDenied": "Tato funkce je momentálně dostupná pouze pro autorizované uživatele.",
+    "historyTrigger": "Načíst historii AI rozpoznávání",
+    "historyTitle": "Historie AI rozpoznávání",
+    "noHistory": "Zatím žádná historie rozpoznávání.",
+    "deleteRecord": "Smazat záznam",
+    "deleteConfirmTitle": "Smazat záznam AI rozpoznávání",
+    "deleteConfirmMessage": "Opravdu chcete smazat tento záznam? Tuto akci nelze vrátit zpět.",
+    "recordDeleted": "Záznam AI rozpoznávání byl smazán.",
+    "colFileName": "Soubor",
+    "colStems": "Stopy",
+    "colDate": "Datum",
+    "historyViewLog": "Zobrazit protokol",
+    "historyHideLog": "Skrýt protokol",
+    "historyNoLogs": "Pro tuto analýzu nebyl uložen žádný protokol."
   },
   "midiImport": {
     "title": "Importovat MIDI",

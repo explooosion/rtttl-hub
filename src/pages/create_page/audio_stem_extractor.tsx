@@ -369,7 +369,8 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
               noteCount: tr.noteCount,
               bpm: tr.bpm,
               durationSec: tr.durationSec,
-              error: tr.error,
+              // Firestore rejects `undefined` field values — only include `error` when set
+              ...(tr.error ? { error: tr.error } : {}),
             })),
             replicateLogs: extractionResult.logs ?? "",
           });
@@ -377,8 +378,9 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
           toast.success(
             t("audioExtract.resultSaved", { defaultValue: "Recognition result saved." }),
           );
-        } catch {
-          // Silent fail for save — result is still shown
+        } catch (saveErr) {
+          // Silent fail for save — result is still shown, but log for diagnostics
+          console.error("Failed to save AI recognition history:", saveErr);
         }
       } catch (err) {
         toast.error(

@@ -734,7 +734,20 @@
     "fileTooLarge": "文件大小超过 {{max}} MB 限制。",
     "readError": "无法读取音频文件元数据。",
     "analyzeError": "分析失败，请重试。",
-    "accessDenied": "此功能目前仅对授权用户开放。"
+    "accessDenied": "此功能目前仅对授权用户开放。",
+    "historyTrigger": "载入 AI 识别记录",
+    "historyTitle": "AI 识别记录",
+    "noHistory": "尚无 AI 识别记录。",
+    "deleteRecord": "删除记录",
+    "deleteConfirmTitle": "删除 AI 识别记录",
+    "deleteConfirmMessage": "确定要删除这条 AI 识别记录吗？此操作无法撤销。",
+    "recordDeleted": "AI 识别记录已删除。",
+    "colFileName": "文件",
+    "colStems": "音轨",
+    "colDate": "日期",
+    "historyViewLog": "查看日志",
+    "historyHideLog": "隐藏日志",
+    "historyNoLogs": "此次分析没有保存日志。"
   },
   "midiImport": {
     "title": "导入 MIDI",

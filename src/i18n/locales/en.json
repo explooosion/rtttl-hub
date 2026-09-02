@@ -736,7 +736,10 @@
     "recordDeleted": "AI Recognition record deleted.",
     "colFileName": "File",
     "colStems": "Stems",
-    "colDate": "Date"
+    "colDate": "Date",
+    "historyViewLog": "View Log",
+    "historyHideLog": "Hide Log",
+    "historyNoLogs": "No log was recorded for this analysis."
   },
   "midiImport": {
     "title": "Import MIDI",

@@ -744,7 +744,10 @@
     "recordDeleted": "AI 辨識紀錄已刪除。",
     "colFileName": "檔案",
     "colStems": "音軌",
-    "colDate": "日期"
+    "colDate": "日期",
+    "historyViewLog": "查看日誌",
+    "historyHideLog": "隱藏日誌",
+    "historyNoLogs": "此次分析沒有保存日誌。"
   },
   "midiImport": {
     "title": "匯入 MIDI",

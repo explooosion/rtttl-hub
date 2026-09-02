@@ -728,7 +728,20 @@
     "fileTooLarge": "Rozmiar pliku przekracza limit {{max}} MB.",
     "readError": "Nie udało się odczytać metadanych pliku audio.",
     "analyzeError": "Analiza nie powiodła się. Spróbuj ponownie.",
-    "accessDenied": "Ta funkcja jest obecnie dostępna tylko dla autoryzowanych użytkowników."
+    "accessDenied": "Ta funkcja jest obecnie dostępna tylko dla autoryzowanych użytkowników.",
+    "historyTrigger": "Wczytaj historię rozpoznawania AI",
+    "historyTitle": "Historia rozpoznawania AI",
+    "noHistory": "Brak historii rozpoznawania.",
+    "deleteRecord": "Usuń rekord",
+    "deleteConfirmTitle": "Usuń rekord rozpoznawania AI",
+    "deleteConfirmMessage": "Czy na pewno chcesz usunąć ten rekord? Tej operacji nie można cofnąć.",
+    "recordDeleted": "Rekord rozpoznawania AI został usunięty.",
+    "colFileName": "Plik",
+    "colStems": "Ścieżki",
+    "colDate": "Data",
+    "historyViewLog": "Pokaż log",
+    "historyHideLog": "Ukryj log",
+    "historyNoLogs": "Dla tej analizy nie zapisano żadnego logu."
   },
   "midiImport": {
     "title": "Importuj MIDI",

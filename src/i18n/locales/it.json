@@ -726,7 +726,20 @@
     "fileTooLarge": "La dimensione del file supera il limite di {{max}} MB.",
     "readError": "Impossibile leggere i metadati del file audio.",
     "analyzeError": "Analisi non riuscita. Riprovare.",
-    "accessDenied": "Questa funzionalità è attualmente disponibile solo per gli utenti autorizzati."
+    "accessDenied": "Questa funzionalità è attualmente disponibile solo per gli utenti autorizzati.",
+    "historyTrigger": "Carica cronologia riconoscimento IA",
+    "historyTitle": "Cronologia riconoscimento IA",
+    "noHistory": "Nessuna cronologia di riconoscimento ancora.",
+    "deleteRecord": "Elimina record",
+    "deleteConfirmTitle": "Elimina record di riconoscimento IA",
+    "deleteConfirmMessage": "Sei sicuro di voler eliminare questo record? Questa azione non può essere annullata.",
+    "recordDeleted": "Record di riconoscimento IA eliminato.",
+    "colFileName": "File",
+    "colStems": "Tracce",
+    "colDate": "Data",
+    "historyViewLog": "Visualizza log",
+    "historyHideLog": "Nascondi log",
+    "historyNoLogs": "Nessun log registrato per questa analisi."
   },
   "midiImport": {
     "title": "Importa MIDI",

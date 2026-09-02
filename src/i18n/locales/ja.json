@@ -731,7 +731,20 @@
     "fileTooLarge": "ファイルサイズが {{max}} MB の制限を超えています。",
     "readError": "音声ファイルのメタデータを読み取れませんでした。",
     "analyzeError": "分析に失敗しました。もう一度お試しください。",
-    "accessDenied": "この機能は現在、認可されたユーザーのみご利用いただけます。"
+    "accessDenied": "この機能は現在、認可されたユーザーのみご利用いただけます。",
+    "historyTrigger": "AI 認識履歴を読み込む",
+    "historyTitle": "AI 認識履歴",
+    "noHistory": "まだ認識履歴がありません。",
+    "deleteRecord": "記録を削除",
+    "deleteConfirmTitle": "AI 認識記録を削除",
+    "deleteConfirmMessage": "この記録を削除してもよろしいですか？この操作は元に戻せません。",
+    "recordDeleted": "AI 認識記録を削除しました。",
+    "colFileName": "ファイル",
+    "colStems": "ステム",
+    "colDate": "日付",
+    "historyViewLog": "ログを表示",
+    "historyHideLog": "ログを非表示",
+    "historyNoLogs": "この解析のログは記録されていません。"
   },
   "midiImport": {
     "title": "MIDI をインポート",

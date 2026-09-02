@@ -1,7 +1,7 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
-import { FaTimes, FaSpinner, FaTrash } from "react-icons/fa";
+import { FaTimes, FaSpinner, FaTrash, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 import { useAuthStore } from "../../stores/auth_store";
@@ -39,6 +39,7 @@ export function RecognitionHistoryDialog({
   const [records, setRecords] = useState<FirestoreAudioRecognition[]>([]);
   const [loading, setLoading] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
+  const [expandedLogId, setExpandedLogId] = useState<string | null>(null);
 
   const loadRecords = useCallback(
     async function loadRecords() {
@@ -95,6 +96,21 @@ export function RecognitionHistoryDialog({
         count: rtttlList.length,
       }),
     );
+  }
+
+  function toggleLogView(recordId: string) {
+    setExpandedLogId((prev) => (prev === recordId ? null : recordId));
+  }
+
+  async function handleCopyRecordLog(logs: string) {
+    try {
+      await navigator.clipboard.writeText(logs);
+      toast.success(
+        t("audioExtract.copyLogSuccess", { defaultValue: "Model log copied to clipboard." }),
+      );
+    } catch {
+      toast.error(t("audioExtract.copyLogError", { defaultValue: "Failed to copy log." }));
+    }
   }
 
   return (
@@ -167,37 +183,94 @@ export function RecognitionHistoryDialog({
                       </thead>
                       <tbody>
                         {records.map((record) => (
-                          <tr
-                            key={record.id}
-                            className="cursor-pointer border-b border-gray-100 transition-colors hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800/50"
-                            onClick={() => handleImportRecord(record)}
-                          >
-                            <td className="max-w-35 truncate py-2.5 pr-2 font-medium text-gray-900 dark:text-white">
-                              {record.fileName}
-                            </td>
-                            <td className="py-2.5 pr-2 text-gray-500 dark:text-gray-400">
-                              {record.tracks.filter((tr) => tr.noteCount > 0).length}/
-                              {record.tracks.length}
-                            </td>
-                            <td className="py-2.5 pr-2 text-xs text-gray-400 dark:text-gray-500">
-                              {formatDate(record.createdAt)}
-                            </td>
-                            <td className="py-2.5 text-right">
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setDeleteTarget(record.id);
-                                }}
-                                className="rounded p-1 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950 dark:hover:text-red-400"
-                                title={t("audioExtract.deleteRecord", {
-                                  defaultValue: "Delete Record",
-                                })}
-                              >
-                                <FaTrash size={12} />
-                              </button>
-                            </td>
-                          </tr>
+                          <Fragment key={record.id}>
+                            <tr
+                              className="cursor-pointer border-b border-gray-100 transition-colors hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800/50"
+                              onClick={() => handleImportRecord(record)}
+                            >
+                              <td className="max-w-35 truncate py-2.5 pr-2 font-medium text-gray-900 dark:text-white">
+                                {record.fileName}
+                              </td>
+                              <td className="py-2.5 pr-2 text-gray-500 dark:text-gray-400">
+                                {record.tracks.filter((tr) => tr.noteCount > 0).length}/
+                                {record.tracks.length}
+                              </td>
+                              <td className="py-2.5 pr-2 text-xs text-gray-400 dark:text-gray-500">
+                                {formatDate(record.createdAt)}
+                              </td>
+                              <td className="py-2.5 text-right">
+                                <div className="flex items-center justify-end gap-1">
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      toggleLogView(record.id);
+                                    }}
+                                    className="rounded p-1 text-gray-400 transition-colors hover:bg-indigo-50 hover:text-indigo-500 dark:hover:bg-indigo-950 dark:hover:text-indigo-400"
+                                    title={t("audioExtract.historyViewLog", {
+                                      defaultValue: "View Log",
+                                    })}
+                                  >
+                                    {expandedLogId === record.id ? (
+                                      <FaChevronUp size={12} />
+                                    ) : (
+                                      <FaChevronDown size={12} />
+                                    )}
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setDeleteTarget(record.id);
+                                    }}
+                                    className="rounded p-1 text-gray-400 transition-colors hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950 dark:hover:text-red-400"
+                                    title={t("audioExtract.deleteRecord", {
+                                      defaultValue: "Delete Record",
+                                    })}
+                                  >
+                                    <FaTrash size={12} />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            {expandedLogId === record.id && (
+                              <tr className="border-b border-gray-100 dark:border-gray-800">
+                                <td
+                                  colSpan={4}
+                                  className="bg-gray-50 px-2 py-3 dark:bg-gray-900/40"
+                                >
+                                  <div className="mb-2 flex items-center justify-between gap-2">
+                                    <span className="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                                      {t("audioExtract.modelLog", { defaultValue: "Model log" })}
+                                    </span>
+                                    {record.replicateLogs && (
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          void handleCopyRecordLog(record.replicateLogs);
+                                        }}
+                                        className="rounded border border-gray-300 px-2 py-1 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+                                      >
+                                        {t("audioExtract.copyLog", { defaultValue: "Copy log" })}
+                                      </button>
+                                    )}
+                                  </div>
+                                  {record.replicateLogs ? (
+                                    <pre className="max-h-48 overflow-y-auto whitespace-pre-wrap wrap-break-word rounded-lg border border-gray-200 bg-gray-950 p-3 font-mono text-xs leading-relaxed text-gray-300 dark:border-gray-700">
+                                      {record.replicateLogs}
+                                    </pre>
+                                  ) : (
+                                    <p className="text-sm text-gray-400 dark:text-gray-500">
+                                      {t("audioExtract.historyNoLogs", {
+                                        defaultValue: "No log was recorded for this analysis.",
+                                      })}
+                                    </p>
+                                  )}
+                                </td>
+                              </tr>
+                            )}
+                          </Fragment>
                         ))}
                       </tbody>
                     </table>
