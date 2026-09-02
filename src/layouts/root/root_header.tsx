@@ -5,6 +5,7 @@ import clsx from "clsx";
 
 import { ThemeToggle } from "../../components/theme_toggle";
 import { SettingsMenu } from "../../components/settings_menu";
+import { LanguageSwitcher } from "../../components/language_switcher";
 import { MegaMenu } from "../../components/mega_menu";
 import { MyZoneMenu } from "../../components/my_zone_menu";
 import { UserMenu } from "../../components/user_menu";
@@ -126,6 +127,10 @@ export function RootHeader({ sidebarOpen, setSidebarOpen }: RootHeaderProps) {
           {/* Theme Toggle - hidden on mobile, show from md */}
           <div className="hidden md:flex md:items-center">
             <ThemeToggle />
+          </div>
+          {/* Language Switcher - icon only, hidden on mobile/tablet, show from lg */}
+          <div className="hidden lg:block">
+            <LanguageSwitcher iconOnly />
           </div>
           {/* GitHub - hidden on mobile/tablet, show from lg */}
           <a

@@ -10,6 +10,13 @@ import { AvatarUpload } from "../components/avatar_upload";
 import { uploadAvatar, deleteAvatar } from "../services/firestore_service";
 import { PageLoader } from "../components/page_loader";
 
+const fallbackAvatarSrc = "/icons/favicon-32x32.png";
+
+function handleAvatarError(event: React.SyntheticEvent<HTMLImageElement>) {
+  event.currentTarget.onerror = null;
+  event.currentTarget.src = fallbackAvatarSrc;
+}
+
 export function ProfilePage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -103,11 +110,14 @@ export function ProfilePage() {
           {/* Avatar */}
           <div className="mb-6 flex items-center gap-6">
             <div className="relative">
-              <img
-                src={currentAvatar || "/icons/favicon-32x32.png"}
-                alt={displayName}
-                className="h-24 w-24 rounded-full object-cover"
-              />
+              <div className="h-24 w-24 overflow-hidden rounded-[9999px] border-2 border-gray-200 dark:border-gray-700">
+                <img
+                  src={currentAvatar || "/icons/favicon-32x32.png"}
+                  alt={displayName}
+                  onError={handleAvatarError}
+                  className="h-full w-full object-cover"
+                />
+              </div>
               <button
                 onClick={handleOpenAvatarUpload}
                 className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg transition-colors hover:bg-indigo-700"

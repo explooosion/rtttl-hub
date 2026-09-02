@@ -358,7 +358,11 @@
     "aboutFormat": "형식",
     "aboutMaxTracks": "최대 트랙 수",
     "aboutStorage": "저장소",
-    "aboutStorageValue": "브라우저 로컈 스토리지 (임시저장)"
+    "aboutStorageValue": "브라우저 로컈 스토리지 (임시저장)",
+    "created": "제작물을 저장했습니다: {{name}}",
+    "updated": "변경 사항을 저장했습니다: {{name}}",
+    "nowPublic": "{{name}}을(를) 공개로 설정했습니다",
+    "nowPrivate": "{{name}}을(를) 비공개로 설정했습니다"
   },
   "favorites": {
     "empty": "아직 즐겨찾기가 없습니다. 벨소리의 하트 아이콘을 클릭하여 추가하세요."

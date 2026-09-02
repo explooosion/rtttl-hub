@@ -361,10 +361,10 @@
     "aboutStorageValue": "本機瀏覽器儲存（草稿）",
     "makePublic": "公開分享",
     "publicExplanation": "其他用戶可以在社群收藏中看到這個音軌",
-    "created": "✓ 已保存創作：{{name}}",
-    "updated": "✓ 已更新創作：{{name}}",
-    "nowPublic": "✓ {{name}} 已設為公開",
-    "nowPrivate": "✓ {{name}} 已設為私人",
+    "created": "已保存創作：{{name}}",
+    "updated": "已更新創作：{{name}}",
+    "nowPublic": "{{name}} 已設為公開",
+    "nowPrivate": "{{name}} 已設為私人",
     "visibilityUpdateFailed": "更新可見性失敗"
   },
   "favorites": {

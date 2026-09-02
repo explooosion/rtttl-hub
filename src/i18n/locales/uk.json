@@ -361,10 +361,10 @@
     "aboutStorageValue": "Local browser storage (draft)",
     "makePublic": "Зробити публічним",
     "publicExplanation": "Інші користувачі зможуть побачити цей трек у колекції спільноти",
-    "created": "✓ Створення збережено: {{name}}",
-    "updated": "✓ Створення оновлено: {{name}}",
-    "nowPublic": "✓ {{name}} тепер публічний",
-    "nowPrivate": "✓ {{name}} тепер приватний",
+    "created": "Створення збережено: {{name}}",
+    "updated": "Створення оновлено: {{name}}",
+    "nowPublic": "{{name}} тепер публічний",
+    "nowPrivate": "{{name}} тепер приватний",
     "visibilityUpdateFailed": "Не вдалося оновити видимість"
   },
   "favorites": {

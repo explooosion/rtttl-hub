@@ -14,6 +14,13 @@ import { getUser, getUserTransactions } from "../services/firestore_service";
 import type { FirestoreTransaction } from "../types/firestore_schema";
 import { DONATION_TIERS, type DonationTierAmount } from "../constants/donation_tiers";
 
+const fallbackAvatarSrc = "/icons/favicon-32x32.png";
+
+function handleAvatarError(event: React.SyntheticEvent<HTMLImageElement>) {
+  event.currentTarget.onerror = null;
+  event.currentTarget.src = fallbackAvatarSrc;
+}
+
 interface TierStatus {
   active: boolean;
   daysRemaining: number;
@@ -151,15 +158,16 @@ export function AccountPage() {
           <div className="rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-900">
             <div className="flex items-start gap-6">
               {/* Avatar */}
-              <div className="flex-shrink-0">
+              <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-[9999px] border-2 border-gray-200 dark:border-gray-700">
                 {currentAvatar ? (
                   <img
                     src={currentAvatar}
                     alt={user.displayName}
-                    className="h-20 w-20 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-700"
+                    onError={handleAvatarError}
+                    className="h-full w-full object-cover"
                   />
                 ) : (
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-indigo-100 text-2xl font-bold text-indigo-600 ring-2 ring-gray-200 dark:bg-indigo-900 dark:text-indigo-400 dark:ring-gray-700">
+                  <div className="flex h-full w-full items-center justify-center bg-indigo-100 text-2xl font-bold text-indigo-600 dark:bg-indigo-900 dark:text-indigo-400">
                     {user.displayName.charAt(0).toUpperCase()}
                   </div>
                 )}

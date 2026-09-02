@@ -361,10 +361,10 @@
     "aboutStorageValue": "Local browser storage (draft)",
     "makePublic": "Rendre public",
     "publicExplanation": "Les autres utilisateurs peuvent voir cette piste dans la collection de la communauté",
-    "created": "✓ Création enregistrée : {{name}}",
-    "updated": "✓ Création mise à jour : {{name}}",
-    "nowPublic": "✓ {{name}} est maintenant public",
-    "nowPrivate": "✓ {{name}} est maintenant privé",
+    "created": "Création enregistrée : {{name}}",
+    "updated": "Création mise à jour : {{name}}",
+    "nowPublic": "{{name}} est maintenant public",
+    "nowPrivate": "{{name}} est maintenant privé",
     "visibilityUpdateFailed": "Erreur lors de la mise à jour de la visibilité"
   },
   "favorites": {

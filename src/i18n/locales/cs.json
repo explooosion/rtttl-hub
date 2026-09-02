@@ -361,10 +361,10 @@
     "aboutStorageValue": "Local browser storage (draft)",
     "makePublic": "Zveřejnit",
     "publicExplanation": "Ostatní uživatelé uvidí tuto skladbu v kolekci komunity",
-    "created": "✓ Vytvoření uloženo: {{name}}",
-    "updated": "✓ Vytvoření aktualizováno: {{name}}",
-    "nowPublic": "✓ {{name}} je nyní veřejný",
-    "nowPrivate": "✓ {{name}} je nyní soukromý",
+    "created": "Vytvoření uloženo: {{name}}",
+    "updated": "Vytvoření aktualizováno: {{name}}",
+    "nowPublic": "{{name}} je nyní veřejný",
+    "nowPrivate": "{{name}} je nyní soukromý",
     "visibilityUpdateFailed": "Nepodařilo se aktualizovat viditelnost"
   },
   "favorites": {

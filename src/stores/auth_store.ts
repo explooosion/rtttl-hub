@@ -79,13 +79,17 @@ export const useAuthStore = create<AuthState>()(
         onAuthStateChanged(auth, async (firebaseUser) => {
           if (firebaseUser) {
             const firestoreUser = await getUser(firebaseUser.uid);
+            const persistedCustomPhotoURL = get().user?.customPhotoURL;
+            const customPhotoURL =
+              firestoreUser?.customPhotoURL ??
+              (firestoreUser === null ? persistedCustomPhotoURL : undefined);
             set({
               user: {
                 uid: firebaseUser.uid,
                 displayName: firestoreUser?.displayName || firebaseUser.displayName || "User",
                 email: firebaseUser.email || "",
                 photoURL: firebaseUser.photoURL || undefined,
-                customPhotoURL: firestoreUser?.customPhotoURL || undefined,
+                customPhotoURL: customPhotoURL || undefined,
                 pendingDeletion: firestoreUser?.pendingDeletion,
                 deletionScheduledAt: firestoreUser?.deletionScheduledAt,
                 deletionExecuteAt: firestoreUser?.deletionExecuteAt,

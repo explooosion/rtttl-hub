@@ -37,9 +37,6 @@ const AccountPage = lazy(() =>
 const ProfilePage = lazy(() =>
   import("./pages/profile_page").then((m) => ({ default: m.ProfilePage })),
 );
-const PasswordPage = lazy(() =>
-  import("./pages/password_page").then((m) => ({ default: m.PasswordPage })),
-);
 const ContributePage = lazy(() =>
   import("./pages/contribute_page").then((m) => ({ default: m.ContributePage })),
 );
@@ -156,7 +153,6 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/account" element={<AccountPage />} />
               <Route path="/account/profile" element={<ProfilePage />} />
-              <Route path="/account/password" element={<PasswordPage />} />
               <Route path="/contribute" element={<ContributePage />} />
               <Route path="/donate" element={<DonatePage />} />
               <Route path="/payment" element={<PaymentPage />} />

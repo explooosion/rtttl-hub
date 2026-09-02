@@ -358,7 +358,11 @@
     "aboutFormat": "フォーマット",
     "aboutMaxTracks": "最大トラック数",
     "aboutStorage": "ストレージ",
-    "aboutStorageValue": "ブラウザーローカルストレージ（ドラフト）"
+    "aboutStorageValue": "ブラウザーローカルストレージ（ドラフト）",
+    "created": "作成内容を保存しました：{{name}}",
+    "updated": "変更内容を保存しました：{{name}}",
+    "nowPublic": "{{name}} を公開に設定しました",
+    "nowPrivate": "{{name}} を非公開に設定しました"
   },
   "favorites": {
     "empty": "お気に入りはまだありません。着信音のハートアイコンをクリックして追加してください。"

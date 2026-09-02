@@ -361,10 +361,10 @@
     "aboutStorageValue": "Lokaler Browser-Speicher (Entwurf)",
     "makePublic": "Öffentlich machen",
     "publicExplanation": "Andere Benutzer können diesen Track in der Community-Sammlung sehen",
-    "created": "✓ Erstellung gespeichert: {{name}}",
-    "updated": "✓ Erstellung aktualisiert: {{name}}",
-    "nowPublic": "✓ {{name}} ist jetzt öffentlich",
-    "nowPrivate": "✓ {{name}} ist jetzt privat",
+    "created": "Erstellung gespeichert: {{name}}",
+    "updated": "Erstellung aktualisiert: {{name}}",
+    "nowPublic": "{{name}} ist jetzt öffentlich",
+    "nowPrivate": "{{name}} ist jetzt privat",
     "visibilityUpdateFailed": "Aktualisierung der Sichtbarkeit fehlgeschlagen"
   },
   "favorites": {

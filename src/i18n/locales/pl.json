@@ -361,10 +361,10 @@
     "aboutStorageValue": "Local browser storage (draft)",
     "makePublic": "Ustaw jako publiczny",
     "publicExplanation": "Inni użytkownicy będą mogli zobaczyć ten utwór w kolekcji społeczności",
-    "created": "✓ Utworzenie zapisane: {{name}}",
-    "updated": "✓ Utworzenie zaktualizowane: {{name}}",
-    "nowPublic": "✓ {{name}} jest teraz publiczny",
-    "nowPrivate": "✓ {{name}} jest teraz prywatny",
+    "created": "Utworzenie zapisane: {{name}}",
+    "updated": "Utworzenie zaktualizowane: {{name}}",
+    "nowPublic": "{{name}} jest teraz publiczny",
+    "nowPrivate": "{{name}} jest teraz prywatny",
     "visibilityUpdateFailed": "Nie udało się zaktualizować widoczności"
   },
   "favorites": {

@@ -22,11 +22,15 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
   const { t } = useTranslation();
   const location = useLocation();
   const [collectionsOpen, setCollectionsOpen] = useState(false);
+  const [myZoneOpen, setMyZoneOpen] = useState(false);
   const [publicLibsOpen, setPublicLibsOpen] = useState(false);
 
   const isCollectionsActive = location.pathname.startsWith("/collections");
+  const isMyZoneActive = location.pathname.startsWith("/my-zone/");
   const isCreateActive = location.pathname === "/create";
   const isContributeActive = location.pathname === "/contribute";
+  const isAboutActive = location.pathname === "/about";
+  const isDonateActive = location.pathname === "/donate";
 
   const myCreationsCollections = COLLECTIONS.filter((c) => c.group === "my-creations");
   const publicLibrariesCollections = COLLECTIONS.filter((c) => c.group === "public-libraries");
@@ -38,6 +42,10 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
 
   function handleToggleCollectionsOpen() {
     setCollectionsOpen(!collectionsOpen);
+  }
+
+  function handleToggleMyZoneOpen() {
+    setMyZoneOpen(!myZoneOpen);
   }
 
   function handleTogglePublicLibrariesOpen() {
@@ -61,7 +69,12 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
             onClick={onClose}
             className={clsx(
               "px-6 py-3 text-sm font-medium transition-colors",
-              !isCollectionsActive && !isCreateActive && !isContributeActive
+              !isCollectionsActive &&
+                !isMyZoneActive &&
+                !isCreateActive &&
+                !isContributeActive &&
+                !isAboutActive &&
+                !isDonateActive
                 ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400"
                 : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800",
             )}
@@ -194,6 +207,53 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
             )}
           </div>
 
+          {/* My Zone - Collapsible Section */}
+          <div>
+            <button
+              onClick={handleToggleMyZoneOpen}
+              className={clsx(
+                "flex w-full items-center justify-between px-6 py-3 text-left text-sm font-medium transition-colors",
+                isMyZoneActive
+                  ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400"
+                  : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800",
+              )}
+            >
+              <span>{t("collections.group.myCreations", { defaultValue: "My Zone" })}</span>
+              <FaChevronDown
+                size={12}
+                className={clsx("transition-transform", myZoneOpen && "rotate-180")}
+              />
+            </button>
+            {myZoneOpen && (
+              <div className="bg-gray-50 dark:bg-gray-800/50">
+                <Link
+                  to="/my-zone/my-creations"
+                  onClick={onClose}
+                  className={clsx(
+                    "block px-6 py-2.5 text-sm transition-colors",
+                    location.pathname === "/my-zone/my-creations"
+                      ? "bg-white text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
+                      : "text-gray-700 hover:bg-white dark:text-gray-300 dark:hover:bg-gray-900",
+                  )}
+                >
+                  {t("collections.myCreations.name")}
+                </Link>
+                <Link
+                  to="/my-zone/favorites"
+                  onClick={onClose}
+                  className={clsx(
+                    "block px-6 py-2.5 text-sm transition-colors",
+                    location.pathname === "/my-zone/favorites"
+                      ? "bg-white text-indigo-600 dark:bg-gray-900 dark:text-indigo-400"
+                      : "text-gray-700 hover:bg-white dark:text-gray-300 dark:hover:bg-gray-900",
+                  )}
+                >
+                  {t("collections.favorites.name")}
+                </Link>
+              </div>
+            )}
+          </div>
+
           {/* Create */}
           <Link
             to="/create"
@@ -204,7 +264,7 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
               "px-6 py-3 text-sm font-semibold transition-colors",
               isCreateActive
                 ? "bg-indigo-600 text-white"
-                : "bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white dark:bg-indigo-950 dark:text-indigo-400 dark:hover:bg-indigo-600 dark:hover:text-white",
+                : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800",
             )}
           >
             {t("actions.createNew")}
@@ -223,6 +283,34 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
           >
             {t("actions.contribute")}
           </Link>
+
+          {/* About */}
+          <Link
+            to="/about"
+            onClick={onClose}
+            className={clsx(
+              "px-6 py-3 text-sm font-medium transition-colors",
+              isAboutActive
+                ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400"
+                : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800",
+            )}
+          >
+            {t("footer.about")}
+          </Link>
+
+          {/* Donate */}
+          <Link
+            to="/donate"
+            onClick={onClose}
+            className={clsx(
+              "mx-6 my-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors",
+              isDonateActive
+                ? "bg-amber-600 text-white"
+                : "bg-amber-500 text-white hover:bg-amber-600",
+            )}
+          >
+            {t("nav.donate", { defaultValue: "Support RTTTL Hub" })}
+          </Link>
         </nav>
 
         {/* Settings — Theme + Config (desktop header items moved here) */}
@@ -233,13 +321,13 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
             </span>
           </div>
           <div className="mb-3 flex items-center gap-3 px-6">
-            <ThemeToggle />
+            <ThemeToggle mobile />
           </div>
           <div className="mb-3 px-6">
-            <LanguageSwitcher />
+            <LanguageSwitcher mobile />
           </div>
           <div className="px-6">
-            <SettingsMenu />
+            <SettingsMenu mobile />
           </div>
         </div>
       </div>

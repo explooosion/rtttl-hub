@@ -19,8 +19,14 @@ const languages = [
   { code: "ko", label: "한국어" },
 ] as const;
 
-export function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+interface LanguageSwitcherProps {
+  mobile?: boolean;
+  /** Icon-only compact button for the desktop header, no label text. */
+  iconOnly?: boolean;
+}
+
+export function LanguageSwitcher({ mobile = false, iconOnly = false }: LanguageSwitcherProps) {
+  const { t, i18n } = useTranslation();
 
   const activeLanguage = i18n.resolvedLanguage ?? i18n.language;
   const current = languages.find((l) => l.code === activeLanguage) ?? languages[0];
@@ -28,14 +34,26 @@ export function LanguageSwitcher() {
 
   return (
     <Popover className="relative">
-      <PopoverButton className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-gray-500 transition-colors hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:text-white">
-        <FaGlobe size={16} />
-        <span className="hidden sm:inline">{currentLabel}</span>
+      <PopoverButton
+        aria-label={t("language.title", { defaultValue: "Language" })}
+        title={iconOnly ? t("language.title", { defaultValue: "Language" }) : undefined}
+        className={clsx(
+          iconOnly
+            ? "flex items-center justify-center rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
+            : "flex min-h-11 items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm text-gray-500 transition-colors hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:text-white",
+          mobile && "w-full justify-start",
+        )}
+      >
+        <FaGlobe size={iconOnly ? 18 : 16} />
+        {!iconOnly && <span className={mobile ? "" : "hidden sm:inline"}>{currentLabel}</span>}
       </PopoverButton>
 
       <PopoverPanel
-        anchor="top start"
-        className="z-50 mt-1 w-48 rounded-xl border border-gray-200 bg-white py-1 shadow-xl dark:border-gray-700 dark:bg-gray-800 [--anchor-gap:8px]"
+        anchor={iconOnly ? "bottom end" : "top start"}
+        className={clsx(
+          "z-50 mt-1 w-48 rounded-xl border border-gray-200 bg-white py-1 shadow-xl dark:border-gray-700 dark:bg-gray-800 [--anchor-gap:8px]",
+          mobile && "w-full",
+        )}
       >
         {({ close }) => (
           <div className="py-1">

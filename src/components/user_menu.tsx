@@ -5,6 +5,13 @@ import { FaChevronDown, FaSignOutAlt, FaCog, FaSignInAlt } from "react-icons/fa"
 
 import { useAuthStore } from "../stores/auth_store";
 
+const fallbackAvatarSrc = "/icons/favicon-32x32.png";
+
+function handleAvatarError(event: React.SyntheticEvent<HTMLImageElement>) {
+  event.currentTarget.onerror = null;
+  event.currentTarget.src = fallbackAvatarSrc;
+}
+
 export function UserMenu() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -36,14 +43,19 @@ export function UserMenu() {
     <Menu as="div" className="relative">
       <MenuButton className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
         {currentAvatar ? (
-          <img
-            src={currentAvatar}
-            alt={user.displayName}
-            className="h-7 w-7 rounded-full object-cover"
-          />
+          <div className="h-7 w-7 overflow-hidden rounded-[9999px] border-2 border-gray-200 dark:border-gray-700">
+            <img
+              src={currentAvatar}
+              alt={user.displayName}
+              onError={handleAvatarError}
+              className="h-full w-full object-cover"
+            />
+          </div>
         ) : (
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-600 dark:bg-indigo-900 dark:text-indigo-400">
-            {user.displayName.charAt(0).toUpperCase()}
+          <div className="h-7 w-7 overflow-hidden rounded-[9999px] border-2 border-gray-200 bg-indigo-100 dark:border-gray-700 dark:bg-indigo-900">
+            <div className="flex h-full w-full items-center justify-center text-xs font-bold text-indigo-600 dark:text-indigo-400">
+              {user.displayName.charAt(0).toUpperCase()}
+            </div>
           </div>
         )}
         <span className="hidden sm:inline">{user.displayName}</span>
