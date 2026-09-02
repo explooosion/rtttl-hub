@@ -67,11 +67,14 @@ export function TrackRow({
   const isItemPlaying = isActive && playerState === "playing";
 
   // Fetch creator display name if userId exists
-  useEffect(() => {
-    if (item.userId) {
-      getUserDisplayName(item.userId).then(setCreatorName);
-    }
-  }, [item.userId]);
+  useEffect(
+    function fetchCreatorNameWhenUserIdChanges() {
+      if (item.userId) {
+        getUserDisplayName(item.userId, setCreatorName).then(setCreatorName);
+      }
+    },
+    [item.userId],
+  );
 
   // Compute static creator name (from artist field for static collections)
   const staticCreatorName = useMemo(() => {

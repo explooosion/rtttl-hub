@@ -17,6 +17,14 @@ export function getRtttlDurationMs(code: string): number | null {
 }
 
 /**
+ * Compute the longest playback duration (in ms) across one or more RTTTL
+ * track codes — used to display total duration for multi-track items.
+ */
+export function getMaxTrackDurationMs(codes: string[]): number {
+  return codes.reduce((max, code) => Math.max(max, getRtttlDurationMs(code) ?? 0), 0);
+}
+
+/**
  * Format milliseconds into a human-readable duration string.
  * - < 1 min:  "42s"
  * - >= 1 min: "1m 05s"

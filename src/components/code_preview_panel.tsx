@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { usePlayerStore } from "../stores/player_store";
 import { useEditorSettingsStore } from "../stores/editor_settings_store";
 import { copyToClipboard } from "../utils/clipboard";
-import { formatPlaybackClock, getRtttlDurationMs } from "../utils/rtttl_format";
+import { formatPlaybackClock, getMaxTrackDurationMs } from "../utils/rtttl_format";
 import { CodeEditor } from "../components/rtttl_editor/code_editor";
 
 const TRACK_DOT_CLASSES = [
@@ -89,10 +89,7 @@ export function CodePreviewPanel() {
       return 0;
     }
     const tracks = currentItem.tracks ?? [currentItem.code];
-    return tracks.reduce((max, code) => {
-      const duration = getRtttlDurationMs(code);
-      return Math.max(max, duration ?? 0);
-    }, 0);
+    return getMaxTrackDurationMs(tracks);
   })();
 
   if (!currentItem) {
@@ -121,10 +118,8 @@ export function CodePreviewPanel() {
         )}
         {(playerState === "playing" || playerState === "paused" || playerState === "stopped") &&
           totalDurationMs > 0 && (
-            <div className="mt-2 flex items-center justify-between rounded-md bg-gray-50 px-2 py-1 text-[11px] font-medium tracking-wide text-gray-600 dark:bg-gray-800 dark:text-gray-300">
-              <span>{formatPlaybackClock(elapsedMs)}</span>
-              <span className="px-1">/</span>
-              <span>{formatPlaybackClock(totalDurationMs)}</span>
+            <div className="mt-2 w-fit rounded-md bg-gray-50 px-2 py-1 text-[11px] font-medium tracking-wide text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+              {formatPlaybackClock(elapsedMs)} / {formatPlaybackClock(totalDurationMs)}
             </div>
           )}
       </div>

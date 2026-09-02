@@ -14,6 +14,7 @@ import { useCollectionStore } from "../../stores/collection_store";
 import { usePlayerStore } from "../../stores/player_store";
 import { useCookieConsentStore } from "../../stores/cookie_consent_store";
 import { toRtttlEntries, type CollectionEntry } from "../../utils/collection_loader";
+import { formatPlaybackClock, getMaxTrackDurationMs } from "../../utils/rtttl_format";
 
 export function RootShell() {
   const { t } = useTranslation();
@@ -23,6 +24,7 @@ export function RootShell() {
   const currentItem = usePlayerStore((s) => s.currentItem);
   const currentNoteIndex = usePlayerStore((s) => s.currentNoteIndex);
   const totalNotes = usePlayerStore((s) => s.totalNotes);
+  const elapsedMs = usePlayerStore((s) => s.engine.getElapsedMs());
   const editedCode = usePlayerStore((s) => s.editedCode);
   const pause = usePlayerStore((s) => s.pause);
   const resume = usePlayerStore((s) => s.resume);
@@ -86,6 +88,10 @@ export function RootShell() {
     },
     [setItems],
   );
+
+  const totalDurationMs = currentItem
+    ? getMaxTrackDurationMs(currentItem.tracks ?? [currentItem.code])
+    : 0;
 
   if (isLoading) {
     return (
@@ -165,9 +171,8 @@ export function RootShell() {
                   barCount={80}
                 />
               )}
-              <div className="mt-0.5 flex items-center justify-between text-xs text-gray-400 dark:text-gray-500">
-                <span>{totalNotes > 0 ? currentNoteIndex + 1 : 0}</span>
-                <span>{totalNotes}</span>
+              <div className="mt-0.5 text-xs text-gray-400 dark:text-gray-500">
+                {formatPlaybackClock(elapsedMs)} / {formatPlaybackClock(totalDurationMs)}
               </div>
             </>
           )}

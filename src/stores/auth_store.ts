@@ -18,6 +18,7 @@ import {
   scheduleAccountDeletion,
   cancelAccountDeletion,
 } from "../services/firestore_service";
+import { setCachedUserDisplayName } from "../services/user_profile_service";
 
 interface AuthUser {
   uid: string;
@@ -163,6 +164,10 @@ export const useAuthStore = create<AuthState>()(
         }
 
         await createOrUpdateUser(currentUser.uid, data);
+
+        if (data.displayName) {
+          setCachedUserDisplayName(currentUser.uid, data.displayName);
+        }
 
         set((state) => ({
           user: state.user ? { ...state.user, ...data } : null,

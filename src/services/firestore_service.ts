@@ -192,6 +192,39 @@ export async function updateCreationVisibility(
   });
 }
 
+/**
+ * Fetches a single user's public creations. Unlike getUserCreations(), this
+ * filters on isPublic == true so it satisfies the firestore.rules read rule
+ * for visitors who aren't the creation's owner (e.g. the /creators/:uid page).
+ */
+export async function getPublicCreationsByUser(userId: string): Promise<RtttlEntry[]> {
+  const q = query(
+    collection(db, FIRESTORE_COLLECTIONS.USER_CREATIONS),
+    where("isPublic", "==", true),
+    where("userId", "==", userId),
+  );
+  const snapshot = await getDocs(q);
+
+  return snapshot.docs.map((doc) => {
+    const data = doc.data() as FirestoreUserCreation;
+    return {
+      id: data.id,
+      title: data.title,
+      artist: "", // Empty for user creations - display name fetched via userId
+      code: data.code,
+      tracks: data.tracks,
+      categories: data.categories as RtttlEntry["categories"],
+      collection: "community" as const,
+      firstLetter: data.title[0]?.toUpperCase() || "#",
+      createdAt: data.createdAt.toDate().toISOString(),
+      updatedAt: data.updatedAt.toDate().toISOString(),
+      isSynced: true,
+      isPublic: true,
+      userId: data.userId,
+    };
+  });
+}
+
 // Favorites operations
 export async function syncFavorites(userId: string, favoriteIds: string[]): Promise<void> {
   const favRef = doc(db, FIRESTORE_COLLECTIONS.USER_FAVORITES, userId);
