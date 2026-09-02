@@ -790,9 +790,7 @@
     "cta": "${{amount}} spenden",
     "freeTitle": "Kostenlos",
     "freeNote": "Keine Spende erforderlich — für alle verfügbar",
-    "freeCta": "Immer kostenlos",
-    "loginRequired": "Bitte melden Sie sich an, um zu spenden.",
-    "loginBtn": "Anmelden"
+    "freeCta": "Immer kostenlos"
   },
   "payment": {
     "title": "Zahlung erfolgreich!",

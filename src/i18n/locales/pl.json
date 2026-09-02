@@ -792,9 +792,7 @@
     "cta": "Wpłać ${{amount}}",
     "freeTitle": "Darmowy",
     "freeNote": "Bez konieczności wsparcia — dostępne dla wszystkich",
-    "freeCta": "Zawsze darmowy",
-    "loginRequired": "Zaloguj się, aby wesprzeć projekt.",
-    "loginBtn": "Zaloguj się"
+    "freeCta": "Zawsze za darmo"
   },
   "payment": {
     "title": "Płatność zakończona sukcesem!",

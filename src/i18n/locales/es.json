@@ -800,9 +800,7 @@
     "cta": "Donar ${{amount}}",
     "freeTitle": "Gratis",
     "freeNote": "No se requiere donación — disponible para todos",
-    "freeCta": "Siempre gratis",
-    "loginRequired": "Por favor inicia sesión para hacer una donación.",
-    "loginBtn": "Iniciar sesión"
+    "freeCta": "Siempre gratis"
   },
   "payment": {
     "title": "¡Pago exitoso!",

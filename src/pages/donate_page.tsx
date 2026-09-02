@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { FaHeart, FaCheck, FaLock, FaSpinner } from "react-icons/fa";
+import { FaHeart, FaCheck, FaSpinner } from "react-icons/fa";
 import { httpsCallable } from "firebase/functions";
 
 import { functions } from "../libs/firebase";
@@ -61,25 +61,6 @@ export function DonatePage() {
           })}
         </p>
       </div>
-
-      {/* Login required notice for unauthenticated users */}
-      {!user && (
-        <div className="mb-8 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-700 dark:bg-amber-950/30">
-          <FaLock className="mt-0.5 shrink-0 text-amber-500" size={16} />
-          <div className="flex-1">
-            <p className="text-sm text-amber-800 dark:text-amber-200">
-              {t("donate.loginRequired")}
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => navigate("/login?redirect=/donate")}
-            className="shrink-0 rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-600"
-          >
-            {t("donate.loginBtn")}
-          </button>
-        </div>
-      )}
 
       {/* Tiers: Free + 3 donation tiers */}
       <div className="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

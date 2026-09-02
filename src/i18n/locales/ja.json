@@ -795,9 +795,7 @@
     "cta": "${{amount}}を寄付",
     "freeTitle": "無料",
     "freeNote": "寄付不要、誰でも利用可能",
-    "freeCta": "常に無料",
-    "loginRequired": "寄付を行うにはログインしてください。",
-    "loginBtn": "ログイン"
+    "freeCta": "永久に無料"
   },
   "payment": {
     "title": "支払い完了！",

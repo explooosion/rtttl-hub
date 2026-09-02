@@ -798,9 +798,7 @@
     "cta": "赞助 ${{amount}}",
     "freeTitle": "免费",
     "freeNote": "无需赞助，人人可用",
-    "freeCta": "永久免费",
-    "loginRequired": "请先登录以进行捐赠。",
-    "loginBtn": "登录"
+    "freeCta": "永久免费"
   },
   "payment": {
     "title": "付款成功！",

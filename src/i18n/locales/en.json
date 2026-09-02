@@ -790,9 +790,7 @@
     "cta": "Donate ${{amount}}",
     "freeTitle": "Free",
     "freeNote": "No donation required — available to everyone",
-    "freeCta": "Always Free",
-    "loginRequired": "Please log in to make a donation.",
-    "loginBtn": "Log In"
+    "freeCta": "Always Free"
   },
   "payment": {
     "title": "Payment Successful!",

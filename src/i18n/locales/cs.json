@@ -800,9 +800,7 @@
     "cta": "Přispět ${{amount}}",
     "freeTitle": "Zdarma",
     "freeNote": "Bez nutnosti daru — dostupné pro všechny",
-    "freeCta": "Vždy zdarma",
-    "loginRequired": "Pro přispění se prosím přihlaste.",
-    "loginBtn": "Přihlásit se"
+    "freeCta": "Vždy zdarma"
   },
   "payment": {
     "title": "Platba úspěšná!",

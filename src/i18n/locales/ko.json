@@ -795,9 +795,7 @@
     "cta": "${{amount}} 후원",
     "freeTitle": "무료",
     "freeNote": "후원 없이 누구나 이용 가능",
-    "freeCta": "항상 무료",
-    "loginRequired": "후원하려면 로그인하세요.",
-    "loginBtn": "로그인"
+    "freeCta": "영구 무료"
   },
   "payment": {
     "title": "결제 성공!",
