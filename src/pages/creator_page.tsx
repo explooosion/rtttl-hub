@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { useCollectionStore } from "../stores/collection_store";
 import { useTrackStatsStore } from "../stores/track_stats_store";
-import { getUserDisplayName } from "../services/user_profile_service";
+import { getUserDisplayName, getCachedUserDisplayName } from "../services/user_profile_service";
 import { getPublicCreationsByUser } from "../services/firestore_service";
 import type { RtttlEntry } from "../utils/rtttl_parser";
 import { ListPageLayout } from "../layouts/list_page_layout";
@@ -62,7 +62,9 @@ export function CreatorPage() {
     return allItems.filter((item) => !item.userId && item.artist === decodedName);
   }, [items, userItems, remoteCreatorItems, creatorId, decodedName]);
 
-  const isUidMatch = filteredItems.length > 0 && Boolean(filteredItems[0]!.userId);
+  const isUidMatch =
+    (creatorId ? getCachedUserDisplayName(creatorId) !== undefined : false) ||
+    (filteredItems.length > 0 && Boolean(filteredItems[0]!.userId));
 
   useEffect(
     function fetchCreatorDisplayName() {
@@ -74,7 +76,9 @@ export function CreatorPage() {
   );
 
   const creatorName = isUidMatch
-    ? uidDisplayName || t("common.loadingProfile", { defaultValue: "Loading profile..." })
+    ? uidDisplayName ||
+      (creatorId ? getCachedUserDisplayName(creatorId) : undefined) ||
+      t("common.loadingProfile", { defaultValue: "Loading profile..." })
     : !creatorId || remoteFetchDone
       ? decodedName
       : t("common.loadingProfile", { defaultValue: "Loading profile..." });
@@ -101,6 +105,7 @@ export function CreatorPage() {
   return (
     <ListPageLayout
       items={creatorItems}
+      isLoading={Boolean(creatorId) && !remoteFetchDone && filteredItems.length === 0}
       breadcrumbs={[
         { label: t("breadcrumb.home"), to: "/" },
         { label: t("breadcrumb.collections"), to: "/collections" },

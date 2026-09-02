@@ -148,6 +148,15 @@ export function setCachedUserDisplayName(userId: string, displayName: string): v
 }
 
 /**
+ * Synchronously reads a previously cached display name without triggering
+ * a Firestore fetch. Useful for rendering a known name immediately on first
+ * paint (e.g. a page revisited after a reload) instead of a loading state.
+ */
+export function getCachedUserDisplayName(userId: string): string | undefined {
+  return displayNameCache.get(userId);
+}
+
+/**
  * Preload user display names for a list of items
  * Call this before rendering to warm up the cache
  *
