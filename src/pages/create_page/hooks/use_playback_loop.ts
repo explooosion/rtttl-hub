@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import { usePlayerStore } from "../../../stores/player_store";
+import { usePlayheadStore } from "../../../stores/playhead_store";
 import { TIMELINE_MIN_WIDTH } from "../constants";
 
 interface UsePlaybackLoopParams {
@@ -9,13 +10,12 @@ interface UsePlaybackLoopParams {
   timelineWidthPx: number;
   pxPerSec: number;
   seekPositionMs: number;
-  playheadMs: number;
-  setPlayheadMs: (ms: number) => void;
   loopInMs: number | null;
   loopOutMs: number | null;
 }
 
 const HEADER_W = 192;
+const PLAYHEAD_COMMIT_STEP_MS = 80;
 
 export function usePlaybackLoop({
   trackListRef,
@@ -23,8 +23,6 @@ export function usePlaybackLoop({
   timelineWidthPx,
   pxPerSec,
   seekPositionMs,
-  playheadMs,
-  setPlayheadMs,
   loopInMs,
   loopOutMs,
 }: UsePlaybackLoopParams) {
@@ -36,6 +34,8 @@ export function usePlaybackLoop({
   const maxDurRef = useRef(maxTrackDurationMs);
   const loopInRef = useRef(loopInMs);
   const loopOutRef = useRef(loopOutMs);
+  const pendingMsRef = useRef<number | null>(null);
+  const committedMsRef = useRef(0);
 
   useEffect(function syncPxPerSecRef() {
     pxPerSecRef.current = pxPerSec;
@@ -74,7 +74,15 @@ export function usePlaybackLoop({
 
         el.style.setProperty("--playhead-px", `${playheadPx}px`);
         el.style.setProperty("--playhead-left", `${leftPct}%`);
-        setPlayheadMs(Math.min(dur, elapsed));
+        const clampedMs = Math.min(dur, elapsed);
+        pendingMsRef.current = clampedMs;
+        if (
+          Math.abs(clampedMs - committedMsRef.current) >= PLAYHEAD_COMMIT_STEP_MS ||
+          clampedMs >= dur
+        ) {
+          committedMsRef.current = clampedMs;
+          usePlayheadStore.getState().setPlayheadMs(clampedMs);
+        }
 
         // A-B loop enforcement
         const loopIn = loopInRef.current;
@@ -91,7 +99,14 @@ export function usePlaybackLoop({
         rafRef.current = requestAnimationFrame(animate);
       };
       rafRef.current = requestAnimationFrame(animate);
-      return () => cancelAnimationFrame(rafRef.current);
+      return () => {
+        cancelAnimationFrame(rafRef.current);
+        if (pendingMsRef.current !== null) {
+          committedMsRef.current = pendingMsRef.current;
+          usePlayheadStore.getState().setPlayheadMs(pendingMsRef.current);
+          pendingMsRef.current = null;
+        }
+      };
     },
     [playerState, engine, trackListRef],
   );
@@ -101,16 +116,24 @@ export function usePlaybackLoop({
       if (playerState === "playing") {
         return;
       }
-      const el = trackListRef.current;
-      if (!el || maxTrackDurationMs <= 0) {
+      const apply = () => {
+        const el = trackListRef.current;
+        if (!el || maxTrackDurationMs <= 0) {
+          return;
+        }
+        const pos =
+          playerState !== "idle" ? usePlayheadStore.getState().playheadMs : seekPositionMs;
+        const pct = Math.min(100, (pos / maxTrackDurationMs) * 100);
+        const px = HEADER_W + (pos / maxTrackDurationMs) * timelineWidthPx;
+        el.style.setProperty("--playhead-left", `${pct}%`);
+        el.style.setProperty("--playhead-px", `${px}px`);
+      };
+      apply();
+      if (playerState === "idle") {
         return;
       }
-      const pos = playerState !== "idle" ? playheadMs : seekPositionMs;
-      const pct = Math.min(100, (pos / maxTrackDurationMs) * 100);
-      const px = HEADER_W + (pos / maxTrackDurationMs) * timelineWidthPx;
-      el.style.setProperty("--playhead-left", `${pct}%`);
-      el.style.setProperty("--playhead-px", `${px}px`);
+      return usePlayheadStore.subscribe(apply);
     },
-    [playerState, playheadMs, seekPositionMs, maxTrackDurationMs, timelineWidthPx, trackListRef],
+    [playerState, seekPositionMs, maxTrackDurationMs, timelineWidthPx, trackListRef],
   );
 }

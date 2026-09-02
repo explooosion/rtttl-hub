@@ -1,4 +1,6 @@
 import { useCallback } from "react";
+
+import { usePlayheadStore } from "../../../../stores/playhead_store";
 import toast from "react-hot-toast";
 
 import { clearDraft } from "../../draft";
@@ -26,7 +28,6 @@ interface UseProjectActionsParams {
   setName: (v: string) => void;
   setCategories: (v: RtttlCategory[]) => void;
   setErrors: (v: string[]) => void;
-  setPlayheadMs: (v: number) => void;
   setSeekPositionMs: (v: number) => void;
   setLoopInMs: (v: number | null) => void;
   setLoopOutMs: (v: number | null) => void;
@@ -58,7 +59,6 @@ export function useProjectActions({
   setName,
   setCategories,
   setErrors,
-  setPlayheadMs,
   setSeekPositionMs,
   setLoopInMs,
   setLoopOutMs,
@@ -152,7 +152,7 @@ export function useProjectActions({
     setCategories([]);
     setErrors([]);
     setSeekPositionMs(0);
-    setPlayheadMs(0);
+    usePlayheadStore.getState().setPlayheadMs(0);
     setLoopInMs(null);
     setLoopOutMs(null);
     resetMutedTracks();
@@ -166,7 +166,6 @@ export function useProjectActions({
     setCategories,
     setErrors,
     setSeekPositionMs,
-    setPlayheadMs,
     setLoopInMs,
     setLoopOutMs,
   ]);

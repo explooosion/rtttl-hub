@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 
+import { usePlayheadStore } from "../../../../stores/playhead_store";
 import { deleteRegionRtttl, trimRtttl } from "../../utils/rtttl_cutter";
 import type { CutMode } from "../../cut_dialog";
 
@@ -8,7 +9,6 @@ interface UseEditingActionsParams {
   trackMuted: boolean[];
   toggleMuteTrack: (i: number) => void;
   playerState: "idle" | "playing" | "paused" | "stopped";
-  playheadMs: number;
   seekPositionMs: number;
   loopInMs: number | null;
   loopOutMs: number | null;
@@ -23,7 +23,6 @@ export function useEditingActions({
   trackMuted,
   toggleMuteTrack,
   playerState,
-  playheadMs,
   seekPositionMs,
   loopInMs,
   loopOutMs,
@@ -49,12 +48,12 @@ export function useEditingActions({
   }, [tracks, trackMuted, toggleMuteTrack]);
 
   const handleSetLoopIn = useCallback(() => {
-    setLoopInMs(playerState !== "idle" ? playheadMs : seekPositionMs);
-  }, [playerState, playheadMs, seekPositionMs, setLoopInMs]);
+    setLoopInMs(playerState !== "idle" ? usePlayheadStore.getState().playheadMs : seekPositionMs);
+  }, [playerState, seekPositionMs, setLoopInMs]);
 
   const handleSetLoopOut = useCallback(() => {
-    setLoopOutMs(playerState !== "idle" ? playheadMs : seekPositionMs);
-  }, [playerState, playheadMs, seekPositionMs, setLoopOutMs]);
+    setLoopOutMs(playerState !== "idle" ? usePlayheadStore.getState().playheadMs : seekPositionMs);
+  }, [playerState, seekPositionMs, setLoopOutMs]);
 
   const handleClearLoop = useCallback(() => {
     setLoopInMs(null);

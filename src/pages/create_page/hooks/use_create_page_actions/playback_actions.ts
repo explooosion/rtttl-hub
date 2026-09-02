@@ -1,15 +1,15 @@
 import { useCallback } from "react";
 
+import { usePlayheadStore } from "../../../../stores/playhead_store";
+
 interface UsePlaybackActionsParams {
   tracks: string[];
   deactivatedTracks: Set<number>;
   lastPlayedTracksRef: React.MutableRefObject<{ tracks: string[]; deactivated: Set<number> }>;
   playerState: "idle" | "playing" | "paused" | "stopped";
-  playheadMs: number;
   seekPositionMs: number;
   trackListRef: React.RefObject<HTMLDivElement | null>;
   setSeekPositionMs: (v: number) => void;
-  setPlayheadMs: (v: number) => void;
   stop: VoidFunction;
   pause: VoidFunction;
   resume: VoidFunction;
@@ -22,11 +22,9 @@ export function usePlaybackActions({
   deactivatedTracks,
   lastPlayedTracksRef,
   playerState,
-  playheadMs,
   seekPositionMs,
   trackListRef,
   setSeekPositionMs,
-  setPlayheadMs,
   stop,
   pause,
   resume,
@@ -36,11 +34,11 @@ export function usePlaybackActions({
   const handleStop = useCallback(() => {
     stop();
     setSeekPositionMs(0);
-    setPlayheadMs(0);
+    usePlayheadStore.getState().setPlayheadMs(0);
     if (trackListRef.current) {
       trackListRef.current.scrollLeft = 0;
     }
-  }, [stop, setSeekPositionMs, setPlayheadMs, trackListRef]);
+  }, [stop, setSeekPositionMs, trackListRef]);
 
   const handlePlayToggle = useCallback(() => {
     if (playerState === "playing") {
@@ -57,7 +55,11 @@ export function usePlaybackActions({
     }
     const nonEmpty = tracks.filter((tk, i) => !deactivatedTracks.has(i) && tk.trim().length > 0);
     const startMs =
-      playerState === "paused" ? playheadMs : seekPositionMs > 0 ? seekPositionMs : undefined;
+      playerState === "paused"
+        ? usePlayheadStore.getState().playheadMs
+        : seekPositionMs > 0
+          ? seekPositionMs
+          : undefined;
     if (nonEmpty.length > 1) {
       playTracks(nonEmpty, startMs);
     } else if (nonEmpty.length === 1) {
@@ -71,7 +73,6 @@ export function usePlaybackActions({
     playerState,
     tracks,
     deactivatedTracks,
-    playheadMs,
     seekPositionMs,
     pause,
     resume,

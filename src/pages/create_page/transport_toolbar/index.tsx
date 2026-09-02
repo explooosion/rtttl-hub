@@ -71,7 +71,6 @@ interface TransportToolbarProps {
   anyTrackMuted: boolean;
   canCutRegion: boolean;
   maxTrackDurationMs: number;
-  playheadMs: number;
   seekPositionMs: number;
   guideMs: number | null;
 }
@@ -124,7 +123,6 @@ export function TransportToolbar({
   anyTrackMuted,
   canCutRegion,
   maxTrackDurationMs,
-  playheadMs,
   seekPositionMs,
   guideMs,
 }: TransportToolbarProps) {
@@ -139,8 +137,6 @@ export function TransportToolbar({
   const toggleFeature = useEditorSettingsStore((s) => s.toggleFeature);
 
   const isPreviewActive = playerState === "playing" || playerState === "paused";
-
-  const positionMs = isPreviewActive ? playheadMs : seekPositionMs;
 
   const [colorPanelOpen, setColorPanelOpen] = useState(false);
   const [aboutDialogOpen, setAboutDialogOpen] = useState(false);
@@ -379,7 +375,7 @@ export function TransportToolbar({
         hasPlayableContent={hasPlayableContent}
         playerState={playerState}
         maxTrackDurationMs={maxTrackDurationMs}
-        positionMs={positionMs}
+        seekPositionMs={seekPositionMs}
         guideMs={guideMs}
         loopInEditing={loopInEditing}
         loopInMs={loopInMs}

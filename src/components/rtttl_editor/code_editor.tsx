@@ -87,6 +87,8 @@ function buildLineWrapExtension(singleLine: boolean) {
     : [EditorView.lineWrapping];
 }
 
+const AUTO_SCROLL_MIN_INTERVAL_MS = 250;
+
 export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function CodeEditor(
   {
     value,
@@ -111,6 +113,7 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
   const containerRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<EditorView | null>(null);
   const offsetsRef = useRef<NoteOffset[]>([]);
+  const lastAutoScrollAtRef = useRef(0);
   const onChangeRef = useRef(onChange);
   useLayoutEffect(function syncOnChangeRef() {
     onChangeRef.current = onChange;
@@ -268,7 +271,11 @@ export const CodeEditor = forwardRef<CodeEditorHandle, CodeEditorProps>(function
         setActiveNote.of({ noteIndex: currentNoteIndex, offsets }),
       ];
       if (autoScroll && offset) {
-        effects.push(EditorView.scrollIntoView(offset.from, { y: "center" }));
+        const now = performance.now();
+        if (now - lastAutoScrollAtRef.current >= AUTO_SCROLL_MIN_INTERVAL_MS) {
+          lastAutoScrollAtRef.current = now;
+          effects.push(EditorView.scrollIntoView(offset.from, { y: "center" }));
+        }
       }
       view.dispatch({ effects });
     },

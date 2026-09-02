@@ -42,7 +42,6 @@ interface UiModel {
   setCategories: (v: RtttlCategory[]) => void;
   isPublic: boolean;
   setIsPublic: (v: boolean) => void;
-  playheadMs: number;
   loopInMs: number | null;
   setLoopInMs: (v: number | null) => void;
   loopOutMs: number | null;
@@ -269,7 +268,6 @@ export function CreatePageView({
           anyTrackMuted={derived.anyTrackMuted}
           canCutRegion={derived.canCutRegion}
           maxTrackDurationMs={derived.maxTrackDurationMs}
-          playheadMs={ui.playheadMs}
           seekPositionMs={timeline.seekPositionMs}
           guideMs={timeline.guideMs}
           onPlayToggle={actions.handlePlayToggle}
@@ -317,7 +315,6 @@ export function CreatePageView({
             maxTrackDurationMs={derived.maxTrackDurationMs}
             timelineWidthPx={timeline.timelineWidthPx}
             pxPerSec={timeline.pxPerSec}
-            playheadMs={ui.playheadMs}
             seekPositionMs={timeline.seekPositionMs}
             loopInMs={ui.loopInMs}
             loopOutMs={ui.loopOutMs}

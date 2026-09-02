@@ -14,6 +14,7 @@ import { TimeRuler } from "./time_ruler";
 import { TrackLane } from "./track_lane";
 import { MAX_TRACKS } from "./constants";
 import { usePlayerStore } from "../../stores/player_store";
+import { usePlayheadStore } from "../../stores/playhead_store";
 import type { RtttlEditorInputHandle } from "../../components/rtttl_editor/rtttl_editor_input";
 
 interface CreatePageTrackAreaProps {
@@ -29,7 +30,6 @@ interface CreatePageTrackAreaProps {
   maxTrackDurationMs: number;
   timelineWidthPx: number;
   pxPerSec: number;
-  playheadMs: number;
   seekPositionMs: number;
   loopInMs: number | null;
   loopOutMs: number | null;
@@ -64,7 +64,6 @@ export function CreatePageTrackArea({
   maxTrackDurationMs,
   timelineWidthPx,
   pxPerSec,
-  playheadMs,
   seekPositionMs,
   loopInMs,
   loopOutMs,
@@ -91,6 +90,7 @@ export function CreatePageTrackArea({
   const isMultiTrack = usePlayerStore((s) => s.isMultiTrack);
   const activeTrackIndex = usePlayerStore((s) => s.activeTrackIndex);
   const setActiveTrackIndex = usePlayerStore((s) => s.setActiveTrackIndex);
+  const hasPlayheadPosition = usePlayheadStore((s) => s.playheadMs > 0);
 
   const handleTrackSoloPlayToggle = useCallback(
     function handleTrackSoloPlayToggle(index: number, code: string) {
@@ -117,8 +117,6 @@ export function CreatePageTrackArea({
       setActiveTrackIndex,
     ],
   );
-
-  const displayMs = playerState !== "idle" ? playheadMs : seekPositionMs;
 
   const trackRowRefHandlers = useMemo(
     function buildTrackRowRefHandlers() {
@@ -267,11 +265,11 @@ export function CreatePageTrackArea({
 
         {/* Global playhead line */}
         {maxTrackDurationMs > 0 &&
-          (playerState !== "idle" || seekPositionMs > 0 || playheadMs > 0) && (
+          (playerState !== "idle" || seekPositionMs > 0 || hasPlayheadPosition) && (
             <div
               className="pointer-events-none absolute top-0 bottom-0 z-20 w-0.5 bg-gray-600/80 dark:bg-white/90"
               style={{
-                left: `var(--playhead-px, ${192 + (displayMs / maxTrackDurationMs) * timelineWidthPx}px)`,
+                left: `var(--playhead-px, ${192 + (seekPositionMs / maxTrackDurationMs) * timelineWidthPx}px)`,
               }}
             />
           )}
@@ -312,7 +310,7 @@ export function CreatePageTrackArea({
                     code={trackCode}
                     totalMs={maxTrackDurationMs}
                     timelineWidthPx={timelineWidthPx}
-                    playheadMs={displayMs}
+                    seekPositionMs={seekPositionMs}
                     isFocused={focusedTrackIndex === idx}
                     isExpanded={expandedTracks.has(idx)}
                     isDeactivated={deactivatedTracks.has(idx)}

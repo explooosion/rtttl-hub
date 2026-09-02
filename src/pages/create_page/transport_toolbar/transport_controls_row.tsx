@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 
 import { Separator } from "./dropdown_menu";
+import { usePlayheadStore } from "../../../stores/playhead_store";
 import { formatMs } from "../utils/toolbar_utils";
 import { formatTooltipWithShortcut } from "../utils/keyboard_utils";
 
@@ -24,7 +25,7 @@ interface TransportControlsRowProps {
   hasPlayableContent: boolean;
   playerState: "idle" | "playing" | "paused" | "stopped";
   maxTrackDurationMs: number;
-  positionMs: number;
+  seekPositionMs: number;
   guideMs: number | null;
   loopInEditing: boolean;
   loopInMs: number | null;
@@ -63,7 +64,7 @@ export function TransportControlsRow({
   hasPlayableContent,
   playerState,
   maxTrackDurationMs,
-  positionMs,
+  seekPositionMs,
   guideMs,
   loopInEditing,
   loopInMs,
@@ -95,6 +96,9 @@ export function TransportControlsRow({
   onRemoveEmptyTracks,
 }: TransportControlsRowProps) {
   const { t } = useTranslation();
+
+  const playheadMs = usePlayheadStore((s) => s.playheadMs);
+  const displayPositionMs = isPreviewActive ? playheadMs : seekPositionMs;
 
   return (
     <div className="shrink-0 overflow-x-auto border-b border-gray-200 bg-gray-50/80 dark:border-gray-800 dark:bg-gray-900/30">
@@ -143,7 +147,7 @@ export function TransportControlsRow({
                   : "text-gray-500 dark:text-gray-400",
               )}
             >
-              {maxTrackDurationMs > 0 ? formatMs(positionMs) : "00:00.000"}
+              {maxTrackDurationMs > 0 ? formatMs(displayPositionMs) : "00:00.000"}
             </span>
           </div>
           <div className="w-px bg-gray-300 dark:bg-gray-700" />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { usePlayerStore } from "../../../stores/player_store";
+import { usePlayheadStore } from "../../../stores/playhead_store";
 import {
   PX_PER_SEC_MIN,
   PX_PER_SEC_MAX,
@@ -11,7 +12,6 @@ import {
 interface UseTimelineInteractionParams {
   trackListRef: React.RefObject<HTMLDivElement | null>;
   maxTrackDurationMs: number;
-  setPlayheadMs: (ms: number) => void;
 }
 
 const HEADER_W = 192;
@@ -19,10 +19,10 @@ const HEADER_W = 192;
 export function useTimelineInteraction({
   trackListRef,
   maxTrackDurationMs,
-  setPlayheadMs,
 }: UseTimelineInteractionParams) {
   const playerState = usePlayerStore((s) => s.playerState);
   const seekToMs = usePlayerStore((s) => s.seekToMs);
+  const setPlayheadMs = usePlayheadStore((s) => s.setPlayheadMs);
 
   const [guideMs, setGuideMs] = useState<number | null>(null);
   const [seekPositionMs, setSeekPositionMs] = useState(0);

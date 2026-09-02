@@ -74,7 +74,6 @@ export function useCreatePageUiState() {
     // When editing, use existing isPublic value; otherwise default to false (private)
     return editItem?.isPublic ?? false;
   });
-  const [playheadMs, setPlayheadMs] = useState(0);
   const [loopInMs, setLoopInMs] = useState<number | null>(null);
   const [loopOutMs, setLoopOutMs] = useState<number | null>(null);
 
@@ -123,8 +122,6 @@ export function useCreatePageUiState() {
     isPublic,
     setIsPublic,
     /* timeline */
-    playheadMs,
-    setPlayheadMs,
     loopInMs,
     setLoopInMs,
     loopOutMs,

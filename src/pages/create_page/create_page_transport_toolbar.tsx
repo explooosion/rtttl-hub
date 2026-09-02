@@ -19,7 +19,6 @@ interface CreatePageTransportToolbarProps {
   anyTrackMuted: boolean;
   canCutRegion: boolean;
   maxTrackDurationMs: number;
-  playheadMs: number;
   seekPositionMs: number;
   guideMs: number | null;
   nameInputRef: React.RefObject<HTMLInputElement | null>;
@@ -69,7 +68,6 @@ export function CreatePageTransportToolbar({
   anyTrackMuted,
   canCutRegion,
   maxTrackDurationMs,
-  playheadMs,
   seekPositionMs,
   guideMs,
   nameInputRef,
@@ -167,7 +165,6 @@ export function CreatePageTransportToolbar({
       anyTrackMuted={anyTrackMuted}
       onHelpOpen={onHelpOpen}
       maxTrackDurationMs={maxTrackDurationMs}
-      playheadMs={playheadMs}
       seekPositionMs={seekPositionMs}
       guideMs={guideMs}
     />

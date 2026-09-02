@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 import { usePlayerStore } from "../../stores/player_store";
+import { usePlayheadStore } from "../../stores/playhead_store";
 import { saveDraft } from "./draft";
 import { CreatePageView } from "./create_page_view";
 import { useCreatePageActions } from "./hooks/use_create_page_actions";
@@ -49,8 +50,6 @@ export function CreatePage() {
     setCategories,
     isPublic,
     setIsPublic,
-    playheadMs,
-    setPlayheadMs,
     loopInMs,
     setLoopInMs,
     loopOutMs,
@@ -128,7 +127,7 @@ export function CreatePage() {
     timelineWidthPx,
     handleTrackAreaMouseMove,
     handleTrackAreaClick,
-  } = useTimelineInteraction({ trackListRef, maxTrackDurationMs, setPlayheadMs });
+  } = useTimelineInteraction({ trackListRef, maxTrackDurationMs });
 
   usePlaybackLoop({
     trackListRef,
@@ -136,8 +135,6 @@ export function CreatePage() {
     timelineWidthPx,
     pxPerSec,
     seekPositionMs,
-    playheadMs,
-    setPlayheadMs,
     loopInMs,
     loopOutMs,
   });
@@ -171,7 +168,6 @@ export function CreatePage() {
     isPublic,
     loopInMs,
     loopOutMs,
-    playheadMs,
     seekPositionMs,
     deactivatedTracks,
     trackMuted,
@@ -181,7 +177,6 @@ export function CreatePage() {
     setName,
     setCategories,
     setErrors,
-    setPlayheadMs,
     setSeekPositionMs,
     setLoopInMs,
     setLoopOutMs,
@@ -238,7 +233,7 @@ export function CreatePage() {
       }
       stop();
       setSeekPositionMs(0);
-      setPlayheadMs(0);
+      usePlayheadStore.getState().setPlayheadMs(0);
       setLoopInMs(null);
       setLoopOutMs(null);
       resetMutedTracks();
@@ -271,7 +266,6 @@ export function CreatePage() {
     setCategories,
     isPublic,
     setIsPublic,
-    playheadMs,
     loopInMs,
     setLoopInMs,
     loopOutMs,

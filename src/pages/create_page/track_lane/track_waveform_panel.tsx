@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
 import { CanvasWaveform as Waveform } from "../../../components/canvas_waveform";
+import { usePlayheadStore } from "../../../stores/playhead_store";
 
 interface TrackWaveformPanelProps {
   isMuted: boolean;
@@ -12,10 +13,8 @@ interface TrackWaveformPanelProps {
   trackDurationMs: number;
   isPreviewActive: boolean;
   currentTrackNoteIndex: number;
-  trackTotalNotes: number[];
-  index: number;
-  totalNotes: number;
-  playheadMs: number;
+  trackNoteTotal: number;
+  seekPositionMs: number;
   trackColor: string;
 }
 
@@ -28,13 +27,14 @@ export function TrackWaveformPanel({
   trackDurationMs,
   isPreviewActive,
   currentTrackNoteIndex,
-  trackTotalNotes,
-  index,
-  totalNotes,
-  playheadMs,
+  trackNoteTotal,
+  seekPositionMs,
   trackColor,
 }: TrackWaveformPanelProps) {
   const { t } = useTranslation();
+
+  const playheadMs = usePlayheadStore((s) => s.playheadMs);
+  const displayMs = isPreviewActive ? playheadMs : seekPositionMs;
 
   const waveformPx =
     totalMs > 0 && trackDurationMs > 0
@@ -61,9 +61,9 @@ export function TrackWaveformPanel({
                 code={code.trim()}
                 isPlaying={isPreviewActive}
                 currentNoteIndex={currentTrackNoteIndex}
-                totalNotes={trackTotalNotes[index] ?? totalNotes}
+                totalNotes={trackNoteTotal}
                 progressRatio={
-                  trackDurationMs > 0 ? Math.min(1, playheadMs / trackDurationMs) : undefined
+                  trackDurationMs > 0 ? Math.min(1, displayMs / trackDurationMs) : undefined
                 }
                 height={40}
                 barCount={waveBarCount}

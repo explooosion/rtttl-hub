@@ -9,7 +9,6 @@ export interface UseCreatePageActionsParams {
   isPublic: boolean;
   loopInMs: number | null;
   loopOutMs: number | null;
-  playheadMs: number;
   seekPositionMs: number;
   deactivatedTracks: Set<number>;
   trackMuted: boolean[];
@@ -19,7 +18,6 @@ export interface UseCreatePageActionsParams {
   setName: (v: string) => void;
   setCategories: (v: RtttlCategory[]) => void;
   setErrors: (v: string[]) => void;
-  setPlayheadMs: (v: number) => void;
   setSeekPositionMs: (v: number) => void;
   setLoopInMs: (v: number | null) => void;
   setLoopOutMs: (v: number | null) => void;

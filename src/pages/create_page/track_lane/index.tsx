@@ -20,7 +20,7 @@ interface TrackLaneProps {
   code: string;
   totalMs: number;
   timelineWidthPx: number;
-  playheadMs: number;
+  seekPositionMs: number;
   isFocused: boolean;
   isExpanded: boolean;
   isDeactivated: boolean;
@@ -47,7 +47,7 @@ export function TrackLane({
   code,
   totalMs,
   timelineWidthPx,
-  playheadMs,
+  seekPositionMs,
   isFocused,
   isExpanded,
   isDeactivated,
@@ -81,15 +81,14 @@ export function TrackLane({
   };
 
   const playerState = usePlayerStore((s) => s.playerState);
-  const currentNoteIndex = usePlayerStore((s) => s.currentNoteIndex);
-  const totalNotes = usePlayerStore((s) => s.totalNotes);
-  const trackNoteIndices = usePlayerStore((s) => s.trackNoteIndices);
-  const trackTotalNotes = usePlayerStore((s) => s.trackTotalNotes);
-  const trackMuted = usePlayerStore((s) => s.trackMuted);
+  const currentTrackNoteIndex = usePlayerStore(
+    (s) => s.trackNoteIndices[index] ?? s.currentNoteIndex,
+  );
+  const trackNoteTotal = usePlayerStore((s) => s.trackTotalNotes[index] ?? s.totalNotes);
+  const isMuted = usePlayerStore((s) => s.trackMuted[index] ?? false);
   const toggleMuteTrack = usePlayerStore((s) => s.toggleMuteTrack);
   const fontSize = useEditorSettingsStore((s) => s.fontSize);
 
-  const isMuted = trackMuted[index] ?? false;
   const isPreviewActive =
     playerState === "playing" || playerState === "paused" || playerState === "stopped";
   const isValid = useMemo(() => code.trim().length > 0 && parseRtttl(code.trim()) !== null, [code]);
@@ -97,8 +96,6 @@ export function TrackLane({
     const parsed = code.trim() ? parseRtttl(code.trim()) : null;
     return parsed ? getTotalDuration(parsed.notes) : 0;
   }, [code]);
-
-  const currentTrackNoteIndex = trackNoteIndices[index] ?? currentNoteIndex;
 
   const duplicateTooltip = canDuplicate
     ? t("create.duplicateTrack", { defaultValue: "Duplicate Track" })
@@ -325,10 +322,8 @@ export function TrackLane({
           trackDurationMs={trackDurationMs}
           isPreviewActive={isPreviewActive}
           currentTrackNoteIndex={currentTrackNoteIndex}
-          trackTotalNotes={trackTotalNotes}
-          index={index}
-          totalNotes={totalNotes}
-          playheadMs={playheadMs}
+          trackNoteTotal={trackNoteTotal}
+          seekPositionMs={seekPositionMs}
           trackColor={trackColor}
         />
       </div>
