@@ -69,29 +69,6 @@ npm run dev:local           # Dev server with Emulator
 npm run dev:prod            # Dev server with production Firebase
 ```
 
-See [FIRESTORE.md](FIRESTORE.md) for detailed Firebase configuration.
-
-### Available Scripts
-
-- `npm run dev` - Start Vite development server
-- `npm run dev:local` - Start dev server with Firebase Emulator
-- `npm run dev:prod` - Start dev server with production Firebase
-- `npm run sitemap` - Regenerate `public/sitemap.xml` and `public/robots.txt`
-- `npm run sitemap:check` - Verify sitemap artifacts are up to date and committed
-- `npm run build` - Build for production
-- `npm run test` - Run unit tests
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code with Prettier
-- `npm run firebase:emulator` - Start Firebase Emulator for local testing
-- `npm run firebase:deploy:rules` - Deploy Firestore security rules
-- `npm run firebase:login` - Authenticate with Firebase CLI
-
-### Sitemap Maintenance
-
-- Sitemap and robots are generated from project routes and collection configuration via `scripts/generate-sitemap.ts`.
-- Any route/collection indexing change should be followed by `npm run sitemap`, and `npm run sitemap:check` before pushing to `main` (CI enforces this in `.github/workflows/deploy.yml`).
-- Google Search Console submission endpoint: `https://rtttl-hub.io/sitemap.xml`.
-
 ## License
 
 RTTTL Hub is licensed under the terms of the [GNU Affero General Public License v3.0](LICENSE).
