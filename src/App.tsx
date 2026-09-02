@@ -6,6 +6,7 @@ import { ScrollToTop } from "./components/scroll_to_top";
 import { RootShell } from "./layouts/root/root_shell";
 import { PageLoader } from "./components/page_loader";
 import { resumeAudioContextIfSuspended } from "./kit/playback";
+import { useTrackStatsStore } from "./stores/track_stats_store";
 
 const LandingPage = lazy(() =>
   import("./pages/landing_page").then((m) => ({ default: m.LandingPage })),
@@ -85,6 +86,8 @@ function CreatePageRoute() {
 }
 
 function App() {
+  const syncPendingOperations = useTrackStatsStore((s) => s.syncPendingOperations);
+
   useEffect(() => {
     // Preload the create-page chunk in the background after initial render
     // so navigation is instant for most users.
@@ -92,6 +95,20 @@ function App() {
       _createPageCache = m;
     });
   }, []);
+
+  useEffect(
+    function syncPendingStatsWhenOnline() {
+      void syncPendingOperations();
+
+      function handleOnline() {
+        void syncPendingOperations();
+      }
+
+      window.addEventListener("online", handleOnline);
+      return () => window.removeEventListener("online", handleOnline);
+    },
+    [syncPendingOperations],
+  );
 
   useEffect(function unlockAudioContextOnMobile() {
     // iOS Safari and some Android browsers suspend the AudioContext until a

@@ -173,3 +173,5 @@ export const scheduledAccountCleanup = onSchedule(
     await cleanup();
   },
 );
+
+export { processPendingStatsUpdate } from "./track_stats_processor";

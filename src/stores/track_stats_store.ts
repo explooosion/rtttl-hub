@@ -166,10 +166,10 @@ export const useTrackStatsStore = create<TrackStatsStoreState>()(
           clearTimeout(existing.timeoutId);
         }
 
-        // Optimistic update
+        // Count one play per debounce window, even when the button is clicked repeatedly.
         const cache = get().statsCache;
         const cached = cache.get(trackId);
-        if (cached) {
+        if (cached && !existing) {
           const newCache = new Map(cache);
           newCache.set(trackId, {
             ...cached,
@@ -190,8 +190,8 @@ export const useTrackStatsStore = create<TrackStatsStoreState>()(
               const updatedCache = new Map(currentCache);
               updatedCache.set(trackId, {
                 ...currentCached,
-                playCount: currentCached.playCount + currentCached.localPlayIncrement,
-                localPlayIncrement: 0,
+                playCount: currentCached.playCount + 1,
+                localPlayIncrement: Math.max(0, currentCached.localPlayIncrement - 1),
                 updatedAt: new Date().toISOString(),
               });
               set({ statsCache: updatedCache });
@@ -216,6 +216,10 @@ export const useTrackStatsStore = create<TrackStatsStoreState>()(
                 },
               ],
             });
+
+            const newDebounces = new Map(get().playDebounces);
+            newDebounces.delete(trackId);
+            set({ playDebounces: newDebounces });
           }
         }, get().playDebounceMs);
 
@@ -244,7 +248,20 @@ export const useTrackStatsStore = create<TrackStatsStoreState>()(
         const failed = pending.filter((_, idx) => {
           return results[idx]!.status === "rejected";
         });
-        set({ pendingOperations: failed });
+        const synced = pending.filter((_, idx) => results[idx]!.status === "fulfilled");
+        const cache = new Map(get().statsCache);
+        synced.forEach((operation) => {
+          const cached = cache.get(operation.trackId);
+          if (cached) {
+            cache.set(operation.trackId, {
+              ...cached,
+              playCount: cached.playCount + 1,
+              localPlayIncrement: Math.max(0, cached.localPlayIncrement - 1),
+              updatedAt: new Date().toISOString(),
+            });
+          }
+        });
+        set({ pendingOperations: failed, statsCache: cache });
       },
 
       /**

@@ -53,10 +53,15 @@ service cloud.firestore {
       allow delete: if false; // Never delete (for analytics)
     }
     
-    // Pending stats updates - authenticated users can create
+    // Pending stats updates - authenticated and anonymous users can create valid play events
     match /pending_stats_updates/{docId} {
       allow read: if false;
-      allow create: if isAuthenticated();
+      allow create: if request.resource.data.keys().hasOnly(['trackId', 'type', 'userId', 'createdAt']) &&
+        request.resource.data.trackId is string &&
+        request.resource.data.type == 'play' &&
+        request.resource.data.createdAt is timestamp &&
+        (!request.resource.data.keys().hasAny(['userId']) ||
+          (isAuthenticated() && request.resource.data.userId == request.auth.uid));
       allow update, delete: if false; // Server only
     }
     
