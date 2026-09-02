@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useImperativeHandle, forwardRef, useEffe
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { FaTimes, FaSpinner, FaCheck, FaFileAudio } from "react-icons/fa";
+import { FaTimes, FaSpinner, FaCheck, FaFileAudio, FaExclamationTriangle } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 import { isAcceptedAudioFile } from "../../utils/file_acceptance";
@@ -83,6 +83,7 @@ export interface AudioStemExtractorHandle {
 
 interface AudioStemExtractorProps {
   onImport: (rtttlList: string[], fileName: string) => void;
+  onSwitchToMidiImport?: VoidFunction;
 }
 
 function formatFileSize(bytes: number): string {
@@ -135,7 +136,7 @@ const DEFAULT_SELECTED_STEMS: StemType[] = ["vocals", "bass", "drums", "other"];
 const COLD_START_HINT_THRESHOLD_SEC = 15;
 
 export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStemExtractorProps>(
-  function AudioStemExtractor({ onImport }, ref) {
+  function AudioStemExtractor({ onImport, onSwitchToMidiImport }, ref) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
@@ -438,6 +439,12 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
       resetState();
     }
 
+    function handleSwitchToMidiImport() {
+      setOpen(false);
+      resetState();
+      onSwitchToMidiImport?.();
+    }
+
     function handleStartTimeInputChange(val: string) {
       const num = parseFloat(val);
       if (!isNaN(num)) {
@@ -533,6 +540,33 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
               {/* Idle State — no file selected */}
               {state === "idle" && (
                 <div className="px-5 py-6">
+                  {/* Experimental model notice — nudge users toward the more reliable MIDI import */}
+                  <div className="mb-4 flex items-start gap-3 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-800/50 dark:bg-amber-900/20">
+                    <FaExclamationTriangle
+                      size={18}
+                      className="mt-0.5 shrink-0 text-amber-600 dark:text-amber-400"
+                    />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
+                        {t("audioExtract.experimentalNotice", {
+                          defaultValue:
+                            "This AI recognition model is still experimental — we're actively working on improving its accuracy and speed. For the best results, try uploading audio with a clear, isolated vocal or piano track, as this makes it much easier for the model to analyze. If you already have a MIDI file, we strongly recommend using MIDI Import instead for a smoother, more reliable experience.",
+                        })}
+                      </p>
+                      {onSwitchToMidiImport && (
+                        <button
+                          type="button"
+                          onClick={handleSwitchToMidiImport}
+                          className="mt-2 rounded border border-amber-400 px-3 py-1 text-sm font-medium text-amber-800 hover:bg-amber-100 dark:border-amber-700 dark:text-amber-300 dark:hover:bg-amber-900/40"
+                        >
+                          {t("audioExtract.switchToMidi", {
+                            defaultValue: "Use MIDI Import instead",
+                          })}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
                   <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
                     {t("audioExtract.description", {
                       defaultValue:

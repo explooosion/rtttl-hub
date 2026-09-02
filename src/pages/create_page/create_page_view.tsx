@@ -395,7 +395,11 @@ export function CreatePageView({
           onConfirm={actions.handleImportConfirm}
         />
 
-        <AudioStemExtractor ref={audioExtractRef} onImport={actions.handleImportConfirm} />
+        <AudioStemExtractor
+          ref={audioExtractRef}
+          onImport={actions.handleImportConfirm}
+          onSwitchToMidiImport={handleOpenMidiImport}
+        />
 
         <MidiImporter ref={midiImportRef} onImport={actions.handleImportConfirm} />
 

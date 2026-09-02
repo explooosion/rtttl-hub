@@ -687,6 +687,8 @@
     "title": "AI-Melodie-Extraktor",
     "quickButton": "KI-Erkennung",
     "description": "Wählen Sie eine Audiodatei zur Analyse aus. Die KI trennt Stems, erkennt Melodien und konvertiert sie in das RTTTL-Format.",
+    "experimentalNotice": "Dieses KI-Erkennungsmodell befindet sich noch in der experimentellen Phase — wir arbeiten aktiv an der Verbesserung von Genauigkeit und Geschwindigkeit. Für beste Ergebnisse laden Sie idealerweise Audio mit einer klaren, isolierten Gesangs- oder Klavierspur hoch — das erleichtert die Analyse für das Modell erheblich. Wenn Sie bereits eine MIDI-Datei haben, empfehlen wir dringend, stattdessen den MIDI-Import zu verwenden, für ein stabileres und präziseres Erlebnis.",
+    "switchToMidi": "Stattdessen MIDI-Import verwenden",
     "selectAudio": "Audiodatei auswählen",
     "changeAudio": "Audio ändern",
     "maxDuration": "Maximale Analysedauer: {{seconds}} s",
@@ -729,7 +731,7 @@
   "midiImport": {
     "title": "MIDI importieren",
     "description": "Wähle eine MIDI-Datei aus, um sie als RTTTL-Spuren zu importieren.",
-    "algorithmCredit": "Konvertierungsalgorithmus übernommen von:",
+    "algorithmCredit": "Der RTTTL-Konvertierungsalgorithmus dieser Plattform basiert auf BeepMyQuad, einem Projekt für FPV-Drohnen-ESC-Summer. Er nutzt einen Greedy Scheduler, um polyphone Melodien auf mehrere Motorspuren zu verteilen.",
     "selectFile": "MIDI-Datei auswählen",
     "changeFile": "Datei ändern",
     "invalidType": "Bitte wähle eine gültige MIDI-Datei (.mid, .midi) aus.",

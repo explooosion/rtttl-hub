@@ -1,7 +1,14 @@
 import { useState, useRef, useCallback, useImperativeHandle, forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { FaTimes, FaCheck, FaFileAudio, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import {
+  FaTimes,
+  FaCheck,
+  FaFileAudio,
+  FaChevronDown,
+  FaChevronUp,
+  FaInfoCircle,
+} from "react-icons/fa";
 import toast from "react-hot-toast";
 
 import type { MidiTrackInfo } from "../../utils/midi_parser";
@@ -338,24 +345,33 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
             {/* Idle State — no file selected */}
             {state === "idle" && (
               <div className="px-5 py-6">
-                <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
                   {t("midiImport.description", {
                     defaultValue: "Select a MIDI file to import as RTTTL tracks.",
                   })}
                 </p>
-                <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                  {t("midiImport.algorithmCredit", {
-                    defaultValue: "Conversion algorithm adopted from:",
-                  })}{" "}
-                  <a
-                    href="https://beepmyquad.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium text-indigo-600 hover:underline dark:text-indigo-400"
-                  >
-                    beepmyquad.com
-                  </a>
-                </p>
+
+                {/* Algorithm credit — call out the BeepMyQuad origin of the conversion algorithm */}
+                <div className="mb-4 flex items-start gap-3 rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 dark:border-indigo-800/50 dark:bg-indigo-900/20">
+                  <FaInfoCircle
+                    size={18}
+                    className="mt-0.5 shrink-0 text-indigo-600 dark:text-indigo-400"
+                  />
+                  <p className="text-sm text-indigo-800 dark:text-indigo-300">
+                    {t("midiImport.algorithmCredit", {
+                      defaultValue:
+                        "This platform's RTTTL conversion algorithm is adapted from BeepMyQuad, a project built for FPV drone ESC buzzers. It uses a Greedy Scheduler to split polyphonic melodies across multiple motor lanes.",
+                    })}{" "}
+                    <a
+                      href="https://beepmyquad.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold underline hover:text-indigo-900 dark:hover:text-indigo-200"
+                    >
+                      beepmyquad.com
+                    </a>
+                  </p>
+                </div>
 
                 <button
                   type="button"

@@ -697,6 +697,8 @@
     "title": "AI extraktor melodie",
     "quickButton": "AI rozpoznávání",
     "description": "Vyberte zvukový soubor k analýze. AI oddělí stopy, rozpozná melodie a převede je do formátu RTTTL.",
+    "experimentalNotice": "Tento model AI rozpoznávání je stále experimentální — aktivně pracujeme na zlepšení jeho přesnosti a rychlosti. Pro nejlepší výsledky zkuste nahrát zvuk s čistou, izolovanou vokální nebo klavírní stopou — modelu to výrazně usnadní analýzu. Pokud již máte soubor MIDI, důrazně doporučujeme použít místo toho import MIDI pro stabilnější a přesnější zážitek.",
+    "switchToMidi": "Použít místo toho import MIDI",
     "selectAudio": "Vybrat zvukový soubor",
     "changeAudio": "Změnit zvuk",
     "maxDuration": "Maximální délka analýzy: {{seconds}} s",
@@ -739,7 +741,7 @@
   "midiImport": {
     "title": "Importovat MIDI",
     "description": "Vyberte soubor MIDI a importujte jej jako stopy RTTTL.",
-    "algorithmCredit": "Konverzní algoritmus převzat z:",
+    "algorithmCredit": "Algoritmus pro převod RTTTL na této platformě vychází z projektu BeepMyQuad, vytvořeného pro bzučáky ESC FPV dronů. Používá Greedy Scheduler k rozdělení polyfonních melodií mezi více motorových kanálů.",
     "selectFile": "Vybrat soubor MIDI",
     "changeFile": "Změnit soubor",
     "invalidType": "Vyberte platný soubor MIDI (.mid, .midi).",

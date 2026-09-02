@@ -687,6 +687,8 @@
     "title": "Estrattore di melodia IA",
     "quickButton": "Riconoscimento IA",
     "description": "Seleziona un file audio da analizzare. L'IA separerà le tracce, rileverà le melodie e le convertirà nel formato RTTTL.",
+    "experimentalNotice": "Questo modello di riconoscimento IA è ancora sperimentale: stiamo lavorando attivamente per migliorarne precisione e velocità. Per ottenere risultati migliori, prova a fornire un audio con una traccia vocale o pianistica isolata e chiara: questo semplifica notevolmente l'analisi del modello. Se hai già un file MIDI, ti consigliamo vivamente di utilizzare invece l'importazione MIDI per un'esperienza più stabile e precisa.",
+    "switchToMidi": "Usa invece l'importazione MIDI",
     "selectAudio": "Seleziona file audio",
     "changeAudio": "Cambia audio",
     "maxDuration": "Durata massima di analisi: {{seconds}} s",
@@ -729,7 +731,7 @@
   "midiImport": {
     "title": "Importa MIDI",
     "description": "Seleziona un file MIDI da importare come tracce RTTTL.",
-    "algorithmCredit": "Algoritmo di conversione adottato da:",
+    "algorithmCredit": "L'algoritmo di conversione RTTTL di questa piattaforma è adattato da BeepMyQuad, un progetto creato per i cicalini ESC dei droni FPV. Utilizza un Greedy Scheduler per distribuire melodie polifoniche su più canali motore.",
     "selectFile": "Seleziona file MIDI",
     "changeFile": "Cambia file",
     "invalidType": "Seleziona un file MIDI valido (.mid, .midi).",

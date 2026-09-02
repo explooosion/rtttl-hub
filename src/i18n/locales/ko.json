@@ -692,6 +692,8 @@
     "title": "AI 멜로디 추출",
     "quickButton": "AI 인식",
     "description": "분석할 오디오 파일을 선택하세요. AI가 스템을 분리하고 멜로디를 감지하여 RTTTL 형식으로 변환합니다.",
+    "experimentalNotice": "이 AI 인식 모델은 아직 실험 단계이며, 정확도와 속도 개선을 위해 지속적으로 노력하고 있습니다. 더 나은 결과를 위해 보컬 또는 피아노만 있는 깨끗한 음원을 업로드하시면 모델 분석에 큰 도움이 됩니다. 이미 MIDI 파일을 가지고 계시다면, 더 안정적이고 정확한 경험을 위해 'MIDI 가져오기' 기능을 사용하실 것을 강력히 권장합니다.",
+    "switchToMidi": "MIDI 가져오기 사용",
     "selectAudio": "오디오 파일 선택",
     "changeAudio": "오디오 변경",
     "maxDuration": "최대 분석 시간: {{seconds}}초",
@@ -734,7 +736,7 @@
   "midiImport": {
     "title": "MIDI 가져오기",
     "description": "MIDI 파일을 선택하여 RTTTL 트랙으로 가져옵니다.",
-    "algorithmCredit": "변환 알고리즘 출처:",
+    "algorithmCredit": "이 플랫폼의 RTTTL 변환 알고리즘은 FPV 드론 ESC 부저용으로 만들어진 BeepMyQuad 프로젝트를 기반으로 합니다. Greedy Scheduler를 사용해 여러 모터 레인에 폴리포닉 멜로디를 분배합니다.",
     "selectFile": "MIDI 파일 선택",
     "changeFile": "파일 변경",
     "invalidType": "유효한 MIDI 파일(.mid, .midi)을 선택하세요.",

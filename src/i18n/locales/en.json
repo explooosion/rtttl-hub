@@ -687,6 +687,8 @@
     "title": "AI Recognition",
     "quickButton": "AI Recognition",
     "description": "Select an audio file to analyze. AI will separate stems, detect melodies, and convert to RTTTL format.",
+    "experimentalNotice": "This AI recognition model is still experimental — we're actively working on improving its accuracy and speed. For the best results, try uploading audio with a clear, isolated vocal or piano track, as this makes it much easier for the model to analyze. If you already have a MIDI file, we strongly recommend using MIDI Import instead for a smoother, more reliable experience.",
+    "switchToMidi": "Use MIDI Import instead",
     "selectAudio": "Select Audio File",
     "changeAudio": "Change Audio",
     "maxDuration": "Max analysis duration: {{seconds}}s",
@@ -739,7 +741,7 @@
   "midiImport": {
     "title": "Import MIDI",
     "description": "Select a MIDI file to import as RTTTL tracks.",
-    "algorithmCredit": "Conversion algorithm adopted from:",
+    "algorithmCredit": "This platform's RTTTL conversion algorithm is adapted from BeepMyQuad, a project built for FPV drone ESC buzzers. It uses a Greedy Scheduler to split polyphonic melodies across multiple motor lanes.",
     "selectFile": "Select MIDI File",
     "changeFile": "Change File",
     "invalidType": "Please select a valid MIDI file (.mid, .midi).",

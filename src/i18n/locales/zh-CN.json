@@ -695,6 +695,8 @@
     "title": "AI 旋律提取器",
     "quickButton": "AI 识别",
     "description": "选择要分析的音频文件。AI 将分离音轨、识别旋律，并转换为 RTTTL 格式。",
+    "experimentalNotice": "AI 识别模型目前仍处于实验阶段，我们仍在持续优化识别准确度与性能。建议您上传纯人声或纯钢琴等音质干净、单一的音频，能大幅提升模型的分析效果。若您手边已有 MIDI 文件，强烈建议改用“导入 MIDI”功能，体验会更稳定、更精准。",
+    "switchToMidi": "改用“导入 MIDI”",
     "selectAudio": "选择音频文件",
     "changeAudio": "更换音频",
     "maxDuration": "最大分析时长：{{seconds}} 秒",
@@ -737,7 +739,7 @@
   "midiImport": {
     "title": "导入 MIDI",
     "description": "选择 MIDI 文件以导入为 RTTTL 音轨。",
-    "algorithmCredit": "转换算法采用自：",
+    "algorithmCredit": "本平台的 RTTTL 转换算法改编自 BeepMyQuad，该项目专为 FPV 穿越机 ESC 蜂鸣器打造。算法采用 Greedy Scheduler 机制，将复音旋律拆分到多个电机通道。",
     "selectFile": "选择 MIDI 文件",
     "changeFile": "更换文件",
     "invalidType": "请选择有效的 MIDI 文件（.mid、.midi）。",
