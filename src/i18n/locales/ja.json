@@ -750,6 +750,7 @@
     "title": "MIDI をインポート",
     "description": "MIDI ファイルを選択して RTTTL トラックとしてインポートします。",
     "algorithmCredit": "このプラットフォームの RTTTL 変換アルゴリズムは、FPV ドローンの ESC ブザー向けに構築されたプロジェクト BeepMyQuad を改良したものです。Greedy Scheduler を使用して、複数のモーターレーンにポリフォニックなメロディーを分配します。",
+    "midiSourcesNotice": "MIDI ファイルが必要ですか？以下は MIDI を無料でダウンロードできる第三者サイトです。あくまで参考共有であり、本サイトによる推奨・保証ではありません。ダウンロード前に各サイトの利用規約をご確認ください。",
     "selectFile": "MIDI ファイルを選択",
     "changeFile": "ファイルを変更",
     "invalidType": "有効な MIDI ファイル（.mid、.midi）を選択してください。",

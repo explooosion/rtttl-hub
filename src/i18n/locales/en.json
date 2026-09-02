@@ -745,6 +745,7 @@
     "title": "Import MIDI",
     "description": "Select a MIDI file to import as RTTTL tracks.",
     "algorithmCredit": "This platform's RTTTL conversion algorithm is adapted from BeepMyQuad, a project built for FPV drone ESC buzzers. It uses a Greedy Scheduler to split polyphonic melodies across multiple motor lanes.",
+    "midiSourcesNotice": "Need a MIDI file? These third-party sites offer free downloads — shared for convenience only, not an endorsement. Please check each site's own terms before downloading.",
     "selectFile": "Select MIDI File",
     "changeFile": "Change File",
     "invalidType": "Please select a valid MIDI file (.mid, .midi).",

@@ -8,6 +8,7 @@ import {
   FaChevronDown,
   FaChevronUp,
   FaInfoCircle,
+  FaDownload,
 } from "react-icons/fa";
 import toast from "react-hot-toast";
 
@@ -352,12 +353,12 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
                 </p>
 
                 {/* Algorithm credit — call out the BeepMyQuad origin of the conversion algorithm */}
-                <div className="mb-4 flex items-start gap-3 rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-3 dark:border-indigo-800/50 dark:bg-indigo-900/20">
+                <div className="mb-4 flex items-start gap-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 dark:border-amber-800/50 dark:bg-amber-900/20">
                   <FaInfoCircle
                     size={18}
-                    className="mt-0.5 shrink-0 text-indigo-600 dark:text-indigo-400"
+                    className="mt-0.5 shrink-0 text-amber-600 dark:text-amber-400"
                   />
-                  <p className="text-sm text-indigo-800 dark:text-indigo-300">
+                  <p className="text-sm text-amber-800 dark:text-amber-300">
                     {t("midiImport.algorithmCredit", {
                       defaultValue:
                         "This platform's RTTTL conversion algorithm is adapted from BeepMyQuad, a project built for FPV drone ESC buzzers. It uses a Greedy Scheduler to split polyphonic melodies across multiple motor lanes.",
@@ -366,11 +367,59 @@ export const MidiImporter = forwardRef<MidiImporterHandle, MidiImporterProps>(fu
                       href="https://beepmyquad.com/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-semibold underline hover:text-indigo-900 dark:hover:text-indigo-200"
+                      className="font-semibold underline hover:text-amber-900 dark:hover:text-amber-200"
                     >
                       beepmyquad.com
                     </a>
                   </p>
+                </div>
+
+                {/* Free MIDI download sources for users who don't have a file yet */}
+                <div className="mb-4 flex items-start gap-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 dark:border-gray-700 dark:bg-gray-800/50">
+                  <FaDownload
+                    size={16}
+                    className="mt-0.5 shrink-0 text-gray-500 dark:text-gray-400"
+                  />
+                  <div className="text-sm text-gray-600 dark:text-gray-300">
+                    <p className="mb-1.5">
+                      {t("midiImport.midiSourcesNotice", {
+                        defaultValue:
+                          "Need a MIDI file? These third-party sites offer free downloads — shared for convenience only, not an endorsement. Please check each site's own terms before downloading.",
+                      })}
+                    </p>
+                    <ul className="list-disc space-y-1 pl-5">
+                      <li>
+                        <a
+                          href="https://slooply.com/midi"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+                        >
+                          https://slooply.com/midi
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="https://freemidi.org/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+                        >
+                          https://freemidi.org/
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="https://bitmidi.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+                        >
+                          https://bitmidi.com/
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
 
                 <button

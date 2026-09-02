@@ -750,6 +750,7 @@
     "title": "MIDI 가져오기",
     "description": "MIDI 파일을 선택하여 RTTTL 트랙으로 가져옵니다.",
     "algorithmCredit": "이 플랫폼의 RTTTL 변환 알고리즘은 FPV 드론 ESC 부저용으로 만들어진 BeepMyQuad 프로젝트를 기반으로 합니다. Greedy Scheduler를 사용해 여러 모터 레인에 폴리포닉 멜로디를 분배합니다.",
+    "midiSourcesNotice": "MIDI 파일이 필요하신가요? 아래는 무료로 다운로드할 수 있는 제3자 사이트입니다. 단순 참고용 공유이며 본 사이트의 추천이나 보증이 아닙니다. 다운로드 전 각 사이트의 이용약관을 확인해 주세요.",
     "selectFile": "MIDI 파일 선택",
     "changeFile": "파일 변경",
     "invalidType": "유효한 MIDI 파일(.mid, .midi)을 선택하세요.",

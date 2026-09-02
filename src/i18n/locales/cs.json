@@ -755,6 +755,7 @@
     "title": "Importovat MIDI",
     "description": "Vyberte soubor MIDI a importujte jej jako stopy RTTTL.",
     "algorithmCredit": "Algoritmus pro převod RTTTL na této platformě vychází z projektu BeepMyQuad, vytvořeného pro bzučáky ESC FPV dronů. Používá Greedy Scheduler k rozdělení polyfonních melodií mezi více motorových kanálů.",
+    "midiSourcesNotice": "Potřebujete soubor MIDI? Tyto stránky třetích stran nabízejí bezplatné stahování — sdíleno pouze pro informaci, nejde o doporučení ani záruku. Před stahováním si prosím ověřte podmínky dané stránky.",
     "selectFile": "Vybrat soubor MIDI",
     "changeFile": "Změnit soubor",
     "invalidType": "Vyberte platný soubor MIDI (.mid, .midi).",

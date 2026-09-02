@@ -745,6 +745,7 @@
     "title": "Importa MIDI",
     "description": "Seleziona un file MIDI da importare come tracce RTTTL.",
     "algorithmCredit": "L'algoritmo di conversione RTTTL di questa piattaforma è adattato da BeepMyQuad, un progetto creato per i cicalini ESC dei droni FPV. Utilizza un Greedy Scheduler per distribuire melodie polifoniche su più canali motore.",
+    "midiSourcesNotice": "Ti serve un file MIDI? Questi siti di terze parti offrono download gratuiti, condivisi solo a titolo informativo, senza alcuna raccomandazione o garanzia. Verifica i termini di ciascun sito prima di scaricare.",
     "selectFile": "Seleziona file MIDI",
     "changeFile": "Cambia file",
     "invalidType": "Seleziona un file MIDI valido (.mid, .midi).",

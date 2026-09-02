@@ -753,6 +753,7 @@
     "title": "匯入 MIDI",
     "description": "選擇 MIDI 檔案以匯入為 RTTTL 音軌。",
     "algorithmCredit": "本平台的 RTTTL 轉換演算法改編自 BeepMyQuad，該專案專為 FPV 穿越機 ESC 蜂鳴器所打造。演算法採用 Greedy Scheduler 機制，將複音旋律拆分至多個馬達通道。",
+    "midiSourcesNotice": "需要 MIDI 檔案嗎？以下第三方網站提供免費下載資源，僅作為分享參考，非本站推薦或背書，下載前請自行確認該網站條款。",
     "selectFile": "選擇 MIDI 檔案",
     "changeFile": "更換檔案",
     "invalidType": "請選擇有效的 MIDI 檔案（.mid、.midi）。",

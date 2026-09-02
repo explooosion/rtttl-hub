@@ -195,7 +195,7 @@ export function TrackRow({
       </button>
 
       {/* Title + artist + category + stats */}
-      <div className="min-w-0 flex-1 sm:w-40 sm:flex-none sm:shrink-0">
+      <div className="min-w-0 flex-1 sm:w-64 sm:flex-none sm:shrink-0">
         <p className="truncate text-sm font-medium text-gray-900 dark:text-white">{item.title}</p>
         {displayCreatorName && (
           <p className="truncate text-xs">
