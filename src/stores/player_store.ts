@@ -1,14 +1,14 @@
 import { create } from "zustand";
 
-import { ToneEngine } from "../kit/tone";
-import type { EngineState } from "../kit/tone";
+import { createPlaybackProvider } from "../kit/playback";
+import type { PlaybackProvider, PlaybackState } from "../kit/playback";
 import type { RtttlEntry } from "../utils/rtttl_parser";
 import { useListenedStore } from "./listened_store";
 import { useTrackStatsStore } from "./track_stats_store";
 import { useAuthStore } from "./auth_store";
 
 /** Re-export so existing consumers that import PlayerState still work. */
-export type PlayerState = EngineState;
+export type PlayerState = PlaybackState;
 
 interface PlayerStoreState {
   currentItem: RtttlEntry | null;
@@ -21,11 +21,11 @@ interface PlayerStoreState {
   editedCode: string;
   editedTracks: string[];
   activeTrackIndex: number;
-  engine: ToneEngine;
+  engine: PlaybackProvider;
   /** @deprecated kept for backward compat — returns the same engine instance */
-  player: ToneEngine;
+  player: PlaybackProvider;
   /** @deprecated kept for backward compat — returns the same engine instance */
-  multiPlayer: ToneEngine;
+  multiPlayer: PlaybackProvider;
   isMultiTrack: boolean;
   setCurrentItem: (item: RtttlEntry) => void;
   clearCurrentItem: VoidFunction;
@@ -48,7 +48,7 @@ interface PlayerStoreState {
   playSoloTrack: (trackIndex: number) => void;
 }
 
-const engine = new ToneEngine();
+const engine = createPlaybackProvider();
 
 export const usePlayerStore = create<PlayerStoreState>((set, get) => {
   engine.setCallback((payload) => {
