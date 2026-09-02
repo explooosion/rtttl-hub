@@ -41,8 +41,10 @@ export function CollectionPage() {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<RtttlEntry | null>(null);
   const [publicCreations, setPublicCreations] = useState<RtttlEntry[]>([]);
+  const [publicCreationsLoadedFor, setPublicCreationsLoadedFor] = useState<string | null>(null);
 
   const collectionDef = slug ? getCollectionBySlug(slug) : undefined;
+  const isCommunityLoading = slug === "community" && publicCreationsLoadedFor !== slug;
 
   // Set default sort mode for my-creations and community
   useEffect(() => {
@@ -62,6 +64,9 @@ export function CollectionPage() {
         })
         .catch((error) => {
           console.error("Failed to load public creations:", error);
+        })
+        .finally(() => {
+          setPublicCreationsLoadedFor(slug);
         });
     }
   }, [slug]);
@@ -269,6 +274,7 @@ export function CollectionPage() {
     <>
       <ListPageLayout
         items={collectionItems}
+        isLoading={isCommunityLoading}
         breadcrumbs={breadcrumbs}
         title={collectionDef ? t(collectionDef.nameKey) : undefined}
         description={collectionDef ? t(collectionDef.descriptionKey) : undefined}

@@ -26,6 +26,7 @@ export type { BreadcrumbItem } from "./shared";
 
 export function ListPageLayout({
   items,
+  isLoading = false,
   breadcrumbs,
   title,
   description,
@@ -350,6 +351,7 @@ export function ListPageLayout({
 
               <TrackListContent
                 items={items}
+                isLoading={isLoading}
                 filteredItemCount={filteredItems.length}
                 rowData={rowData}
                 extraRowActions={extraRowActions}

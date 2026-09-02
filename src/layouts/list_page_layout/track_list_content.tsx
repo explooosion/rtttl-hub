@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 import { LetterHeader, TrackRow } from "../../components/track_row";
+import { PageLoader } from "../../components/page_loader";
 import type { TrackRowAction } from "../../components/track_row";
 import { PaginationControls } from "./pagination_controls";
 import type { RtttlEntry } from "../../utils/rtttl_parser";
@@ -8,6 +9,7 @@ import type { RowData } from "./shared";
 
 interface TrackListContentProps {
   items: RtttlEntry[];
+  isLoading: boolean;
   filteredItemCount: number;
   rowData: RowData[];
   extraRowActions?: TrackRowAction[];
@@ -28,6 +30,7 @@ interface TrackListContentProps {
 
 export function TrackListContent({
   items,
+  isLoading,
   filteredItemCount,
   rowData,
   extraRowActions,
@@ -46,6 +49,10 @@ export function TrackListContent({
   onNextPageClick,
 }: TrackListContentProps) {
   const { t } = useTranslation();
+
+  if (isLoading) {
+    return <PageLoader fullScreen={false} />;
+  }
 
   if (items.length === 0) {
     return (

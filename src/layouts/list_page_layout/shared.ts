@@ -9,6 +9,7 @@ export interface BreadcrumbItem {
 
 export interface ListPageLayoutProps {
   items: RtttlEntry[];
+  isLoading?: boolean;
   breadcrumbs?: BreadcrumbItem[];
   title?: string;
   description?: string;
