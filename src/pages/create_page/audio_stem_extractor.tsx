@@ -131,6 +131,9 @@ const STEM_LABELS: Record<StemType, string> = {
 
 const DEFAULT_SELECTED_STEMS: StemType[] = ["vocals", "bass", "drums", "other"];
 
+/** Seconds of silent waiting before showing the Replicate cold-start hint. */
+const COLD_START_HINT_THRESHOLD_SEC = 15;
+
 export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStemExtractorProps>(
   function AudioStemExtractor({ onImport }, ref) {
     const { t } = useTranslation();
@@ -152,6 +155,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
     // Processing
     const [processingStatus, setProcessingStatus] = useState("");
     const [processingLogs, setProcessingLogs] = useState("");
+    const [elapsedSec, setElapsedSec] = useState(0);
 
     // Results
     const [result, setResult] = useState<ExtractionResult | null>(null);
@@ -173,6 +177,21 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
       [open, user],
     );
 
+    // Tick a visible elapsed-time counter so long cold starts don't look frozen
+    useEffect(
+      function tickElapsedTimeWhenProcessing() {
+        if (state !== "processing") {
+          return;
+        }
+        const startedAt = Date.now();
+        const timer = setInterval(() => {
+          setElapsedSec(Math.floor((Date.now() - startedAt) / 1000));
+        }, 1000);
+        return () => clearInterval(timer);
+      },
+      [state],
+    );
+
     const resetState = useCallback(function resetExtractorState() {
       setState("idle");
       setAudioMeta(null);
@@ -182,6 +201,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
       setSelectedStems(DEFAULT_SELECTED_STEMS);
       setProcessingStatus("");
       setProcessingLogs("");
+      setElapsedSec(0);
       setResult(null);
       setSelectedTracks(new Set());
       if (fileInputRef.current) {
@@ -309,6 +329,7 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
 
       setState("processing");
       setProcessingStatus("starting");
+      setElapsedSec(0);
       try {
         const extractionResult = await extractMelody(
           selectedFile,
@@ -682,9 +703,19 @@ export const AudioStemExtractor = forwardRef<AudioStemExtractorHandle, AudioStem
                       })}
                     </span>
                     <span className="ml-auto shrink-0 rounded bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">
-                      {processingStatus}
+                      {processingStatus} · {elapsedSec}s
                     </span>
                   </div>
+
+                  {/* Cold-start hint after a long wait with no output yet */}
+                  {!processingLogs && elapsedSec >= COLD_START_HINT_THRESHOLD_SEC && (
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {t("audioExtract.coldStartHint", {
+                        defaultValue:
+                          "The model may be waking up from a cold start. This can take up to a minute for the first request — thanks for your patience.",
+                      })}
+                    </p>
+                  )}
 
                   {/* Log panel */}
                   <div className="mb-3 flex items-center justify-between gap-2">

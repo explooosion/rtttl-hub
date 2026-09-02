@@ -722,6 +722,7 @@
     "analyze": "Analyzovat",
     "processing": "AI analyzuje zvuk a extrahuje melodii (může trvat 1-2 minuty)…",
     "processingStatus": "Stav: {{status}}",
+    "coldStartHint": "Model se možná právě probouzí ze studeného startu. První požadavek může trvat až minutu — děkujeme za trpělivost.",
     "resultSummary": "Nalezeno {{count}} stopa/stop. Vyberte stopy k importu do editoru.",
     "noteCount": "{{count}} not",
     "discard": "Zahodit",

@@ -712,6 +712,7 @@
     "analyze": "Analysieren",
     "processing": "AI analysiert Audio und extrahiert Melodie (kann 1-2 Minuten dauern)…",
     "processingStatus": "Status: {{status}}",
+    "coldStartHint": "Das Modell startet möglicherweise gerade aus einem Kaltstart. Die erste Anfrage kann bis zu einer Minute dauern — vielen Dank für Ihre Geduld.",
     "resultSummary": "{{count}} Track(s) gefunden. Wählen Sie Tracks zum Importieren in den Editor.",
     "noteCount": "{{count}} Noten",
     "discard": "Verwerfen",

@@ -712,6 +712,7 @@
     "analyze": "Analyze",
     "processing": "AI is analyzing audio and extracting melody (this may take 1-2 minutes)…",
     "processingStatus": "Status: {{status}}",
+    "coldStartHint": "The model may be waking up from a cold start. This can take up to a minute for the first request — thanks for your patience.",
     "resultSummary": "Found {{count}} track(s). Select tracks to import into the editor.",
     "noteCount": "{{count}} notes",
     "discard": "Close",

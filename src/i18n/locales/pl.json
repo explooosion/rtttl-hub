@@ -714,6 +714,7 @@
     "analyze": "Analizuj",
     "processing": "AI analizuje audio i wyodrębnia melodię (może to potrwać 1-2 minuty)…",
     "processingStatus": "Status: {{status}}",
+    "coldStartHint": "Model może właśnie budzić się z zimnego startu. Pierwsze żądanie może potrwać nawet minutę — dziękujemy za cierpliwość.",
     "resultSummary": "Znaleziono {{count}} ścieżek. Wybierz ścieżki do importu do edytora.",
     "noteCount": "{{count}} nut",
     "discard": "Odrzuć",

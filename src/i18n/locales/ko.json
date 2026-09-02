@@ -717,6 +717,7 @@
     "analyze": "분석",
     "processing": "AI가 오디오를 분석하고 멜로디를 추출하는 중 (1-2분 소요)…",
     "processingStatus": "상태: {{status}}",
+    "coldStartHint": "모델이 콜드 스타트에서 깨어나고 있을 수 있습니다. 첫 요청은 최대 1분까지 걸릴 수 있으니 조금만 기다려 주세요.",
     "resultSummary": "{{count}}개 트랙을 찾았습니다. 에디터로 가져올 트랙을 선택하세요.",
     "noteCount": "{{count}}개 음표",
     "discard": "삭제",

@@ -720,6 +720,7 @@
     "analyze": "分析",
     "processing": "AI 正在分析音訊並提取旋律（可能需要 1-2 分鐘）…",
     "processingStatus": "狀態：{{status}}",
+    "coldStartHint": "模型可能正在從冷啟動中喚醒，首次請求最長可能需要一分鐘，感謝您的耐心等候。",
     "resultSummary": "找到 {{count}} 條音軌。選擇要匯入編輯器的音軌。",
     "noteCount": "{{count}} 個音符",
     "discard": "關閉",

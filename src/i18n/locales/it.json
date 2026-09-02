@@ -712,6 +712,7 @@
     "analyze": "Analizza",
     "processing": "L'IA sta analizzando l'audio ed estraendo la melodia (potrebbe richiedere 1-2 minuti)…",
     "processingStatus": "Stato: {{status}}",
+    "coldStartHint": "Il modello potrebbe essere in fase di avvio a freddo. La prima richiesta può richiedere fino a un minuto — grazie per la pazienza.",
     "resultSummary": "Trovate {{count}} traccia/e. Seleziona le tracce da importare nell'editor.",
     "noteCount": "{{count}} note",
     "discard": "Scarta",
