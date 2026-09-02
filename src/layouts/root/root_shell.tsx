@@ -15,6 +15,7 @@ import { usePlayerStore } from "../../stores/player_store";
 import { useCookieConsentStore } from "../../stores/cookie_consent_store";
 import { toRtttlEntries, type CollectionEntry } from "../../utils/collection_loader";
 import { formatPlaybackClock, getMaxTrackDurationMs } from "../../utils/rtttl_format";
+import { CopyButton, CopyAllButton } from "../../components/copy_code_buttons";
 
 export function RootShell() {
   const { t } = useTranslation();
@@ -173,6 +174,35 @@ export function RootShell() {
               )}
               <div className="mt-0.5 text-xs text-gray-400 dark:text-gray-500">
                 {formatPlaybackClock(elapsedMs)} / {formatPlaybackClock(totalDurationMs)}
+              </div>
+
+              {/* RTTTL code — horizontally scrollable so it fits narrow screens */}
+              <div className="mt-2 border-t border-gray-100 pt-2 dark:border-gray-800">
+                {currentItem.tracks && currentItem.tracks.length > 1 ? (
+                  <div className="max-h-32 space-y-1.5 overflow-y-auto">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-medium uppercase tracking-wide text-gray-400 dark:text-gray-500">
+                        {currentItem.tracks.length} {t("editor.tracks", { defaultValue: "Tracks" })}
+                      </span>
+                      <CopyAllButton tracks={currentItem.tracks} />
+                    </div>
+                    {currentItem.tracks.map((trackCode, idx) => (
+                      <div key={idx} className="flex items-center gap-1.5">
+                        <pre className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap rounded bg-gray-100 px-2 py-1 font-mono text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                          {trackCode}
+                        </pre>
+                        <CopyButton text={trackCode} />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1.5">
+                    <pre className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap rounded bg-gray-100 px-2 py-1 font-mono text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                      {editedCode || currentItem.code}
+                    </pre>
+                    <CopyButton text={editedCode || currentItem.code} />
+                  </div>
+                )}
               </div>
             </>
           )}

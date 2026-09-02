@@ -37,7 +37,7 @@ export function CollectionPage() {
   const currentItem = usePlayerStore((s) => s.currentItem);
   const clearCurrentItem = usePlayerStore((s) => s.clearCurrentItem);
   const loadStats = useTrackStatsStore((s) => s.loadStats);
-  const getStatsForTrack = useTrackStatsStore((s) => s.getStatsForTrack);
+  const statsCache = useTrackStatsStore((s) => s.statsCache);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<RtttlEntry | null>(null);
   const [publicCreations, setPublicCreations] = useState<RtttlEntry[]>([]);
@@ -108,16 +108,19 @@ export function CollectionPage() {
     }
   }, [filteredItems, loadStats]);
 
-  // Inject real statistics from Firestore
+  // Inject real statistics from Firestore — leave playCount undefined (not 0)
+  // while a fetch is still in flight, so TrackRow doesn't flash a false zero.
+  // Reads statsCache directly (rather than via a store action) so this
+  // recomputes once the async stats fetch resolves.
   const collectionItems = useMemo(() => {
     return filteredItems.map((item) => {
-      const stats = getStatsForTrack(item.id);
+      const stats = statsCache.get(item.id);
       return {
         ...item,
-        playCount: stats?.playCount ?? 0,
+        playCount: stats ? stats.playCount + stats.localPlayIncrement : undefined,
       };
     });
-  }, [filteredItems, getStatsForTrack]);
+  }, [filteredItems, statsCache]);
 
   const handleCreateNew = useCallback(() => {
     navigate("/create");

@@ -119,8 +119,9 @@ export async function recordPlay(trackId: string, userId?: string): Promise<void
   const update: Omit<FirestorePendingStatsUpdate, "createdAt"> & { createdAt: Timestamp } = {
     trackId,
     type: "play",
-    userId: userId || undefined,
     createdAt: Timestamp.now(),
+    // Firestore rejects `undefined` field values — omit userId entirely for anonymous plays
+    ...(userId ? { userId } : {}),
   };
 
   await addDoc(collection(db, FIRESTORE_COLLECTIONS.PENDING_STATS_UPDATES), update);
