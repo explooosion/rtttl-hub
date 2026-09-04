@@ -36,6 +36,26 @@ export type RowData = RowHeaderData | RowItemData;
 
 export const ITEMS_PER_PAGE = 50;
 
+interface SortItemsOptions {
+  stablePlayCountById?: ReadonlyMap<string, number>;
+  stableOrderById?: ReadonlyMap<string, number>;
+}
+
+function resolveStableOrder(id: string, stableOrderById?: ReadonlyMap<string, number>): number {
+  if (!stableOrderById) {
+    return Number.MAX_SAFE_INTEGER;
+  }
+  return stableOrderById.get(id) ?? Number.MAX_SAFE_INTEGER;
+}
+
+function compareByStableOrder(
+  a: RtttlEntry,
+  b: RtttlEntry,
+  stableOrderById?: ReadonlyMap<string, number>,
+) {
+  return resolveStableOrder(a.id, stableOrderById) - resolveStableOrder(b.id, stableOrderById);
+}
+
 export function matchesSearch(item: RtttlEntry, query: string) {
   const normalizedQuery = query.toLowerCase();
   return (
@@ -45,7 +65,7 @@ export function matchesSearch(item: RtttlEntry, query: string) {
   );
 }
 
-export function sortItems(arr: RtttlEntry[], mode: SortMode) {
+export function sortItems(arr: RtttlEntry[], mode: SortMode, options?: SortItemsOptions) {
   const sorted = [...arr];
   if (mode === "a-z") {
     sorted.sort((a, b) => a.title.localeCompare(b.title));
@@ -56,9 +76,25 @@ export function sortItems(arr: RtttlEntry[], mode: SortMode) {
   } else if (mode === "artist-z-a") {
     sorted.sort((a, b) => b.artist.localeCompare(a.artist) || a.title.localeCompare(b.title));
   } else if (mode === "plays-high") {
-    sorted.sort((a, b) => (b.playCount ?? 0) - (a.playCount ?? 0));
+    sorted.sort((a, b) => {
+      const aPlays = options?.stablePlayCountById?.get(a.id) ?? a.playCount ?? 0;
+      const bPlays = options?.stablePlayCountById?.get(b.id) ?? b.playCount ?? 0;
+      const diff = bPlays - aPlays;
+      if (diff !== 0) {
+        return diff;
+      }
+      return compareByStableOrder(a, b, options?.stableOrderById);
+    });
   } else if (mode === "plays-low") {
-    sorted.sort((a, b) => (a.playCount ?? 0) - (b.playCount ?? 0));
+    sorted.sort((a, b) => {
+      const aPlays = options?.stablePlayCountById?.get(a.id) ?? a.playCount ?? 0;
+      const bPlays = options?.stablePlayCountById?.get(b.id) ?? b.playCount ?? 0;
+      const diff = aPlays - bPlays;
+      if (diff !== 0) {
+        return diff;
+      }
+      return compareByStableOrder(a, b, options?.stableOrderById);
+    });
   } else if (mode === "updated-desc") {
     sorted.sort((a, b) => {
       const aTime = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;

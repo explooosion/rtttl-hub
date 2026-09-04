@@ -24,6 +24,26 @@ import { TrackListContent } from "./track_list_content";
 
 export type { BreadcrumbItem } from "./shared";
 
+interface StablePlaySortSnapshot {
+  playCountById: Map<string, number>;
+  orderById: Map<string, number>;
+}
+
+const stablePlaySortSnapshotCache = new Map<string, StablePlaySortSnapshot>();
+
+function getStablePlaySortSnapshot(items: ListPageLayoutProps["items"], signature: string) {
+  const cached = stablePlaySortSnapshotCache.get(signature);
+  if (cached) {
+    return cached;
+  }
+  const snapshot: StablePlaySortSnapshot = {
+    playCountById: new Map(items.map((item) => [item.id, item.playCount ?? 0] as const)),
+    orderById: new Map(items.map((item, index) => [item.id, index] as const)),
+  };
+  stablePlaySortSnapshotCache.set(signature, snapshot);
+  return snapshot;
+}
+
 export function ListPageLayout({
   items,
   isLoading = false,
@@ -51,6 +71,15 @@ export function ListPageLayout({
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
 
+  const itemIdsSignature = useMemo(
+    function buildItemIdsSignature() {
+      return items.map((item) => item.id).join("|");
+    },
+    [items],
+  );
+
+  const stableSortSnapshot = getStablePlaySortSnapshot(items, itemIdsSignature);
+
   const filteredItems = useMemo(
     function buildFilteredItems() {
       let result = items;
@@ -73,9 +102,12 @@ export function ListPageLayout({
           return itemTrackCount === trackCount;
         });
       }
-      return sortItems(result, sortMode);
+      return sortItems(result, sortMode, {
+        stablePlayCountById: stableSortSnapshot.playCountById,
+        stableOrderById: stableSortSnapshot.orderById,
+      });
     },
-    [items, searchQuery, activeLetter, activeCategories, trackCount, sortMode],
+    [items, searchQuery, activeLetter, activeCategories, trackCount, sortMode, stableSortSnapshot],
   );
 
   const availableLetters = useMemo(
