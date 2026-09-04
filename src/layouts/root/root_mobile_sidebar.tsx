@@ -6,7 +6,6 @@ import clsx from "clsx";
 
 import { COLLECTIONS } from "../../constants/collections";
 import { ThemeToggle } from "../../components/theme_toggle";
-import { SettingsMenu } from "../../components/settings_menu";
 import { LanguageSwitcher } from "../../components/language_switcher";
 
 const preloadCreatePage = () => {
@@ -325,9 +324,6 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
           </div>
           <div className="mb-3 px-6">
             <LanguageSwitcher mobile />
-          </div>
-          <div className="px-6">
-            <SettingsMenu mobile />
           </div>
         </div>
       </div>

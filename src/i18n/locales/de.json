@@ -398,9 +398,6 @@
     "tracks4": "4 Spuren"
   },
   "loading": "Sammlung wird geladen...",
-  "settings": {
-    "clearListened": "Hör-Verlauf löschen"
-  },
   "about": {
     "title": "Über",
     "originTitle": "Ursprungsgeschichte",
@@ -538,12 +535,12 @@
       "scopeB": "Wir sind dem Schutz Ihrer Privatsphäre verpflichtet. Diese Richtlinie beschreibt, welche Daten wir sammeln, wie wir sie verwenden und Ihre Rechte in Bezug auf diese Daten.",
       "typeOfInfo": "Die Art der Informationen, die wir sammeln",
       "typeOfInfoA": "Wir sammeln bestimmte Informationen über Besucher und Benutzer von RTTTL Hub. Die häufigsten Arten von Informationen umfassen Browsertyp, besuchte Seiten und Interaktionsmuster innerhalb der Anwendung.",
-      "localStorage": "RTTTL Hub speichert Ihre Einstellungen (Theme, Sprache), Favoriten, Hör-Verlauf und benutzererstellte Klingeltöne im lokalen Speicher Ihres Browsers. Diese Daten verlassen niemals Ihr Gerät, es sei denn, Sie entscheiden sich ausdrücklich dafür, sie zu teilen.",
+      "localStorage": "RTTTL Hub speichert Ihre Einstellungen (Theme, Sprache), Favoriten, und benutzererstellte Klingeltöne im lokalen Speicher Ihres Browsers. Diese Daten verlassen niemals Ihr Gerät, es sei denn, Sie entscheiden sich ausdrücklich dafür, sie zu teilen",
       "analytics": "Wir können anonymisierte Analysen verwenden, um zu verstehen, wie Besucher mit RTTTL Hub interagieren, einschließlich welche Seiten am häufigsten besucht werden und wie Benutzer durch die Anwendung navigieren.",
       "howWeUse": "Wie wir Ihre Informationen verwenden",
       "howWeUseIntro": "Wir verwenden Informationen, um RTTTL Hub bereitzustellen, zu warten und zu verbessern, einschließlich:",
       "howWeUseA": "Ihre Einstellungen über Sitzungen hinweg zu speichern (Theme, Sprache, Lautstärke)",
-      "howWeUseB": "Ihre Lieblings-Klingeltöne und Hör-Verlauf lokal zu speichern",
+      "howWeUseB": "Ihre Lieblings-Klingeltöne und lokal zu speichern",
       "howWeUseC": "Aggregierte Nutzungsmuster zu analysieren, um die Plattform zu verbessern",
       "howWeUseD": "Die Sicherheit und Integrität des Dienstes zu gewährleisten",
       "dataStorage": "Datenspeicherung und -aufbewahrung",
@@ -585,8 +582,7 @@
       "infoCollected": "Informationen, die Cookies sammeln",
       "infoCollectedIntro": "Die Informationen, die Cookies und lokaler Speicher auf RTTTL Hub sammeln, umfassen:",
       "infoA": "Besuchte Seiten und Navigationsmuster innerhalb der Anwendung;",
-      "infoB": "Klingeltöne, die Sie gehört haben (Hör-Verlauf);",
-      "infoC": "Ihre Favoritenliste;",
+      "infoB": "Ihre Favoritenliste",
       "infoD": "Benutzerdefinierte Klingeltöne, die Sie erstellt haben;",
       "infoE": "Ihre Theme- und Sprachpräferenzen;",
       "infoF": "Cookie-Einwilligungsentscheidungen.",

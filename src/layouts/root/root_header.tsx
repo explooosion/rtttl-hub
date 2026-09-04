@@ -4,7 +4,6 @@ import { FaBars, FaTimes, FaGithub, FaSearch } from "react-icons/fa";
 import clsx from "clsx";
 
 import { ThemeToggle } from "../../components/theme_toggle";
-import { SettingsMenu } from "../../components/settings_menu";
 import { LanguageSwitcher } from "../../components/language_switcher";
 import { MegaMenu } from "../../components/mega_menu";
 import { MyZoneMenu } from "../../components/my_zone_menu";
@@ -142,10 +141,6 @@ export function RootHeader({ sidebarOpen, setSidebarOpen }: RootHeaderProps) {
           >
             <FaGithub size={18} />
           </a>
-          {/* Settings Menu - show from md */}
-          <div className="hidden md:block">
-            <SettingsMenu />
-          </div>
           {/* User Menu - always visible */}
           <UserMenu />
         </div>

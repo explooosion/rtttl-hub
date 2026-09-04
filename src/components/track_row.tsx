@@ -8,7 +8,6 @@ import { formatCount } from "../types/track_stats";
 import { getUserDisplayName } from "../services/user_profile_service";
 
 import { usePlayerStore } from "../stores/player_store";
-import { useListenedStore } from "../stores/listened_store";
 import { FavoriteButton } from "./favorite_button";
 import { CanvasWaveform as Waveform } from "./canvas_waveform";
 import { MultiTrackWaveform } from "./multi_track_waveform";
@@ -56,14 +55,12 @@ export function TrackRow({
   const totalNotes = usePlayerStore((s) => s.totalNotes);
   const pause = usePlayerStore((s) => s.pause);
   const seekTo = usePlayerStore((s) => s.seekTo);
-  const listenedIds = useListenedStore((s) => s.listenedIds);
   const [copied, setCopied] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [creatorName, setCreatorName] = useState<string>("");
   const menuRef = useRef<HTMLDivElement>(null);
 
   const isActive = currentItem?.id === item.id;
-  const isListened = listenedIds.includes(item.id);
   const isItemPlaying = isActive && playerState === "playing";
 
   // Fetch creator display name if userId exists
@@ -177,7 +174,6 @@ export function TrackRow({
       className={clsx(
         "flex cursor-pointer items-center gap-3 border-b border-gray-100 px-4 py-3 transition-colors hover:bg-indigo-50 dark:border-gray-800 dark:hover:bg-indigo-950/30",
         isActive && "bg-indigo-50 dark:bg-indigo-950/30",
-        !isActive && isListened && "bg-amber-50/30 dark:bg-amber-950/10",
       )}
       onClick={handleSelectItem}
     >

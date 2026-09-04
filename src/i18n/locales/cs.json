@@ -401,9 +401,6 @@
     "tracks4": "4 stopy"
   },
   "loading": "Loading collection...",
-  "settings": {
-    "clearListened": "Clear listened history"
-  },
   "about": {
     "title": "About",
     "originTitle": "Origin Story",
@@ -541,12 +538,12 @@
       "scopeB": "We are committed to protecting your privacy. This policy describes what data we collect, how we use it, and your rights regarding that data.",
       "typeOfInfo": "The type of information we collect",
       "typeOfInfoA": "We collect certain information about visitors and users of RTTTL Hub. The most common types of information include browser type, pages visited, and interaction patterns within the application.",
-      "localStorage": "RTTTL Hub stores your preferences (theme, language), favorites, listened history, and user-created ringtones in your browser's local storage. This data never leaves your device unless you explicitly choose to share it.",
+      "localStorage": "RTTTL Hub stores your preferences (theme, language), favorites, and user-created ringtones in your browser's local storage. This data never leaves your device unless you explicitly choose to share it",
       "analytics": "We may use anonymized analytics to understand how visitors interact with RTTTL Hub, including which pages are visited most frequently and how users navigate through the application.",
       "howWeUse": "How we use your information",
       "howWeUseIntro": "We use information to provide, maintain, and improve RTTTL Hub, including to:",
       "howWeUseA": "Remember your preferences across sessions (theme, language, volume)",
-      "howWeUseB": "Save your favorite ringtones and listening history locally",
+      "howWeUseB": "Save your favorite ringtones locally",
       "howWeUseC": "Analyze aggregate usage patterns to improve the platform",
       "howWeUseD": "Ensure the security and integrity of the service",
       "dataStorage": "Data storage and retention",
@@ -588,7 +585,7 @@
       "infoCollected": "Information that cookies collect",
       "infoCollectedIntro": "The information that cookies and local storage on RTTTL Hub collect includes:",
       "infoA": "Pages visited and navigation patterns within the application;",
-      "infoB": "Ringtones you have listened to (listened history);",
+      "infoB": "Your favorites list;",
       "infoC": "Your favorites list;",
       "infoD": "Custom ringtones you have created;",
       "infoE": "Your theme and language preferences;",
@@ -596,7 +593,7 @@
       "managePrefs": "How to manage your preferences",
       "managePrefsA": "You can manage your cookie preferences at any time by clicking the \"Cookie Settings\" link in the footer of any page on RTTTL Hub. This will open the cookie consent banner where you can toggle your preferences.",
       "managePrefsB": "You can also manage cookies directly through your web browser's settings. Most browsers allow you to block or delete cookies. Please note that disabling cookies may affect the functionality of RTTTL Hub.",
-      "managePrefsC": "To clear all locally stored data (favorites, history, preferences), you can use the Settings menu within the application or clear your browser's local storage for this site.",
+      "managePrefsC": "To clear all locally stored data (favorites, preferences), you can use the Settings menu within the application or clear your browser's local storage for this site",
       "changes": "Changes to this policy",
       "changesDesc": "We may update this Cookie Policy from time to time. Changes will be reflected by updating the \"Last revised\" date at the top of this page.",
       "furtherInfo": "Further information",

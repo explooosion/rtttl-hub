@@ -3,7 +3,6 @@ import { create } from "zustand";
 import { createPlaybackProvider } from "../kit/playback";
 import type { PlaybackProvider, PlaybackState } from "../kit/playback";
 import type { RtttlEntry } from "../utils/rtttl_parser";
-import { useListenedStore } from "./listened_store";
 import { useTrackStatsStore } from "./track_stats_store";
 import { useAuthStore } from "./auth_store";
 
@@ -114,8 +113,6 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
         activeTrackIndex: isMulti ? -1 : 0,
         isMultiTrack: isMulti,
       });
-      useListenedStore.getState().markListened(item.id);
-
       // Record play statistics
       const userId = useAuthStore.getState().user?.uid;
       useTrackStatsStore.getState().recordPlayDebounced(item.id, userId);
@@ -129,8 +126,6 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
     playCode: (code, startMs) => {
       const currentItem = get().currentItem;
       if (currentItem) {
-        useListenedStore.getState().markListened(currentItem.id);
-
         // Record play statistics
         const userId = useAuthStore.getState().user?.uid;
         useTrackStatsStore.getState().recordPlayDebounced(currentItem.id, userId);
@@ -141,8 +136,6 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
     playTracks: (tracks, startMs) => {
       const currentItem = get().currentItem;
       if (currentItem) {
-        useListenedStore.getState().markListened(currentItem.id);
-
         // Record play statistics
         const userId = useAuthStore.getState().user?.uid;
         useTrackStatsStore.getState().recordPlayDebounced(currentItem.id, userId);
@@ -196,8 +189,6 @@ export const usePlayerStore = create<PlayerStoreState>((set, get) => {
       const code = tracks[trackIndex] ?? "";
       const currentItem = get().currentItem;
       if (currentItem) {
-        useListenedStore.getState().markListened(currentItem.id);
-
         // Record play statistics
         const userId = useAuthStore.getState().user?.uid;
         useTrackStatsStore.getState().recordPlayDebounced(currentItem.id, userId);
