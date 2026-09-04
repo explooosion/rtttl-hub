@@ -20,7 +20,7 @@ export function SettingsMenu({ mobile = false }: SettingsMenuProps) {
         className={
           mobile
             ? "flex min-h-11 w-full items-center justify-start rounded-lg p-2.5 text-gray-500 transition-colors hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
-            : "rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
+            : "flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
         }
       >
         <FaCog size={mobile ? 20 : 18} />

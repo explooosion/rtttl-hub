@@ -39,7 +39,7 @@ export function LanguageSwitcher({ mobile = false, iconOnly = false }: LanguageS
         title={iconOnly ? t("language.title", { defaultValue: "Language" }) : undefined}
         className={clsx(
           iconOnly
-            ? "flex items-center justify-center rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
+            ? "flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700"
             : "flex min-h-11 items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm text-gray-500 transition-colors hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:text-white",
           mobile && "w-full justify-start",
         )}
