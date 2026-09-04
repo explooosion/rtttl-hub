@@ -1,9 +1,10 @@
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaChevronDown, FaSignOutAlt, FaCog, FaSignInAlt } from "react-icons/fa";
 
 import { useAuthStore } from "../stores/auth_store";
+import { buildLoginPath } from "../utils/auth_redirect";
 
 const fallbackAvatarSrc = "/icons/favicon-32x32.png";
 
@@ -14,20 +15,25 @@ function handleAvatarError(event: React.SyntheticEvent<HTMLImageElement>) {
 
 export function UserMenu() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const location = useLocation();
   const user = useAuthStore((s) => s.user);
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const signOut = useAuthStore((s) => s.signOut);
 
-  function handleSignOut() {
-    signOut();
-    navigate("/");
+  async function handleSignOut() {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error("Sign out failed:", error);
+    }
+
+    window.location.replace("/");
   }
 
   if (!isAuthenticated || !user) {
     return (
       <Link
-        to="/login"
+        to={buildLoginPath(location.pathname + location.search)}
         className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
         aria-label={t("auth.signIn")}
       >
