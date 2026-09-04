@@ -73,7 +73,14 @@ export function ListPageLayout({
 
   const itemIdsSignature = useMemo(
     function buildItemIdsSignature() {
-      return items.map((item) => item.id).join("|");
+      // Firestore play-count stats load asynchronously, so on the very first
+      // render every item's playCount is still `undefined`. Fold the
+      // "stats loaded" state into the signature so the stable-sort snapshot
+      // (below) is captured once with the real counts, instead of getting
+      // permanently frozen at all-zero from before the stats arrived.
+      const allStatsLoaded = items.every((item) => item.playCount !== undefined);
+      const idsKey = items.map((item) => item.id).join("|");
+      return `${idsKey}::${allStatsLoaded ? "loaded" : "loading"}`;
     },
     [items],
   );
