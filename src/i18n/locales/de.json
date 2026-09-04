@@ -615,7 +615,8 @@
     "signingIn": "Anmeldung läuft...",
     "signInSuccess": "Erfolgreich angemeldet!",
     "signInFailed": "Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.",
-    "agreementText": "Indem Sie fortfahren, stimmen Sie unseren Nutzungsbedingungen und Datenschutzrichtlinien zu."
+    "agreementText": "Indem Sie fortfahren, stimmen Sie unseren Nutzungsbedingungen und Datenschutzrichtlinien zu.",
+    "googleOnlyNote": "Neu hier? Mit der Google-Anmeldung wird Ihr Konto automatisch erstellt — kein Passwort erforderlich."
   },
   "account": {
     "title": "Mein Konto",

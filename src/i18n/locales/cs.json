@@ -618,7 +618,8 @@
     "signingIn": "Přihlašování...",
     "signInSuccess": "Úspěšně přihlášeno!",
     "signInFailed": "Přihlášení se nezdařilo. Zkuste to prosím znovu.",
-    "agreementText": "Pokračováním souhlasíte s našimi Podmínkami použití a Zásadami ochrany osobních údajů."
+    "agreementText": "Pokračováním souhlasíte s našimi Podmínkami použití a Zásadami ochrany osobních údajů.",
+    "googleOnlyNote": "Jste tu poprvé? Přihlášením přes Google se váš účet vytvoří automaticky — bez hesla."
   },
   "account": {
     "title": "Můj Účet",

@@ -618,7 +618,8 @@
     "signingIn": "Signing in...",
     "signInSuccess": "Successfully signed in!",
     "signInFailed": "Failed to sign in. Please try again.",
-    "agreementText": "By continuing, you agree to our Terms of Use and Privacy Policy."
+    "agreementText": "By continuing, you agree to our Terms of Use and Privacy Policy.",
+    "googleOnlyNote": "New here? Signing in with Google automatically creates your account — no password needed."
   },
   "account": {
     "title": "My Account",

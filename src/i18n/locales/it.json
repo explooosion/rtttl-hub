@@ -618,7 +618,8 @@
     "signingIn": "Accesso in corso...",
     "signInSuccess": "Accesso effettuato con successo!",
     "signInFailed": "Accesso non riuscito. Riprova.",
-    "agreementText": "Continuando, accetti i nostri Termini d'Uso e l'Informativa sulla Privacy."
+    "agreementText": "Continuando, accetti i nostri Termini d'Uso e l'Informativa sulla Privacy.",
+    "googleOnlyNote": "Sei nuovo? Accedendo con Google il tuo account viene creato automaticamente — nessuna password richiesta."
   },
   "account": {
     "title": "Il Mio Account",

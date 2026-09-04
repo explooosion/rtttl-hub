@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import { useAuthStore } from "../stores/auth_store";
 import { resolveRedirectTarget } from "../utils/auth_redirect";
 
-const logoSrc = `${import.meta.env.BASE_URL}icons/favicon-32x32.png`;
+const logoSrc = `${import.meta.env.BASE_URL}icons/favicon-512x512.png`;
 
 function GoogleIcon({ size = 18 }: { size?: number }) {
   return (
@@ -72,45 +72,63 @@ export function LoginPage() {
   }
 
   return (
-    <div className="animate-fade-in-up mx-auto flex min-h-[70vh] max-w-4xl items-center px-4 py-12">
-      <div className="grid w-full gap-12 lg:grid-cols-2">
-        {/* Left: branding */}
-        <div className="hidden flex-col justify-center lg:flex">
-          <h1 className="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+    <div className="animate-fade-in-up mx-auto flex max-w-6xl justify-center px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+      <div className="w-full max-w-md">
+        <div className="mb-8 flex flex-col items-center text-center">
+          <img
+            src={logoSrc}
+            alt="RTTTL Hub"
+            width={80}
+            height={80}
+            className="mb-5 rounded-2xl shadow-sm"
+          />
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
             {t("auth.signInTitle")}
           </h1>
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <img src={logoSrc} alt="RTTTL Hub" width={32} height={32} className="rounded" />
-              <span className="text-xl font-bold text-gray-900 dark:text-white">RTTTL Hub</span>
-            </div>
-            <p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400">
-              {t("auth.signInDescription")}
-            </p>
-          </div>
+          <p className="mt-3 max-w-sm text-sm leading-relaxed text-gray-500 dark:text-gray-400">
+            {t("auth.signInDescription")}
+          </p>
         </div>
 
-        {/* Right: login form */}
-        <div className="w-full max-w-sm justify-self-center lg:justify-self-end">
-          {/* Mobile branding */}
-          <div className="mb-8 flex items-center gap-2 lg:hidden">
-            <img src={logoSrc} alt="RTTTL Hub" width={28} height={28} className="rounded" />
-            <span className="text-lg font-bold text-gray-900 dark:text-white">RTTTL Hub</span>
-          </div>
-
-          {/* Google login */}
+        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:p-8">
           <button
             onClick={handleGoogleLogin}
             disabled={isLoading}
-            className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+            className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
           >
             <GoogleIcon size={18} />
             {isLoading ? t("auth.signingIn") : t("auth.continueWithGoogle")}
           </button>
 
-          <p className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">
-            {t("auth.agreementText")}
+          <p className="mt-4 text-center text-sm leading-relaxed text-gray-500 dark:text-gray-400">
+            {t("auth.googleOnlyNote")}
           </p>
+        </div>
+
+        <div className="mt-6 space-y-3 text-center">
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t("auth.agreementText")}</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm text-gray-500 dark:text-gray-400">
+            <Link
+              to="/terms"
+              className="hover:text-indigo-600 hover:underline dark:hover:text-indigo-400"
+            >
+              {t("footer.terms")}
+            </Link>
+            <span aria-hidden="true">·</span>
+            <Link
+              to="/privacy"
+              className="hover:text-indigo-600 hover:underline dark:hover:text-indigo-400"
+            >
+              {t("footer.privacy")}
+            </Link>
+            <span aria-hidden="true">·</span>
+            <Link
+              to="/cookies"
+              className="hover:text-indigo-600 hover:underline dark:hover:text-indigo-400"
+            >
+              {t("footer.cookies")}
+            </Link>
+          </div>
         </div>
       </div>
     </div>

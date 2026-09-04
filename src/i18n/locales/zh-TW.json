@@ -616,7 +616,8 @@
     "signingIn": "登入中...",
     "signInSuccess": "登入成功！",
     "signInFailed": "登入失敗，請重試。",
-    "agreementText": "繼續即表示您同意我們的使用條款和隱私權政策。"
+    "agreementText": "繼續即表示您同意我們的使用條款和隱私權政策。",
+    "googleOnlyNote": "首次使用？透過 Google 登入即會自動建立帳號，無需設定密碼。"
   },
   "account": {
     "title": "我的帳號",

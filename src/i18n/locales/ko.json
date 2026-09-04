@@ -613,7 +613,8 @@
     "signingIn": "로그인 중...",
     "signInSuccess": "로그인 성공!",
     "signInFailed": "로그인에 실패했습니다. 다시 시도해주세요.",
-    "agreementText": "계속하면 이용약관 및 개인정보 처리방침에 동의하는 것입니다."
+    "agreementText": "계속하면 이용약관 및 개인정보 처리방침에 동의하는 것입니다.",
+    "googleOnlyNote": "처음이신가요? Google 로그인만으로 계정이 자동 생성되며 비밀번호는 필요 없습니다."
   },
   "account": {
     "title": "내 계정",

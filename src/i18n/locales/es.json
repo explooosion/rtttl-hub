@@ -618,7 +618,8 @@
     "signingIn": "Iniciando sesión...",
     "signInSuccess": "¡Sesión iniciada correctamente!",
     "signInFailed": "Error al iniciar sesión. Por favor, inténtalo de nuevo.",
-    "agreementText": "Al continuar, aceptas nuestros Términos de Uso y Política de Privacidad."
+    "agreementText": "Al continuar, aceptas nuestros Términos de Uso y Política de Privacidad.",
+    "googleOnlyNote": "¿Eres nuevo? Al iniciar sesión con Google tu cuenta se crea automáticamente — sin necesidad de contraseña."
   },
   "account": {
     "title": "Mi Cuenta",

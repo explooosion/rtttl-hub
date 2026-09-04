@@ -618,7 +618,8 @@
     "signingIn": "Connexion en cours...",
     "signInSuccess": "Connexion réussie !",
     "signInFailed": "Échec de la connexion. Veuillez réessayer.",
-    "agreementText": "En continuant, vous acceptez nos Conditions d'Utilisation et notre Politique de Confidentialité."
+    "agreementText": "En continuant, vous acceptez nos Conditions d'Utilisation et notre Politique de Confidentialité.",
+    "googleOnlyNote": "Nouveau ici ? La connexion avec Google crée automatiquement votre compte — aucun mot de passe requis."
   },
   "account": {
     "title": "Mon Compte",

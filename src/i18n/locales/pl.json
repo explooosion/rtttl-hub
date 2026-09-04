@@ -618,7 +618,8 @@
     "signingIn": "Logowanie...",
     "signInSuccess": "Zalogowano pomyślnie!",
     "signInFailed": "Nie udało się zalogować. Spróbuj ponownie.",
-    "agreementText": "Kontynuując, zgadzasz się z naszymi Warunkami Użytkowania i Polityką Prywatności."
+    "agreementText": "Kontynuując, zgadzasz się z naszymi Warunkami Użytkowania i Polityką Prywatności.",
+    "googleOnlyNote": "Pierwszy raz? Logowanie przez Google automatycznie tworzy konto — bez hasła."
   },
   "account": {
     "title": "Moje Konto",

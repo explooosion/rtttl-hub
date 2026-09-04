@@ -616,7 +616,8 @@
     "signingIn": "登录中...",
     "signInSuccess": "登录成功！",
     "signInFailed": "登录失败，请重试。",
-    "agreementText": "继续即表示您同意我们的使用条款和隐私政策。"
+    "agreementText": "继续即表示您同意我们的使用条款和隐私政策。",
+    "googleOnlyNote": "首次使用？通过 Google 登录即会自动创建账号，无需设置密码。"
   },
   "account": {
     "title": "我的账号",
