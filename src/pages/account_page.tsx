@@ -306,19 +306,6 @@ export function AccountPage() {
                           </span>
                         </div>
                       </div>
-
-                      {/* CTA */}
-                      <Link
-                        to="/donate"
-                        className={`flex w-full items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-semibold transition-colors ${
-                          status.active
-                            ? "border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
-                            : "bg-rose-500 text-white hover:bg-rose-600"
-                        }`}
-                      >
-                        <FaHeart size={10} />
-                        {status.active ? t("account.tierExtend") : t("account.upgradeCta")}
-                      </Link>
                     </div>
                   );
                 })}
@@ -334,17 +321,9 @@ export function AccountPage() {
             {premiumLoading ? (
               <p className="text-sm text-gray-400">{t("common.loading")}</p>
             ) : transactions.length === 0 ? (
-              <div className="flex flex-wrap items-center gap-4">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {t("account.noDonationsYet")}
-                </p>
-                <Link
-                  to="/donate"
-                  className="text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400"
-                >
-                  {t("account.upgradeCta")} →
-                </Link>
-              </div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {t("account.noDonationsYet")}
+              </p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">

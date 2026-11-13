@@ -12,7 +12,7 @@
     "myCreations": "マイ作品",
     "favorites": "お気に入り",
     "home": "ホーム",
-    "donate": "RTTTL Hub を支援"
+    "donate": "GitHubでスター"
   },
   "landing": {
     "hero": {
@@ -663,9 +663,7 @@
     "expiresOn": "有効期限：{{date}}",
     "daysRemaining": "残り {{count}} 日",
     "queuedNext": "期限後は {{tier}} に降格（{{date}} まで）",
-    "upgradeCta": "RTTTL Hub を支援",
     "tierActive": "有効",
-    "tierExtend": "+30日 延長",
     "donationHistory": "寄付履歴",
     "noDonationsYet": "まだ寄付がありません。",
     "colDate": "日付",
@@ -784,14 +782,17 @@
     "notesDropped": "「出力ごとの最大音符数」の上限に達したため、{{count}} 個の音符が破棄されました。値を増やして完全にインポートしてください。"
   },
   "donate": {
-    "title": "RTTTL Hub を支援",
-    "subtitle": "RTTTL Hub は無料でオープンソースです。これは一回限りのサポートであり、サブスクリプションではありません。ご支援は AI コンピューティングコストに充てられ、その対価として 30 日間有効の AI 音声認識クレジットを受け取ることができます。",
+    "title": "RTTTL Hubへのご支援ありがとうございます",
+    "subtitle": "RTTTL Hubは無料のオープンソースプロジェクトです。現在、サイトでは新たな金銭的な寄付を受け付けていません。",
+    "statusTitle": "現在の支援方法",
+    "modelProgress": "AI認識機能は現在も開発中で、モデルの精度向上にも取り組んでいます。",
+    "futurePlans": "モデルがさらに完成し精度が高まった段階で、今後の寄付計画を検討できます。新しい情報があればお知らせします。",
+    "githubCta": "GitHubでRTTTL Hubにスターを付ける",
+    "githubThanks": "GitHubでスターを付けていただくことが、何よりの応援です。ありがとうございます！",
     "popular": "人気",
     "uploads": "1日{{count}}回のAI認識アップロード",
     "seconds": "AI認識1回あたり最大{{count}}秒",
     "validity": "30日間の特典 — 更新不要、継続請求なし",
-    "support": "オープンソース開発を支援",
-    "cta": "${{amount}}を寄付",
     "freeTitle": "無料",
     "freeNote": "寄付不要、誰でも利用可能",
     "freeCta": "永久に無料"
@@ -804,7 +805,7 @@
     "processing": "お支払いを処理中...",
     "error": "エラーが発生しました",
     "errorDesc": "支払いを確認できませんでした。サポートにお問い合わせいただくか、もう一度お試しください。",
-    "back": "寄付ページに戻る",
+    "back": "サポート情報に戻る",
     "checkoutId": "チェックアウト ID: {{id}}",
     "pending": "支払いを確認中...",
     "pendingDesc": "お支払いを受け付けました。プレミアム機能の有効化には最大数分かかる場合があります。このページを閉じても問題ありません。特典は自動的に適用されます。後でご確認いただくか、ページを更新してください。",

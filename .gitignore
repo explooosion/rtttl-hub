@@ -4,6 +4,9 @@ node_modules/
 # Build output
 dist/
 
+# Local development planning documents
+/docs/specs/
+
 # Local env files
 .env
 .env.local

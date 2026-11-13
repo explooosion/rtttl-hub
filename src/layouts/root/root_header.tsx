@@ -34,8 +34,6 @@ export function RootHeader({ sidebarOpen, setSidebarOpen }: RootHeaderProps) {
   const isCreateActive = location.pathname === "/create";
   const isContributeActive = location.pathname === "/contribute";
   const isAboutActive = location.pathname === "/about";
-  const isDonateActive = location.pathname === "/donate";
-
   // Global searchbar should only appear on homepage and /collections page
   const shouldShowGlobalSearch = location.pathname === "/" || location.pathname === "/collections";
 
@@ -93,17 +91,14 @@ export function RootHeader({ sidebarOpen, setSidebarOpen }: RootHeaderProps) {
           >
             {t("footer.about")}
           </Link>
-          <Link
-            to="/donate"
-            className={clsx(
-              "whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
-              isDonateActive
-                ? "bg-amber-600 text-white"
-                : "bg-amber-500 text-white hover:bg-amber-600",
-            )}
+          <a
+            href="https://github.com/explooosion/rtttl-hub"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="whitespace-nowrap rounded-lg bg-amber-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-amber-600"
           >
-            {t("nav.donate", { defaultValue: "Support RTTTL Hub" })}
-          </Link>
+            {t("nav.donate")}
+          </a>
           <Link
             to="/create"
             onMouseEnter={preloadCreatePage}

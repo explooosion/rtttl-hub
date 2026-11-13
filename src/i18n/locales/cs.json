@@ -12,7 +12,7 @@
     "myCreations": "My Creations",
     "favorites": "Favorites",
     "home": "Home",
-    "donate": "Podpořit RTTTL Hub"
+    "donate": "Označit hvězdičkou na GitHubu"
   },
   "landing": {
     "hero": {
@@ -668,9 +668,7 @@
     "expiresOn": "Vyprší {{date}}",
     "daysRemaining": "Zbývá {{count}} dní",
     "queuedNext": "Pak klesne na {{tier}} do {{date}}",
-    "upgradeCta": "Podpořit RTTTL Hub",
     "tierActive": "Aktivní",
-    "tierExtend": "Prodloužit +30 dní",
     "donationHistory": "Historie darů",
     "noDonationsYet": "Zatím žádné dary.",
     "colDate": "Datum",
@@ -789,14 +787,17 @@
     "notesDropped": "Bylo zahozeno {{count}} not, protože byl dosažen limit \"Max. not na výstup\". Zvyšte tuto hodnotu pro úplný import."
   },
   "donate": {
-    "title": "Podpořte RTTTL Hub",
-    "subtitle": "RTTTL Hub je zdarma a open source. Jde o jednorázový příspěvek, nikoli o předplatné. Vaše podpora pomáhá pokrýt náklady na AI výpočty a na oplátku obdržíte AI kredity pro rozpoznávání zvuku platné 30 dní.",
+    "title": "Děkujeme za podporu RTTTL Hub",
+    "subtitle": "RTTTL Hub je zdarma a open source. V tuto chvíli nepřijímáme nové finanční příspěvky prostřednictvím webu.",
+    "statusTitle": "Aktuální možnosti podpory",
+    "modelProgress": "Funkci rozpoznávání pomocí AI stále dokončujeme a průběžně zlepšujeme přesnost modelu.",
+    "futurePlans": "Případné budoucí plány na příspěvky budou záviset na tom, zda bude model úplnější a přesnější. Pokud budou novinky, podělíme se o ně.",
+    "githubCta": "Označit RTTTL Hub hvězdičkou na GitHubu",
+    "githubThanks": "Hvězdička na GitHubu je největší podporou. Děkujeme!",
     "popular": "Nejoblíbenější",
     "uploads": "{{count}} nahrání AI rozpoznávání denně",
     "seconds": "Až {{count}} sekund na AI rozpoznávání",
     "validity": "30denní výhoda — bez obnovení, bez opakovaných poplatků",
-    "support": "Podpořte open source vývoj",
-    "cta": "Přispět ${{amount}}",
     "freeTitle": "Zdarma",
     "freeNote": "Bez nutnosti daru — dostupné pro všechny",
     "freeCta": "Vždy zdarma"
@@ -809,7 +810,7 @@
     "processing": "Zpracovávám platbu...",
     "error": "Něco se pokazilo",
     "errorDesc": "Platbu se nepodařilo ověřit. Kontaktujte podporu nebo to zkuste znovu.",
-    "back": "Zpět na příspěvky",
+    "back": "Zpět k informacím o podpoře",
     "checkoutId": "ID objednávky: {{id}}",
     "pending": "Platba se ověřuje...",
     "pendingDesc": "Vaše platba byla přijata. Aktivace prémiového přístupu může trvat několik minut. Tuto stránku můžete bezpečně zavřít — vaše výhody budou použity automaticky. Vraťte se později nebo obnovte stránku.",

@@ -12,7 +12,7 @@
     "myCreations": "My Creations",
     "favorites": "Favorites",
     "home": "Home",
-    "donate": "Soutenir RTTTL Hub"
+    "donate": "Mettre une étoile sur GitHub"
   },
   "landing": {
     "hero": {
@@ -668,9 +668,7 @@
     "expiresOn": "Expire le {{date}}",
     "daysRemaining": "{{count}} jours restants",
     "queuedNext": "Ensuite redescend à {{tier}} jusqu'au {{date}}",
-    "upgradeCta": "Soutenir RTTTL Hub",
     "tierActive": "Actif",
-    "tierExtend": "+30 jours prolonger",
     "donationHistory": "Historique des dons",
     "noDonationsYet": "Aucun don pour l'instant.",
     "colDate": "Date",
@@ -789,14 +787,17 @@
     "notesDropped": "{{count}} note(s) ont été supprimées car la limite « Notes max par sortie » a été atteinte. Augmentez cette valeur pour tout importer."
   },
   "donate": {
-    "title": "Soutenir RTTTL Hub",
-    "subtitle": "RTTTL Hub est gratuit et open source. Il s'agit d'un don unique — pas d'un abonnement. Votre soutien contribue à couvrir les coûts de calcul IA, et en retour vous recevrez des crédits de reconnaissance audio IA valables 30 jours.",
+    "title": "Merci de soutenir RTTTL Hub",
+    "subtitle": "RTTTL Hub est gratuit et open source. Pour le moment, nous n’acceptons pas de nouveaux dons financiers via le site.",
+    "statusTitle": "Options de soutien actuelles",
+    "modelProgress": "La fonctionnalité de reconnaissance IA est encore en cours de développement, et nous continuons d’améliorer la précision du modèle.",
+    "futurePlans": "Les éventuels projets de dons dépendront des progrès vers un modèle plus complet et plus précis. Nous partagerons des nouvelles s’il y en a.",
+    "githubCta": "Ajouter une étoile à RTTTL Hub sur GitHub",
+    "githubThanks": "Une étoile GitHub est la plus grande marque de soutien. Merci !",
     "popular": "Le plus populaire",
     "uploads": "{{count}} téléversements de reconnaissance IA par jour",
     "seconds": "Jusqu'à {{count}} secondes par reconnaissance IA",
     "validity": "Avantage 30 jours — sans renouvellement, sans prélèvement récurrent",
-    "support": "Soutenir le développement open source",
-    "cta": "Faire un don de ${{amount}}",
     "freeTitle": "Gratuit",
     "freeNote": "Aucun don requis — accessible à tous",
     "freeCta": "Toujours gratuit"
@@ -809,7 +810,7 @@
     "processing": "Traitement de votre paiement...",
     "error": "Une erreur est survenue",
     "errorDesc": "Nous n'avons pas pu vérifier votre paiement. Veuillez contacter le support ou réessayer.",
-    "back": "Retour aux dons",
+    "back": "Retour aux informations de soutien",
     "checkoutId": "ID de commande : {{id}}",
     "pending": "Vérification du paiement...",
     "pendingDesc": "Votre paiement a été reçu. L'activation premium peut prendre quelques minutes. Vous pouvez fermer cette page en toute sécurité — vos avantages seront appliqués automatiquement. Revenez plus tard ou actualisez la page.",

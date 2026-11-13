@@ -12,7 +12,7 @@
     "myCreations": "My Creations",
     "favorites": "Favorites",
     "home": "Home",
-    "donate": "Apoyar RTTTL Hub"
+    "donate": "Danos una estrella en GitHub"
   },
   "landing": {
     "hero": {
@@ -668,9 +668,7 @@
     "expiresOn": "Expira el {{date}}",
     "daysRemaining": "{{count}} días restantes",
     "queuedNext": "Luego baja a {{tier}} hasta {{date}}",
-    "upgradeCta": "Apoyar RTTTL Hub",
     "tierActive": "Activo",
-    "tierExtend": "Extender +30 días",
     "donationHistory": "Historial de donaciones",
     "noDonationsYet": "Aún no hay donaciones.",
     "colDate": "Fecha",
@@ -789,14 +787,17 @@
     "notesDropped": "Se descartaron {{count}} nota(s) porque se alcanzó el límite de \"Notas máx. por salida\". Aumenta ese valor para importar todo."
   },
   "donate": {
-    "title": "Apoyar RTTTL Hub",
-    "subtitle": "RTTTL Hub es gratuito y de código abierto. Esta es una donación única, no una suscripción. Tu apoyo ayuda a cubrir los costos de computación de IA y, a cambio, recibirás créditos de reconocimiento de audio de IA válidos por 30 días.",
+    "title": "Gracias por apoyar RTTTL Hub",
+    "subtitle": "RTTTL Hub es gratuito y de código abierto. Por ahora no aceptamos nuevas donaciones monetarias a través del sitio.",
+    "statusTitle": "Opciones de apoyo actuales",
+    "modelProgress": "La experiencia de reconocimiento con IA aún está en desarrollo y seguimos mejorando la precisión del modelo.",
+    "futurePlans": "Cualquier plan futuro de donaciones dependerá de que el modelo sea más completo y preciso. Compartiremos novedades si las hay.",
+    "githubCta": "Dale una estrella a RTTTL Hub en GitHub",
+    "githubThanks": "Una estrella en GitHub es la mejor forma de apoyarnos. ¡Gracias!",
     "popular": "Más popular",
     "uploads": "{{count}} subidas de reconocimiento de IA por día",
     "seconds": "Hasta {{count}} segundos por reconocimiento de IA",
     "validity": "Beneficio de 30 días — sin renovación, sin cargo recurrente",
-    "support": "Apoyar el desarrollo de código abierto",
-    "cta": "Donar ${{amount}}",
     "freeTitle": "Gratis",
     "freeNote": "No se requiere donación — disponible para todos",
     "freeCta": "Siempre gratis"
@@ -809,7 +810,7 @@
     "processing": "Procesando tu pago...",
     "error": "Algo salió mal",
     "errorDesc": "No pudimos verificar tu pago. Por favor contacta soporte o inténtalo de nuevo.",
-    "back": "Volver a donar",
+    "back": "Volver a la información de apoyo",
     "checkoutId": "ID de pago: {{id}}",
     "pending": "Verificando el pago...",
     "pendingDesc": "Tu pago fue recibido. La activación premium puede tardar unos minutos. Puedes cerrar esta página con seguridad — tus beneficios se aplicarán automáticamente. Regresa más tarde o actualiza la página.",

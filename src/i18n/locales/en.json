@@ -12,7 +12,7 @@
     "myCreations": "My Creations",
     "favorites": "Favorites",
     "home": "Home",
-    "donate": "Support RTTTL Hub"
+    "donate": "Star on GitHub"
   },
   "landing": {
     "hero": {
@@ -667,9 +667,7 @@
     "expiresOn": "Expires {{date}}",
     "daysRemaining": "{{count}} days remaining",
     "queuedNext": "Then drops to {{tier}} until {{date}}",
-    "upgradeCta": "Support RTTTL Hub",
     "tierActive": "Active",
-    "tierExtend": "Extend +30 days",
     "donationHistory": "Donation History",
     "noDonationsYet": "No donations yet.",
     "colDate": "Date",
@@ -778,14 +776,17 @@
     "notesDropped": "{{count}} note(s) were dropped because the max notes limit was reached. Increase \"Max notes / output\" to include them."
   },
   "donate": {
-    "title": "Support RTTTL Hub",
-    "subtitle": "RTTTL Hub is free and open source. This is a one-time donation — not a subscription. Your support helps cover AI computing costs, and in return you'll receive AI audio recognition credits valid for 30 days.",
+    "title": "Thank you for supporting RTTTL Hub",
+    "subtitle": "RTTTL Hub is free and open source. We are not accepting new monetary donations through the site at this time.",
+    "statusTitle": "Current support options",
+    "modelProgress": "The AI recognition experience is still being completed, and we are continuing to improve the model's accuracy.",
+    "futurePlans": "Any future plans for donations will depend on progress toward a more complete and accurate model. We may share updates when there is news.",
+    "githubCta": "Star RTTTL Hub on GitHub",
+    "githubThanks": "A GitHub star is the greatest way to show your support. Thank you!",
     "popular": "Most Popular",
     "uploads": "{{count}} AI recognition uploads per day",
     "seconds": "Up to {{count}} seconds per AI recognition",
     "validity": "30-day benefit — no renewal, no recurring charge",
-    "support": "Support open source development",
-    "cta": "Donate ${{amount}}",
     "freeTitle": "Free",
     "freeNote": "No donation required — available to everyone",
     "freeCta": "Always Free"
@@ -798,7 +799,7 @@
     "processing": "Processing your payment...",
     "error": "Something went wrong",
     "errorDesc": "We could not verify your payment. Please contact support or try again.",
-    "back": "Back to Donate",
+    "back": "Back to support information",
     "checkoutId": "Checkout ID: {{id}}",
     "pending": "Payment is being verified...",
     "pendingDesc": "Your payment was received. Premium activation can take up to a few minutes. You can safely close this page — your benefits will be applied automatically. Check back later or refresh.",

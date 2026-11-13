@@ -7,10 +7,6 @@ import { defineSecret } from "firebase-functions/params";
 admin.initializeApp();
 
 const polarWebhookSecret = defineSecret("POLAR_WEBHOOK_SECRET");
-const polarAccessToken = defineSecret("POLAR_ACCESS_TOKEN");
-const polarProductId3 = defineSecret("POLAR_PRODUCT_ID_3");
-const polarProductId5 = defineSecret("POLAR_PRODUCT_ID_5");
-const polarProductId10 = defineSecret("POLAR_PRODUCT_ID_10");
 const replicateApiToken = defineSecret("REPLICATE_API_TOKEN");
 
 /**
@@ -40,35 +36,17 @@ export const polarWebhook = onRequest(
 /**
  * polarCreateCheckout
  *
- * Called by the frontend (Firebase SDK onCall) to create a Polar Checkout
- * Session with the uid securely embedded in metadata — users cannot see or
- * tamper with it.
+ * Callable contract retained while new checkout sessions are paused.
  *
  * Request body: { amount: 3 | 5 | 10 }
- * Response:     { url: string }
- *
- * Requires the caller to be authenticated via Firebase Auth.
+ * Response:     { url: string } when checkout creation is re-enabled
  */
 export const polarCreateCheckout = onCall(
   {
-    secrets: [polarAccessToken, polarProductId3, polarProductId5, polarProductId10],
     region: "us-central1",
   },
-  async (request) => {
-    if (!request.auth) {
-      throw new HttpsError("unauthenticated", "Must be signed in to donate.");
-    }
-
-    const uid = request.auth.uid;
-    const amount = request.data.amount as number;
-
-    if (![3, 5, 10].includes(amount)) {
-      throw new HttpsError("invalid-argument", "Amount must be 3, 5, or 10.");
-    }
-
-    const { createCheckoutSession } = await import("./create_checkout_session");
-    const url = await createCheckoutSession(uid, amount);
-    return { url };
+  async () => {
+    throw new HttpsError("unavailable", "New donations are temporarily unavailable.");
   },
 );
 

@@ -29,7 +29,7 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
   const isCreateActive = location.pathname === "/create";
   const isContributeActive = location.pathname === "/contribute";
   const isAboutActive = location.pathname === "/about";
-  const isDonateActive = location.pathname === "/donate";
+  const isDonatePage = location.pathname === "/donate";
 
   const myCreationsCollections = COLLECTIONS.filter((c) => c.group === "my-creations");
   const publicLibrariesCollections = COLLECTIONS.filter((c) => c.group === "public-libraries");
@@ -73,7 +73,7 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
                 !isCreateActive &&
                 !isContributeActive &&
                 !isAboutActive &&
-                !isDonateActive
+                !isDonatePage
                 ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400"
                 : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800",
             )}
@@ -297,19 +297,16 @@ export function RootMobileSidebar({ isOpen, onClose }: RootMobileSidebarProps) {
             {t("footer.about")}
           </Link>
 
-          {/* Donate */}
-          <Link
-            to="/donate"
+          {/* GitHub support */}
+          <a
+            href="https://github.com/explooosion/rtttl-hub"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={onClose}
-            className={clsx(
-              "mx-6 my-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors",
-              isDonateActive
-                ? "bg-amber-600 text-white"
-                : "bg-amber-500 text-white hover:bg-amber-600",
-            )}
+            className="mx-6 my-1 rounded-lg bg-amber-500 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-amber-600"
           >
-            {t("nav.donate", { defaultValue: "Support RTTTL Hub" })}
-          </Link>
+            {t("nav.donate")}
+          </a>
         </nav>
 
         {/* Settings — Theme + Config (desktop header items moved here) */}

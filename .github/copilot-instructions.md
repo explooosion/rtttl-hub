@@ -72,7 +72,13 @@ Translations: When any UI element, page, or workflow introduces, modifies, or re
 
 Theme Design: When writing or editing any TSX/JSX markup that sets a font-size utility class, apply the rules defined in /.agents/skills/theme-design/SKILL.md. `text-xs` is forbidden for readable text (labels, descriptions, buttons, messages) — use `text-sm` at minimum, unless the class is applied to an icon-only container or a decorative special marker.
 
-# Corporate Development & AI Safety Standards
+## Development Planning Documents
+
+- Keep task-specific planning in one Markdown file under `docs/specs/`, named `YYYY-MM-DD-<task-name>.md`.
+- Combine the specification, plan, checklist, acceptance criteria, and validation notes in that file. Update an existing file for the same task instead of creating a duplicate.
+- `docs/specs/` is Git-ignored; do not force-add its contents. Keep maintained project documentation in its established locations.
+
+## Corporate Development & AI Safety Standards
 
 ## Security & Credential Management
 

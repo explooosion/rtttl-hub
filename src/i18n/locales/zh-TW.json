@@ -12,7 +12,7 @@
     "myCreations": "我的創作",
     "favorites": "我的收藏",
     "home": "首頁",
-    "donate": "支持 RTTTL Hub"
+    "donate": "在 GitHub 上加星"
   },
   "landing": {
     "hero": {
@@ -665,9 +665,7 @@
     "expiresOn": "到期日：{{date}}",
     "daysRemaining": "剩餘 {{count}} 天",
     "queuedNext": "到期後降為 {{tier}}，有效至 {{date}}",
-    "upgradeCta": "支持 RTTTL Hub",
     "tierActive": "使用中",
-    "tierExtend": "延長 +30 天",
     "donationHistory": "抖內紀錄",
     "noDonationsYet": "尚無抖內紀錄。",
     "colDate": "日期",
@@ -786,14 +784,17 @@
     "notesDropped": "已達到「每組輸出最大音符數」上限，捨棄了 {{count}} 個音符。請提高該數值以完整匯入。"
   },
   "donate": {
-    "title": "支持 RTTTL Hub",
-    "subtitle": "RTTTL Hub 是免費且開源的平台。贊助採一次性付款，非訂閱制。您的支持有助於支付 AI 運算費用，同時享有 30 天的 AI 音訊辨識點數回饋。",
+    "title": "感謝您支持 RTTTL Hub",
+    "subtitle": "RTTTL Hub 是免費的開源平台。目前網站不開放新的金錢贊助。",
+    "statusTitle": "目前的支持方式",
+    "modelProgress": "AI 辨識功能仍在完善中，我們也持續提升模型的準確度。",
+    "futurePlans": "待模型更加完整且準確後，我們才會評估後續贊助規劃；若有新消息，將再另行說明。",
+    "githubCta": "在 GitHub 上為 RTTTL Hub 加星",
+    "githubThanks": "在 GitHub 為專案加星，就是對我們最大的支持。非常感謝！",
     "popular": "最受歡迎",
     "uploads": "每天 {{count}} 次 AI 辨識上傳",
     "seconds": "每次 AI 辨識最長 {{count}} 秒",
     "validity": "享有 30 天福利，無自動續費",
-    "support": "支持開源開發",
-    "cta": "贊助 ${{amount}}",
     "freeTitle": "免費",
     "freeNote": "無需贊助，人人可用",
     "freeCta": "永久免費"
@@ -806,7 +807,7 @@
     "processing": "正在處理您的付款...",
     "error": "發生錯誤",
     "errorDesc": "我們無法驗證您的付款，請聯絡支援或再試一次。",
-    "back": "返回贊助頁面",
+    "back": "返回支持資訊頁",
     "checkoutId": "結帳 ID：{{id}}",
     "pending": "付款正在驗證中…",
     "pendingDesc": "您的付款已收到，高級功能啟用最多需要幾分鐘。您可以安心關閉此頁面，福利將自動套用。稍後再回來確認或重新整理頁面。",

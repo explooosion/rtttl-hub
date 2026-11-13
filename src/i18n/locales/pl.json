@@ -12,7 +12,7 @@
     "myCreations": "My Creations",
     "favorites": "Favorites",
     "home": "Home",
-    "donate": "Wspomóż RTTTL Hub"
+    "donate": "Dodaj gwiazdkę na GitHubie"
   },
   "landing": {
     "hero": {
@@ -660,9 +660,7 @@
     "expiresOn": "Wygasa {{date}}",
     "daysRemaining": "Pozostało {{count}} dni",
     "queuedNext": "Następnie spada do {{tier}} do {{date}}",
-    "upgradeCta": "Wesprzyj RTTTL Hub",
     "tierActive": "Aktywny",
-    "tierExtend": "Przedłuż +30 dni",
     "donationHistory": "Historia darowizn",
     "noDonationsYet": "Brak darowizn.",
     "colDate": "Data",
@@ -781,14 +779,17 @@
     "notesDropped": "Odrzucono {{count}} nut(y), ponieważ osiągnięto limit \"Maks. nut na wyjście\". Zwiększ tę wartość, aby zaimportować wszystko."
   },
   "donate": {
-    "title": "Wspomóż RTTTL Hub",
-    "subtitle": "RTTTL Hub jest darmowy i open source. To jednorazowa wpłata — nie subskrypcja. Twoje wsparcie pomaga pokryć koszty obliczeń AI, a w zamian otrzymasz kredyty rozpoznawania dźwięku AI ważne przez 30 dni.",
+    "title": "Dziękujemy za wsparcie RTTTL Hub",
+    "subtitle": "RTTTL Hub jest darmowy i open source. Obecnie nie przyjmujemy nowych wpłat pieniężnych za pośrednictwem strony.",
+    "statusTitle": "Obecne sposoby wsparcia",
+    "modelProgress": "Funkcja rozpoznawania AI jest nadal rozwijana, a my stale poprawiamy dokładność modelu.",
+    "futurePlans": "Ewentualne plany dotyczące wpłat będą zależeć od postępów w rozwoju bardziej kompletnego i dokładnego modelu. Jeśli pojawią się nowe informacje, podzielimy się nimi.",
+    "githubCta": "Dodaj gwiazdkę RTTTL Hub na GitHubie",
+    "githubThanks": "Gwiazdka na GitHubie to największy wyraz wsparcia. Dziękujemy!",
     "popular": "Najpopularniejsze",
     "uploads": "{{count}} przesłań rozpoznawania AI dziennie",
     "seconds": "Do {{count}} sekund na rozpoznawanie AI",
     "validity": "Korzyść przez 30 dni — bez odnawiania, bez cyklicznych opłat",
-    "support": "Wspieraj rozwój open source",
-    "cta": "Wpłać ${{amount}}",
     "freeTitle": "Darmowy",
     "freeNote": "Bez konieczności wsparcia — dostępne dla wszystkich",
     "freeCta": "Zawsze za darmo"
@@ -801,7 +802,7 @@
     "processing": "Przetwarzanie płatności...",
     "error": "Coś poszło nie tak",
     "errorDesc": "Nie udało się zweryfikować płatności. Skontaktuj się z pomocą techniczną lub spróbuj ponownie.",
-    "back": "Wróć do wpłat",
+    "back": "Wróć do informacji o wsparciu",
     "checkoutId": "ID zamówienia: {{id}}",
     "pending": "Weryfikacja płatności...",
     "pendingDesc": "Twoja płatność została przyjęta. Aktywacja premium może potrwać kilka minut. Możesz bezpiecznie zamknąć tę stronę — korzyści zostaną zastosowane automatycznie. Wróć później lub odśwież stronę.",

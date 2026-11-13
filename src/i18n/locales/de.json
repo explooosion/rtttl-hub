@@ -12,7 +12,7 @@
     "myCreations": "Meine Kreationen",
     "favorites": "Favoriten",
     "home": "Startseite",
-    "donate": "RTTTL Hub unterstützen"
+    "donate": "Auf GitHub einen Stern vergeben"
   },
   "landing": {
     "hero": {
@@ -664,9 +664,7 @@
     "expiresOn": "Läuft ab am {{date}}",
     "daysRemaining": "Noch {{count}} Tage",
     "queuedNext": "Danach sinkt auf {{tier}} bis {{date}}",
-    "upgradeCta": "RTTTL Hub unterstützen",
     "tierActive": "Aktiv",
-    "tierExtend": "+30 Tage verlängern",
     "donationHistory": "Spendenhistorie",
     "noDonationsYet": "Noch keine Spenden.",
     "colDate": "Datum",
@@ -778,14 +776,17 @@
     "notesDropped": "{{count}} Note(n) wurden verworfen, da das Limit für \"Max. Noten pro Ausgang\" erreicht wurde. Erhöhen Sie den Wert, um sie vollständig zu importieren."
   },
   "donate": {
-    "title": "RTTTL Hub unterstützen",
-    "subtitle": "RTTTL Hub ist kostenlos und Open Source. Dies ist eine einmalige Spende – kein Abonnement. Ihre Unterstützung hilft, die KI-Rechenkosten zu decken, und als Gegenleistung erhalten Sie 30 Tage gültige KI-Audioerkennungsguthaben.",
+    "title": "Danke, dass Sie RTTTL Hub unterstützen",
+    "subtitle": "RTTTL Hub ist kostenlos und Open Source. Derzeit nehmen wir über die Website keine neuen Geldspenden an.",
+    "statusTitle": "Aktuelle Unterstützungsmöglichkeiten",
+    "modelProgress": "Die KI-Erkennung wird noch fertiggestellt, und wir verbessern weiterhin die Genauigkeit des Modells.",
+    "futurePlans": "Weitere Pläne für Spenden hängen davon ab, dass das Modell vollständiger und genauer wird. Über Neuigkeiten informieren wir gegebenenfalls.",
+    "githubCta": "RTTTL Hub auf GitHub mit einem Stern markieren",
+    "githubThanks": "Ein Stern auf GitHub ist die größte Unterstützung. Vielen Dank!",
     "popular": "Am beliebtesten",
     "uploads": "{{count}} KI-Erkennungs-Uploads pro Tag",
     "seconds": "Bis zu {{count}} Sekunden pro KI-Erkennung",
     "validity": "30-Tage-Vorteil — keine Verlängerung, keine Folgekosten",
-    "support": "Open-Source-Entwicklung unterstützen",
-    "cta": "${{amount}} spenden",
     "freeTitle": "Kostenlos",
     "freeNote": "Keine Spende erforderlich — für alle verfügbar",
     "freeCta": "Immer kostenlos"
@@ -798,7 +799,7 @@
     "processing": "Ihre Zahlung wird verarbeitet...",
     "error": "Etwas ist schiefgelaufen",
     "errorDesc": "Ihre Zahlung konnte nicht verifiziert werden. Bitte wenden Sie sich an den Support oder versuchen Sie es erneut.",
-    "back": "Zurück zur Spendenseite",
+    "back": "Zurück zu den Unterstützungsinformationen",
     "checkoutId": "Checkout-ID: {{id}}",
     "pending": "Zahlung wird verifiziert...",
     "pendingDesc": "Ihre Zahlung wurde empfangen. Die Aktivierung des Premiums kann bis zu einige Minuten dauern. Sie können diese Seite sicher schließen – Ihre Vorteile werden automatisch angewendet. Schauen Sie später vorbei oder aktualisieren Sie die Seite.",
